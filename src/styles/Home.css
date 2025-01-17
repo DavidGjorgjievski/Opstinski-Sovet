@@ -1,0 +1,56 @@
+/* Home.css */
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.introduction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 100px;
+}
+
+.introduction-header {
+    display: flex;
+    justify-content: center;
+}
+
+.introduction-header h1 {
+    font-size: 2.2rem;
+}
+
+.introduction-body {
+    display: flex;
+    justify-content: center;
+}
+
+.introduction-body p {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .introduction-header h1 {
+        font-size: 1.8rem;
+        /* Smaller text size for mobile */
+    }
+
+    .introduction-body p {
+        font-size: 1.2rem;
+        /* Smaller paragraph text size for mobile */
+    }
+
+    .introduction {
+        padding: 10px;
+        margin: 10px;
+    }
+
+}
+
+
+
+
+

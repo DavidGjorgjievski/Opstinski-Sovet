@@ -1,0 +1,161 @@
+.topic-details-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.topic-details-body-container{
+    margin-top: 80px;
+}
+
+.details-table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: auto;
+    table-layout: auto;
+    width: 600px;
+}
+
+.back-button {
+    background-color: #57a8cb;
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0px solid white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-right: 50px;
+}
+
+.details-table td,
+.details-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.details-table th:first-child,
+.details-table td:first-child {
+    width: 20%;
+    text-align: center;
+}
+
+.details-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.details-table tr:hover {
+    background-color: #ddd;
+}
+
+.details-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: white;
+}
+
+.details-image {
+    width: 70px;
+}
+
+.yes {
+    background-color: #04AA6D !important;
+}
+
+.abstained {
+    background-color: #ffe80a !important;
+}
+
+.no {
+    background-color: #ff1427 !important;
+}
+
+.cant-vote {
+    background-color: #999999 !important;
+}
+
+.havent-vote {
+    background-color: #ffd699 !important;
+}
+
+.detailed-result-button-container {
+    min-width: 180px;
+}
+
+
+@media (max-width: 900px) {
+    .detailed-result-button-container {
+        display: none;
+    }
+
+    .detailed-result-header {
+        margin-right: 0px;
+    }
+
+    .details-table {
+        width: 70vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .detailed-result-button-container {
+        display: none;
+    }
+
+    .detailed-result-header {
+        margin-right: 0px;
+    }
+
+    .details-table {
+        width: 70vw;
+    }
+}
+
+@media (max-width: 625px) {
+    .detailed-table-header {
+        font-size: 24px;
+    }
+
+    .details-table {
+        width: 80vw;
+    }
+}
+
+@media (max-width: 550px) {
+    .detailed-table-header {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .details-table {
+        width: 400px;
+    }
+
+    .detailed-table-header {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 420px) {
+    .details-table {
+        width: 350px;
+    }
+
+    .detailed-table-header {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 380px) {
+    .details-table {
+        width: 300px;
+    }
+}
+

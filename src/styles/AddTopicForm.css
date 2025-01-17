@@ -1,0 +1,50 @@
+.file-drop-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    max-width: 100%;
+    padding: 25px;
+    border: 2px dashed #007bff;
+    border-radius: .25rem;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-drop-area.is-active {
+    border-color: #0056b3;
+}
+
+.file-drop-message {
+    margin: 0;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.file-drop-area input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-drop-message span {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.error-message-pdf {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(217, 83, 79, 0.4);
+    border-radius: 5px;
+    text-align: center;
+    color: #d9534f;
+    margin-top: 10px;
+}

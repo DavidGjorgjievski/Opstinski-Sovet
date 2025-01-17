@@ -1,0 +1,171 @@
+.municipalities-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.municipality-body-container{
+    margin-top: 80px;
+}
+
+/* CHAT GPT PREVOD */
+
+.municipality-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0 15px;
+}
+
+.id-selector-municipality {
+    margin-top: -100px;
+    position: absolute;
+}
+
+.municipality-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    padding: 5px;
+}
+
+.municipality-header-title {
+    margin-right: 200px;
+    font-size: 2.125rem;
+}
+
+.municipality-header-title-user {
+    font-size: 2.125rem;
+}
+
+.municipality-button-container {
+    min-width: 160px;
+}
+
+.municipality-add-button {
+    background-color: #57a8cb;
+    width: 180px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0px solid white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-top: 10px;
+}
+
+.municipality-add-button:hover {
+    background-color: #57a8cc;
+    /* Slightly different color for hover effect */
+}
+
+.municipality-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.municipality-item {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.municipality-image {
+    width: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.municipality-info {
+    padding: 10px;
+}
+
+.first-municipality-button {
+    margin-right: 10px;
+}
+
+button {
+    margin: 5px;
+}
+
+@media (max-width: 768px) {
+    .municipality-header-title {
+        font-size: 1.8rem;
+        margin-right: 60px;
+        margin-top: 10px;
+    }
+
+    .municipality-add-button {
+        width: 160px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 425px) {
+    .municipality-header-title {
+        font-size: 1.5rem;
+        margin-right: 20px;
+    }
+
+    .municipality-add-button {
+        width: 150px;
+        font-size: 12px;
+    }
+
+    .municipality-item,
+    .municipality-image {
+        width: 350px;
+    }
+
+    .municipality-buttons {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 370px) {
+    .municipality-header-title-user {
+        font-size: 1.9rem;
+    }
+
+    .municipality-item,
+    .municipality-image {
+        width: 325px;
+    }
+
+    .first-municipality-button {
+        margin-right: 10px;
+    }
+
+}
+
+@media (max-width: 350px) {
+    .municipality-button-size {
+            font-size: 13px !important;
+        }
+}
+
+@media (max-width: 340px) {
+
+    .municipality-item,
+    .municipality-image {
+        width: 315px;
+    }
+
+    .municipality-add-button {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,198 @@
+.sessions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.session-body-container{
+    margin-top: 80px;
+}
+
+.session-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0 15px;
+}
+
+.id-selector-session{
+    margin-top: -100px;
+    position: absolute;
+}
+
+.session-header-title {
+    margin-right: 200px;
+    font-size: 2.125rem;
+}
+
+.session-header-title-user{
+    font-size: 2.125rem;
+}
+
+.session-button-container {
+    min-width: 160px;
+}
+
+.session-add-button {
+    background-color: #57a8cb;
+    width: 180px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0px solid white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-top: 10px;
+}
+
+.session-add-button:hover {
+    background-color: #57a8cc;
+    /* Slightly different color for hover effect */
+}
+
+.session-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.session-item {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+
+
+.session-image {
+    width: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.session-info {
+    padding: 10px;
+}
+
+.all-session-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.export-button-div {
+    margin-right: 10px;
+}
+
+.first-session-button {
+    margin-right: 10px;
+}
+
+/* for the export loading spinner */
+
+/* Modal overlay to cover entire screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    /* Dim background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* Ensure it's on top of other content */
+}
+
+/* Loading spinner centered */
+.export-loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .session-header-title {
+        font-size: 1.8rem;
+        margin-right: 60px;
+        margin-top: 10px;
+    }
+    .session-add-button{
+        width: 160px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 425px) {
+    .session-header-title {
+        font-size: 1.5rem;
+        margin-right: 20px;
+    }
+    .session-add-button {
+        width: 150px;
+        font-size: 13px;
+    }
+
+    .session-item,
+    .session-image {
+        width: 350px;
+    }
+
+    .all-session-buttons {
+        flex-direction: column;
+    }
+
+    .session-buttons {
+        margin-top: 10px;
+    }
+
+    .session-button-size {
+        width: 135px;
+    }
+
+    .export-button-div {
+        margin-right: 0;
+    }
+
+    .first-session-button {
+        margin-right: 25px;
+    }
+
+}
+
+@media (max-width: 370px) {
+    .session-header-title-user {
+            font-size: 1.9rem;
+    }
+    .session-item,
+    .session-image {
+        width: 325px;
+    }
+    .session-add-button {
+        font-size: 13px;
+    }
+    .first-session-button {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 340px) {
+    .session-item,
+    .session-image {
+        width: 315px;
+    }
+    .session-add-button {
+        font-size: 12px;
+    }
+}

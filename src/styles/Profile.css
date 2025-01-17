@@ -1,0 +1,113 @@
+/* profile.html */
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image {
+    width: 350px;
+    border: 5px solid #57a8cb;
+    margin: 40px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-text {
+    font-size: 2rem;
+}
+
+.custom-mr-10 {
+    margin-right: 10px;
+}
+
+.password-change-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0 15px;
+}
+
+.detailed-result-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0 15px;
+    margin-right: 170px;
+}
+
+.profile-change-button {
+    background-color: #57a8cb;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0px solid white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-top: 10px;
+}
+
+.profile-change-button:hover {
+    background-color: #57a8cc;
+    /* Slightly different color for hover effect */
+}
+
+@media (max-width: 1024px) {
+    .profile-image {
+        width: 300px;
+    }
+
+    .profile-text {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-image {
+        width: 250px;
+    }
+
+    .profile-text {
+        font-size: 1.4rem;
+    }
+}
+
+
+@media (max-width: 760px) {
+    .content-container {
+        flex-direction: column;
+    }
+
+    .profile-change-button {
+        margin-top: 5px;
+    }
+
+    .profile-image {
+        margin: 40px 0px 10px 0px;
+    }
+
+    .profile-text {
+        font-size: 1.2rem;
+    }
+}
