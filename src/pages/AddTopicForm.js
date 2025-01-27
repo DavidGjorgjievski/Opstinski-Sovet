@@ -296,7 +296,7 @@ const AddTopicForm = () => {
 
 
                                         <div className="form-group">
-                                            <label htmlFor="topicStatus" className="label-add">Статус на седница:</label>
+                                            <label htmlFor="topicStatus" className="label-add">Статус на точка:<label>
                                             <select
                                                 id="topicStatus"
                                                 name="topicStatus"
