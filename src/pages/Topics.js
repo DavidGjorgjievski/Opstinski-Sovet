@@ -83,25 +83,33 @@ const handleClickOutside = useCallback(
     // new IMPL
       const [currentVotes, setCurrentVotes] = useState({});
 
-    const fetchTopics = useCallback(async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
+   const fetchTopics = useCallback(async () => {
+    try {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        const isPresenter = userInfo?.role === 'ROLE_PRESENTER'; // Check if user is a presenter
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        const endpoint = isPresenter
+            ? `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`
+            : `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
+
+        const response = await fetch(endpoint, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
-            const data = await response.json();
-            setTopics(data);
-        } catch (error) {
-            console.error('Error fetching topics:', error);
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-    }, [id, token]);
+        const data = await response.json();
+        setTopics(data);
+    } catch (error) {
+        console.error('Error fetching topics:', error);
+    }
+}, [id, token]);
+
 
     const fetchUserVotes = useCallback(async () => {
         try {
