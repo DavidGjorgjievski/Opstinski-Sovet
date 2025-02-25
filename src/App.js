@@ -21,6 +21,7 @@ import AddTopicForm from './pages/AddTopicForm';
 import TopicDetails from './pages/TopicDetails';
 import Unauthorized from './pages/Unauthorized';
 import AddMunicipalityForm from './pages/AddMunicipalityForm';
+import TopicPresentation from './pages/TopicPresentation'
 
 function App() {
   return (
@@ -81,6 +82,8 @@ function App() {
               />
 
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics" element={<ProtectedRoute element={<Topics />} />} />
+
+              <Route path="/municipalities/:municipalityId/sessions/:id?/topics-presentation" element={<ProtectedRoute element={<TopicPresentation />} />} />
 
               {/* Other protected routes */}
 

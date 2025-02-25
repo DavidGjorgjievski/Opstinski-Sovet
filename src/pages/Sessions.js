@@ -260,8 +260,9 @@ function Sessions() {
                                         <div className="d-flex flex-row">
                                             <div>
                                                 <div className="first-session-button">
-                                                    <a href={`/municipalities/${municipalityId}/sessions/${session.id}/topics`} className="btn btn-sm btn-info session-button-size">
-                                                        Преглед на точки
+                                                   <a href={`/municipalities/${municipalityId}/sessions/${session.id}/${userInfo.role === 'ROLE_PRESENTER' ? 'topics-presentation' : 'topics'}`} 
+                                                        className="btn btn-sm btn-info session-button-size">
+                                                        {userInfo.role === 'ROLE_PRESENTER' ? 'Презентирај' : 'Преглед на точки'}
                                                     </a>
                                                 </div>
                                             </div>

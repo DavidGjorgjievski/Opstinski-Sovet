@@ -48,12 +48,35 @@ export const AuthProvider = ({ children }) => {
         setRole(role);
     }
 
-   const logout = () => {
-    localStorage.clear();
-    sessionStorage.clear();  
-    setIsAuthenticated(false);
-    setRole(null);
-};
+      const logout = async () => {
+        // Decrement online users on the server before logging out
+        const token = localStorage.getItem('jwtToken');
+        
+        if (token) {
+            try {
+                // Make the API call to decrement online users
+                const response = await fetch(process.env.REACT_APP_API_URL + '/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    console.error("Failed to decrement online users.");
+                }
+            } catch (error) {
+                console.error("Error during logout API call:", error);
+            }
+        }
+
+        // Clear all local storage and session storage data
+        localStorage.clear();
+        sessionStorage.clear();  
+        setIsAuthenticated(false);
+        setRole(null);
+    };
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, role, login, logout, loading }}>

@@ -121,10 +121,6 @@ html {
     text-decoration: underline;
 }
 
-.topic-item-size-presenter {
-    width: 1400px;
-}
-
 .session-button-container-user {
     width: 90px;
 }
@@ -157,10 +153,6 @@ html {
     margin-right: 20px;
 }
 
-.topic-item-body-detail-group-chunk-margin-presenter {
-    margin-right: 50px;
-}
-
 .topic-item-body-detail-group .command-buttons:not(:last-child) {
     margin-right: 20px;
 }
@@ -181,21 +173,9 @@ html {
     background-color: #04AA6D;
 }
 
-.vote-numbers-yes-big {
-    border-radius: 15%;
-    padding: 5px 10px;
-    background-color: #04AA6D;
-}
-
 
 .vote-numbers-abstained {
     font-size: 1.5rem;
-    border-radius: 15%;
-    padding: 5px 10px;
-    background-color: #ffe80a;
-}
-
-.vote-numbers-abstained-big {
     border-radius: 15%;
     padding: 5px 10px;
     background-color: #ffe80a;
@@ -208,20 +188,8 @@ html {
     background-color: #ff1427;
 }
 
-.vote-numbers-no-big {
-    border-radius: 15%;
-    padding: 5px 10px;
-    background-color: #ff1427;
-}
-
 .vote-numbers-cant-vote {
     font-size: 1.5rem;
-    border-radius: 15%;
-    padding: 5px 10px;
-    background-color: #999999;
-}
-
-.vote-numbers-cant-vote-big {
     border-radius: 15%;
     padding: 5px 10px;
     background-color: #999999;
@@ -234,20 +202,6 @@ html {
     background-color: #ffd699;
 }
 
-.vote-numbers-havent-vote-big {
-    border-radius: 15%;
-    padding: 5px 10px;
-    background-color: #ffd699;
-}
-
-.vote-numbers-yes-big,
-.vote-numbers-abstained-big,
-.vote-numbers-no-big,
-.vote-numbers-cant-vote-big,
-.vote-numbers-havent-vote-big {
-    font-size: 15rem;
-}
-
 .rez-container {
     margin-bottom: 8px;
     margin-right: 0px;
@@ -257,48 +211,8 @@ html {
     font-size: 1.25rem;
 }
 
-.text-for-rez-big {
-    font-size: 2rem;
-}
-
-@media (max-width: 1400px) {
-    .topic-item-size-presenter {
-        width: 1200px;
-    }
-
-    .vote-numbers-yes-big,
-    .vote-numbers-abstained-big,
-    .vote-numbers-no-big,
-    .vote-numbers-cant-vote-big,
-    .vote-numbers-havent-vote-big {
-        font-size: 12rem;
-    }
-
-
-}
-
-@media (max-width: 1200px) {
-    .topic-item-size-presenter {
-        width: 1050px;
-    }
-
-    .vote-numbers-yes-big,
-    .vote-numbers-abstained-big,
-    .vote-numbers-no-big,
-    .vote-numbers-cant-vote-big,
-    .vote-numbers-havent-vote-big {
-        font-size: 9rem;
-    }
-
-    .topic-item-body-detail-group-chunk-margin-presenter {
-        margin-right: 30px;
-    }
-}
-
-
 @media (max-width: 1100px) {
 
-    .topic-item-size-presenter,
     .topic-item-size {
         width: 1000px;
     }
@@ -311,24 +225,12 @@ html {
         font-size: 1.1rem;
     }
 
-    .topic-item-body-detail div .text-for-rez-big {
-        font-size: 1.8rem;
-    }
-
     .vote-numbers-yes,
     .vote-numbers-abstained,
     .vote-numbers-no,
     .vote-numbers-cant-vote,
     .vote-numbers-havent-vote {
         font-size: 1.1rem;
-    }
-
-    .vote-numbers-yes-big,
-    .vote-numbers-abstained-big,
-    .vote-numbers-no-big,
-    .vote-numbers-cant-vote-big,
-    .vote-numbers-havent-vote-big {
-        font-size: 7rem;
     }
 
     .topic-button {
@@ -338,7 +240,6 @@ html {
 
 @media (max-width: 1024px) {
 
-    .topic-item-size-presenter,
     .topic-item-size {
         width: 900px;
     }
@@ -354,7 +255,6 @@ html {
 
 @media (max-width: 910px) {
 
-    .topic-item-size-presenter,
     .topic-item-size {
         width: 830px;
     }
@@ -377,14 +277,10 @@ html {
         font-size: 1rem;
     }
 
-    .topic-item-body-detail div .text-for-rez-big {
-        font-size: 1.2rem;
-    }
 }
 
 @media (max-width: 850px) {
 
-    .topic-item-size-presenter,
     .topic-item-size {
         width: 760px;
     }
@@ -469,13 +365,7 @@ html {
         margin: 0;
     }
 
-    .vote-numbers-yes-big,
-    .vote-numbers-abstained-big,
-    .vote-numbers-no-big,
-    .vote-numbers-cant-vote-big,
-    .vote-numbers-havent-vote-big {
-        font-size: 5rem;
-    }
+   
 
     div .text-for-rez {
         margin: 0;
@@ -488,7 +378,6 @@ html {
 
 @media (max-width: 380px) {
 
-    .topic-item-size-presenter,
     .topic-item-size {
         width: 330px;
     }
@@ -500,7 +389,6 @@ html {
 
 @media (max-width: 345px) {
 
-    .topic-item-size-presenter,
     .topic-item-size {
         width: 280px;
     }
@@ -589,3 +477,56 @@ html {
   align-self: flex-start; /* Align this element to the top in a flex container */
 }
 
+
+.fixed-position-div {
+    position: fixed;
+    top: 100px;
+    /* Distance from the top edge */
+    right: 0px;
+    /* Distance from the right edge */
+    background-color: #57a8cb;
+    /* Background color */
+    color: white;
+    /* Text color */
+    /* Padding inside the div */
+    padding: 3px;
+    border-radius: 5px;
+    /* Rounded corners */
+    font-size: 24px;
+    /* Font size */
+    z-index: 1000;
+    /* Ensure it stays above other elements */
+    cursor: pointer;
+    /* Make it clickable */
+    display: flex;
+    /* Use flexbox to align the content */
+    flex-direction: row;
+    /* Stack number and arrow vertically */
+    align-items: center;
+    /* Center the items */
+}
+
+.arrow {
+    font-size: 32px;
+    /* Larger arrow size */
+    /* Space between number and arrow */
+    cursor: pointer;
+    /* Make the arrow clickable */
+    transition: transform 0.3s ease;
+    /* Smooth transition for rotation */
+}
+
+.number {
+    display: none;
+    /* Hide the number initially */
+}
+
+/* Show number when the class is toggled */
+.show-number .number {
+    display: block;
+}
+
+/* Rotate arrow left when the number is visible */
+.show-number .arrow {
+    transform: rotate(180deg);
+}

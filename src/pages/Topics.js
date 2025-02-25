@@ -6,7 +6,6 @@ import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
-import HeaderPresenter from '../components/HeaderPresenter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faDesktop, faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,6 +27,12 @@ function Topics() {
     }));
   };
 
+   const [showNumber, setShowNumber] = useState(false); // State to control visibility of number
+
+    const toggleVisibility = () => {
+        setShowNumber(!showNumber); // Toggle the visibility
+    };
+
 const handleClickOutside = useCallback(
   (event) => {
     Object.keys(menuRefs.current).forEach((id) => {
@@ -45,8 +50,6 @@ const handleClickOutside = useCallback(
   },
   [openMenus] // Dependencies
 );
-
- 
 
 
    useEffect(() => {
@@ -85,12 +88,7 @@ const handleClickOutside = useCallback(
 
    const fetchTopics = useCallback(async () => {
     try {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        const isPresenter = userInfo?.role === 'ROLE_PRESENTER'; // Check if user is a presenter
-
-        const endpoint = isPresenter
-            ? `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`
-            : `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
+        const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
 
         const response = await fetch(endpoint, {
             method: 'GET',
@@ -103,6 +101,7 @@ const handleClickOutside = useCallback(
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        
         const data = await response.json();
         setTopics(data);
     } catch (error) {
@@ -126,8 +125,6 @@ const handleClickOutside = useCallback(
             }
 
             const userVotes = await response.json();
-
-            console.log('Response Data:', userVotes);
 
             // Map the fetched votes to currentVotes state
             const votesMap = {};
@@ -153,19 +150,6 @@ const handleClickOutside = useCallback(
         return () => cleanupMobileMenu();
     }, [token, userInfo, fetchTopics, id, fetchUserVotes]);
 
-
-     
-    useEffect(() => {
-        let intervalId;
-
-        if (userRole === 'ROLE_PRESENTER') {
-            // Fetch topics every 1.5 seconds if user is a presenter
-            intervalId = setInterval(fetchTopics, 1500);
-        }
-
-        // Cleanup the interval when component unmounts or role changes
-        return () => clearInterval(intervalId);
-    }, [userRole, fetchTopics]);
 
     const handleDelete = async () => {
         const jwtToken = localStorage.getItem('jwtToken');
@@ -344,7 +328,6 @@ useEffect(() => {
     // Save scroll position on refresh
     const handleBeforeUnload = () => {
         sessionStorage.setItem('scrollPosition', window.scrollY);
-        console.log("raboti set positiion")
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -357,7 +340,6 @@ useEffect(() => {
 const saveScrollPosition = () => {
     const scrollPosition = window.scrollY;
     sessionStorage.setItem('scrollPosition', scrollPosition);
-    console.log("Scroll position saved:", scrollPosition);
 };
 
 
@@ -421,13 +403,8 @@ const handlePresentClick = async (topicId) => {
                 </Helmet>
             </HelmetProvider>
             <HeadLinks />
-           {userRole === 'ROLE_PRESENTER' ? (
-                <HeaderPresenter />
-            ) : (
-                <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} />
-            )}
+            <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} />
             <main className="topcis-container-body">
-                 {userRole !== 'ROLE_PRESENTER' && (
                 <div className="topic-header">
                     <button
                         className="back-button-topic"
@@ -444,7 +421,6 @@ const handlePresentClick = async (topicId) => {
                         </Link>
                     </div>
                 </div>
-            )}
 
                 <div className="topic-body">
                     {topics
@@ -452,13 +428,11 @@ const handlePresentClick = async (topicId) => {
                         .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
                             <span id={`topic-${topic.id}`} className="topic-span-id"></span>
-                            <div className={`topic-item ${ 
+                           <div className={`topic-item ${ 
                                 topic.topicStatus === 'FINISHED' || 
                                 topic.topicStatus === 'WITHDRAWN' || 
                                 topic.topicStatus === 'INFORMATION' ? 'finished-topic' : ''} ${
-                                topic.topicStatus === 'ACTIVE' ? 'active-topic' : ''} ${
-                                userRole === 'ROLE_PRESENTER' ? 'topic-item-size-presenter' : 'topic-item-size'
-                            }`}>
+                                topic.topicStatus === 'ACTIVE' ? 'active-topic' : ''} topic-item-size`}>
                                 <div className="topic-header-div">
                                     <h3 className="text-center">
                                         {topic.pdfFileId ? (
@@ -526,17 +500,15 @@ const handlePresentClick = async (topicId) => {
                                     {(topic.topicStatus === "ACTIVE" || topic.topicStatus === "FINISHED") && (
                                     <div className="topic-item-body-detail">
                                         <div className="topic-item-body-detail-group">
-                                            <div className={`topic-item-body-detail-group-chunk ${userInfo.role === 'ROLE_PRESENTER' ? 'topic-item-body-detail-group-chunk-margin-presenter' : 'topic-item-body-detail-group-chunk-margin'}`}>
+                                           <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
                                                 <div>
                                                     <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'text-for-rez-big' : 'text-for-rez'}>
-                                                            За: 
-                                                        </span>
+                                                        <span className="text-for-rez">За:</span>
                                                     </div>
                                                 </div>
                                                 <div>
                                                    <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'vote-numbers-yes-big' : 'vote-numbers-yes'}>
+                                                        <span className="vote-numbers-yes">
                                                             {topic.yes}
                                                         </span>
                                                     </div>
@@ -553,17 +525,17 @@ const handlePresentClick = async (topicId) => {
                                                     </div>
                                                 )}
                                             </div>
-                                            <div className={`topic-item-body-detail-group-chunk ${userInfo.role === 'ROLE_PRESENTER' ? 'topic-item-body-detail-group-chunk-margin-presenter' : 'topic-item-body-detail-group-chunk-margin'}`}>
+                                           <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
                                                 <div>
                                                     <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'text-for-rez-big' : 'text-for-rez'}>
-                                                            Против:
+                                                        <span className="text-for-rez">
+                                                             Против:
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'vote-numbers-no-big' : 'vote-numbers-no'}>
+                                                        <span className="vote-numbers-no">
                                                             {topic.no}
                                                         </span>
                                                     </div>
@@ -585,19 +557,18 @@ const handlePresentClick = async (topicId) => {
                                         <div className="topic-item-body-detail-group">
                          
 
-                                            <div className={`topic-item-body-detail-group-chunk ${
-                                                    userInfo.role === 'ROLE_PRESENTER' ? 'topic-item-body-detail-group-chunk-margin-presenter' : 'topic-item-body-detail-group-chunk-margin'}`}>
+                                           <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
                                                     <div>
                                                         <div>
                                                             <div className="rez-container">
-                                                                <span className={userInfo.role === 'ROLE_PRESENTER' ? 'text-for-rez-big' : 'text-for-rez'}>
+                                                               <span className="text-for-rez">
                                                                     Воздржан:
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div>
                                                            <div className="rez-container">
-                                                                <span className={userInfo.role === 'ROLE_PRESENTER' ? 'vote-numbers-abstained-big' : 'vote-numbers-abstained'}>
+                                                               <span className="vote-numbers-abstained">
                                                                     {topic.abstained}
                                                                 </span>
                                                             </div>
@@ -616,17 +587,17 @@ const handlePresentClick = async (topicId) => {
                                                     </div>
                                                 </div>
 
-                                            <div className={`topic-item-body-detail-group-chunk ${userInfo.role === 'ROLE_PRESENTER' ? 'topic-item-body-detail-group-chunk-margin-presenter' : 'topic-item-body-detail-group-chunk-margin'}`}>
+                                            <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
                                                 <div>
                                                    <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'text-for-rez-big' : 'text-for-rez'}>
+                                                       <span className="text-for-rez">
                                                             Се иземува:
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'vote-numbers-cant-vote-big' : 'vote-numbers-cant-vote'}>
+                                                        <span className="vote-numbers-cant-vote">
                                                             {topic.cantVote}
                                                         </span>
                                                     </div>
@@ -647,7 +618,7 @@ const handlePresentClick = async (topicId) => {
                                             <div>
                                                 <div>
                                                    <div className="rez-container">
-                                                        <span className={userInfo.role === 'ROLE_PRESENTER' ? 'text-for-rez-big' : 'text-for-rez'}>
+                                                        <span className="text-for-rez">
                                                             Не гласале:
                                                         </span>
                                                     </div>
@@ -655,7 +626,7 @@ const handlePresentClick = async (topicId) => {
 
                                             <div>
                                                 <div className="rez-container">
-                                                    <span className={userInfo.role === 'ROLE_PRESENTER' ? 'vote-numbers-havent-vote-big' : 'vote-numbers-havent-vote'}>
+                                                   <span className="vote-numbers-havent-vote">
                                                         {topic.haveNotVoted}
                                                     </span>
                                                 </div>
@@ -676,20 +647,18 @@ const handlePresentClick = async (topicId) => {
 
                                         <div className="topic-item-body-detail">
                                             <div className="topic-item-body-detail-group">
-                                                {userInfo.role !== 'ROLE_PRESENTER' && 
-                                                    topic.topicStatus !== 'WITHDRAWN' && 
-                                                    topic.topicStatus !== 'INFORMATION' && (
-                                                        <div className="command-buttons">
-                                                          <Link
-                                                                to={`/municipalities/${municipalityId}/sessions/${id}/topics/details/${topic.id}`}
-                                                                className="btn btn-sm btn-primary topic-button"
-                                                                onClick={saveScrollPosition} // Use the function here
-                                                            >   
-                                                                {topic.topicStatus === "CREATED" ? "Детали" : "Детални резултати"}
-                                                            </Link>
-                                                        </div>
-                                                    )
-                                                 } 
+                                              {topic.topicStatus !== 'WITHDRAWN' && topic.topicStatus !== 'INFORMATION' && (
+                                                    <div className="command-buttons">
+                                                        <Link
+                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/details/${topic.id}`}
+                                                            className="btn btn-sm btn-primary topic-button"
+                                                            onClick={saveScrollPosition} // Use the function here
+                                                        >   
+                                                            {topic.topicStatus === "CREATED" ? "Детали" : "Детални резултати"}
+                                                        </Link>
+                                                    </div>
+                                                )}
+
 
                                             {userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
                                                <div className="command-buttons-group">
@@ -741,6 +710,13 @@ const handlePresentClick = async (topicId) => {
                 </div>
             </main>
 
+
+             <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} onClick={toggleVisibility}>
+            <div className="arrow">←</div> 
+            <div className="number">
+                15
+            </div> 
+        </div>
 
           {isModalOpen && (
                 <TopicConfirmModal
