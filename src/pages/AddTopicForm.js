@@ -273,7 +273,7 @@ const AddTopicForm = () => {
 
                                     {fileError && (
                                         <div className="error-message-pdf">
-                                            <p className="text-danger">Максималната големина на PDF датотека е 20MB!</p>
+                                            <p className="text-danger">Максималната големина на PDF датотека е 35MB!</p>
                                         </div>
                                     )}
                                     {fileTypeError && (
