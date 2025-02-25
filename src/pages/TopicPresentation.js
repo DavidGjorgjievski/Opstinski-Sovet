@@ -13,11 +13,8 @@ const TopicPresentation = () => {
   const navigate = useNavigate();
   
 
- const fetchPresenterTopic = useCallback(async () => {
+const fetchPresenterTopic = useCallback(async () => {
   try {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    if (!userInfo || userInfo.role !== "ROLE_PRESENTER") return;
-
     const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`;
 
     const response = await fetch(endpoint, {
@@ -29,17 +26,24 @@ const TopicPresentation = () => {
     });
 
     if (!response.ok) {
-      console.error("Failed to fetch topic:", response.status);
+      console.error(`Failed to fetch topic. Status: ${response.status}`);
       return;
     }
 
-    const data = await response.json();
+    const text = await response.text();
+    if (!text) {
+      console.warn("Empty response body received.");
+      return;
+    }
+
+    const data = JSON.parse(text);
     console.log("Fetched topic:", data);
-    setTopic(data); // No longer accessing `data[0]` since it's a single object
+    setTopic(data);
   } catch (error) {
     console.error("Error fetching topic:", error);
   }
 }, [id, token]);
+
 
   useEffect(() => {
     fetchPresenterTopic();
@@ -74,11 +78,8 @@ const TopicPresentation = () => {
         Назад
       </button>
     </div>
-
-
-
     {!topic ? (
-      <p className="text-center fs-4">Се вчитува...</p>
+      <p className="text-center fs-6">Нема презентирачка точка</p>
     ) : (
       <>
         {/* Dynamic styles based on topicStatus */}
