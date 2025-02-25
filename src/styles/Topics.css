@@ -480,7 +480,7 @@ html {
 
 .fixed-position-div {
     position: fixed;
-    top: 100px;
+    top: 90px;
     /* Distance from the top edge */
     right: 0px;
     /* Distance from the right edge */
@@ -507,7 +507,7 @@ html {
 }
 
 .arrow {
-    font-size: 32px;
+    font-size: 28px;
     /* Larger arrow size */
     /* Space between number and arrow */
     cursor: pointer;
