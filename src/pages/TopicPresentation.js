@@ -79,7 +79,7 @@ const fetchPresenterTopic = useCallback(async () => {
       </button>
     </div>
     {!topic ? (
-      <p className="text-center fs-6">Нема презентирачка точка</p>
+      <h1 className="text-center">Нема презентирачка точка</h1>
     ) : (
       <>
         {/* Dynamic styles based on topicStatus */}
