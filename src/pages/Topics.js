@@ -7,7 +7,8 @@ import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPlus, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPlus, faPenToSquare, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 function Topics() {
     const [topics, setTopics] = useState([]);
@@ -711,10 +712,13 @@ const handlePresentClick = async (topicId) => {
             </main>
 
 
-             <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} onClick={toggleVisibility}>
-            <div className="arrow">←</div> 
+        <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} onClick={toggleVisibility}>
+            <div className="arrow"> 
+                <FontAwesomeIcon icon={faArrowLeft} />
+            </div> 
             <div className="number">
                 15
+                <img src="/images/live-icon.svg" alt="Custom Icon" className="live-icon" />
             </div> 
         </div>
 
