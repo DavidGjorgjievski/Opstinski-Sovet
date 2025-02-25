@@ -26,6 +26,8 @@ const AddTopicForm = () => {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
     const isAddAfter = !!idt && window.location.pathname.includes('add-after');
+    const [exportLoading, setExportLoading] = useState(false);
+    
 
     const [topicStatus, setTopicStatus] = useState('');
     
@@ -81,6 +83,7 @@ const AddTopicForm = () => {
     };
 
    const handleSubmit = async (e) => {
+     setExportLoading(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
@@ -133,7 +136,9 @@ const AddTopicForm = () => {
         }
     } catch (error) {
         console.error("Error submitting the form:", error);
-    }
+    }finally {
+            setExportLoading(false); // Stop loading spinner after export
+        }
 };
 
     useEffect(() => {
@@ -337,6 +342,14 @@ const AddTopicForm = () => {
                         </div>
                     </div>
                 </div>
+
+                  {exportLoading && (
+                    <div className="modal-overlay">
+                        <div className="export-loading-spinner">
+                            <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt="Export Loading..." />
+                        </div>
+                    </div>
+                )}
             </div>
         </HelmetProvider>
     );
