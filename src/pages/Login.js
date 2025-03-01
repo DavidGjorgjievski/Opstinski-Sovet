@@ -69,11 +69,9 @@ function Login() {
                     <title>Најава</title>
                 </Helmet>
             </HelmetProvider>
-            {/* <h1>Ве молиме најавете се:</h1> */}
+            <h1>Ве молиме најавете се:</h1>
             {error && <div className="error-message">{error}</div>}
-
-
-            {/* <form onSubmit={handleLogin}>
+            <form onSubmit={handleLogin}>
                 <input
                     type="text"
                     name="username"
@@ -97,11 +95,7 @@ function Login() {
                     required
                 />
                 <input type="submit" value={loading ? "Ве молам, почекајте..." : "Најави се"} disabled={loading} /> 
-            </form> */}
-
-
-            <h1>Серверите се рестартираат ве молиме почекајте...</h1>
-            
+            </form>            
         </div>
     );
 }
