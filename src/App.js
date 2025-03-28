@@ -71,6 +71,11 @@ function App() {
                 element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
               />
 
+               <Route 
+                path="/municipalities/:municipalityId/sessions/:id?/topics/add-before/:idt"
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+              />
+
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-after/:idt"
                 element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 

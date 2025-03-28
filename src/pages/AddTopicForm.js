@@ -26,6 +26,7 @@ const AddTopicForm = () => {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
     const isAddAfter = !!idt && window.location.pathname.includes('add-after');
+    const isAddBefore = !!idt && window.location.pathname.includes('add-before');
     const [exportLoading, setExportLoading] = useState(false);
     
 
@@ -36,13 +37,13 @@ const AddTopicForm = () => {
             { value: 'ACTIVE', label: 'Активна' },
             { value: 'FINISHED', label: 'Завршена' },
             { value: 'INFORMATION', label: 'Информација' },
-            { value: 'WITHDRAWN', label: 'Повлечена' },
+            { value: 'WITHDRAWN', label: 'Повлечена' }, 
         ];
 
    useEffect(() => {
-    if (isAddAfter) {
-        setTopicStatus('CREATED'); // Ensure topicStatus is set to CREATED
-        return; // Do not fetch the topic if isAddAfter is true
+    if (isAddAfter || isAddBefore) {
+        setTopicStatus('CREATED'); 
+        return; 
     }
 
     if (idt) {
@@ -74,7 +75,7 @@ const AddTopicForm = () => {
     } else {
         setTopicStatus('CREATED');
     }
-}, [idt, id, isAddAfter]); // Add isAddAfter to the dependency array
+}, [idt, id, isAddAfter, isAddBefore]); 
 
 
     const updateFileName = (fileName) => {
@@ -82,8 +83,8 @@ const AddTopicForm = () => {
         fileDropMessage.textContent = fileName;
     };
 
-   const handleSubmit = async (e) => {
-     setExportLoading(true);
+  const handleSubmit = async (e) => {
+    setExportLoading(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
@@ -98,6 +99,16 @@ const AddTopicForm = () => {
             // Add a new topic after the existing one
             formData.append('municipalityId', municipalityId); // Ensure the municipality ID is included
             response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/add-after/${idt}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`,
+                },
+                body: formData,
+            });
+        } else if (isAddBefore) {
+            // Add a new topic before the existing one
+            formData.append('municipalityId', municipalityId); // Ensure the municipality ID is included
+            response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/add-before/${idt}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`,
@@ -136,10 +147,11 @@ const AddTopicForm = () => {
         }
     } catch (error) {
         console.error("Error submitting the form:", error);
-    }finally {
-            setExportLoading(false); // Stop loading spinner after export
-        }
+    } finally {
+        setExportLoading(false);
+    }
 };
+
 
     useEffect(() => {
         const cleanupMobileMenu = initializeMobileMenu();
@@ -224,10 +236,12 @@ const AddTopicForm = () => {
                 <Helmet>
                     <title>
                         {isAddAfter 
-                            ? 'Додади Точка подолу' 
+                            ? 'Додади точка подолу' 
+                            : isAddBefore 
+                            ? 'Додади точка нагоре' 
                             : idt 
-                            ? 'Уреди Точка' 
-                            : 'Додади Точка'}
+                            ? 'Уреди точка' 
+                            : 'Додади точка'}
                     </title>
                 </Helmet>
                 <HeadLinks />
@@ -236,9 +250,11 @@ const AddTopicForm = () => {
                 <div className="add-session-body-container container">
                     <div className="container mt-4">
                         <div className="add-session-header-div">
-                            <h1>
+                           <h1>
                                 {isAddAfter 
                                     ? "Додади точка подолу" 
+                                    : isAddBefore 
+                                    ? "Додади точка нагоре" 
                                     : idt 
                                     ? "Уреди точка" 
                                     : "Додади точка"}
@@ -320,10 +336,10 @@ const AddTopicForm = () => {
                                         </div>
 
                                     <div className="mt-3 d-flex flex-start">
-                                      <button 
+                                    <button 
                                         type="submit"
-                                        className={`btn ${idt && !isAddAfter ? "btn-warning" : "btn-primary"} btn-lg me-2`}>
-                                        {idt && !isAddAfter ? "Уреди" : "Додади"}
+                                        className={`btn ${idt && !isAddAfter && !isAddBefore ? "btn-warning" : "btn-primary"} btn-lg me-2`}>
+                                        {idt && !isAddAfter && !isAddBefore ? "Уреди" : "Додади"}
                                     </button>
 
                                         <button

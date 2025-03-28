@@ -7,7 +7,7 @@ import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPlus, faPenToSquare, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 
 function Topics() {
@@ -466,9 +466,15 @@ const handlePresentClick = async (topicId) => {
                                                 </span>
                                             </li>
                                             <li>
+                                                <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-before/${topic.id}`}
+                                                onClick={saveScrollPosition}>
+                                                    <span>Нова точка <FontAwesomeIcon icon={faArrowUp} /></span>
+                                                </Link>
+                                            </li>
+                                             <li>
                                                 <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-after/${topic.id}`}
                                                 onClick={saveScrollPosition}>
-                                                    <span>Нова точка <FontAwesomeIcon icon={faPlus} /></span>
+                                                     <span>Нова точка <FontAwesomeIcon icon={faArrowDown} /></span>
                                                 </Link>
                                             </li>
                                             <li>
