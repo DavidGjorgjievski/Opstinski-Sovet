@@ -21,6 +21,8 @@ function Topics() {
       const [openMenus, setOpenMenus] = useState({}); // Object to track open menus
        const menuRefs = useRef({});
 
+    const [onlineUsers, setOnlineUsers] = useState(0);
+
   const toggleMenu = (id) => {
     setOpenMenus((prevMenus) => ({
       ...prevMenus,
@@ -138,6 +140,32 @@ const handleClickOutside = useCallback(
             console.error('Error fetching user votes:', error);
         }
     }, [id, token]);
+
+   const fetchOnlineUsers = useCallback(async () => {
+    if (!municipalityId || !token) return;
+
+    try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/online-users`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setOnlineUsers(data);
+        } else {
+            console.error("Failed to fetch online users:", response.status);
+        }
+    } catch (error) {
+        console.error("Error fetching online users:", error);
+    }
+}, [municipalityId, token]);  // Ensure token is included as a dependency
+useEffect(() => {
+    fetchOnlineUsers();
+}, [fetchOnlineUsers]);
 
 
     useEffect(() => {
@@ -723,7 +751,7 @@ const handlePresentClick = async (topicId) => {
                 <FontAwesomeIcon icon={faArrowLeft} />
             </div> 
             <div className="number">
-                15
+                {onlineUsers}
                 <img src="/images/live-icon.svg" alt="Custom Icon" className="live-icon" />
             </div> 
         </div>
