@@ -746,8 +746,8 @@ const handlePresentClick = async (topicId) => {
             </main>
 
 
-        <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} onClick={toggleVisibility}>
-            <div className="arrow"> 
+        <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} >
+            <div className="arrow" onClick={toggleVisibility}> 
                 <FontAwesomeIcon icon={faArrowLeft} />
             </div> 
             <div className="number">
