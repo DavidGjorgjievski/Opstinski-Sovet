@@ -13,6 +13,10 @@ function EditUserForm() {
     const [token, setToken] = useState('');
     const [municipalities, setMunicipalities] = useState([]);
     const [selectedMunicipalityId, setSelectedMunicipalityId] = useState('');
+    const [fileError, setFileError] = useState(false);
+    const [fileName, setFileName] = useState('Нема избрана слика'); 
+    const [fileSizeError, setFileSizeError] = useState(false);
+    
 
     useEffect(() => {
         const retrievedToken = localStorage.getItem('jwtToken');
@@ -26,6 +30,7 @@ function EditUserForm() {
         role: 'ROLE_USER',
         status: 'ACTIVE',
         password: '', 
+        file: null
     });
 
     const roles = ["ROLE_ADMIN", "ROLE_PRESIDENT", "ROLE_USER", "ROLE_SPECTATOR", "ROLE_PRESENTER"];
@@ -111,15 +116,27 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const submissionData = new URLSearchParams();
+     if (fileError || fileSizeError) {
+        // If there are any file errors, do not proceed
+        return;
+    }
+
+
+    const submissionData = new FormData();
     submissionData.append('name', formData.name);
     submissionData.append('surname', formData.surname);
     submissionData.append('role', formData.role);
     submissionData.append('status', formData.status);
     submissionData.append('municipalityId', selectedMunicipalityId); // Add municipalityId
 
+    console.log("form data: "+formData.file);
+
     if (formData.password) {
         submissionData.append('password', formData.password.trim());
+    }
+
+      if (formData.file) {
+        submissionData.append('file', formData.file);
     }
 
     try {
@@ -127,9 +144,8 @@ useEffect(() => {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/x-www-form-urlencoded', // Change to URL-encoded
             },
-            body: submissionData.toString(), // Use the encoded parameters
+            body: submissionData
         });
 
         if (response.ok) {
@@ -146,6 +162,37 @@ useEffect(() => {
  const handleMunicipalityChange = (e) => {
         setSelectedMunicipalityId(e.target.value);
     };
+
+
+       const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            const validTypes = ['image/jpeg', 'image/png']; // Allowed file types
+            if (!validTypes.includes(selectedFile.type)) {
+                setFileError(true);
+                setFileSizeError(false);
+                setFileName('Нема избрана слика'); // Reset file name if invalid type
+                return;
+            }
+
+            if (selectedFile.size > 51200) { // Validate file size (50KB limit)
+                setFileSizeError(true);
+                setFileError(false);
+                setFileName('Нема избрана слика'); 
+            } else {
+                setFormData({ ...formData, file: selectedFile });
+                setFileError(false);
+                setFileSizeError(false);
+                setFileName(selectedFile.name); 
+            }
+        } else {
+            setFileName('Нема избрана слика'); 
+        }
+    };
+
+
+
+
     return (
         <div className="add-user-form-container">
             <HelmetProvider>
@@ -264,6 +311,30 @@ useEffect(() => {
                                     placeholder="Внеси новa лозинка"
                                 />
                             </div>
+
+                              {/* Image Upload Section */}
+                            <div className="form-group d-flex justify-content-center">
+                                <div className={`file-drop-area image-add-input ${fileError ? 'is-active' : ''}`}>
+                                    <p className="file-drop-message text-info-image-input">
+                                        {formData.file ? (
+                                            `Избрана датотека: ${fileName}` 
+                                        ) : (
+                                            <>Пуштете датотека тука или <span>кликнете за да изберете слика</span></>
+                                        )}
+                                    </p>
+                                    <input type="file" id="file" name="file" onChange={handleFileChange}/>
+                                </div>
+                            </div>
+                            {fileError && (
+                                <div className="error-message">
+                                    Само JPG или PNG слики се дозволени.
+                                </div>
+                            )}
+                            {fileSizeError && (
+                                <div className="error-message">
+                                    Максималната големина на сликата е дозволено до 50KB.
+                                </div>
+                            )}
 
                             <div className="form-group d-flex justify-content-between mt-4"> 
                                 <button type="submit" className="btn btn-lg btn-warning"> Измени Корисник </button> 
