@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
+import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -18,8 +19,9 @@ function Topics() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTopicId, setSelectedTopicId] = useState(null);
     const [selectedTopicTitle, setSelectedTopicTitle] = useState(null);
-      const [openMenus, setOpenMenus] = useState({}); // Object to track open menus
-       const menuRefs = useRef({});
+    const [openMenus, setOpenMenus] = useState({}); // Object to track open menus
+    const menuRefs = useRef({});
+    const [isLiveModalOpen, setIsLiveModalOpen] = useState(false);
 
     const [onlineUsers, setOnlineUsers] = useState(0);
 
@@ -750,7 +752,7 @@ const handlePresentClick = async (topicId) => {
             <div className="arrow" onClick={toggleVisibility}> 
                 <FontAwesomeIcon icon={faArrowLeft} />
             </div> 
-            <div className="number">
+            <div className="number" onClick={() => setIsLiveModalOpen(true)}>
                 {onlineUsers}
                 <img src="/images/live-icon.svg" alt="Custom Icon" className="live-icon" />
             </div> 
@@ -764,9 +766,16 @@ const handlePresentClick = async (topicId) => {
                     topicTitle={selectedTopicTitle ? `${selectedTopicTitle}` : ''}
                 />
             )}
-        </div>
 
-        
+
+
+       <LiveUsersModal
+            isOpen={isLiveModalOpen}
+            onClose={() => setIsLiveModalOpen(false)}
+            municipalityId={municipalityId}
+            token={token}
+        />
+        </div>
     );
 }
 
