@@ -69,6 +69,9 @@ function Login() {
                     <title>Најава</title>
                 </Helmet>
             </HelmetProvider>
+            <div className="login-header">
+                <img src={`${process.env.PUBLIC_URL}/images/grb.png`} alt="Grb Gold" className="login-logo" />
+            </div>
             <h1>Ве молиме најавете се:</h1>
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleLogin}>

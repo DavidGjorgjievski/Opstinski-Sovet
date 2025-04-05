@@ -32,14 +32,16 @@ input {
 }
 
 input[type="submit"] {
-    background-color: #57a8cc;
+    background-color: #e3d356;
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    border: none;
 }
 
+
 input[type="submit"]:hover {
-    background-color: #57a8cb;
+    background-color: rgb(233, 222, 99);
 }
 
 .error-message {
