@@ -12,8 +12,7 @@ function Home() {
     });
 
     useEffect(() => {
-
-          const imageData = localStorage.getItem('image'); 
+        const imageData = localStorage.getItem('image'); 
         if (imageData) {
             setUserData(prevData => ({ ...prevData, image: imageData }));
         }
@@ -22,12 +21,10 @@ function Home() {
 
         sessionStorage.removeItem('scrollPosition');
 
-
         return () => {
             cleanupMobileMenu();
         };
     }, []);
-
 
     return (
         <div className="home-container">
@@ -38,22 +35,27 @@ function Home() {
             </HelmetProvider>
             <HeadLinks />
             <Header userInfo={userData} />
-            <main>
-                <div className="introduction">
-                    <div className="introduction-header text-center my-3">
-                        <h1 className="display-4">
-                            Добредојде на системот за гласање на точки во седници на Општина Виница.
-                        </h1>
+            <div className="main-content"> {/* Added div here */}
+                <main>
+                    <div className="introduction">
+                        <div className="introduction-header text-center my-3">
+                            <h1 className="display-4 fw-bold">
+                                Добредојде на системот за гласање на точки во седници на Општина.
+                            </h1>
+                        </div>
+                        <div className="introduction-body">
+                            <p className="lead">
+                                Во секоја седница, се вклучуваат советници, меѓу кои и претседателот на советот, кој ја води
+                                самата седница. Тие се одговорни за креирање и прифаќање на предлози кои
+                                влијаат на сите граѓани во општината.
+                            </p>
+                        </div>
                     </div>
-                    <div className="introduction-body">
-                        <p className="lead">
-                            Во секоја седница, се вклучуваат советници, меѓу кои и претседателот на советот, Ацо Ѓорѓиевски кој ја води
-                            самата седница, и градоначалникот Миле Петков. Тие се одговорни за креирање и прифаќање на предлози кои
-                            влијаат на сите граѓани во општината.
-                        </p>
-                    </div>
-                </div>
-            </main>
+                </main>
+            </div>
+            <footer className="footer text-white text-center">
+                <p>&copy; {new Date().getFullYear()} Codeflux Macedonia</p>
+            </footer>
         </div>
     );
 }
