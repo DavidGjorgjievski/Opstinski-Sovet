@@ -61,8 +61,6 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
       fetchOnlineUsers();
       fetchOfflineUsers();
 
-      console.log(role);
-
        // Disable background scroll
     document.body.style.overflow = 'hidden';
 
@@ -75,6 +73,52 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
   }, [isOpen, municipalityId, fetchOnlineUsers, fetchOfflineUsers,role]);
 
   if (!isOpen) return null;
+
+
+  const makeUserOffline = async (username) => {
+  try {
+    const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/offline/${username}`;
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      fetchOnlineUsers(); // Refresh data
+      fetchOfflineUsers();
+    } else {
+      console.error("Failed to make user offline");
+    }
+  } catch (error) {
+    console.error("Error making user offline:", error);
+  }
+};
+
+const makeUserOnline = async (username) => {
+  try {
+    const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/online/${username}`;
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      fetchOnlineUsers(); // Refresh data
+      fetchOfflineUsers();
+    } else {
+      console.error("Failed to make user online");
+    }
+  } catch (error) {
+    console.error("Error making user online:", error);
+  }
+};
+
 
   return (
     <div className="liv-modal-overlay" onClick={onClose}>
@@ -111,7 +155,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
                   <td>{user.surname}</td>
                   {role === "ROLE_PRESIDENT" && (
                     <td>
-                      <button className="liv-action-btn">вклучи</button>
+                     <button className="liv-action-btn" onClick={() => makeUserOnline(user.username)}>вклучи</button>
                     </td>
                   )}
                 </tr>
@@ -152,7 +196,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
                     <td>{user.surname}</td>
                     {role === "ROLE_PRESIDENT" && (
                       <td>
-                        <button className="liv-action-btn">исклучи</button>
+                        <button className="liv-action-btn" onClick={() => makeUserOffline(user.username)}>исклучи</button>
                       </td>
                     )}
                   </tr>
