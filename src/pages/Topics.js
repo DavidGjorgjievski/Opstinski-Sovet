@@ -774,6 +774,7 @@ const handlePresentClick = async (topicId) => {
             onClose={() => setIsLiveModalOpen(false)}
             municipalityId={municipalityId}
             token={token}
+            role={userInfo.role}
         />
         </div>
     );

@@ -6,7 +6,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
-const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
+const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [offlineUsers, setOfflineUsers] = useState([]);
 
@@ -61,6 +61,8 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
       fetchOnlineUsers();
       fetchOfflineUsers();
 
+      console.log(role);
+
        // Disable background scroll
     document.body.style.overflow = 'hidden';
 
@@ -70,7 +72,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
   
 
     }
-  }, [isOpen, municipalityId, fetchOnlineUsers, fetchOfflineUsers]);
+  }, [isOpen, municipalityId, fetchOnlineUsers, fetchOfflineUsers,role]);
 
   if (!isOpen) return null;
 
@@ -91,10 +93,10 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
               <th>Слика</th>
               <th>Име</th>
               <th>Презиме</th>
-              <th>Акција</th>
+              {role === "ROLE_PRESIDENT" &&<th>Акција</th>}
             </tr>
           </thead>
-          <tbody>
+         <tbody>
             {Array.isArray(offlineUsers) && offlineUsers.length > 0 ? (
               offlineUsers.map((user) => (
                 <tr key={user.username} className="offline">
@@ -107,14 +109,16 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.surname}</td>
-                  <td>
-                    <button className="liv-action-btn">вклучи</button>
-                  </td>
+                  {role === "ROLE_PRESIDENT" && (
+                    <td>
+                      <button className="liv-action-btn">вклучи</button>
+                    </td>
+                  )}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4">Нема офлајн корисници</td>
+                <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>Нема офлајн корисници</td>
               </tr>
             )}
           </tbody>
@@ -130,33 +134,35 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
               <th>Слика</th>
               <th>Име</th>
               <th>Презиме</th>
-              <th>Акција</th>
+              {role === "ROLE_PRESIDENT" &&<th>Акција</th>}
             </tr>
           </thead>
-          <tbody>
-            {Array.isArray(onlineUsers) && onlineUsers.length > 0 ? (
-              onlineUsers.map((user) => (
-                <tr key={user.username} className="online">
-                  <td>
-                    <img
-                      src={user.image ? `data:image/png;base64,${user.image}` : "/images/default-avatar.png"}
-                      alt={user.name}
-                      className="liv-user-avatar"
-                    />
-                  </td>
-                  <td>{user.name}</td>
-                  <td>{user.surname}</td>
-                  <td>
-                    <button className="liv-action-btn">исклучи</button>
-                  </td>
+             <tbody>
+              {Array.isArray(onlineUsers) && onlineUsers.length > 0 ? (
+                onlineUsers.map((user) => (
+                  <tr key={user.username} className="online">
+                    <td>
+                      <img
+                        src={user.image ? `data:image/png;base64,${user.image}` : "/images/default-avatar.png"}
+                        alt={user.name}
+                        className="liv-user-avatar"
+                      />
+                    </td>
+                    <td>{user.name}</td>
+                    <td>{user.surname}</td>
+                    {role === "ROLE_PRESIDENT" && (
+                      <td>
+                        <button className="liv-action-btn">исклучи</button>
+                      </td>
+                    )}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>Нема онлајн корисници</td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4">Нема онлајн корисници</td>
-              </tr>
-            )}
-          </tbody>
+              )}
+            </tbody>
         </table>
       </div>
     </div>
