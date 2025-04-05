@@ -10,7 +10,6 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [offlineUsers, setOfflineUsers] = useState([]);
 
-  // Fetch online users
   const fetchOnlineUsers = useCallback(async () => {
     try {
       const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/online-users-list`;
@@ -34,7 +33,6 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
     }
   }, [municipalityId, token]);
 
-  // Fetch offline users
   const fetchOfflineUsers = useCallback(async () => {
     try {
       const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/offline-users-list`;
@@ -58,11 +56,19 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
     }
   }, [municipalityId, token]);
 
-  // Fetch users when the modal is opened
   useEffect(() => {
     if (isOpen && municipalityId) {
       fetchOnlineUsers();
       fetchOfflineUsers();
+
+       // Disable background scroll
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+     document.body.style.overflow = 'auto';
+    };
+  
+
     }
   }, [isOpen, municipalityId, fetchOnlineUsers, fetchOfflineUsers]);
 
@@ -76,13 +82,16 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
         </button>
 
         {/* Offline Users Table */}
-        <h3> <FontAwesomeIcon icon={faCircle} className="red-dot" /> Офлајн корисници</h3>
+        <h3>
+          <FontAwesomeIcon icon={faCircle} className="red-dot" /> Офлајн корисници
+        </h3>
         <table className="liv-user-table">
           <thead>
             <tr>
               <th>Слика</th>
               <th>Име</th>
               <th>Презиме</th>
+              <th>Акција</th>
             </tr>
           </thead>
           <tbody>
@@ -98,24 +107,30 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.surname}</td>
+                  <td>
+                    <button className="liv-action-btn">вклучи</button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3">Нема офлајн корисници</td>
+                <td colSpan="4">Нема офлајн корисници</td>
               </tr>
             )}
           </tbody>
         </table>
 
         {/* Online Users Table */}
-        <h3><FontAwesomeIcon icon={faCircle} className="green-dot" /> Онлајн корисници</h3>
+        <h3>
+          <FontAwesomeIcon icon={faCircle} className="green-dot" /> Онлајн корисници
+        </h3>
         <table className="liv-user-table">
           <thead>
             <tr>
               <th>Слика</th>
               <th>Име</th>
               <th>Презиме</th>
+              <th>Акција</th>
             </tr>
           </thead>
           <tbody>
@@ -131,11 +146,14 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token }) => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.surname}</td>
+                  <td>
+                    <button className="liv-action-btn">исклучи</button>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3">Нема онлајн корисници</td>
+                <td colSpan="4">Нема онлајн корисници</td>
               </tr>
             )}
           </tbody>

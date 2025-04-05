@@ -92,6 +92,36 @@
     color: #30fc03;
 }
 
+.liv-action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.offline .liv-action-btn {
+    background-color: #28a745;
+    /* green */
+    color: white;
+}
+
+.offline .liv-action-btn:hover {
+    background-color: #218838;
+}
+
+.online .liv-action-btn {
+    background-color: #dc3545;
+    /* red */
+    color: white;
+}
+
+.online .liv-action-btn:hover {
+    background-color: #c82333;
+}
+
 /* Fade-in animation */
 @keyframes liv-fadeIn {
     from {
