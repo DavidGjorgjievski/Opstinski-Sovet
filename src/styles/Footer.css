@@ -1,0 +1,16 @@
+.footer {
+    width: 100vw;
+    background-color: #fbe64e;
+    padding: 0;
+    margin-top: auto;
+    display: flex;
+    justify-content: start;
+}
+
+.footer p {
+    font-size: 16px;
+    margin-left: 40px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: black;
+}

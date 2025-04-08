@@ -114,6 +114,7 @@ button {
     border-radius: 5px;
     font-size: 14px;
     padding: 6px 8px;
+    font-weight: 500;
 }
 
 .municipality-buttons>div {
@@ -162,6 +163,7 @@ button {
     text-decoration: none;
     display: block;
     background-color: white;
+    font-weight: 500;
 }
 
 .admin-dropdown .dropdown-item:hover {

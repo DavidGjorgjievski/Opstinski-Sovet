@@ -8,7 +8,7 @@
 
 .user-back-button {
     width: 180px;
-    background-color: #57a8cb;
+    background-color: #fbe64e;
     padding: 10px 20px;
     font-size: 16px;
     border: 0 solid white;
@@ -22,9 +22,13 @@
     margin-right: 30px;
 }
 
+.user-back-button:hover{
+    background-color: #f7db2c;
+}
+
 .user-add-button {
     width: 180px;
-    background-color: #57a8cb;
+    background-color: #fbe64e;
     padding: 10px 20px;
     font-size: 16px;
     border: 0 solid white;
@@ -39,7 +43,7 @@
 }
 
 .user-add-button:hover {
-    background-color: #57a8cc;
+    background-color: #f7db2c;
 }
 
 .admin-title {
