@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles/Home.css';
 import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
+import Footer from '../components/Footer';
 
 function Home() {
     const [userData, setUserData] = useState(() => {
@@ -50,12 +52,15 @@ function Home() {
                                 влијаат на сите граѓани во општината.
                             </p>
                         </div>
+                        <div className="d-flex justify-content-center">
+                            <Link to="/municipalities">
+                                <button className="municipality-nav-button">Општини</button>
+                            </Link>
+                        </div>
                     </div>
                 </main>
             </div>
-            <footer className="footer text-white text-center">
-                <p>&copy; {new Date().getFullYear()} Codeflux Macedonia</p>
-            </footer>
+            <Footer />
         </div>
     );
 }

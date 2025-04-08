@@ -51,6 +51,24 @@
     color: black;
 }
 
+.municipality-nav-button {
+    background-color: #fbe64e;
+    width: 180px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 0px solid white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.municipality-nav-button:hover {
+    background-color: #f7db2c;
+}
+
 @media (max-width: 768px) {
     .introduction-header h1 {
         font-size: 1.8rem;

@@ -86,6 +86,22 @@ function AddMunicipalityForm() {
                 throw new Error(isEditMode ? 'Failed to edit municipality' : 'Failed to add municipality');
             }
 
+            // After success, update the cache
+            const updatedMunicipality = await response.json();
+            const cachedMunicipalities = JSON.parse(localStorage.getItem('municipalities')) || [];
+            
+            if (isEditMode) {
+                // If editing, update the specific municipality in cache
+                const updatedMunicipalities = cachedMunicipalities.map((municipality) =>
+                    municipality.id === updatedMunicipality.id ? updatedMunicipality : municipality
+                );
+                localStorage.setItem('municipalities', JSON.stringify(updatedMunicipalities));
+            } else {
+                // If adding, add the new municipality to cache
+                cachedMunicipalities.push(updatedMunicipality);
+                localStorage.setItem('municipalities', JSON.stringify(cachedMunicipalities));
+            }
+
             navigate('/municipalities');
         } catch (error) {
             console.error('Error submitting municipality form:', error);

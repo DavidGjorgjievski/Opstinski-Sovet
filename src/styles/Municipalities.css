@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 20px;
     padding: 0 15px;
 }
 
@@ -26,31 +25,22 @@
 }
 
 .municipality-image {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 250px;
     object-fit: contain;
-    margin-bottom: 15px;
-    border: 2px solid #ddd;
-    border-radius: 50%;
-    background-color: #f3f3f3;
     padding: 5px;
 }
 
 .municipality-header-title {
-    margin-right: 200px;
-    font-size: 2.125rem;
+    font-size: 5rem;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 0px;
 }
 
-.municipality-header-title-user {
-    font-size: 2.125rem;
-}
-
-.municipality-button-container {
-    min-width: 160px;
-}
 
 .municipality-add-button {
-    background-color: #57a8cb;
+    background-color: #fbe64e;
     width: 180px;
     padding: 10px 20px;
     font-size: 16px;
@@ -61,12 +51,10 @@
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    margin-top: 10px;
 }
 
 .municipality-add-button:hover {
-    background-color: #57a8cc;
-    /* Slightly different color for hover effect */
+    background-color: #f7db2c;
 }
 
 .municipality-body {
@@ -81,12 +69,11 @@
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 320px;
+    border: 2px solid #ddd;
 }
 
 .municipality-image {
-    width: 400px;
-    overflow: hidden;
     border-radius: 10px;
 }
 
@@ -102,11 +89,91 @@ button {
     margin: 5px;
 }
 
+.button-see-content {
+    background-color: #fbe64e;
+    padding: 6px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    border: 2px solid #fbe64e;
+    display: inline-block;
+}
+
+.button-see-content:hover {
+    background-color: #f7db2c;
+    border: 2px solid #f7db2c;
+}
+
+.button-option-content{
+    border: 2px solid #ddd;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 6px 8px;
+}
+
+.municipality-buttons>div {
+    flex: 1;
+    /* Makes each child div take 50% (equal space) */
+}
+
+.municipality-buttons>div {
+    width: 50%;
+}
+
+.button-see-content,
+.button-option-content {
+    width: 100%;
+    /* make the button fill the 50% container */
+    text-align: center;
+    /* centers the text */
+}
+
+/* drop down option menu */
+
+.admin-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.admin-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    min-width: 120px;
+    padding: 0.5rem 0;
+}
+
+.admin-dropdown .dropdown-item {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    display: block;
+    background-color: white;
+}
+
+.admin-dropdown .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+
+
 @media (max-width: 768px) {
     .municipality-header-title {
-        font-size: 1.8rem;
-        margin-right: 60px;
-        margin-top: 10px;
+        font-size: 3rem;
+        margin-bottom: 0px;
     }
 
     .municipality-add-button {
@@ -116,19 +183,10 @@ button {
 }
 
 @media (max-width: 425px) {
-    .municipality-header-title {
-        font-size: 1.5rem;
-        margin-right: 20px;
-    }
-
-    .municipality-add-button {
+   
+     .municipality-add-button {
         width: 150px;
         font-size: 12px;
-    }
-
-    .municipality-item,
-    .municipality-image {
-        width: 350px;
     }
 
     .municipality-buttons {
@@ -137,14 +195,6 @@ button {
 }
 
 @media (max-width: 370px) {
-    .municipality-header-title-user {
-        font-size: 1.9rem;
-    }
-
-    .municipality-item,
-    .municipality-image {
-        width: 325px;
-    }
 
     .first-municipality-button {
         margin-right: 10px;
@@ -160,9 +210,8 @@ button {
 
 @media (max-width: 340px) {
 
-    .municipality-item,
-    .municipality-image {
-        width: 315px;
+    .municipality-item{
+        width: 300px;
     }
 
     .municipality-add-button {
