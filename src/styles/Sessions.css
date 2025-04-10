@@ -13,9 +13,10 @@
 .session-header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 20px;
     padding: 0 15px;
+    width:90vw;
 }
 
 .id-selector-session{
@@ -24,36 +25,42 @@
 }
 
 .session-header-title {
-    margin-right: 200px;
-    font-size: 2.125rem;
+    font-size: 3rem;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 0px;
 }
 
-.session-header-title-user{
-    font-size: 2.125rem;
+.session-header-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
 }
 
 .session-button-container {
     min-width: 160px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 }
-
 .session-add-button {
-    background-color: #57a8cb;
+    background-color: #fbe64e;
     width: 180px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 14px;
     border: 0px solid white;
     font-weight: bold;
     text-align: center;
     border-radius: 5px;
-    color: #fff;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     margin-top: 10px;
 }
 
 .session-add-button:hover {
-    background-color: #57a8cc;
-    /* Slightly different color for hover effect */
+    background-color: #f7db2c;
 }
 
 .session-body {
@@ -66,17 +73,29 @@
 
 .session-item {
     margin-bottom: 20px;
-    border-radius: 10px;
+    border-radius: 4%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
+    border: 2px solid #ddd;
+    padding: 20px;
 }
 
-
-
 .session-image {
-    width: 400px;
+    width: 350px;
     overflow: hidden;
     border-radius: 10px;
+}
+
+.session-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.session-date{
+    color: #717173;
+    font-weight: 600;
 }
 
 .session-info {
@@ -96,9 +115,7 @@
     margin-right: 10px;
 }
 
-/* for the export loading spinner */
 
-/* Modal overlay to cover entire screen */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -122,77 +139,160 @@
     flex-direction: column;
 }
 
+.button-option-content {
+    border: 2px solid #ddd;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 8px 10px;
+    font-weight: 500;
+}
+
+.button-see-content {
+    background-color: #fbe64e;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    border: 2px solid #fbe64e;
+    display: inline-block;
+}
+
+.button-see-content:hover {
+    background-color: #f7db2c;
+    border: 2px solid #f7db2c;
+}
+
+.admin-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.admin-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 8px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    width: 90%;
+    padding: 0.5rem 0;
+}
+
+.admin-dropdown .dropdown-item {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    display: block;
+    background-color: white;
+    font-weight: 500;
+    border: none;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-dropdown .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.admin-dropdown .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
 @media (max-width: 768px) {
+
+    .session-header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0px;
+        width: 100%;
+     }
+
+    .session-header-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .session-header-div p{
+        margin-bottom: 0px;
+    }
+
+     .session-button-container{
+        justify-content: center;
+        align-items: center;
+     }
+
     .session-header-title {
-        font-size: 1.8rem;
-        margin-right: 60px;
-        margin-top: 10px;
+        font-size: 3rem;
     }
     .session-add-button{
-        width: 160px;
         font-size: 14px;
+    }
+
+    .admin-dropdown{
+        right: 8px;
     }
 }
 
 @media (max-width: 425px) {
-    .session-header-title {
-        font-size: 1.5rem;
-        margin-right: 20px;
-    }
-    .session-add-button {
-        width: 150px;
-        font-size: 13px;
+    .session-item{
+        width: 350px;
     }
 
-    .session-item,
-    .session-image {
-        width: 350px;
+    .session-image{
+        width: 300px;
     }
 
     .all-session-buttons {
         flex-direction: column;
     }
 
-    .session-buttons {
-        margin-top: 10px;
-    }
-
-    .session-button-size {
-        width: 135px;
-    }
-
     .export-button-div {
         margin-right: 0;
     }
-
-    .first-session-button {
-        margin-right: 25px;
-    }
-
 }
 
 @media (max-width: 370px) {
-    .session-header-title-user {
-            font-size: 1.9rem;
-    }
-    .session-item,
-    .session-image {
+    .session-item {
         width: 325px;
     }
+    
+    .session-image {
+        width: 275px;
+    }
+
     .session-add-button {
         font-size: 13px;
     }
-    .first-session-button {
-        margin-right: 10px;
+
+    .admin-dropdown {
+        right: 6.5px;
+        min-width: 100px;
     }
+
+    .button-option-content{
+        font-size: 14px !important;
+    }
+
+
 }
 
 @media (max-width: 340px) {
-    .session-item,
-    .session-image {
+    .session-item {
         width: 315px;
-    }
-    .session-add-button {
-        font-size: 12px;
     }
 }
