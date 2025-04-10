@@ -8,6 +8,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faPenToSquare, faTrash, faPlus} from '@fortawesome/free-solid-svg-icons';
+import Footer from '../components/Footer';
 
 function Sessions() {
     const [sessions, setSessions] = useState([]);
@@ -387,6 +388,7 @@ function formatMacedonianDate(dateString) {
                     sessionName={selectedSession ? selectedSession.name : ''} 
                 />
             </main>
+            <Footer />
         </div>
     );
 }

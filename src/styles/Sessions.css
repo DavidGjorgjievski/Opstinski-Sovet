@@ -6,6 +6,11 @@
     height: 100vh;
 }
 
+html{
+    overflow-x: hidden;
+}
+
+
 .session-body-container{
     margin-top: 80px;
 }
@@ -123,15 +128,12 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    /* Dim background */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    /* Ensure it's on top of other content */
 }
 
-/* Loading spinner centered */
 .export-loading-spinner {
     display: flex;
     justify-content: center;
@@ -287,8 +289,6 @@
     .button-option-content{
         font-size: 14px !important;
     }
-
-
 }
 
 @media (max-width: 340px) {
