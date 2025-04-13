@@ -9,7 +9,7 @@ import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown, faPlus,faChevronLeft} from '@fortawesome/free-solid-svg-icons';
-
+import Footer from '../components/Footer';
 
 function Topics() {
     const [topics, setTopics] = useState([]);
@@ -746,6 +746,8 @@ const handlePresentClick = async (topicId) => {
                         )}
                     </div>
                 </div>
+
+                 <Footer />
             </main>
 
 
