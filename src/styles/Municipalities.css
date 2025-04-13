@@ -43,12 +43,12 @@
     background-color: #fbe64e;
     width: 180px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 14px;
     border: 0px solid white;
     font-weight: bold;
     text-align: center;
     border-radius: 5px;
-    color: #fff;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
@@ -179,18 +179,12 @@ button {
     }
 
     .municipality-add-button {
-        width: 160px;
-        font-size: 14px;
+        width: 170px;
+        font-size: 13px;
     }
 }
 
-@media (max-width: 425px) {
-   
-     .municipality-add-button {
-        width: 150px;
-        font-size: 12px;
-    }
-
+@media (max-width: 425px) {   
     .municipality-buttons {
         margin-top: 10px;
     }

@@ -7,7 +7,7 @@ import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faPenToSquare, faTrash, faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Sessions() {
@@ -324,7 +324,7 @@ function formatMacedonianDate(dateString) {
                                                 className="button-option-content w-100"
                                                 onClick={() => setOpenMenuId(openMenuId === session.id ? null : session.id)}
                                             >
-                                                Опции
+                                                Опции <FontAwesomeIcon icon={faChevronDown} />
                                             </button>
                                             {openMenuId === session.id && (
                                                 <div className="admin-dropdown">

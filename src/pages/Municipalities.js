@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrash, faPlus, faChevronDown} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Municipalities() {
@@ -153,7 +155,7 @@ function Municipalities() {
                 {userInfo.role === 'ROLE_ADMIN' && (
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
-                            <button className="municipality-add-button">Додади Општина</button>
+                            <button className="municipality-add-button">Додади Општина <FontAwesomeIcon icon={faPlus} /></button>
                         </a>
                     </div>
                 )}
@@ -199,12 +201,12 @@ function Municipalities() {
                                                                 setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
                                                             }
                                                         >
-                                                            Опции
+                                                            Опции <FontAwesomeIcon icon={faChevronDown} />
                                                         </button>
                                                         {openMenuId === municipality.id && (
                                                             <div className="admin-dropdown">
                                                                 <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
-                                                                    Уреди
+                                                                   <FontAwesomeIcon icon={faPenToSquare} /> Уреди
                                                                 </a>
                                                                 <button
                                                                     className="dropdown-item"
@@ -213,7 +215,7 @@ function Municipalities() {
                                                                         setOpenMenuId(null); // Close the menu after delete
                                                                     }}
                                                                 >
-                                                                    Избриши
+                                                                   <FontAwesomeIcon icon={faTrash} /> Избриши
                                                                 </button>
                                                             </div>
                                                         )}
