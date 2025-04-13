@@ -178,7 +178,7 @@ html{
 .admin-dropdown {
     position: absolute;
     top: 100%;
-    right: 8px;
+    right: 9px;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -294,5 +294,9 @@ html{
 @media (max-width: 340px) {
     .session-item {
         width: 315px;
+    }
+
+    .admin-dropdown {
+        right: 3px !important;
     }
 }

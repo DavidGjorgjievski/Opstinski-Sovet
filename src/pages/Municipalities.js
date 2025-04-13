@@ -6,7 +6,7 @@ import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faChevronDown} from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Municipalities() {
@@ -201,7 +201,7 @@ function Municipalities() {
                                                                 setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
                                                             }
                                                         >
-                                                            Опции <FontAwesomeIcon icon={faChevronDown} />
+                                                            Опции <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
                                                         </button>
                                                         {openMenuId === municipality.id && (
                                                             <div className="admin-dropdown">
