@@ -8,7 +8,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown, faPlus,faChevronLeft} from '@fortawesome/free-solid-svg-icons';
 
 
 function Topics() {
@@ -437,17 +437,18 @@ const handlePresentClick = async (topicId) => {
             <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} />
             <main className="topcis-container-body">
                 <div className="topic-header">
-                    <button
-                        className="back-button-topic"
-                        onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}
-                    >
-                        Назад
-                    </button>
-                    <h1 className="topic-header-title">Точки</h1>
+                    <div className='topic-header-title-div'>
+                        <button
+                            className="back-button-topic"
+                            onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}>
+                            <FontAwesomeIcon icon={faChevronLeft} /> Назад
+                        </button>
+                        <h1 className="topic-header-title">Точки</h1>
+                    </div>
                     <div className="session-button-container">
                         <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
                             {userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
-                                <button className="topic-add-button" onClick={saveScrollPosition}>Додади Точка</button>
+                                <button className="topic-add-button" onClick={saveScrollPosition}>Додади Точка <FontAwesomeIcon icon={faPlus} /></button>
                             )}
                         </Link>
                     </div>
@@ -740,7 +741,7 @@ const handlePresentClick = async (topicId) => {
                     <div className="mt-4">
                         {topics.length > 2 && userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                                <button className="topic-add-button" onClick={saveScrollPosition}>Додади Точка</button>
+                                <button className="topic-add-button" onClick={saveScrollPosition}>Додади Точка <FontAwesomeIcon icon={faPlus} /></button>
                             </Link>
                         )}
                     </div>

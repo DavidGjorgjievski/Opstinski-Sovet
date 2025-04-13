@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
 }
 
@@ -18,10 +18,10 @@ html {
 .topic-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    padding: 0 15px;
+    padding: 0 50px;
     width: 100%;
 }
 
@@ -51,16 +51,20 @@ html {
 }
 
 .topic-add-button {
-    background-color: #57a8cb;
-    padding: 10px 20px;
-    font-size: 16px;
+    background-color: #fbe64e;
+    padding: 8px 18px;
+    font-size: 15px;
     border: 0px solid white;
     font-weight: bold;
     text-align: center;
     border-radius: 5px;
-    color: #fff;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.topic-add-button:hover {
+    background-color: #f7db2c;
 }
 
 .finished-topic {
@@ -71,22 +75,27 @@ html {
     background-color: rgba(0, 255, 0, 0.4);
 }
 
+.topic-header-title-div{
+    display: flex;
+    flex-direction: column;
+}
+
 .back-button-topic {
-    background-color: #57a8cb;
-    width: 150px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 0px solid white;
+    background-color: white;
+    padding: 5px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
     font-weight: bold;
     text-align: center;
-    border-radius: 5px;
-    color: #fff;
+    border-radius: 10px;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-
-
+.back-button-topic:hover{
+    background-color: #ddd;
+}
 
 .profile-back-button {
     margin-top: 60px;
@@ -296,6 +305,15 @@ html {
 }
 
 @media (max-width: 765px) {
+    .topic-header{
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .topic-add-button{
+        margin-left: 0px !important;
+    }
+
     .topic-item-body-detail {
         flex-direction: column;
     }
@@ -441,10 +459,6 @@ html {
     cursor: pointer;
 }
 
-
-
-/* for menu text if it work i will leave it */
-
 .topic-header-div {
     display: flex;
     justify-content: space-between;
@@ -481,29 +495,17 @@ html {
 .fixed-position-div {
     position: fixed;
     top: 90px;
-    /* Distance from the top edge */
     right: 0px;
-    /* Distance from the right edge */
-    background-color: #57a8cb;
-    /* Background color */
-    color: white;
-    /* Text color */
-    /* Padding inside the div */
+    background-color: #fbe64e;
+    color: black;
     padding: 3px;
     border-radius: 5px;
-    /* Rounded corners */
     font-size: 24px;
-    /* Font size */
     z-index: 1000;
-    /* Ensure it stays above other elements */
     cursor: pointer;
-    /* Make it clickable */
     display: flex;
-    /* Use flexbox to align the content */
     flex-direction: row;
-    /* Stack number and arrow vertically */
     align-items: center;
-    /* Center the items */
 }
 
 .arrow {

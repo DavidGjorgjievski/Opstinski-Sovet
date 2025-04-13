@@ -60,15 +60,6 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
     if (isOpen && municipalityId) {
       fetchOnlineUsers();
       fetchOfflineUsers();
-
-       // Disable background scroll
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-     document.body.style.overflow = 'auto';
-    };
-  
-
     }
   }, [isOpen, municipalityId, fetchOnlineUsers, fetchOfflineUsers,role]);
 
@@ -121,7 +112,7 @@ const makeUserOnline = async (username) => {
 
 
   return (
-    <div className="liv-modal-overlay" onClick={onClose}>
+      <div className="liv-modal-overlay" onClick={onClose}>
       <div className="liv-modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="liv-close-btn" onClick={onClose}>
           ×
