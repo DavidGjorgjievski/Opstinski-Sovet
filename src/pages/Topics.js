@@ -747,7 +747,7 @@ const handlePresentClick = async (topicId) => {
                     </div>
                 </div>
 
-                 <Footer />
+                {topics.length > 0 && <Footer />}
             </main>
 
 

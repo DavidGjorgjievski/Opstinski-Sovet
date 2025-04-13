@@ -388,7 +388,7 @@ function formatMacedonianDate(dateString) {
                     sessionName={selectedSession ? selectedSession.name : ''} 
                 />
             </main>
-            <Footer />
+            {!loading && <Footer />}
         </div>
     );
 }

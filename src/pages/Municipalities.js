@@ -242,7 +242,7 @@ function Municipalities() {
                 municipalityName={selectedMunicipality ? selectedMunicipality.name : ''}
             />
 
-            <Footer />
+            {!loading && <Footer />}
         </div>
     );
 }
