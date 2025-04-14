@@ -436,23 +436,26 @@ const handlePresentClick = async (topicId) => {
             <HeadLinks />
             <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} />
             <main className="topcis-container-body">
-                <div className="topic-header">
-                    <div className='topic-header-title-div'>
-                        <button
-                            className="back-button-topic"
-                            onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}>
-                            <FontAwesomeIcon icon={faChevronLeft} /> Назад
-                        </button>
-                        <h1 className="topic-header-title">Точки</h1>
-                    </div>
-                    <div className="session-button-container">
-                        <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                            {userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
-                                <button className="topic-add-button" onClick={saveScrollPosition}>Додади Точка <FontAwesomeIcon icon={faPlus} /></button>
-                            )}
-                        </Link>
+                <div className='d-flex justify-content-center'>
+                     <div className="topic-header">
+                        <div className='topic-header-title-div'>
+                            <button
+                                className="back-button-topic"
+                                onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}>
+                                <FontAwesomeIcon icon={faChevronLeft} /> Назад
+                            </button>
+                            <h1 className="topic-header-title">Точки</h1>
+                        </div>
+                        <div className="session-button-container">
+                            <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
+                                {userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
+                                    <button className="topic-add-button" onClick={saveScrollPosition}>Додади Точка <FontAwesomeIcon icon={faPlus} /></button>
+                                )}
+                            </Link>
+                        </div>
                     </div>
                 </div>
+                
 
                 <div className="topic-body">
                     {topics
@@ -747,8 +750,9 @@ const handlePresentClick = async (topicId) => {
                     </div>
                 </div>
 
-                {topics.length > 0 && <Footer />}
             </main>
+            {topics.length > 0 && <Footer />}
+
 
 
         <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} >

@@ -21,8 +21,8 @@ html {
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    padding: 0 100px;
-    width: 100%;
+    padding: 0 50px;
+    width: 80vw;
 }
 
 .title-link {
