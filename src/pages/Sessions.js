@@ -70,14 +70,18 @@ function Sessions() {
 }, [municipalityId]);
 
     
-   useEffect(() => {
+useEffect(() => {
     const token = localStorage.getItem('jwtToken');
 
-    // Fetch sessions from the API
+    // First, try to load from cache
+    const cachedSessions = localStorage.getItem(`sessions_${municipalityId}`);
+    if (cachedSessions) {
+        setSessions(JSON.parse(cachedSessions));
+        setLoading(false); // show immediately from cache
+    }
+
+    // Fetch sessions from the API and update cache
     const fetchSessions = async () => {
-        setLoading(true); // Start loading
-
-
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/sessions`, {
                 method: 'GET',
@@ -92,26 +96,27 @@ function Sessions() {
             }
 
             const data = await response.json();
-           
+
+            // Update state and cache
             setSessions(data);
+            localStorage.setItem(`sessions_${municipalityId}`, JSON.stringify(data));
         } catch (error) {
             console.error('Error fetching sessions:', error);
         } finally {
-            setLoading(false); // Stop loading
+            setLoading(false); // Stop loading spinner
         }
     };
 
     fetchSessions();
 
     const cleanupMobileMenu = initializeMobileMenu();
-
     sessionStorage.removeItem('scrollPosition');
-
 
     return () => {
         cleanupMobileMenu();
     };
 }, [municipalityId]);
+
 
 
     // Scroll to the session based on the URL hash
