@@ -134,3 +134,9 @@
         transform: scale(1);
     }
 }
+
+@media (max-width: 525px) {
+    .liv-modal-content{
+        width: 400px;
+    }
+}
