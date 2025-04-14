@@ -78,11 +78,13 @@ html {
 .topic-header-title-div{
     display: flex;
     flex-direction: column;
+    align-items: start;
 }
 
 .back-button-topic {
     background-color: white;
     padding: 5px 15px;
+    width: 100px;
     font-size: 14px;
     border: 1px solid #ddd;
     font-weight: bold;
@@ -92,6 +94,8 @@ html {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
+
+
 
 .back-button-topic:hover{
     background-color: #ddd;
@@ -260,6 +264,14 @@ html {
     .topic-item-body-detail .topic-item-body-detail-group {
         margin-right: 15px;
     }
+
+    .session-title {
+        font-size: 12px;
+    }
+
+    .topic-header{
+        padding: 0 20px
+    }
 }
 
 @media (max-width: 910px) {
@@ -391,6 +403,11 @@ html {
 
     .topic-item-body-detail-group-chunk {
         width: 125px;
+    }
+
+    .topic-header-title-div{
+        align-items: center;
+        justify-content: center;
     }
 }
 

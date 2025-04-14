@@ -22,6 +22,7 @@ function Topics() {
     const [openMenus, setOpenMenus] = useState({}); // Object to track open menus
     const menuRefs = useRef({});
     const [isLiveModalOpen, setIsLiveModalOpen] = useState(false);
+     const [sessionTitle, setSessionTitle] = useState('');
 
     const [onlineUsers, setOnlineUsers] = useState(0);
 
@@ -113,6 +114,18 @@ const handleClickOutside = useCallback(
         console.error('Error fetching topics:', error);
     }
 }, [id, token]);
+
+
+ useEffect(() => {
+        const cachedSessions = localStorage.getItem(`sessions_${municipalityId}`);
+        if (cachedSessions) {
+            const sessions = JSON.parse(cachedSessions);
+            const session = sessions.find(s => s.id === parseInt(id));
+            if (session) {
+                setSessionTitle(session.name);
+            }
+        }
+    }, [municipalityId, id]);
 
 
     const fetchUserVotes = useCallback(async () => {
@@ -445,6 +458,9 @@ const handlePresentClick = async (topicId) => {
                                 <FontAwesomeIcon icon={faChevronLeft} /> Назад
                             </button>
                             <h1 className="topic-header-title">Точки</h1>
+                             <div>
+                                 {sessionTitle && <h6 className='session-title'>{sessionTitle}</h6>}
+                            </div>
                         </div>
                         <div className="session-button-container">
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
