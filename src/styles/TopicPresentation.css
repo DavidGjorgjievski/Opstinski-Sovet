@@ -22,15 +22,17 @@
 
 .back-button-presenter {
     padding: 5px 15px;
-    background-color: #007bff;
-    color: white;
+    background-color: #fbe64e;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .back-button-presenter:hover {
-    background-color: #0056b3;
+    background-color: #f7db2c;
+    transform: scale(1.03);
 }
 
 .presented-topic-header{
@@ -55,7 +57,7 @@
 
 .presented-number{
     font-size: 100px;
-    border: 1px solid black;
+    border: 3px solid;
     padding: 40px;
     border-radius: 5%;
 }
@@ -66,31 +68,32 @@
 }
 
 .yes {
-    background-color: #04AA6D;
+    background-color: #348469 !important;
+    border-color: #206b52;
 }
 
 .no {
-    background-color: #ff1427;
+    background-color: #a63b3e !important;
+    border-color: #782324;
 }
 
 .abstained {
-    background-color: #ffe80a;
+    background-color: #929053 !important;
+    border-color: #6b6a3b;
 }
 
 .cant-vote {
-    background-color: #999999;
+    background-color: #999999 !important;
+    border-color: #6e6e6e;
 }
 
 .havent-vote {
-    background-color: #ffd699;
+    background-color: #7a9ac2 !important;
+    border-color: #4e6a8d;
 }
 
 .finished-topic {
-    background-color: rgba(87, 168, 203, 0.6);
-}
-
-.active-topic {
-    background-color: rgba(0, 255, 0, 0.4);
+    background-color: #cdcaca;
 }
 
 @media (max-width: 1440px) {

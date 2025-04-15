@@ -8,7 +8,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown, faPlus,faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Topics() {
@@ -479,11 +479,9 @@ const handlePresentClick = async (topicId) => {
                         .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
                             <span id={`topic-${topic.id}`} className="topic-span-id"></span>
-                           <div className={`topic-item ${ 
-                                topic.topicStatus === 'FINISHED' || 
-                                topic.topicStatus === 'WITHDRAWN' || 
-                                topic.topicStatus === 'INFORMATION' ? 'finished-topic' : ''} ${
-                                topic.topicStatus === 'ACTIVE' ? 'active-topic' : ''} topic-item-size`}>
+                          <div className={`topic-item 
+                            ${(topic.topicStatus === 'FINISHED' || topic.topicStatus === 'WITHDRAWN' || topic.topicStatus === 'INFORMATION') ? 'finished-topic' : ''} 
+                            topic-item-size`}>
                                 <div className="topic-header-div">
                                     <h3 className="text-center">
                                         {topic.pdfFileId ? (
@@ -543,154 +541,112 @@ const handlePresentClick = async (topicId) => {
                                             </ul>
                                         )}
                                         </div>
-
                                         )}
-                                        
-                                    </div>
-
-                    
+                                    </div>                    
                                 </div>
-
-
                                       
                                 <div className='topic-item-body'>
                                     {(topic.topicStatus === "ACTIVE" || topic.topicStatus === "FINISHED") && (
-                                    <div className="topic-item-body-detail">
+                                   <div
+                                        className={`topic-item-body-detail ${
+                                            topic.topicStatus === 'ACTIVE'
+                                            ? 'topic-item-body-detail-active'
+                                            : topic.topicStatus === 'FINISHED'
+                                            ? 'topic-item-body-detail-finish'
+                                            : ''
+                                        }`}
+                                        >
                                         <div className="topic-item-body-detail-group">
-                                           <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
-                                                <div>
+                                           <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
-                                                        <span className="text-for-rez">За:</span>
+                                                        <span className="text-for-rez">За</span>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                   <div className="rez-container">
-                                                        <span className="vote-numbers-yes">
-                                                            {topic.yes}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                 {canVote && topic.topicStatus === 'ACTIVE' && (
-                                                    <div className="rez-container">
-                                                        <button
-                                                            onClick={() => handleVote(topic.id, 'YES')}
-                                                            disabled={currentVotes[topic.id] === 'YES'}
-                                                            className="btn btn-sm btn-success yes topic-button"
-                                                        >
-                                                            За
-                                                        </button>
-                                                    </div>
-                                                )}
+                                                  <div
+                                                    onClick={canVote ? () => handleVote(topic.id, 'YES') : undefined}
+                                                    className={`topic-button-vote vote-yes 
+                                                        ${currentVotes[topic.id] === 'YES' ? 'active-vote' : ''} 
+                                                        ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'YES' ? 'vote-scale' : ''} 
+                                                        ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
+                                                        ${topic.topicStatus === 'FINISHED' ? 'vote-yes-finished' : ''}`}
+                                                    >
+                                                    {topic.yes}
+                                                  </div>
                                             </div>
-                                           <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
-                                                <div>
+                                           <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
                                                         <span className="text-for-rez">
-                                                             Против:
+                                                             Против
                                                         </span>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <div className="rez-container">
-                                                        <span className="vote-numbers-no">
-                                                            {topic.no}
-                                                        </span>
+                                                  <div
+                                                    onClick={canVote ? () => handleVote(topic.id, 'NO') : undefined}
+                                                    className={`topic-button-vote vote-no 
+                                                        ${currentVotes[topic.id] === 'NO' ? 'active-vote' : ''}
+                                                        ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'NO' ? 'vote-scale' : ''} 
+                                                        ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
+                                                        ${topic.topicStatus === 'FINISHED' ? 'vote-no-finished' : ''}`}
+                                                    >
+                                                    {topic.no}
                                                     </div>
-                                                </div>
-                                                  {canVote && topic.topicStatus === 'ACTIVE' && (
-                                                    <div className="rez-container">
-                                                        <button
-                                                            onClick={() => handleVote(topic.id, 'NO')}
-                                                            disabled={currentVotes[topic.id] === 'NO'}
-                                                            className="btn btn-sm btn-danger topic-button"
-                                                        >
-                                                            Против
-                                                        </button>
-                                                    </div>
-                                                )}
                                             </div>
-                                           
                                         </div>
                                         <div className="topic-item-body-detail-group">
-                         
-
-                                           <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
-                                                    <div>
-                                                        <div>
-                                                            <div className="rez-container">
-                                                               <span className="text-for-rez">
-                                                                    Воздржан:
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                           <div className="rez-container">
-                                                               <span className="vote-numbers-abstained">
-                                                                    {topic.abstained}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                         {canVote && topic.topicStatus === 'ACTIVE' && (
-                                                            <div className="rez-container">
-                                                                <button
-                                                                    onClick={() => handleVote(topic.id, 'ABSTAINED')}
-                                                                    disabled={currentVotes[topic.id] === 'ABSTAINED'}
-                                                                    className="btn btn-sm btn-warning topic-button"
-                                                                >
-                                                                    Воздржан
-                                                                </button>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-
-                                            <div className="topic-item-body-detail-group-chunk topic-item-body-detail-group-chunk-margin">
-                                                <div>
-                                                   <div className="rez-container">
-                                                       <span className="text-for-rez">
-                                                            Се иземува:
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="rez-container">
-                                                        <span className="vote-numbers-cant-vote">
-                                                            {topic.cantVote}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                {canVote && topic.topicStatus === 'ACTIVE' && (
-                                                    <div className="rez-container">
-                                                        <button
-                                                            onClick={() => handleVote(topic.id, 'CANNOT_VOTE')}
-                                                            disabled={currentVotes[topic.id] === 'CANNOT_VOTE'}
-                                                            className="btn btn-sm btn-secondary topic-button"
-                                                        >
-                                                            Се иземува
-                                                        </button>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                            <div>
-                                                <div>
-                                                   <div className="rez-container">
-                                                        <span className="text-for-rez">
-                                                            Не гласале:
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            <div>
-                                                <div className="rez-container">
-                                                   <span className="vote-numbers-havent-vote">
-                                                        {topic.haveNotVoted}
+                                           <div className="topic-item-body-detail-group-chunk">
+                                                 <div className="rez-container">
+                                                     <span className="text-for-rez">
+                                                        Воздржан
                                                     </span>
                                                 </div>
+                                              <div
+                                                onClick={canVote ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
+                                                className={`topic-button-vote vote-abstained 
+                                                    ${currentVotes[topic.id] === 'ABSTAINED' ? 'active-vote' : ''} 
+                                                    ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'ABSTAINED' ? 'vote-scale' : ''}
+                                                    ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
+                                                    ${topic.topicStatus === 'FINISHED' ? 'vote-abstained-finished' : ''}`}
+                                                >
+                                                {topic.abstained}
+                                                </div>
                                             </div>
-                                    </div>
+                                            <div className="topic-item-body-detail-group-chunk">
+                                                    <div className="rez-container">
+                                                        <span className="text-for-rez">Се иземува</span>
+                                                    </div>
+                                                 <div
+                                                onClick={canVote ? () => handleVote(topic.id, 'CANNOT_VOTE') : undefined}
+                                                className={`topic-button-vote vote-cantvote 
+                                                    ${currentVotes[topic.id] === 'CANNOT_VOTE' ? 'active-vote' : ''} 
+                                                    ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'CANNOT_VOTE' ? 'vote-scale' : ''}
+                                                    ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
+                                                    ${topic.topicStatus === 'FINISHED' ? 'vote-cantvote-finished' : ''}`}
+                                                >
+                                                {topic.cantVote}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="topic-item-body-detail-group">
+                                           <div className="topic-item-body-detail-group-chunk">
+                                                    <div className="rez-container">
+                                                        <span className="text-for-rez">
+                                                            Не гласале
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        className={`topic-button-vote vote-haventvote 
+                                                            ${topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : ''}`}
+                                                    >
+                                                        {topic.haveNotVoted}
+                                                    </div>
+                                                </div>
+                                            <div className="topic-item-body-detail-group-chunk">
+                                                <div className="rez-container">
+                                                    <span className="text-for-rez">Отсутен</span>
+                                                </div>
+                                                <div className="topic-button-vote vote-absent">0</div>
+                                            </div>
+                                        </div>
                                 </div>
-                            )}
+                             )}
 
                         <div>
                             {topic.topicStatus === "INFORMATION" && (
@@ -702,13 +658,13 @@ const handlePresentClick = async (topicId) => {
                         </div>
 
 
-                                        <div className="topic-item-body-detail">
-                                            <div className="topic-item-body-detail-group">
+                                        <div className="topic-item-body-detail-footer">
+                                            <div className="topic-item-body-detail-group-footer">
                                               {topic.topicStatus !== 'WITHDRAWN' && topic.topicStatus !== 'INFORMATION' && (
                                                     <div className="command-buttons">
                                                         <Link
                                                             to={`/municipalities/${municipalityId}/sessions/${id}/topics/details/${topic.id}`}
-                                                            className="btn btn-sm btn-primary topic-button"
+                                                            className="gold-button"
                                                             onClick={saveScrollPosition} // Use the function here
                                                         >   
                                                             {topic.topicStatus === "CREATED" ? "Детали" : "Детални резултати"}
@@ -723,9 +679,9 @@ const handlePresentClick = async (topicId) => {
                                                     <div className="command-buttons">
                                                         <button
                                                             onClick={() => startVoting(topic.id, token)}
-                                                            className="btn btn-sm btn-success topic-button"
+                                                            className="change-topic-status-button"
                                                         >
-                                                            Започни гласање
+                                                            Започни гласање <FontAwesomeIcon icon={faCirclePlay} />
                                                         </button>   
                                                     </div>
                                                 )}
@@ -733,9 +689,9 @@ const handlePresentClick = async (topicId) => {
                                                     <div className="command-buttons">
                                                         <button
                                                             onClick={() => finishVoting(topic.id, token)}
-                                                            className="btn btn-sm btn-info topic-button"
+                                                            className="change-topic-status-button"
                                                         >
-                                                            Заврши гласање
+                                                            Заврши гласање <FontAwesomeIcon icon={faCircleStop} />
                                                         </button>
                                                     </div>
                                                 )}
@@ -743,9 +699,9 @@ const handlePresentClick = async (topicId) => {
                                                     <div className="command-buttons">
                                                         <button
                                                             onClick={() => restartVoting(topic.id, token)}
-                                                            className="btn btn-sm btn-success topic-button"
+                                                            className="change-topic-status-button"
                                                         >
-                                                            Повторно гласање
+                                                            Повторно гласање <FontAwesomeIcon icon={faRotateLeft} />
                                                         </button>
                                                     </div>
                                                 )}

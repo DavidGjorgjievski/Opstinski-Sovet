@@ -50,6 +50,7 @@
 
 .municipality-nav-button:hover {
     background-color: #f7db2c;
+    transform: scale(1.03);
 }
 
 @media (max-width: 768px) {

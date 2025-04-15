@@ -19,7 +19,7 @@
 }
 
 .back-button {
-    background-color: #57a8cb;
+    background-color: #fbe64e;
     width: 140px;
     padding: 10px 20px;
     font-size: 16px;
@@ -27,11 +27,17 @@
     font-weight: bold;
     text-align: center;
     border-radius: 5px;
-    color: #fff;
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     margin-right: 50px;
 }
+
+.back-button:hover{
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
 
 .details-table td,
 .details-table th {
@@ -65,15 +71,15 @@
 }
 
 .yes {
-    background-color: #04AA6D !important;
-}
-
-.abstained {
-    background-color: #ffe80a !important;
+    background-color: #348469 !important;
 }
 
 .no {
-    background-color: #ff1427 !important;
+    background-color: #a63b3e !important;
+}
+
+.abstained {
+    background-color: #929053 !important;
 }
 
 .cant-vote {
@@ -81,7 +87,7 @@
 }
 
 .havent-vote {
-    background-color: #ffd699 !important;
+    background-color: #7a9ac2 !important;
 }
 
 .detailed-result-button-container {

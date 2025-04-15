@@ -66,6 +66,7 @@ html{
 
 .session-add-button:hover {
     background-color: #f7db2c;
+    transform: scale(1.03);
 }
 
 .session-body {
@@ -150,6 +151,10 @@ html{
     font-weight: 500;
 }
 
+.button-option-content:hover{
+    transform: scale(1.03);
+}
+
 .button-see-content {
     background-color: #fbe64e;
     padding: 8px 10px;
@@ -167,6 +172,7 @@ html{
 .button-see-content:hover {
     background-color: #f7db2c;
     border: 2px solid #f7db2c;
+    transform: scale(1.03);
 }
 
 .admin-dropdown-wrapper {

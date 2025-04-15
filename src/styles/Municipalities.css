@@ -55,6 +55,7 @@
 
 .municipality-add-button:hover {
     background-color: #f7db2c;
+    transform: scale(1.03);
 }
 
 .municipality-body {
@@ -106,6 +107,7 @@ button {
 .button-see-content:hover {
     background-color: #f7db2c;
     border: 2px solid #f7db2c;
+    transform: scale(1.03);
 }
 
 .button-option-content{
@@ -115,6 +117,10 @@ button {
     font-size: 14px;
     padding: 6px 8px;
     font-weight: 500;
+}
+
+.button-option-content:hover{
+    transform: scale(1.03);
 }
 
 .municipality-buttons>div {
