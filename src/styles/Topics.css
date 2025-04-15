@@ -382,6 +382,7 @@ html {
 .change-topic-status-button:hover {
     background-color: #f7f7f7;
     border-color: #ccc;
+    transform: scale(1.03);
 }
 
 @media (max-width: 1100px) {
