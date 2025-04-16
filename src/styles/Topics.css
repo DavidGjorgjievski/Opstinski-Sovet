@@ -143,13 +143,6 @@ html {
 
 }
 
-.topic-header-pdf{
-    cursor: pointer;
-}
-
-.topic-header-pdf:hover {
-    text-decoration: underline;
-}
 
 .session-button-container-user {
     width: 90px;
@@ -686,10 +679,37 @@ html {
 
 .topic-header-text{
     display: inline-block;
-        /* Make width effective */
-        width: 85%;
-        /* Set desired width */
-        text-align: center;
+    text-align: center;
+    width: 85%;
+    cursor: default;
+}
+
+.topic-header-pdf {
+    position: relative;
+    cursor: pointer !important;
+    color: black;
+    transition: color 0.3s ease;
+    width: 85%;
+    text-align: center;
+}
+
+.topic-header-pdf::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease;
+}
+
+.topic-header-pdf:hover {
+    color: black;
+}
+
+.topic-header-pdf:hover::after {
+    width: 100%;
 }
 
 .menu-container {
