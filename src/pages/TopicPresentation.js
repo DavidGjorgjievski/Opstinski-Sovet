@@ -123,12 +123,12 @@ const TopicPresentation = () => {
 
              {topic.topicStatus === "INFORMATION" && (
                 <div className="d-flex justify-content-center w-100">
-                  <h1 className="text-center fw-bold topic-status-info">[Информација]</h1>
+                  <h1 className="text-center fw-bold topic-status-info">Информација</h1>
                 </div>
               )}
               {topic.topicStatus === "WITHDRAWN" && (
                 <div className="d-flex justify-content-center w-100">
-                  <h1 className="text-center fw-bold topic-status-info">[Повлечена]</h1>
+                  <h1 className="text-center fw-bold topic-status-info">Повлечена</h1>
                 </div>
               )}
         </>

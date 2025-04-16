@@ -650,10 +650,10 @@ const handlePresentClick = async (topicId) => {
 
                         <div>
                             {topic.topicStatus === "INFORMATION" && (
-                                <h4>[Информација]</h4>
+                                <h4 className='topic-status-text'>Информација</h4>
                             )}
                             {topic.topicStatus === "WITHDRAWN" && (
-                                <h4>[Повлечена]</h4>
+                                <h4 className='topic-status-text'>Повлечена</h4>
                             )}
                         </div>
 
