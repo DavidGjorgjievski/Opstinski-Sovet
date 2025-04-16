@@ -1,8 +1,10 @@
 .topic-presentar-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 100vw;
+    height: 100vh;
 }
 
 .presenter-header {
@@ -35,24 +37,25 @@
     transform: scale(1.03);
 }
 
-.presented-topic-header{
-    width: 96vw;
-    margin: auto;
+.presented-topic-header {
+    text-align: center;
     font-weight: bolder;
-    margin-bottom: 20px;
     font-size: 50px;
+    margin-top: 50px;
+    padding: 10px;
 }
 
 .presented-topic-body{
     display: flex;
-    width: 96vw;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    margin: auto;
+    padding: 0px 10px;
+    margin-bottom: 0px;
 }
 
 .presented-topic-body-div{
-    width: 17vw;
+    width: 15vw;
 }
 
 .presented-number{
@@ -65,6 +68,7 @@
 .presented-text{
     font-size: 40px;
     margin-bottom: 0px;
+    color: black;
 }
 
 .yes {
@@ -92,6 +96,11 @@
     border-color: #4e6a8d;
 }
 
+.absent{
+    border-color: #e4e4e4;
+    background-color: white;
+}
+
 .finished-topic {
     background-color: #cdcaca;
 }
@@ -106,9 +115,23 @@
    }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1220px) {
+    .presented-topic-body-div {
+        width: 14vw;
+    }
+
     .presented-text {
-        font-size: 32px;
+        font-size: 29px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .presented-topic-body-div {
+        width: 14vw;
+    }
+
+    .presented-text {
+        font-size: 25px;
     }
 }
 
@@ -118,17 +141,27 @@
     }
 
     .presented-text {
-        font-size: 28px;
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 930px) {
+    .presented-number {
+        font-size: 60px;
+    }
+
+    .presented-text {
+        font-size: 23px;
     }
 }
 
 @media (max-width: 890px) {
     .presented-number {
-        font-size: 65px;
+        font-size: 50px;
     }
 
     .presented-text {
-        font-size: 26px;
+        font-size: 21.5px;
     }
 
     .presented-topic-header{
@@ -139,35 +172,7 @@
 
 @media (max-width: 828px) {
     .presented-number {
-        font-size: 60px;
-    }
-
-    .presented-text {
-        font-size: 24px;
-    }
-
-    .presented-topic-header {
-        font-size: 35px;
-    }
-}
-
-@media (max-width: 764px) {
-    .presented-number {
-        font-size: 50px;
-    }
-
-    .presented-text {
-        font-size: 22px;
-    }
-
-    .presented-topic-header {
-        font-size: 30px;
-    }
-}
-
-@media (max-width: 700px) {
-    .presented-number {
-        font-size: 40px;
+        font-size: 45px;
     }
 
     .presented-text {
@@ -175,13 +180,25 @@
     }
 
     .presented-topic-header {
-        font-size: 27px;
+        font-size: 35px;
     }
 }
 
-@media (max-width: 635px) {
+@media (max-width: 768px) {
+    .presented-topic-body {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        justify-items: center;
+    }
+
+    .presented-topic-body-div {
+        width: 17vw;
+    }
+
     .presented-number {
-        font-size: 45px;
+        font-size: 40px;
+        padding: 20px;
     }
 
     .presented-text {
@@ -189,7 +206,72 @@
     }
 
     .presented-topic-header {
-        font-size: 25px;
+        font-size: 27px;
+        margin-top: 60px;
+    }
+
+    .topic-status-info{
+        font-size: 1.5rem;
     }
 }
+
+@media (max-width: 600px) {
+   
+    .presented-text {
+        font-size: 15px;
+    }
+
+    .presented-number {
+        font-size: 30px;
+        padding: 20px;
+    }
+
+    .presented-topic-header {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .presented-text {
+        font-size: 13px;
+    }
+
+    .topic-status-info {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .presented-topic-body-div {
+        width: 22vw;
+    }
+
+    .presented-text {
+        font-size: 12px;
+    }
+
+    .presented-topic-header {
+        font-size: 20px;
+    }
+}
+
+
+@media (max-width: 350px) {
+
+    .presented-text {
+        font-size: 12px;
+    }
+
+    .presented-topic-header {
+        font-size: 20px;
+    }
+}
+
+
+
+
+
+
 

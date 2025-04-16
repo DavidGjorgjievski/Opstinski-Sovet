@@ -35,7 +35,6 @@ const TopicPresentation = () => {
       }
 
       const data = JSON.parse(text);
-      console.log("Fetched topic:", data);
       setTopic(data);
     } catch (error) {
       console.error("Error fetching topic:", error);
@@ -52,7 +51,14 @@ const TopicPresentation = () => {
   }, [fetchPresenterTopic]);
 
   return (
-    <div className="topic-presentar-container p-4">
+   <div className={`topic-presentar-container ${
+        topic &&
+        (topic.topicStatus === 'FINISHED' || 
+        topic.topicStatus === 'WITHDRAWN' || 
+        topic.topicStatus === 'INFORMATION')
+          ? 'finished-topic'
+          : ''
+      }`}>
       <HelmetProvider>
         <Helmet>
           <title>Презентација</title>
@@ -79,13 +85,7 @@ const TopicPresentation = () => {
         <h1 className="text-center">Нема презентирачка точка</h1>
       ) : (
         <>
-          <div className={`topic-presentar-container p-4 ${ 
-            topic.topicStatus === 'FINISHED' || 
-            topic.topicStatus === 'WITHDRAWN' || 
-            topic.topicStatus === 'INFORMATION' ? 'finished-topic' : ''} 
-          `}>
-            <h1 className="presented-topic-header">{topic.title}</h1>
-
+             <h1 className="presented-topic-header">{topic.title}</h1>
             <div className="presented-topic-body">
               {/* Conditionally render vote numbers only if topicStatus is not CREATED, INFORMATION, or WITHDRAWN */}
               {!(topic.topicStatus === 'CREATED' || topic.topicStatus === 'INFORMATION' || topic.topicStatus === 'WITHDRAWN') && (
@@ -110,22 +110,27 @@ const TopicPresentation = () => {
                     <p className="presented-text">Не гласале</p>
                     <h1 className="presented-number havent-vote">{topic.haveNotVoted}</h1>
                   </div>
+                   <div className="presented-topic-body-div">
+                    <p className="presented-text">Отсутен</p>
+                    <h1 className="presented-number absent">0</h1>
+                  </div>
                 </>
               )}
 
+            
+            </div>
               {/* Display the status for topics with CREATED, INFORMATION, or WITHDRAWN */}
+
              {topic.topicStatus === "INFORMATION" && (
                 <div className="d-flex justify-content-center w-100">
-                  <h2 className="text-center">[Информација]</h2>
+                  <h1 className="text-center fw-bold topic-status-info">[Информација]</h1>
                 </div>
               )}
               {topic.topicStatus === "WITHDRAWN" && (
                 <div className="d-flex justify-content-center w-100">
-                  <h2 className="text-center">[Повлечена]</h2>
+                  <h1 className="text-center fw-bold topic-status-info">[Повлечена]</h1>
                 </div>
               )}
-            </div>
-          </div>
         </>
       )}
     </div>
