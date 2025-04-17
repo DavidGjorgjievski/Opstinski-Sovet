@@ -33,6 +33,7 @@ function TopicDetails() {
                     throw new Error('Failed to fetch topic details');
                 }
                 const data = await response.json();
+                console.log(data);
                 setTopicDetails(data);
             } catch (error) {
                 console.error(error);
@@ -212,6 +213,32 @@ function TopicDetails() {
                                     </thead>
                                     <tbody>
                                         {topicDetails.haventVoteUsers.map((user, index) => (
+                                            <tr key={index}>
+                                                <td>
+                                                   <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+
+                                                </td>
+                                                <td>{user.name}</td>
+                                                <td>{user.surname}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                        {topicDetails.absentVoteUsers?.length > 0 && (
+                            <div>
+                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои се отсутни ({topicDetails.absentVoteUsers.length}):</h2>
+                                <table className="details-table">
+                                    <thead>
+                                        <tr>
+                                            <th className='absent'>Слика</th>
+                                            <th className='absent'>Име</th>
+                                            <th className='absent'>Презиме</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {topicDetails.absentVoteUsers.map((user, index) => (
                                             <tr key={index}>
                                                 <td>
                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
