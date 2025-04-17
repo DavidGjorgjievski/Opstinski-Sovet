@@ -448,7 +448,7 @@ const handlePresentClick = async (topicId) => {
                 </Helmet>
             </HelmetProvider>
             <HeadLinks />
-            <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} />
+            <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} fetchOnlineUsers={fetchOnlineUsers}/>
             <main className="topcis-container-body">
                 <div className='d-flex justify-content-center'>
                      <div className="topic-header">

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef  } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import '../styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faRightFromBracket, faBars   } from '@fortawesome/free-solid-svg-icons';
 
 
-function Header({ userInfo, fetchTopics = null, setIsFromLogo = null}) {// Accept userInfo as a prop
+function Header({ userInfo, fetchTopics = null, setIsFromLogo = null, fetchOnlineUsers=null }) {
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
     const profileRef = useRef(null);
@@ -26,13 +26,14 @@ useEffect(() => {
     }
     if (fetchTopics) {
       fetchTopics();
+      fetchOnlineUsers();
     } else {
       window.location.reload();
     }
   };
   logoImg.addEventListener('click', handleClick);
   return () => logoImg.removeEventListener('click', handleClick);
-}, [fetchTopics, setIsFromLogo]);
+}, [fetchTopics, setIsFromLogo, fetchOnlineUsers]);
 
 
  useEffect(() => {
