@@ -109,6 +109,7 @@ const handleClickOutside = useCallback(
         }
         
         const data = await response.json();
+        console.log(data)
         setTopics(data);
     } catch (error) {
         console.error('Error fetching topics:', error);
@@ -642,7 +643,7 @@ const handlePresentClick = async (topicId) => {
                                                 <div className="rez-container">
                                                     <span className="text-for-rez">Отсутен</span>
                                                 </div>
-                                                <div className="topic-button-vote vote-absent">0</div>
+                                                <div className="topic-button-vote vote-absent">{topic.absent}</div>
                                             </div>
                                         </div>
                                 </div>
