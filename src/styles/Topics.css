@@ -741,13 +741,30 @@ html {
     /* Space between number and arrow */
     cursor: pointer;
     /* Make the arrow clickable */
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
     /* Smooth transition for rotation */
 }
 
 .number {
     display: none;
-    /* Hide the number initially */
+    padding-left: 10px;
+}
+
+.number-content{
+    margin: 0;
+    color: black;
+}
+
+.number-content:hover {
+    transform: scale(1.06);
+}
+
+.number-content-span{
+    font-size: 1.7rem;
+}
+
+.div-bigger:hover{
+    transform: scale(1.03);
 }
 
 /* Show number when the class is toggled */

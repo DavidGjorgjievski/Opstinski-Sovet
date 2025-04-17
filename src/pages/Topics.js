@@ -8,7 +8,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowLeft, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft} from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Topics() {
@@ -728,13 +728,16 @@ const handlePresentClick = async (topicId) => {
 
 
 
-        <div className={`fixed-position-div ${showNumber ? 'show-number' : ''}`} >
+        <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`} >
             <div className="arrow" onClick={toggleVisibility}> 
-                <FontAwesomeIcon icon={faArrowLeft} />
+                <FontAwesomeIcon icon={faChevronLeft} />
             </div> 
             <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                {onlineUsers}
-                <img src="/images/live-icon.svg" alt="Custom Icon" className="live-icon" />
+                <p className='number-content'>
+                    <span className='number-content-span'>{onlineUsers}</span>
+                    <FontAwesomeIcon icon={faUsers} />
+                </p>
+               
             </div> 
         </div>
 
