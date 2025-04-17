@@ -112,7 +112,7 @@ const TopicPresentation = () => {
                   </div>
                    <div className="presented-topic-body-div">
                     <p className="presented-text">Отсутен</p>
-                    <h1 className="presented-number absent">0</h1>
+                    <h1 className="presented-number absent">{topic.absent}</h1>
                   </div>
                 </>
               )}
