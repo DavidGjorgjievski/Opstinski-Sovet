@@ -44,16 +44,6 @@
     padding: 0 15px;
 }
 
-.detailed-result-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 0 15px;
-    margin-right: 170px;
-}
-
 .profile-change-button {
     background-color: #57a8cb;
     padding: 10px 20px;

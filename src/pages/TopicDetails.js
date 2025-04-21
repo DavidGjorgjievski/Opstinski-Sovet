@@ -5,6 +5,10 @@ import HeadLinks from '../components/HeadLinks';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
 import { initializeMobileMenu } from '../components/mobileMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import Footer from '../components/Footer';
+
 
 
 function TopicDetails() {
@@ -75,16 +79,15 @@ function TopicDetails() {
             <HeadLinks />
             <Header userInfo={userData} />
             <main className='topic-details-body-container'>
+                 <div className='back-button-detailed-results-container'>
+                    <button onClick={handleBackButtonClick} className="back-button">
+                        <FontAwesomeIcon icon={faChevronLeft} /> Назад
+                    </button>
+                </div>
                 <div className="detailed-result-header">
-                    <div className="detailed-result-button-container">
-                        <button onClick={handleBackButtonClick} className="back-button">
-                            Назад
-                        </button>
-                    </div>
                     <h1 className="topic-header-title">Детални резултати</h1>
                 </div>
 
-                 
                 {loading ? ( 
                     <div className="loading-spinner">
                         <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt="Loading..." />
@@ -98,9 +101,8 @@ function TopicDetails() {
                                 <table className="details-table">
                                     <thead>
                                         <tr>
-                                            <th className="yes">Слика</th>
-                                            <th className="yes">Име</th>
-                                            <th className="yes">Презиме</th>
+                                            <th className="yes text-center">Слика</th>
+                                            <th className="yes text-center">Име и презиме</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -110,8 +112,7 @@ function TopicDetails() {
                                                     <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
 
                                                 </td>
-                                                <td>{user.name}</td>
-                                                <td>{user.surname}</td>
+                                                <td>{user.name} {user.surname}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -125,9 +126,8 @@ function TopicDetails() {
                                 <table className="details-table">
                                     <thead>
                                         <tr>
-                                            <th className="no">Слика</th>
-                                            <th className="no">Име</th>
-                                            <th className="no">Презиме</th>
+                                            <th className="no text-center">Слика</th>
+                                            <th className="no text-center">Име и презиме</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -137,8 +137,7 @@ function TopicDetails() {
                                                     <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
 
                                                 </td>
-                                                <td>{user.name}</td>
-                                                <td>{user.surname}</td>
+                                                <td>{user.name} {user.surname}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -152,9 +151,8 @@ function TopicDetails() {
                                 <table className="details-table">
                                     <thead>
                                         <tr>
-                                            <th className="abstained">Слика</th>
-                                            <th className="abstained">Име</th>
-                                            <th className="abstained">Презиме</th>
+                                            <th className="abstained text-center">Слика</th>
+                                            <th className="abstained text-center">Име и презиме</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -164,8 +162,7 @@ function TopicDetails() {
                                                     <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
 
                                                 </td>
-                                                <td>{user.name}</td>
-                                                <td>{user.surname}</td>
+                                                <td>{user.name} {user.surname}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -179,9 +176,8 @@ function TopicDetails() {
                                 <table className="details-table">
                                     <thead>
                                         <tr>
-                                            <th className="cant-vote">Слика</th>
-                                            <th className="cant-vote">Име</th>
-                                            <th className="cant-vote">Презиме</th>
+                                            <th className="cant-vote text-center">Слика</th>
+                                            <th className="cant-vote text-center">Име и презиме</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -191,8 +187,7 @@ function TopicDetails() {
                                                     <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
 
                                                 </td>
-                                                <td>{user.name}</td>
-                                                <td>{user.surname}</td>
+                                                <td>{user.name} {user.surname}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -206,9 +201,8 @@ function TopicDetails() {
                                 <table className="details-table">
                                     <thead>
                                         <tr>
-                                            <th className="havent-vote">Слика</th>
-                                            <th className="havent-vote">Име</th>
-                                            <th className="havent-vote">Презиме</th>
+                                            <th className="havent-vote text-center">Слика</th>
+                                            <th className="havent-vote text-center">Име и презиме</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -218,8 +212,7 @@ function TopicDetails() {
                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
 
                                                 </td>
-                                                <td>{user.name}</td>
-                                                <td>{user.surname}</td>
+                                                <td>{user.name} {user.surname}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -232,9 +225,8 @@ function TopicDetails() {
                                 <table className="details-table">
                                     <thead>
                                         <tr>
-                                            <th className='absent'>Слика</th>
-                                            <th className='absent'>Име</th>
-                                            <th className='absent'>Презиме</th>
+                                            <th className="absent text-center">Слика</th>
+                                            <th className="absent text-center">Име и презиме</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -244,8 +236,7 @@ function TopicDetails() {
                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
 
                                                 </td>
-                                                <td>{user.name}</td>
-                                                <td>{user.surname}</td>
+                                                <td>{user.name} {user.surname}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -256,6 +247,7 @@ function TopicDetails() {
                     )
                 )}
             </main>
+            {!loading && <Footer />}
         </div>
     );
 }
