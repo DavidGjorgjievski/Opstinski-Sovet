@@ -97,10 +97,18 @@ function TopicDetails() {
                         <>
                         
                       <div>
-        <h2 className="d-flex justify-content-center m-3 detailed-table-header">
-            Советници и нивното гласање:
-        </h2>
-        <table className="details-table">
+        <div className="vote-summary-container">
+        <div className="vote-summary-grid">
+            <span className="topic-detail-yes-sum">За: {topicDetails.yesUsers.length}</span>
+            <span className="topic-detail-no-sum">Против: {topicDetails.noUsers.length}</span>
+            <span className="topic-detail-abstained-sum">Воздржан: {topicDetails.abstainedUsers.length}</span>
+            <span className="topic-detail-cant-vote-sum">Се иземува: {topicDetails.cantVoteUsers.length}</span>
+            <span className="topic-detail-havent-vote-sum">Не гласал: {topicDetails.haventVoteUsers.length}</span>
+            <span className="topic-detail-absent-sum">Отсутен: {topicDetails.absentVoteUsers.length}</span>
+        </div>
+         </div>
+         <div  className="table-wrapper">
+             <table className="details-table">
             <thead>
                 <tr>
                     <th className="text-center details-table-th">Слика</th>
@@ -171,6 +179,8 @@ function TopicDetails() {
 
             </tbody>
         </table>
+         </div>
+       
     </div>
                     </>
                     )
