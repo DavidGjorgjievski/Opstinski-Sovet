@@ -17,6 +17,13 @@
     margin-top: 10px;
 }
 
+.detail-title{
+    width: 600px;
+    font-size: 19px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
 .detailed-result-header {
     display: flex;
     flex-direction: column;
@@ -224,6 +231,10 @@
     }
 
     .details-table {
+        width: 97vw;
+    }
+
+    .detail-title{
         width: 97vw;
     }
 
