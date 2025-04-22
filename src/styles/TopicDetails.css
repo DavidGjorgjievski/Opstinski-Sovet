@@ -59,6 +59,11 @@
     padding: 8px;
 }
 
+.details-table-th{
+    background-color: #f9fafb;
+    color: #6b7280 !important;
+}
+
 .details-table th:first-child,
 .details-table td:first-child {
     width: 20%;
@@ -84,24 +89,41 @@
     width: 70px;
 }
 
-.yes {
-    background-color: #348469 !important;
+.topic-detail-yes,
+.topic-detail-no,
+.topic-detail-abstained,
+.topic-detail-cant-vote,
+.topic-detail-havent-vote,
+.topic-detail-absent {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 10px;
 }
 
-.no {
-    background-color: #a63b3e !important;
+/* Individual background + text colors */
+.topic-detail-yes {
+    color: #348469;
+    background-color: rgba(52, 132, 105, 0.4);
 }
 
-.abstained {
-    background-color: #929053 !important;
+.topic-detail-no {
+    color: #a63b3e;
+    background-color: rgba(166, 59, 62, 0.4);
 }
 
-.cant-vote {
-    background-color: #999999 !important;
+.topic-detail-abstained {
+    color: #929053;
+    background-color: rgba(146, 144, 83, 0.4);
 }
 
-.havent-vote {
-    background-color: #7a9ac2 !important;
+.topic-detail-cant-vote {
+    color: #999999;
+    background-color: rgba(153, 153, 153, 0.4);
+}
+
+.topic-detail-havent-vote {
+    color: #7a9ac2;
+    background-color: rgba(122, 154, 194, 0.4);
 }
 
 @media (max-width: 900px) {
@@ -120,20 +142,21 @@
     }
 
     .details-table {
-        width: 70vw;
+        width: 97vw;
     }
+
     .back-button-detailed-results-container{
         display: none;
+    }
+
+    .details-table td{
+        padding: 0;
     }
 }
 
 @media (max-width: 625px) {
     .detailed-table-header {
         font-size: 24px;
-    }
-
-    .details-table {
-        width: 80vw;
     }
 }
 
@@ -144,28 +167,53 @@
 }
 
 @media (max-width: 480px) {
-    .details-table {
-        width: 400px;
-    }
-
     .detailed-table-header {
         font-size: 17px;
     }
 }
 
 @media (max-width: 420px) {
-    .details-table {
-        width: 350px;
-    }
-
     .detailed-table-header {
         font-size: 15px;
     }
 }
 
-@media (max-width: 380px) {
-    .details-table {
-        width: 300px;
+@media (max-width: 410px) {
+    .topic-detail-yes,
+    .topic-detail-no,
+    .topic-detail-abstained,
+    .topic-detail-cant-vote,
+    .topic-detail-havent-vote,
+    .topic-detail-absent{
+     font-size: 13px;
+   }
+
+   .details-image{
+    width: 60px;
+   }
+
+   .details-table tr td{
+    font-size: 13px;
+   }
+}
+
+@media (max-width: 340px) {
+
+    .topic-detail-yes,
+    .topic-detail-no,
+    .topic-detail-abstained,
+    .topic-detail-cant-vote,
+    .topic-detail-havent-vote,
+    .topic-detail-absent {
+        font-size: 12px;
+    }
+    
+    .details-image {
+        width: 55px;
+    }
+    
+    .details-table tr td {
+        font-size: 12px;
     }
 }
 

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faFilter} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 
@@ -95,154 +95,83 @@ function TopicDetails() {
                 ) : (
                     topicDetails && (
                         <>
-                        {topicDetails.yesUsers?.length > 0 && (
-                            <div>
-                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои гласале за ({topicDetails.yesUsers.length}):</h2>
-                                <table className="details-table">
-                                    <thead>
-                                        <tr>
-                                            <th className="yes text-center">Слика</th>
-                                            <th className="yes text-center">Име и презиме</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {topicDetails.yesUsers.map((user, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        
+                      <div>
+        <h2 className="d-flex justify-content-center m-3 detailed-table-header">
+            Советници и нивното гласање:
+        </h2>
+        <table className="details-table">
+            <thead>
+                <tr>
+                    <th className="text-center details-table-th">Слика</th>
+                    <th className="text-center details-table-th">Име и презиме</th>
+                    <th className="text-center details-table-th">Глас  <FontAwesomeIcon icon={faFilter} /></th>
+                </tr>
+            </thead>
+            <tbody>
+               {[...(topicDetails.yesUsers || [])].map((user, index) => (
+                    <tr key={`yes-${index}`}>
+                        <td>
+                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        </td>
+                        <td>{user.name} {user.surname}</td>
+                        <td><span className="topic-detail-yes">За</span></td>
+                    </tr>
+                ))}
 
-                                                </td>
-                                                <td>{user.name} {user.surname}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
+                {[...(topicDetails.noUsers || [])].map((user, index) => (
+                    <tr key={`no-${index}`}>
+                        <td>
+                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        </td>
+                        <td>{user.name} {user.surname}</td>
+                        <td><span className="topic-detail-no">Против</span></td>
+                    </tr>
+                ))}
 
-                        {topicDetails.noUsers?.length > 0 && (
-                            <div>
-                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои гласале против ({topicDetails.noUsers.length}):</h2>
-                                <table className="details-table">
-                                    <thead>
-                                        <tr>
-                                            <th className="no text-center">Слика</th>
-                                            <th className="no text-center">Име и презиме</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {topicDetails.noUsers.map((user, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                {[...(topicDetails.abstainedUsers || [])].map((user, index) => (
+                    <tr key={`abstained-${index}`}>
+                        <td>
+                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        </td>
+                        <td>{user.name} {user.surname}</td>
+                        <td><span className="topic-detail-abstained">Воздржан</span></td>
+                    </tr>
+                ))}
 
-                                                </td>
-                                                <td>{user.name} {user.surname}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
+                {[...(topicDetails.cantVoteUsers || [])].map((user, index) => (
+                    <tr key={`cantVote-${index}`}>
+                        <td>
+                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        </td>
+                        <td>{user.name} {user.surname}</td>
+                        <td><span className="topic-detail-cant-vote">Се иземува</span></td>
+                    </tr>
+                ))}
 
-                        {topicDetails.abstainedUsers?.length > 0 && (
-                            <div>
-                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои гласале воздржани ({topicDetails.abstainedUsers.length}):</h2>
-                                <table className="details-table">
-                                    <thead>
-                                        <tr>
-                                            <th className="abstained text-center">Слика</th>
-                                            <th className="abstained text-center">Име и презиме</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {topicDetails.abstainedUsers.map((user, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                {[...(topicDetails.haventVoteUsers || [])].map((user, index) => (
+                    <tr key={`notVoted-${index}`}>
+                        <td>
+                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        </td>
+                        <td>{user.name} {user.surname}</td>
+                        <td><span className="topic-detail-havent-vote">Не гласал</span></td>
+                    </tr>
+                ))}
 
-                                                </td>
-                                                <td>{user.name} {user.surname}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
+                {[...(topicDetails.absentVoteUsers || [])].map((user, index) => (
+                    <tr key={`absent-${index}`}>
+                        <td>
+                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                        </td>
+                        <td>{user.name} {user.surname}</td>
+                        <td><span className="topic-detail-absent">Отсутен</span></td>
+                    </tr>
+                ))}
 
-                        {topicDetails.cantVoteUsers?.length > 0 && (
-                            <div>
-                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои се иземуваат ({topicDetails.cantVoteUsers.length}):</h2>
-                                <table className="details-table">
-                                    <thead>
-                                        <tr>
-                                            <th className="cant-vote text-center">Слика</th>
-                                            <th className="cant-vote text-center">Име и презиме</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {topicDetails.cantVoteUsers.map((user, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-
-                                                </td>
-                                                <td>{user.name} {user.surname}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-
-                        {topicDetails.haventVoteUsers?.length > 0 && (
-                            <div>
-                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои не гласале ({topicDetails.haventVoteUsers.length}):</h2>
-                                <table className="details-table">
-                                    <thead>
-                                        <tr>
-                                            <th className="havent-vote text-center">Слика</th>
-                                            <th className="havent-vote text-center">Име и презиме</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {topicDetails.haventVoteUsers.map((user, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                   <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-
-                                                </td>
-                                                <td>{user.name} {user.surname}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                        {topicDetails.absentVoteUsers?.length > 0 && (
-                            <div>
-                                <h2 className="d-flex justify-content-center m-3 detailed-table-header">Советници кои се отсутни ({topicDetails.absentVoteUsers.length}):</h2>
-                                <table className="details-table">
-                                    <thead>
-                                        <tr>
-                                            <th className="absent text-center">Слика</th>
-                                            <th className="absent text-center">Име и презиме</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {topicDetails.absentVoteUsers.map((user, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                   <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-
-                                                </td>
-                                                <td>{user.name} {user.surname}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
+            </tbody>
+        </table>
+    </div>
                     </>
                     )
                 )}
