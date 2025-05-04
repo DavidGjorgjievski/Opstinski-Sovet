@@ -4,6 +4,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import '../styles/Topics.css';
 import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
+import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
 import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
@@ -25,6 +26,28 @@ function Topics() {
      const [sessionTitle, setSessionTitle] = useState('');
 
     const [onlineUsers, setOnlineUsers] = useState(0);
+
+    const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
+    const [restartTopicId, setRestartTopicId] = useState(null);
+    const [restartTopicTitle, setRestartTopicTitle] = useState('');
+
+   const openRestartModal = (topicId, topicTitle) => {
+    setRestartTopicId(topicId);
+    setRestartTopicTitle(topicTitle);
+    setIsRestartModalOpen(true);
+};
+
+    const closeRestartModal = () => {
+        setIsRestartModalOpen(false);
+        setRestartTopicId(null);
+    };
+
+    const handleRestartConfirm = () => {
+    if (restartTopicId) {
+        restartVoting(restartTopicId, token);
+    }
+    closeRestartModal();
+    };
 
   const toggleMenu = (id) => {
     setOpenMenus((prevMenus) => ({
@@ -696,10 +719,10 @@ const handlePresentClick = async (topicId) => {
                                                         </button>
                                                     </div>
                                                 )}
-                                                {topic.topicStatus === 'FINISHED' && (
+                                               {topic.topicStatus === 'FINISHED' && (
                                                     <div className="command-buttons">
                                                         <button
-                                                            onClick={() => restartVoting(topic.id, token)}
+                                                            onClick={() => openRestartModal(topic.id, topic.title)}
                                                             className="change-topic-status-button"
                                                         >
                                                             Повторно гласање <FontAwesomeIcon icon={faRotateLeft} />
@@ -747,6 +770,16 @@ const handlePresentClick = async (topicId) => {
                     onClose={closeModal}  
                     onConfirm={handleDelete}
                     topicTitle={selectedTopicTitle ? `${selectedTopicTitle}` : ''}
+                />
+            )}
+
+
+           {isRestartModalOpen && (
+                <RestartTopicStatusModal
+                    isOpen={isRestartModalOpen}
+                    onClose={closeRestartModal}
+                    topicTitle={restartTopicTitle}
+                    onConfirm={handleRestartConfirm}
                 />
             )}
 
