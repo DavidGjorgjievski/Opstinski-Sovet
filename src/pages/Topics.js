@@ -132,7 +132,6 @@ const handleClickOutside = useCallback(
         }
         
         const data = await response.json();
-        console.log(data)
         setTopics(data);
     } catch (error) {
         console.error('Error fetching topics:', error);
@@ -174,6 +173,7 @@ const handleClickOutside = useCallback(
                 votesMap[topicId] = voteStatus;
             });
 
+            console.log(userVotes)
             setCurrentVotes(votesMap);
         } catch (error) {
             console.error('Error fetching user votes:', error);
@@ -211,7 +211,6 @@ useEffect(() => {
         if (userInfo && userInfo.role) {
             setUserRole(userInfo.role);
         }
-
         fetchTopics();
         fetchUserVotes();
         const cleanupMobileMenu = initializeMobileMenu();
@@ -303,6 +302,11 @@ useEffect(() => {
             console.log('Voting started successfully');
             // You can refresh data or trigger other effects here if needed
             await fetchTopics();
+            setCurrentVotes((prevVotes) => ({
+            ...prevVotes,
+            [String(topicId)]: 'HAVE_NOT_VOTED' // Ensure topicId is treated as string
+        }));
+       
         } catch (error) {
             console.error('Error:', error);
         }
@@ -453,8 +457,6 @@ const handlePresentClick = async (topicId) => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data = await response.text(); // If the backend returns just "Success"
-        console.log(data); // Optional: Handle success response
     } catch (error) {
         console.error("Failed to present topic:", error);
         alert("Failed to present topic.");
@@ -655,8 +657,12 @@ const handlePresentClick = async (topicId) => {
                                                             Не гласале
                                                         </span>
                                                     </div>
-                                                    <div
+                                                   <div
+                                                        onClick={canVote ? () => handleVote(topic.id, 'HAVE_NOT_VOTED') : undefined}
                                                         className={`topic-button-vote vote-haventvote 
+                                                            ${currentVotes[topic.id] === 'HAVE_NOT_VOTED' ? 'active-vote' : ''} 
+                                                            ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'HAVE_NOT_VOTED' ? 'vote-scale' : ''} 
+                                                            ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''} 
                                                             ${topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : ''}`}
                                                     >
                                                         {topic.haveNotVoted}

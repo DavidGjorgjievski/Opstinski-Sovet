@@ -310,6 +310,17 @@ html {
     background-color: rgba(163, 182, 211, 0.5);
 }
 
+.vote-haventvote:hover {
+    border-color: #4e6a8d;
+    background-color: #7a9ac2;
+}
+
+.vote-haventvote.active-vote {
+    border-color: #4e6a8d;
+    background-color: #7a9ac2;
+    cursor: default;
+}
+
 .vote-haventvote-finished {
     border-color: #4e6a8d;
     background-color: #7a9ac2;
