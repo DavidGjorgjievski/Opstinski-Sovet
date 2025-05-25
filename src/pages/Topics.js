@@ -212,7 +212,9 @@ useEffect(() => {
             setUserRole(userInfo.role);
         }
         fetchTopics();
-        fetchUserVotes();
+        if (userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_PRESIDENT') {
+            fetchUserVotes();
+        }
         const cleanupMobileMenu = initializeMobileMenu();
         return () => cleanupMobileMenu();
     }, [token, userInfo, fetchTopics, id, fetchUserVotes]);
@@ -587,16 +589,22 @@ const handlePresentClick = async (topicId) => {
                                                     <div className="rez-container">
                                                         <span className="text-for-rez">За</span>
                                                     </div>
-                                                  <div
-                                                    onClick={canVote ? () => handleVote(topic.id, 'YES') : undefined}
-                                                    className={`topic-button-vote vote-yes 
-                                                        ${currentVotes[topic.id] === 'YES' ? 'active-vote' : ''} 
-                                                        ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'YES' ? 'vote-scale' : ''} 
-                                                        ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
-                                                        ${topic.topicStatus === 'FINISHED' ? 'vote-yes-finished' : ''}`}
+                                                    <div
+                                                        onClick={canVote ? () => handleVote(topic.id, 'YES') : undefined}
+                                                        className={[
+                                                            'topic-button-vote',
+                                                            'vote-yes',
+                                                            currentVotes[topic.id] === 'YES' ? 'active-vote' : '',
+                                                            topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'YES' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            topic.topicStatus === 'ACTIVE' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            topic.topicStatus === 'FINISHED' ? 'vote-yes-finished' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                        ].join(' ')}
                                                     >
-                                                    {topic.yes}
-                                                  </div>
+                                                        {topic.yes}
+                                                    </div>
                                             </div>
                                            <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
@@ -604,15 +612,21 @@ const handlePresentClick = async (topicId) => {
                                                              Против
                                                         </span>
                                                     </div>
-                                                  <div
-                                                    onClick={canVote ? () => handleVote(topic.id, 'NO') : undefined}
-                                                    className={`topic-button-vote vote-no 
-                                                        ${currentVotes[topic.id] === 'NO' ? 'active-vote' : ''}
-                                                        ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'NO' ? 'vote-scale' : ''} 
-                                                        ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
-                                                        ${topic.topicStatus === 'FINISHED' ? 'vote-no-finished' : ''}`}
-                                                    >
-                                                    {topic.no}
+                                                    <div
+                                                        onClick={canVote ? () => handleVote(topic.id, 'NO') : undefined}
+                                                        className={[
+                                                            'topic-button-vote',
+                                                            'vote-no',
+                                                            currentVotes[topic.id] === 'NO' ? 'active-vote' : '',
+                                                            topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'NO' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            topic.topicStatus === 'ACTIVE' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            topic.topicStatus === 'FINISHED' ? 'vote-no-finished' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                        ].join(' ')}
+                                                        >
+                                                        {topic.no}
                                                     </div>
                                             </div>
                                         </div>
@@ -623,31 +637,43 @@ const handlePresentClick = async (topicId) => {
                                                         Воздржан
                                                     </span>
                                                 </div>
-                                              <div
-                                                onClick={canVote ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
-                                                className={`topic-button-vote vote-abstained 
-                                                    ${currentVotes[topic.id] === 'ABSTAINED' ? 'active-vote' : ''} 
-                                                    ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'ABSTAINED' ? 'vote-scale' : ''}
-                                                    ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
-                                                    ${topic.topicStatus === 'FINISHED' ? 'vote-abstained-finished' : ''}`}
-                                                >
-                                                {topic.abstained}
+                                                <div
+                                                    onClick={canVote ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
+                                                    className={[
+                                                        'topic-button-vote',
+                                                        'vote-abstained',
+                                                        currentVotes[topic.id] === 'ABSTAINED' ? 'active-vote' : '',
+                                                        topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'ABSTAINED' &&
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                        topic.topicStatus === 'ACTIVE' &&
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                        topic.topicStatus === 'FINISHED' ? 'vote-abstained-finished' : '',
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                    ].join(' ')}
+                                                    >
+                                                    {topic.abstained}
                                                 </div>
                                             </div>
                                             <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
                                                         <span className="text-for-rez">Се иземува</span>
                                                     </div>
-                                                 <div
-                                                onClick={canVote ? () => handleVote(topic.id, 'CANNOT_VOTE') : undefined}
-                                                className={`topic-button-vote vote-cantvote 
-                                                    ${currentVotes[topic.id] === 'CANNOT_VOTE' ? 'active-vote' : ''} 
-                                                    ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'CANNOT_VOTE' ? 'vote-scale' : ''}
-                                                    ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''}
-                                                    ${topic.topicStatus === 'FINISHED' ? 'vote-cantvote-finished' : ''}`}
-                                                >
-                                                {topic.cantVote}
-                                                </div>
+                                                    <div
+                                                        onClick={canVote ? () => handleVote(topic.id, 'CANNOT_VOTE') : undefined}
+                                                        className={[
+                                                            'topic-button-vote',
+                                                            'vote-cantvote',
+                                                            currentVotes[topic.id] === 'CANNOT_VOTE' ? 'active-vote' : '',
+                                                            topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'CANNOT_VOTE' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            topic.topicStatus === 'ACTIVE' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            topic.topicStatus === 'FINISHED' ? 'vote-cantvote-finished' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                        ].join(' ')}
+                                                        >
+                                                        {topic.cantVote}
+                                                    </div>
                                             </div>
                                         </div>
                                         <div className="topic-item-body-detail-group">
@@ -657,14 +683,20 @@ const handlePresentClick = async (topicId) => {
                                                             Не гласале
                                                         </span>
                                                     </div>
-                                                   <div
+                                                    <div
                                                         onClick={canVote ? () => handleVote(topic.id, 'HAVE_NOT_VOTED') : undefined}
-                                                        className={`topic-button-vote vote-haventvote 
-                                                            ${currentVotes[topic.id] === 'HAVE_NOT_VOTED' ? 'active-vote' : ''} 
-                                                            ${topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'HAVE_NOT_VOTED' ? 'vote-scale' : ''} 
-                                                            ${topic.topicStatus === 'ACTIVE' ? 'vote-activated' : ''} 
-                                                            ${topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : ''}`}
-                                                    >
+                                                        className={[
+                                                            'topic-button-vote',
+                                                            'vote-haventvote',
+                                                            currentVotes[topic.id] === 'HAVE_NOT_VOTED' ? 'active-vote' : '',
+                                                            topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'HAVE_NOT_VOTED' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            topic.topicStatus === 'ACTIVE' &&
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                        ].join(' ')}
+                                                        >
                                                         {topic.haveNotVoted}
                                                     </div>
                                                 </div>

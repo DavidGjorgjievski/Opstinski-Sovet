@@ -217,12 +217,12 @@ html {
     font-weight: 500;
 }
 
-.vote-yes{
+.vote-yes {
     border-color: #68c0a2;
     background-color: rgba(104, 192, 162, 0.5);
 }
 
-.vote-yes:hover{
+.vote-hover-enabled.vote-yes:hover {
     border-color: #206b52;
     background-color: #348469;
 }
@@ -239,12 +239,12 @@ html {
     cursor: default;
 }
 
-.vote-no{
+.vote-no {
     border-color: #f29195;
     background-color: rgba(242, 145, 149, 0.5);
 }
 
-.vote-no:hover {
+.vote-hover-enabled.vote-no:hover {
     border-color: #782324;
     background-color: #a63b3e;
 }
@@ -266,7 +266,7 @@ html {
     background-color: rgba(183, 180, 114, 0.5);
 }
 
-.vote-abstained:hover {
+.vote-hover-enabled.vote-abstained:hover {
     border-color: #6b6a3b;
     background-color: #929053;
 }
@@ -288,7 +288,7 @@ html {
     background-color: rgba(197, 197, 197, 0.5);
 }
 
-.vote-cantvote:hover {
+.vote-hover-enabled.vote-cantvote:hover {
     border-color: #6e6e6e;
     background-color: #999999;
 }
@@ -310,7 +310,7 @@ html {
     background-color: rgba(163, 182, 211, 0.5);
 }
 
-.vote-haventvote:hover {
+.vote-hover-enabled.vote-haventvote:hover {
     border-color: #4e6a8d;
     background-color: #7a9ac2;
 }
