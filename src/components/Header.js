@@ -3,12 +3,27 @@ import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faRightFromBracket, faBars   } from '@fortawesome/free-solid-svg-icons';
+import { useParams  } from "react-router-dom";
 
 
 function Header({ userInfo, fetchTopics = null, setIsFromLogo = null, fetchOnlineUsers=null }) {
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
     const profileRef = useRef(null);
+    const { municipalityId } = useParams();
+    let municipalityImage = null;
+
+    if (municipalityId) {
+        const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
+        const municipality = municipalities.find(
+          (m) => m.id === Number(municipalityId)
+        );
+    
+        if (municipality) {
+          municipalityImage = municipality.logoImage;
+        }
+      }
+
 
     const toggleMobileMenu = () => {
         setMobileNavOpen(!isMobileNavOpen);
@@ -55,11 +70,15 @@ useEffect(() => {
             <nav>
                 <div className="d-flex flex-row">
                     <div>
-                       <img
-                            id="logo-img"
-                            src={`${process.env.PUBLIC_URL}/images/grb.png`}
-                            className="logo-img"
-                            alt="Logo"
+                    <img
+                        id="logo-img"
+                        src={
+                        municipalityImage
+                            ? `data:image/png;base64,${municipalityImage}`
+                            : `${process.env.PUBLIC_URL}/images/grb.png`
+                        }
+                        className="logo-img"
+                        alt="Logo"
                         />
                     </div>
 

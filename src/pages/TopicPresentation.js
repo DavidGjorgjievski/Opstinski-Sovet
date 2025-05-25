@@ -11,6 +11,19 @@ const TopicPresentation = () => {
   const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
 
+  let municipalityImage = null;
+  
+  if (municipalityId) {
+        const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
+        const municipality = municipalities.find(
+          (m) => m.id === Number(municipalityId)
+        );
+      
+        if (municipality) {
+          municipalityImage = municipality.logoImage;
+        }
+      }
+
   const fetchPresenterTopic = useCallback(async () => {
     try {
       const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`;
@@ -67,13 +80,17 @@ const TopicPresentation = () => {
       <HeadLinks />
 
       <div className="presenter-header">
-        <img
-          id="logo-img"
-          src={`${process.env.PUBLIC_URL}/images/grb.png`}
-          className="logo-img-presenter"
-          alt="Logo"
-          onClick={() => window.location.reload()} 
-        />
+      <img
+        id="logo-img"
+        src={
+          municipalityImage
+            ? `data:image/png;base64,${municipalityImage}`
+            : `${process.env.PUBLIC_URL}/images/grb.png`
+        }
+        className="logo-img-presenter"
+        alt="Logo"
+        onClick={() => window.location.reload()}
+      />
         <button 
           className="back-button-presenter"
           onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}
