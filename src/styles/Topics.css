@@ -634,7 +634,7 @@ html {
     margin: 0;
     padding: 0;
     margin-left: -120px;
-    z-index: 1111;
+    z-index: 800;
 }
 
 .menu-list li {
@@ -737,7 +737,7 @@ html {
     padding: 3px;
     border-radius: 5px;
     font-size: 24px;
-    z-index: 1000;
+    z-index: 900;
     cursor: pointer;
     display: flex;
     flex-direction: row;
