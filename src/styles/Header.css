@@ -78,7 +78,9 @@ nav {
     cursor: pointer;
 }
 
-
+.header-image:hover{
+    transform: scale(1.03);
+}
 
 .nav-item li a.active {
     color: black;
@@ -151,7 +153,12 @@ nav {
     cursor: pointer;
     margin-top: 5px;
     margin-left: 50px;
-    margin-bottom: 0px; }
+    margin-bottom: 0px; 
+}
+
+.logo-img:hover{
+    transform: scale(1.03);
+}
 
 .profile-dropdown {
     position: absolute;
@@ -180,7 +187,6 @@ nav {
 .profile-menu-wrapper {
     position: relative;
     display: inline-block;
-    /* so it wraps tightly around the image */
 }
 
 /* Media query for tablet and smaller devices */
