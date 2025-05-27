@@ -5,6 +5,10 @@ import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
 import { useNavigate } from 'react-router-dom';
 import { initializeMobileMenu } from '../components/mobileMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
+import Footer from '../components/Footer';
+
 
 function Profile() {
     const navigate = useNavigate();
@@ -28,7 +32,24 @@ function Profile() {
         };
     }, [navigate]);
 
-    const { username, name, surname, image } = userData;
+    const { username, name, surname, image, role } = userData;
+
+    const getRoleDisplay = (role) => {
+        switch (role) {
+            case "ROLE_USER":
+                return "Советник";
+            case "ROLE_PRESIDENT":
+                return "Претседател на совет";
+            case "ROLE_SPECTATOR":
+                return "Набљудувач";
+            case "ROLE_PRESENTER":
+                return "Презентер";
+            case "ROLE_ADMIN":
+                return "Админ";
+            default:
+                return "Непозната улога"; // or just return the raw role
+        }
+    };
 
     return (
         <div className="profile-container">
@@ -41,30 +62,51 @@ function Profile() {
             <Header userInfo={userData} /> 
             <main>
                 <div className="content-container">
-                    <div className="d-flex flex-column">
-                            <img src={`data:image/jpeg;base64,${image}`} className="profile-image" alt="Profile" />
-                        <a href="/profile/change-image-form">
-                            <button className="profile-change-button">Промени профилна</button>
-                        </a>
-                    </div>
+                        <div className="profile-image-wrapper">
+                            <img
+                            src={`data:image/jpeg;base64,${image}`}
+                            className="profile-image"
+                            alt="Profile"
+                            />
+                            <a href="/profile/change-image-form" className="change-image-link">
+                                <button className="camera-button">
+                                    <FontAwesomeIcon icon={faCamera} />
+                                </button>
+                            </a>
+                        </div>
 
-                    <div className="profile-details">
-                        <div className="d-flex flex-row">
-                            <p className="profile-text fw-bold custom-mr-10">Корисничко име:</p>
-                            <p className="profile-text">{username}</p>
+                    <div className="profile-details modern-card">
+                        <div className="detail-row">
+                            <span className="label">Корисничко име: </span>
+                            <span className="value">{username}</span>
                         </div>
-                        <div className="d-flex flex-row">
-                            <p className="profile-text fw-bold custom-mr-10">Име и презиме:</p>
-                            <p className="profile-text">{`${name} ${surname}`}</p> 
+                        <div className="detail-row">
+                            <span className="label">Име и презиме: </span>
+                            <span className="value">{`${name} ${surname}`}</span>
                         </div>
-                        <div>
+                        <div className="detail-row">
+                            <span className="label">Улога: </span>
+                            <span className="value">{getRoleDisplay(role)}</span>
+                        </div>
+                        <div className="detail-row">
+                            <span className="label">Општина: </span>
+                            <span className="value">
+                                {userData.municipalityName
+                                    ? userData.municipalityName.replace(/^Општина\s+/i, '')
+                                    : "Нема податоци"}
+                            </span>
+                        </div>
+                        <div className="change-password">
                             <a href="/profile/change-password-form">
-                                <button className="profile-change-button">Промени лозинка</button>
+                            <button className="modern-button">Промени лозинка <FontAwesomeIcon icon={faLock} /></button>
                             </a>
                         </div>
                     </div>
                 </div>
+
             </main>
+                {userData != null && <Footer />}
+
         </div>
     );
 }
