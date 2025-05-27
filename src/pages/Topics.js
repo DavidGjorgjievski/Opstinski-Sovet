@@ -60,6 +60,7 @@ function Topics() {
 
     const toggleVisibility = () => {
         setShowNumber(!showNumber); // Toggle the visibility
+        fetchOnlineUsers();
     };
 
 const handleClickOutside = useCallback(
@@ -787,8 +788,6 @@ const handlePresentClick = async (topicId) => {
             </main>
             {topics.length > 0 && <Footer />}
 
-
-
         <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`} >
             <div className="arrow" onClick={toggleVisibility}> 
                 <FontAwesomeIcon icon={faChevronLeft} />
@@ -798,7 +797,6 @@ const handlePresentClick = async (topicId) => {
                     <span className='number-content-span'>{onlineUsers}</span>
                     <FontAwesomeIcon icon={faUsers} />
                 </p>
-               
             </div> 
         </div>
 
