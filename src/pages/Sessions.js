@@ -7,7 +7,7 @@ import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp} from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Sessions() {
@@ -319,7 +319,14 @@ function formatMacedonianDate(dateString) {
                                         href={`/municipalities/${municipalityId}/sessions/${session.id}/${userInfo.role === 'ROLE_PRESENTER' ? 'topics-presentation' : 'topics'}`}
                                         className="button-see-content w-100"
                                     >
-                                        {userInfo.role === 'ROLE_PRESENTER' ? 'Презентирај' : 'Преглед'}
+                                       {userInfo.role === 'ROLE_PRESENTER' ? (
+                                        'Презентирај'
+                                        ) : (
+                                        <>
+                                            Преглед{' '}
+                                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                        </>
+                                        )}
                                     </a>
                                 </div>
 

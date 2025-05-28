@@ -6,7 +6,7 @@ import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Municipalities() {
@@ -189,7 +189,7 @@ function Municipalities() {
                                             <div className="d-flex align-items-center municipality-buttons">
                                                 <div className='me-2'>
                                                     <a href={`/municipalities/${municipality.id}/sessions`} className='button-see-content municipality-button-size'>
-                                                        Преглед
+                                                        Преглед <FontAwesomeIcon icon={faMagnifyingGlass} />
                                                     </a>
                                                 </div>
 
