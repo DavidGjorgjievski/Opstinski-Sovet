@@ -3,7 +3,7 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1200;
+    z-index: 12he00;
     background-color: white;
     height: 80px;
     border-bottom: 3px solid #e4e4e4;
@@ -43,7 +43,7 @@ nav {
     margin: 5px;
     color: #808080;
 }
-
+he
 .nav-item-mobile li {
     list-style-type: none;
     padding: 5px;
@@ -217,17 +217,11 @@ nav {
     }
 
     .header-image {
-        margin-top: 5px;
         margin-right: 5px !important;
-        width: 45px;
-        height: 45px;
     }
 
     .logo-img {
-        margin-top: 10px;
         margin-left: 0px;
-        width: 45px;
-        height: 45px;
     }
 
     .profile-menu-wrapper{
