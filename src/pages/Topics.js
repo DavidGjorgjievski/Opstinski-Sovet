@@ -9,7 +9,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers} from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Topics() {
@@ -174,7 +174,6 @@ const handleClickOutside = useCallback(
                 votesMap[topicId] = voteStatus;
             });
 
-            console.log(userVotes)
             setCurrentVotes(votesMap);
         } catch (error) {
             console.error('Error fetching user votes:', error);
@@ -730,7 +729,8 @@ const handlePresentClick = async (topicId) => {
                                                             className="gold-button"
                                                             onClick={saveScrollPosition} // Use the function here
                                                         >   
-                                                            {topic.topicStatus === "CREATED" ? "Детали" : "Детални резултати"}
+                                                            {topic.topicStatus === "CREATED" ? "Детали " : "Детални резултати "}
+                                                            <FontAwesomeIcon icon={faSquarePollVertical} />
                                                         </Link>
                                                     </div>
                                                 )}
