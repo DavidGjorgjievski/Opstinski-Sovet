@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import Footer from '../components/Footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const [userData, setUserData] = useState(() => {
@@ -54,7 +56,7 @@ function Home() {
                         </div>
                         <div className="d-flex justify-content-center">
                             <Link to="/municipalities">
-                                <button className="municipality-nav-button">Општини</button>
+                                <button className="municipality-nav-button">Општини <FontAwesomeIcon icon={faBuildingColumns} /></button>
                             </Link>
                         </div>
                     </div>
