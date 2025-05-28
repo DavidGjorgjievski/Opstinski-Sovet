@@ -43,7 +43,7 @@ nav {
     margin: 5px;
     color: #808080;
 }
-he
+
 .nav-item-mobile li {
     list-style-type: none;
     padding: 5px;
@@ -116,7 +116,7 @@ he
     display: none;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 20px;
     flex-direction: column;
     width: auto;
     padding: 10px;
@@ -189,21 +189,17 @@ he
     display: inline-block;
 }
 
-/* Media query for tablet and smaller devices */
 @media (max-width: 860px) {
     #desktop-nav {
         display: none;
-        /* Hide desktop nav on smaller screens */
     }
 
     #mobile-nav {
         display: none;
-        /* Ensure mobile nav is hidden by default */
     }
 
     .mobile-menu-toggle {
         display: flex;
-        /* Show hamburger icon on smaller screens */
     }
 
     .nav-item li {
