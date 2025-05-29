@@ -38,8 +38,6 @@ function TopicDetails() {
                     throw new Error('Failed to fetch topic details');
                 }
                 const data = await response.json();
-                console.log(data);
-
                 setTopicDetails(data);
                 const shouldShowVotes = data.status === 'ACTIVE' || data.status === 'FINISHED';
                 setShowVotes(shouldShowVotes);
