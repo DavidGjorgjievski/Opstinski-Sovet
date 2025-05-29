@@ -22,6 +22,7 @@ function TopicDetails() {
     const [topicDetails, setTopicDetails] = useState(null);
     const [loading, setLoading] = useState(true); // Add loading state
     const jwtToken = localStorage.getItem('jwtToken') || '';
+    const [showVotes, setShowVotes] = useState(null);
  useEffect(() => {
         const fetchTopicDetails = async () => {
             setLoading(true); // Show loading before fetching data
@@ -38,7 +39,10 @@ function TopicDetails() {
                 }
                 const data = await response.json();
                 console.log(data);
+
                 setTopicDetails(data);
+                const shouldShowVotes = data.status === 'ACTIVE' || data.status === 'FINISHED';
+                setShowVotes(shouldShowVotes);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -69,11 +73,16 @@ function TopicDetails() {
     navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`);
 };
 
+
     return (
         <div className="topic-details-container">
             <HelmetProvider>
                 <Helmet>
-                    <title>Детални резултати</title>
+                    <title>
+                        {topicDetails && (topicDetails.status === 'ACTIVE' || topicDetails.status === 'FINISHED')
+                        ? 'Детални резултати'
+                        : 'Детали'}
+                    </title>
                 </Helmet>
             </HelmetProvider>
             <HeadLinks />
@@ -85,7 +94,9 @@ function TopicDetails() {
                     </button>
                 </div>
                 <div className="detailed-result-header">
-                    <h1 className="topic-header-title">Детални резултати</h1>
+                    <h1 className="topic-header-title">
+                        {showVotes ? 'Детални резултати' : 'Детали'}
+                    </h1>
                 </div>
 
                 {loading ? ( 
@@ -99,89 +110,97 @@ function TopicDetails() {
                         <div>
                             <p className='detail-title'>{topicDetails.title}</p>
                         </div>
-        <div className="vote-summary-container">
-            <div className="vote-summary-grid">
-                <span className="topic-detail-yes-sum">За: {topicDetails.yesUsers.length}</span>
-                <span className="topic-detail-no-sum">Против: {topicDetails.noUsers.length}</span>
-                <span className="topic-detail-abstained-sum">Воздржан: {topicDetails.abstainedUsers.length}</span>
-                <span className="topic-detail-cant-vote-sum">Се иземува: {topicDetails.cantVoteUsers.length}</span>
-                <span className="topic-detail-havent-vote-sum">Не гласал: {topicDetails.haventVoteUsers.length}</span>
-                <span className="topic-detail-absent-sum">Отсутен: {topicDetails.absentVoteUsers.length}</span>
-            </div>
-         </div>
+                        {topicDetails && topicDetails.status === "CREATED" && (
+                            <div>
+                                <p><strong>Точката сеуште не е поставена на гласање</strong></p>
+                            </div>
+                        )}
+                        {showVotes && (
+                            <div className="vote-summary-container">
+                                <div className="vote-summary-grid">
+                                <span className="topic-detail-yes-sum">За: {topicDetails.yesUsers.length}</span>
+                                <span className="topic-detail-no-sum">Против: {topicDetails.noUsers.length}</span>
+                                <span className="topic-detail-abstained-sum">Воздржан: {topicDetails.abstainedUsers.length}</span>
+                                <span className="topic-detail-cant-vote-sum">Се иземува: {topicDetails.cantVoteUsers.length}</span>
+                                <span className="topic-detail-havent-vote-sum">Не гласал: {topicDetails.haventVoteUsers.length}</span>
+                                <span className="topic-detail-absent-sum">Отсутен: {topicDetails.absentVoteUsers.length}</span>
+                                </div>
+                            </div>
+                        )}
+        {showVotes && (
          <div  className="table-wrapper">
-             <table className="details-table">
-            <thead>
-                <tr>
-                    <th className="text-center details-table-th">Слика</th>
-                    <th className="text-center details-table-th">Име и презиме</th>
-                    <th className="text-center details-table-th">Глас  <FontAwesomeIcon icon={faFilter} /></th>
-                </tr>
-            </thead>
-            <tbody>
-               {[...(topicDetails.yesUsers || [])].map((user, index) => (
-                    <tr key={`yes-${index}`}>
-                        <td>
-                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-                        </td>
-                        <td>{user.name} {user.surname}</td>
-                        <td><span className="topic-detail-yes">За</span></td>
+            <table className="details-table">
+                <thead>
+                    <tr>
+                        <th className="text-center details-table-th">Слика</th>
+                        <th className="text-center details-table-th">Име и презиме</th>
+                        <th className="text-center details-table-th">Глас  <FontAwesomeIcon icon={faFilter} /></th>
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                {[...(topicDetails.yesUsers || [])].map((user, index) => (
+                        <tr key={`yes-${index}`}>
+                            <td>
+                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                            </td>
+                            <td>{user.name} {user.surname}</td>
+                            <td><span className="topic-detail-yes">За</span></td>
+                        </tr>
+                    ))}
 
-                {[...(topicDetails.noUsers || [])].map((user, index) => (
-                    <tr key={`no-${index}`}>
-                        <td>
-                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-                        </td>
-                        <td>{user.name} {user.surname}</td>
-                        <td><span className="topic-detail-no">Против</span></td>
-                    </tr>
-                ))}
+                    {[...(topicDetails.noUsers || [])].map((user, index) => (
+                        <tr key={`no-${index}`}>
+                            <td>
+                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                            </td>
+                            <td>{user.name} {user.surname}</td>
+                            <td><span className="topic-detail-no">Против</span></td>
+                        </tr>
+                    ))}
 
-                {[...(topicDetails.abstainedUsers || [])].map((user, index) => (
-                    <tr key={`abstained-${index}`}>
-                        <td>
-                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-                        </td>
-                        <td>{user.name} {user.surname}</td>
-                        <td><span className="topic-detail-abstained">Воздржан</span></td>
-                    </tr>
-                ))}
+                    {[...(topicDetails.abstainedUsers || [])].map((user, index) => (
+                        <tr key={`abstained-${index}`}>
+                            <td>
+                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                            </td>
+                            <td>{user.name} {user.surname}</td>
+                            <td><span className="topic-detail-abstained">Воздржан</span></td>
+                        </tr>
+                    ))}
 
-                {[...(topicDetails.cantVoteUsers || [])].map((user, index) => (
-                    <tr key={`cantVote-${index}`}>
-                        <td>
-                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-                        </td>
-                        <td>{user.name} {user.surname}</td>
-                        <td><span className="topic-detail-cant-vote">Се иземува</span></td>
-                    </tr>
-                ))}
+                    {[...(topicDetails.cantVoteUsers || [])].map((user, index) => (
+                        <tr key={`cantVote-${index}`}>
+                            <td>
+                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                            </td>
+                            <td>{user.name} {user.surname}</td>
+                            <td><span className="topic-detail-cant-vote">Се иземува</span></td>
+                        </tr>
+                    ))}
 
-                {[...(topicDetails.haventVoteUsers || [])].map((user, index) => (
-                    <tr key={`notVoted-${index}`}>
-                        <td>
-                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-                        </td>
-                        <td>{user.name} {user.surname}</td>
-                        <td><span className="topic-detail-havent-vote">Не гласал</span></td>
-                    </tr>
-                ))}
+                    {[...(topicDetails.haventVoteUsers || [])].map((user, index) => (
+                        <tr key={`notVoted-${index}`}>
+                            <td>
+                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                            </td>
+                            <td>{user.name} {user.surname}</td>
+                            <td><span className="topic-detail-havent-vote">Не гласал</span></td>
+                        </tr>
+                    ))}
 
-                {[...(topicDetails.absentVoteUsers || [])].map((user, index) => (
-                    <tr key={`absent-${index}`}>
-                        <td>
-                            <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
-                        </td>
-                        <td>{user.name} {user.surname}</td>
-                        <td><span className="topic-detail-absent">Отсутен</span></td>
-                    </tr>
-                ))}
-
-            </tbody>
-        </table>
+                    {[...(topicDetails.absentVoteUsers || [])].map((user, index) => (
+                        <tr key={`absent-${index}`}>
+                            <td>
+                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                            </td>
+                            <td>{user.name} {user.surname}</td>
+                            <td><span className="topic-detail-absent">Отсутен</span></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
          </div>
+        )}
        
     </div>
                     </>
