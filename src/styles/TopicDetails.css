@@ -215,6 +215,21 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.button-pdf{
+    padding: 5px 15px;
+    background-color: #fbe64e;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.button-pdf:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
 @media (max-width: 900px) {
     .detailed-result-header {
         margin-right: 0px;

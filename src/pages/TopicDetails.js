@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faChevronLeft, faFilter} from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faFilter, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 
@@ -38,6 +38,7 @@ function TopicDetails() {
                     throw new Error('Failed to fetch topic details');
                 }
                 const data = await response.json();
+                console.log(data)
                 setTopicDetails(data);
                 const shouldShowVotes = data.status === 'ACTIVE' || data.status === 'FINISHED';
                 setShowVotes(shouldShowVotes);
@@ -61,6 +62,33 @@ function TopicDetails() {
       cleanupMobileMenu();
     };
   }, []);
+
+
+  const handlePdfFetch = async (pdfId) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/pdf/${pdfId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`,
+                'Accept': 'application/pdf',
+            },
+        });
+
+        if (response.ok) {
+            // Create a blob from the response
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            // Open the PDF in a new tab
+            window.open(url, '_blank');
+        } else {
+            console.error('PDF not found or could not be retrieved.');
+        }
+    } catch (error) {
+        console.error('Error fetching PDF:', error);
+    }
+};
+
+  
 
   const handleBackButtonClick = () => {
     // Remove the scroll position from sessionStorage
@@ -111,6 +139,13 @@ function TopicDetails() {
                         {topicDetails && topicDetails.status === "CREATED" && (
                             <div>
                                 <p><strong>Точката сеуште не е поставена на гласање</strong></p>
+                            </div>
+                        )}
+                        {topicDetails.pdfFileId != null && (
+                            <div>
+                                <button className='button-pdf' onClick={() => handlePdfFetch(topicDetails.pdfFileId)}>
+                                    Преглед на документ <FontAwesomeIcon icon={faFilePdf} />
+                                </button>
                             </div>
                         )}
                         {showVotes && (
