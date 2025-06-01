@@ -183,42 +183,53 @@ useEffect(() => {
     }
 }, [sessions]);
 
-       const handleExportClick = async (sessionId, sessionName) => {
-        setExportLoading(true); // Start loading spinner for export
+const handleExportClick = async (sessionId, sessionName) => {
+    setExportLoading(true);
 
-        try {
-            const token = localStorage.getItem('jwtToken');
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/export/${sessionId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/pdf'
-                }
-            });
+    const newTab = window.open('', '_blank');
+    if (!newTab) {
+        console.error('Popup blocked. Please allow popups for this site.');
+        setExportLoading(false);
+        return;
+    }
 
-            if (!response.ok) {
-                throw new Error('Failed to export session');
+    try {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/export/${sessionId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/pdf'
             }
+        });
 
-            const blob = await response.blob();
-
-            let filename = sessionName ? `${sessionName}.pdf` : 'session.pdf'; 
-            const url = window.URL.createObjectURL(blob);
-
-            const newTab = window.open(url, '_blank');
-            if (newTab) {
-                setTimeout(function () {
-                    newTab.document.title = filename;
-                }, 15);
-            } else {
-                console.error('Failed to open new tab. Please check your popup blocker settings.');
-            }
-        } catch (error) {
-            console.error('Error exporting session:', error);
-        } finally {
-            setExportLoading(false); // Stop loading spinner after export
+        if (!response.ok) {
+            throw new Error('Failed to export session');
         }
-    };  
+
+        const blob = await response.blob();
+        const pdfUrl = URL.createObjectURL(blob);
+        const filename = sessionName ? `${sessionName}.pdf` : 'session.pdf';
+
+        // Write minimal HTML to embed the PDF
+        newTab.document.write(`
+            <html>
+                <head><title>${filename}</title></head>
+                <body style="margin:0">
+                    <embed src="${pdfUrl}" type="application/pdf" width="100%" height="100%" />
+                </body>
+            </html>
+        `);
+        newTab.document.close();
+
+    } catch (error) {
+        console.error('Error exporting session:', error);
+        newTab.close(); // Close the tab if something goes wrong
+    } finally {
+        setExportLoading(false);
+    }
+};
+
 
 
   useEffect(() => {
