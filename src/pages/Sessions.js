@@ -186,20 +186,12 @@ useEffect(() => {
 const handleExportClick = async (sessionId, sessionName) => {
     setExportLoading(true);
 
-    const newTab = window.open('', '_blank');
-    if (!newTab) {
-        console.error('Popup blocked. Please allow popups for this site.');
-        setExportLoading(false);
-        return;
-    }
-
     try {
         const token = localStorage.getItem('jwtToken');
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/export/${sessionId}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/pdf'
+                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -208,23 +200,23 @@ const handleExportClick = async (sessionId, sessionName) => {
         }
 
         const blob = await response.blob();
-        const pdfUrl = URL.createObjectURL(blob);
-        const filename = sessionName ? `${sessionName}.pdf` : 'session.pdf';
+        const url = window.URL.createObjectURL(blob);
 
-        // Write minimal HTML to embed the PDF
-        newTab.document.write(`
-            <html>
-                <head><title>${filename}</title></head>
-                <body style="margin:0">
-                    <embed src="${pdfUrl}" type="application/pdf" width="100%" height="100%" />
-                </body>
-            </html>
-        `);
-        newTab.document.close();
+        const cleanFilename = sessionName
+            ? sessionName.replace(/[<>:"/\\|?*]+/g, '').replace(/\s+/g, '_') + '.pdf'
+            : `session_${sessionId}.pdf`;
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = cleanFilename;
+        document.body.appendChild(a);
+        a.click();
+
+        a.remove();
+        window.URL.revokeObjectURL(url);
 
     } catch (error) {
         console.error('Error exporting session:', error);
-        newTab.close(); // Close the tab if something goes wrong
     } finally {
         setExportLoading(false);
     }
