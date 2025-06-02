@@ -31,16 +31,17 @@ input {
     border-radius: 5px;
 }
 
-input[type="submit"] {
+.login-button {
     background-color: #e3d356;
     color: white;
     cursor: pointer;
     border-radius: 5px;
     border: none;
+    font-weight: bold;
 }
 
 
-input[type="submit"]:hover {
+.login-button:hover {
     background-color: rgb(233, 222, 99);
     transform: scale(1.03);
 }
@@ -48,4 +49,10 @@ input[type="submit"]:hover {
 .error-message {
     color: #d9534f;
     margin-bottom: 15px;
+}
+
+.login-logo{
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
 }

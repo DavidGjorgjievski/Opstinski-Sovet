@@ -97,7 +97,7 @@ function Login() {
                     }}
                     required
                 />
-                <input type="submit" value={loading ? "Ве молам, почекајте..." : "Најави се"} disabled={loading} /> 
+                <input type="submit" className='login-button' value={loading ? "Ве молам, почекајте..." : "Најави се"} disabled={loading} /> 
             </form>            
         </div>
     );
