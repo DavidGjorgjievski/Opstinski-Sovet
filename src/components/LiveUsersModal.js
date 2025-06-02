@@ -119,7 +119,7 @@ const makeUserOnline = async (username) => {
         </button>
 
         {/* Offline Users Table */}
-       <h3>
+       <h3 className="live-users-table-header">
         <FontAwesomeIcon icon={faCircle} className="red-dot" /> Офлајн корисници ({offlineUsers.length})
       </h3>
         <table className="liv-user-table">
@@ -160,7 +160,7 @@ const makeUserOnline = async (username) => {
         </table>
 
         {/* Online Users Table */}
-       <h3>
+       <h3 className="live-users-table-header">
         <FontAwesomeIcon icon={faCircle} className="green-dot" /> Онлајн корисници ({onlineUsers.length})
       </h3>
         <table className="liv-user-table">

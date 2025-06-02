@@ -79,7 +79,7 @@ html {
     display: inline-block;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 170px;
+    width: 175px;
 }
 
 .gold-button:hover {
@@ -378,7 +378,7 @@ html {
     align-items: center;
     justify-content: center;
     gap: 5px;
-    width: 170px;
+    width: 180px;
 }
 
 .change-topic-status-button:hover {

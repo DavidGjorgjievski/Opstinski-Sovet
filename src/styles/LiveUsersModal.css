@@ -16,22 +16,23 @@
 .liv-modal-content {
     background: white;
     width: 450px;
-    height: 600px;
+    height: 80vh;
     max-width: 90%;
     border-radius: 10px;
-    padding: 20px;
+    padding: 5px;
     position: relative;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     animation: liv-fadeIn 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    margin-top: 50px;
 }
 
 /* Close button */
 .liv-close-btn {
     position: absolute;
-    top: 10px;
+    top: 5px;
     right: 15px;
     background: none;
     border: none;
@@ -51,8 +52,8 @@
 .liv-user-table th,
 .liv-user-table td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 5px;
+    text-align: center;
 }
 
 .liv-user-table th {
@@ -135,8 +136,41 @@
     }
 }
 
-@media (max-width: 525px) {
+@media (max-width: 765px) {
     .liv-modal-content{
-        width: 400px;
+        width: 85vw;
+    }
+
+    .live-users-table-header{
+        font-size: 1.2rem;
+    }
+
+    .liv-close-btn {
+        top: 0px;
+    }
+
+    .liv-user-table th,
+    .liv-user-table td {
+        font-size: 0.9rem;
+        padding: 3px;
+    }
+
+    .liv-action-btn {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .live-users-table-header {
+        font-size: 1rem;
+    }
+    .liv-close-btn {
+        right: 5px;
+    }
+
+    .liv-user-table th,
+    .liv-user-table td {
+        font-size: 0.8rem;
     }
 }
