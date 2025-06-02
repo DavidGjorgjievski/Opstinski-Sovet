@@ -150,12 +150,12 @@ function TopicDetails() {
                         {showVotes && (
                             <div className="vote-summary-container">
                                 <div className="vote-summary-grid">
-                                <span className="topic-detail-yes-sum">За: {topicDetails.yesUsers.length}</span>
-                                <span className="topic-detail-no-sum">Против: {topicDetails.noUsers.length}</span>
-                                <span className="topic-detail-abstained-sum">Воздржан: {topicDetails.abstainedUsers.length}</span>
-                                <span className="topic-detail-cant-vote-sum">Се иземува: {topicDetails.cantVoteUsers.length}</span>
-                                <span className="topic-detail-havent-vote-sum">Не гласал: {topicDetails.haventVoteUsers.length}</span>
-                                <span className="topic-detail-absent-sum">Отсутен: {topicDetails.absentVoteUsers.length}</span>
+                                    <span className="topic-detail-yes-sum">За: {topicDetails.yesUsers.length}</span>
+                                    <span className="topic-detail-no-sum">Против: {topicDetails.noUsers.length}</span>
+                                    <span className="topic-detail-abstained-sum">Воздржан: {topicDetails.abstainedUsers.length}</span>
+                                    <span className="topic-detail-cant-vote-sum">Се иземува: {topicDetails.cantVoteUsers.length}</span>
+                                    <span className="topic-detail-havent-vote-sum">Не гласал: {topicDetails.haventVoteUsers.length}</span>
+                                    <span className="topic-detail-absent-sum">Отсутен: {topicDetails.absentVoteUsers.length}</span>
                                 </div>
                             </div>
                         )}

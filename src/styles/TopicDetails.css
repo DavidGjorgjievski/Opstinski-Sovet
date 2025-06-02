@@ -68,7 +68,7 @@
 }
 
 .vote-summary-grid span{
-    width: 150px;
+    width: 160px;
 }
 
 .vote-summary-grid {
@@ -165,7 +165,7 @@
 .topic-detail-absent-sum {
     border-radius: 10px;
     font-weight: bold;
-    padding: 5px 20px;
+    padding: 5px 15px;
 }
 
 .topic-detail-yes,
@@ -285,6 +285,19 @@
 
    .details-table tr td{
     font-size: 13px;
+   }
+
+   .vote-summary-grid span {
+       width: 150px;
+   }
+
+   .topic-detail-yes-sum,
+   .topic-detail-no-sum,
+   .topic-detail-abstained-sum,
+   .topic-detail-cant-vote-sum,
+   .topic-detail-havent-vote-sum,
+   .topic-detail-absent-sum {
+        font-size: 14px;
    }
 }
 
