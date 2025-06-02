@@ -139,6 +139,7 @@
 @media (max-width: 765px) {
     .liv-modal-content{
         width: 85vw;
+        height: 75vh;
     }
 
     .live-users-table-header{
