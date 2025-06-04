@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom'; 
 import '../styles/Login.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import HeadLinks from '../components/HeadLinks';
 
 function Login() {
     const { login, isAuthenticated } = useAuth();
@@ -11,8 +12,6 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false); 
-
-  
 
     useEffect(() => {
     const token = localStorage.getItem('jwtToken');
@@ -69,6 +68,7 @@ function Login() {
                     <title>Најава</title>
                 </Helmet>
             </HelmetProvider>
+            <HeadLinks />
             <div className="login-header">
                 <img src={`${process.env.PUBLIC_URL}/images/grb.png`} alt="Grb Gold" className="login-logo" />
             </div>

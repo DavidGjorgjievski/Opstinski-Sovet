@@ -22,12 +22,14 @@ import TopicDetails from './pages/TopicDetails';
 import Unauthorized from './pages/Unauthorized';
 import AddMunicipalityForm from './pages/AddMunicipalityForm';
 import TopicPresentation from './pages/TopicPresentation'
+import HeadLinks from './components/HeadLinks';
 
 function App() {
   return (
     <AuthProvider> 
       <HelmetProvider>
         <Router>
+          <HeadLinks />
           <div className="App">
             <Routes>
               {/* Public routes */}
