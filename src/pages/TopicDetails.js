@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
 import { initializeMobileMenu } from '../components/mobileMenu';
@@ -110,7 +109,6 @@ function TopicDetails() {
                     </title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userData} />
             <main className='topic-details-body-container'>
                  <div className='back-button-detailed-results-container'>

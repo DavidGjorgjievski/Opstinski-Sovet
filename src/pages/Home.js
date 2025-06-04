@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles/Home.css';
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import Footer from '../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -37,7 +36,6 @@ function Home() {
                     <title>Почетна</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userData} />
             <div className="main-content"> {/* Added div here */}
                 <main>

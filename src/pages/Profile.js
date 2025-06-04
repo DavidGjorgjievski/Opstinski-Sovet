@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import '../styles/Profile.css'; 
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import { useNavigate } from 'react-router-dom';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -58,7 +57,6 @@ function Profile() {
                     <title>Профил</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userData} /> 
             <main>
                 <div className="content-container">

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate
 import { Helmet, HelmetProvider } from 'react-helmet-async'; // Import Helmet
-import HeadLinks from '../components/HeadLinks'; // Import HeadLinks
 import Header from '../components/Header'; // Import Header
 import { initializeMobileMenu } from '../components/mobileMenu'; // Import mobile menu functionality
 import '../styles/AddSessionForm.css'; // Assuming you have some styles
@@ -110,7 +109,6 @@ function AddSessionForm() {
                 <Helmet>
                      <title>{id ? 'Уреди Седница' : 'Додади Седница'}</title>
                 </Helmet>
-                <HeadLinks /> 
                 <Header userInfo={userInfo} /> 
 
                 <div className="add-session-body-container container">

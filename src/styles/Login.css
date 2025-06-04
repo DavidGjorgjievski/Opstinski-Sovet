@@ -26,8 +26,8 @@ h1 {
 input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+    margin-bottom: 15px !important;
+    box-sizing: border-box; 
     border-radius: 5px;
 }
 

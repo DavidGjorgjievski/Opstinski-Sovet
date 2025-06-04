@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import '../styles/Municipalities.css'; 
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -146,7 +145,6 @@ function Municipalities() {
                     <title>Општини</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userInfo} />
             <main className="municipality-body-container">
                 <div className="municipality-header">

@@ -3,7 +3,6 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom'; 
 import '../styles/Login.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import HeadLinks from '../components/HeadLinks';
 
 function Login() {
     const { login, isAuthenticated } = useAuth();
@@ -68,11 +67,10 @@ function Login() {
                     <title>Најава</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <div className="login-header">
                 <img src={`${process.env.PUBLIC_URL}/images/grb.png`} alt="Grb Gold" className="login-logo" />
             </div>
-            <h1>Ве молиме најавете се:</h1>
+            <h2>Ве молиме најавете се:</h2>
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleLogin}>
                 <input

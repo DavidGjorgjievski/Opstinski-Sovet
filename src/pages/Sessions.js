@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import '../styles/Sessions.css'; 
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -279,7 +278,6 @@ function formatMacedonianDate(dateString) {
                     <title>Седници</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userInfo} /> 
             <main className="session-body-container">
                     <div className="session-header">

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import '../styles/ChangePassword.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 
 const ChangePassword = () => {
@@ -75,7 +74,6 @@ const ChangePassword = () => {
           <title>Промена на лозинка</title>
         </Helmet>
       </HelmetProvider>
-      <HeadLinks />
       <Header userInfo={userInfo} />
 
       <main>

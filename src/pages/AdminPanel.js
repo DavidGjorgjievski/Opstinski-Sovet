@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import '../styles/AdminPanel.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -95,7 +94,6 @@ function AdminPanel() {
                 <title>Админ Панел</title>
             </Helmet>
         </HelmetProvider>
-        <HeadLinks />
         <Header userInfo={userData} />
 
         <div className="admin-body d-flex flex-column">

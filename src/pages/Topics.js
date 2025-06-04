@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import '../styles/Topics.css';
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
 import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
@@ -474,7 +473,6 @@ const handlePresentClick = async (topicId) => {
                     <title>Точки</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} fetchOnlineUsers={fetchOnlineUsers}/>
             <main className="topcis-container-body">
                 <div className='d-flex justify-content-center'>

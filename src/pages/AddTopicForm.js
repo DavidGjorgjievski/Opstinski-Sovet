@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import HeadLinks from '../components/HeadLinks';
 import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import {
@@ -244,7 +243,6 @@ const AddTopicForm = () => {
                             : 'Додади точка'}
                     </title>
                 </Helmet>
-                <HeadLinks />
                 <Header userInfo={userInfo} />
 
                 <div className="add-session-body-container container">

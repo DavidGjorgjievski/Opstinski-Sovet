@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // Import useParams for route parameters
 import { Helmet, HelmetProvider } from 'react-helmet-async'; // Helmet for metadata
-import HeadLinks from '../components/HeadLinks';
 import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityForm.css';
@@ -120,7 +119,6 @@ function AddMunicipalityForm() {
                 <Helmet>
                     <title>{isEditMode ? 'Уреди Општина' : 'Додади Општина'}</title>
                 </Helmet>
-                <HeadLinks />
                 <Header userInfo={userInfo} />
 
                 <div className="add-municipality-body-container container">

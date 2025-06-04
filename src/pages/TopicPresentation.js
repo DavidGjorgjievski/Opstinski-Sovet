@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../styles/TopicPresentation.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import HeadLinks from '../components/HeadLinks';
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
@@ -77,7 +76,6 @@ const TopicPresentation = () => {
           <title>Презентација</title>
         </Helmet>
       </HelmetProvider>
-      <HeadLinks />
 
       <div className="presenter-header">
       <img
