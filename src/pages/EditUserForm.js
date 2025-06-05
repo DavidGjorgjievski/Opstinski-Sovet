@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import HeadLinks from '../components/HeadLinks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { initializeMobileMenu } from '../components/mobileMenu'; 
 import '../styles/AddUserForm.css';
@@ -200,7 +199,6 @@ useEffect(() => {
                     <title>Измени Корисник</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userData} />
 
             <div className="container mt-5 pb-5">

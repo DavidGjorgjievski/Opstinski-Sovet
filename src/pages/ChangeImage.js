@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import '../styles/ChangeImage.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import HeadLinks from '../components/HeadLinks';
 import { initializeMobileMenu } from '../components/mobileMenu';
 
 
@@ -110,7 +109,6 @@ const ChangeImage = () => {
                     <title>Промена на профилна</title>
                 </Helmet>
             </HelmetProvider>
-            <HeadLinks />
             <Header userInfo={userInfo} />
 
             <main>

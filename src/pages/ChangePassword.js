@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import '../styles/ChangePassword.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { initializeMobileMenu } from '../components/mobileMenu';
+import { useNavigate } from 'react-router-dom';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -12,6 +13,7 @@ const ChangePassword = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
   const [token] = useState(localStorage.getItem('jwtToken'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize mobile menu
@@ -22,6 +24,7 @@ const ChangePassword = () => {
       cleanupMobileMenu();
     };
   }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +79,7 @@ const ChangePassword = () => {
       </HelmetProvider>
       <Header userInfo={userInfo} />
 
-      <main>
+      <main className="change-password-body">
         <div className="password-change-header">
           <h1 className="password-change-title">Промена на лозинка</h1>
         </div>
@@ -122,8 +125,8 @@ const ChangePassword = () => {
             {successMessage && <p className="success-message">{successMessage}</p>}
 
             <div className='d-flex flex-row mt-2'>
-              <button type="submit" className="btn btn-primary me-2">Промени лозинка</button>
-              <a type="button" className="btn btn-danger" href='/profile'>Назад</a>
+              <button type="submit" className="button-change-password-submit me-2">Промени лозинка</button>
+              <button type="button" onClick={() => navigate('/profile')} className="button-change-password-cancel">Назад</button>
             </div>
           </form>
         </div>
