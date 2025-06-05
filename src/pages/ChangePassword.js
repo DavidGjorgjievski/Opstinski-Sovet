@@ -126,7 +126,7 @@ const ChangePassword = () => {
 
             <div className='d-flex flex-row mt-2'>
               <button type="submit" className="button-change-password-submit me-2">Промени лозинка</button>
-              <button type="button" onClick={() => navigate('/profile')} className="button-change-password-cancel">Назад</button>
+              <button type="button" onClick={() => navigate('/profile')} className="button-change-password-back">Назад</button>
             </div>
           </form>
         </div>

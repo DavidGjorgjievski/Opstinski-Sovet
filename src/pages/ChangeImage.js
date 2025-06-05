@@ -119,10 +119,10 @@ const ChangeImage = () => {
 
                     <div className="card-body">
                         <form onSubmit={handleSubmit} className="image-change-form">
-                            <div className="file-drop-area">
-                                <p className="file-drop-message">
+                            <div className="file-drop-area-image">
+                                <p className="file-drop-message-image">
                                     {file ? (
-                                    `Избрана датотека: ${fileName}` // Display the selected file name if a file is chosen
+                                    `Избрана датотека: ${fileName}` 
                                     ) : (
                                     <>Пуштете датотека тука или <span>кликнете за да изберете слика</span></>
                                     )}
@@ -135,8 +135,8 @@ const ChangeImage = () => {
                             {successMessage && <p className="success-message">{successMessage}</p>}
 
                             <div className="d-flex flex-row mt-2">
-                                <button type="submit" className="btn btn-primary me-2">Прикачи</button>
-                                <a type="button" className="btn btn-danger" href="/profile">Назад</a>
+                                <button type="submit" className="button-change-image-submit me-2">Прикачи</button>
+                                <a type="button" className="button-change-image-back" href="/profile">Назад</a>
                             </div>
                         </form>
                     </div>
