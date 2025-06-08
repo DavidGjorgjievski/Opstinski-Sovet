@@ -196,6 +196,7 @@ html {
 .topic-item-body-detail-group-chunk{
     width: 110px;
     margin-right: 20px;
+    border: 1px solid blue;
 }
 
 .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
@@ -361,6 +362,7 @@ html {
 .rez-container {
     margin-bottom: 8px;
     margin-right: 0px;
+    border: 1px solid red;
 }
 
 .text-for-rez {
