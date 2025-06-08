@@ -196,7 +196,6 @@ html {
 .topic-item-body-detail-group-chunk{
     width: 110px;
     margin-right: 20px;
-    border: 1px solid blue;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -366,7 +365,6 @@ html {
 .rez-container {
     margin-bottom: 8px;
     margin-right: 0px;
-    border: 1px solid red;
 }
 
 .text-for-rez {
