@@ -44,6 +44,10 @@ nav {
     color: #808080;
 }
 
+.nav-item li a:hover{
+    color: black;
+}
+
 .nav-item-mobile li {
     list-style-type: none;
     padding: 5px;
