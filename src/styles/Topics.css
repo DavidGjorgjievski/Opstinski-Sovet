@@ -196,7 +196,10 @@ html {
 .topic-item-body-detail-group-chunk{
     width: 110px;
     margin-right: 20px;
-    border: 1px solid blue;
+    border: 1px solid green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
