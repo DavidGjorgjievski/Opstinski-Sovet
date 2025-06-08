@@ -8,7 +8,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Topics() {
@@ -528,9 +528,7 @@ const handlePresentClick = async (topicId) => {
                                     {userInfo.role === "ROLE_PRESIDENT" && municipalityId === userInfo.municipalityId && (
                                        <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
                                         <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
+                                            <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
                                         </div>
                                         {openMenus[topic.id] && (
                                             <ul className="menu-list">
