@@ -4,6 +4,7 @@ import '../styles/ChangePassword.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -131,6 +132,7 @@ const ChangePassword = () => {
           </form>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
