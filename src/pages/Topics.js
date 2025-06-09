@@ -8,7 +8,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 
 function Topics() {
@@ -29,6 +29,12 @@ function Topics() {
     const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
+
+    const [isOn, setIsOn] = useState(false); // initial state is off
+
+    const handleToggle = () => {
+        setIsOn(!isOn);
+    }
 
    const openRestartModal = (topicId, topicTitle) => {
     setRestartTopicId(topicId);
@@ -784,17 +790,27 @@ const handlePresentClick = async (topicId) => {
             </main>
             {topics.length > 0 && <Footer />}
 
-        <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`} >
-            <div className="arrow" onClick={toggleVisibility}> 
-                <FontAwesomeIcon icon={faChevronLeft} />
-            </div> 
-            <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                <p className='number-content'>
-                    <span className='number-content-span'>{onlineUsers}</span>
-                    <FontAwesomeIcon icon={faUsers} />
-                </p>
-            </div> 
-        </div>
+            <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}>
+                <div className="arrow" onClick={toggleVisibility}>
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </div>
+
+                {/* ✅ Only show this part if showNumber is true */}
+                {showNumber && (
+                    <>
+                    <div onClick={handleToggle} className='toggle-topics'>
+                        <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
+                    </div>
+                    <div className="number" onClick={() => setIsLiveModalOpen(true)}>
+                        <p className='number-content'>
+                        <span className='number-content-span'>{onlineUsers}</span>
+                        <FontAwesomeIcon icon={faUsers} />
+                        </p>
+                    </div>
+                    </>
+                )}
+            </div>
+
 
           {isModalOpen && (
                 <TopicConfirmModal

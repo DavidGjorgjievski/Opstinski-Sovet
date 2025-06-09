@@ -526,6 +526,16 @@ html {
     align-items: center;
 }
 
+.toggle-topics{
+    font-size: 2rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.toggle-topics:hover{
+    transform: scale(1.03);
+}
+
 .arrow {
     font-size: 28px;
     /* Larger arrow size */
