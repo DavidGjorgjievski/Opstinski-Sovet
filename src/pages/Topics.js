@@ -13,6 +13,7 @@ import Footer from '../components/Footer';
 
 function Topics() {
     const [topics, setTopics] = useState([]);
+    const [presentedTopicId, setPresentedTopicId] = useState(null);
     const { id } = useParams();
     const { municipalityId } = useParams();
     const [userRole, setUserRole] = useState(null);
@@ -30,11 +31,16 @@ function Topics() {
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
 
-    const [isOn, setIsOn] = useState(false); // initial state is off
+    const [isOn, setIsOn] = useState(() => {
+        const saved = localStorage.getItem(`toggle_state_session_${id}`);
+        return saved === 'true'; // convert to boolean
+    });
 
     const handleToggle = () => {
-        setIsOn(!isOn);
-    }
+        const newValue = !isOn;
+        setIsOn(newValue);
+        localStorage.setItem(`toggle_state_session_${id}`, newValue);
+    };
 
    const openRestartModal = (topicId, topicTitle) => {
     setRestartTopicId(topicId);
@@ -121,29 +127,30 @@ const handleClickOutside = useCallback(
     // new IMPL
       const [currentVotes, setCurrentVotes] = useState({});
 
-   const fetchTopics = useCallback(async () => {
-    try {
-        const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
-
-        const response = await fetch(endpoint, {
+      const fetchTopics = useCallback(async () => {
+        try {
+          const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
+      
+          const response = await fetch(endpoint, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
             }
-        });
-
-        if (!response.ok) {
+          });
+      
+          if (!response.ok) {
             throw new Error('Network response was not ok');
+          }
+          
+          const data = await response.json();
+      
+          setTopics(data.topics); 
+          setPresentedTopicId(data.presentedTopicId); 
+        } catch (error) {
+          console.error('Error fetching topics:', error);
         }
-        
-        const data = await response.json();
-        setTopics(data);
-    } catch (error) {
-        console.error('Error fetching topics:', error);
-    }
-}, [id, token]);
-
+    }, [id, token]);
 
  useEffect(() => {
         const cachedSessions = localStorage.getItem(`sessions_${municipalityId}`);
@@ -506,9 +513,12 @@ const handlePresentClick = async (topicId) => {
                 
 
                 <div className="topic-body">
-                    {topics
-                     .sort((a, b) => a.order_id - b.order_id)
-                        .map(topic => (
+                    {(isOn
+                        ? topics.filter(topic => topic.id === presentedTopicId) // show only presented topic when toggle is on
+                        : topics
+                    )
+                    .sort((a, b) => a.order_id - b.order_id)
+                    .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
                             <span id={`topic-${topic.id}`} className="topic-span-id"></span>
                           <div className={`topic-item 
@@ -795,18 +805,23 @@ const handlePresentClick = async (topicId) => {
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </div>
 
-                {/* ✅ Only show this part if showNumber is true */}
                 {showNumber && (
                     <>
-                    <div onClick={handleToggle} className='toggle-topics'>
-                        <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
-                    </div>
-                    <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                        <p className='number-content'>
-                        <span className='number-content-span'>{onlineUsers}</span>
-                        <FontAwesomeIcon icon={faUsers} />
-                        </p>
-                    </div>
+                        <div className="tooltip-container">
+                            <div onClick={handleToggle} className='toggle-topics'>
+                                <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
+                            </div>
+                            <span className="tooltip-text">Лесен режим</span>
+                            </div>
+
+                            <div>
+                            <div className="number" onClick={() => setIsLiveModalOpen(true)}>
+                                <p className='number-content'>
+                                <span className='number-content-span'>{onlineUsers}</span>
+                                <FontAwesomeIcon icon={faUsers} />
+                                </p>
+                            </div>
+                        </div>
                     </>
                 )}
             </div>

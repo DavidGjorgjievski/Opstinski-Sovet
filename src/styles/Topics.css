@@ -582,6 +582,35 @@ html {
 
 }
 
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 5px 8px;
+    position: absolute;
+    top: 125%;
+    /* BELOW the element now */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
 @media (max-width: 1100px) {
     .topic-item-body {
         padding: 0px;
