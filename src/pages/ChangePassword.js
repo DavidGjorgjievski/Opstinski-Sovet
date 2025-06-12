@@ -17,15 +17,12 @@ const ChangePassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Initialize mobile menu
     const cleanupMobileMenu = initializeMobileMenu();
 
-    // Cleanup function to remove event listeners or any other cleanup actions
     return () => {
       cleanupMobileMenu();
     };
   }, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,7 +77,7 @@ const ChangePassword = () => {
       </HelmetProvider>
       <Header userInfo={userInfo} />
 
-      <main className="change-password-body">
+      {/* <main className="change-password-body">
         <div className="password-change-header">
           <h1 className="password-change-title">Промена на лозинка</h1>
         </div>
@@ -131,7 +128,7 @@ const ChangePassword = () => {
             </div>
           </form>
         </div>
-      </main>
+      </main> */}
       <Footer />
     </div>
   );
