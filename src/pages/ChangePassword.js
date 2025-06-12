@@ -77,7 +77,7 @@ const ChangePassword = () => {
       </HelmetProvider>
       <Header userInfo={userInfo} />
 
-      {/* <main className="change-password-body">
+      <main className="change-password-body">
         <div className="password-change-header">
           <h1 className="password-change-title">Промена на лозинка</h1>
         </div>
@@ -128,7 +128,7 @@ const ChangePassword = () => {
             </div>
           </form>
         </div>
-      </main> */}
+      </main>
       <Footer />
     </div>
   );
