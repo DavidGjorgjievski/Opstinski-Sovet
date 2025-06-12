@@ -4,7 +4,6 @@ import '../styles/ChangeImage.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { initializeMobileMenu } from '../components/mobileMenu';
 
-
 const ChangeImage = () => {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('Нема избрана слика');
