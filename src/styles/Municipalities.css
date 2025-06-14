@@ -27,15 +27,15 @@
     height: 250px;
     object-fit: contain;
     padding: 5px;
+    border-radius: 10px;
 }
 
 .municipality-header-title {
-    font-size: 5rem;
+    font-size: 4.5rem;
     color: black;
     font-weight: 500;
     margin-bottom: 0px;
 }
-
 
 .municipality-add-button {
     background-color: #fbe64e;
@@ -56,12 +56,70 @@
     transform: scale(1.03);
 }
 
-.municipality-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Base styles shared by all */
+.grid-container {
+    display: grid;
+    gap: 20px;
+    justify-items: center;
     margin-top: 10px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* Default columns for 4 or more items */
+.grid-container.size-4up {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+@media (min-width: 670px) {
+    .grid-container.size-4up {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1010px) {
+    .grid-container.size-4up {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1370px) {
+    .grid-container.size-4up {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* For exactly 3 items */
+.grid-container.size-3 {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+@media (min-width: 670px) {
+    .grid-container.size-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1010px) {
+    .grid-container.size-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* For exactly 2 items */
+.grid-container.size-2 {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+@media (min-width: 670px) {
+    .grid-container.size-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* For exactly 1 item */
+.grid-container.size-1 {
+    grid-template-columns: 1fr;
 }
 
 .municipality-item {
@@ -70,10 +128,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 320px;
     border: 2px solid #ddd;
-}
-
-.municipality-image {
-    border-radius: 10px;
 }
 
 .municipality-info {
@@ -175,7 +229,6 @@ button {
 }
 
 
-
 @media (max-width: 768px) {
     .municipality-header-title {
         font-size: 3rem;
@@ -188,6 +241,12 @@ button {
 
     .admin-dropdown {
         right: 6px;
+    }
+}
+
+@media (max-width: 400px) {
+    .municipality-item {
+        width: 95vw;
     }
 }
 
@@ -206,7 +265,6 @@ button {
     .first-municipality-button {
         margin-right: 10px;
     }
-
 }
 
 @media (max-width: 350px) {
@@ -216,10 +274,6 @@ button {
 }
 
 @media (max-width: 340px) {
-
-    .municipality-item{
-        width: 300px;
-    }
 
     .municipality-add-button {
         font-size: 12px;

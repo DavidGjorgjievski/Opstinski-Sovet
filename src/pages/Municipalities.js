@@ -158,7 +158,12 @@ function Municipalities() {
                     </div>
                 )}
 
-                <div className="municipality-body">
+                <div className={`grid-container ${
+                    municipalities.length >= 4 ? "size-4up" :
+                    municipalities.length === 3 ? "size-3" :
+                    municipalities.length === 2 ? "size-2" :
+                    municipalities.length === 1 ? "size-1" : "size-4up"
+                }`}>
                     {loading ? (
                         <div className="loading-spinner">
                             <img
@@ -180,7 +185,7 @@ function Municipalities() {
                                 />
                                 <div className="municipality-info">
                                     <div className="municipality-text">
-                                        <h2>{municipality.name}</h2>
+                                        <h3>{municipality.name}</h3>
                                     </div>
                                     <div>
                                         <div>
