@@ -17,11 +17,27 @@ html{
 
 .session-header {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    margin-top: 20px;
-    padding: 0 15px;
-    width:90vw;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    gap: 10px;
+    margin: 0 auto;
+    min-width: 500px;
+}
+
+.session-header-size1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 50vw;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    gap: 10px;
+    margin: 0 auto;
 }
 
 .id-selector-session{
@@ -69,12 +85,50 @@ html{
     transform: scale(1.03);
 }
 
-.session-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Base styles for session grid */
+.session-grid-container {
+    display: grid;
+    gap: 20px;
+    justify-items: center;
     margin-top: 10px;
+    width: 100%;
+    padding: 0 20px;
+    padding-bottom: 40px;
+}
+
+/* Default: auto-fit for flexibility */
+.session-grid-container.size-3 {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+/* 2 columns at medium screens */
+@media (min-width: 840px) {
+    .session-grid-container.size-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Max out at 3 columns */
+@media (min-width: 1260px) {
+    .session-grid-container.size-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* size-2 layout */
+.session-grid-container.size-2 {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media (min-width: 840px) {
+    .session-grid-container.size-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* size-1 layout */
+.session-grid-container.size-1 {
+    grid-template-columns: 1fr;
 }
 
 .session-item {
@@ -219,23 +273,36 @@ html{
     background-color: #f1f1f1;
 }
 
-@media (max-width: 768px) {
 
+@media (max-width: 1200px) {
+    .session-header-size1 { 
+        width: 70vw;
+    }
+}
+
+
+@media (max-width: 840px) {
     .session-header {
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin-top: 0px;
         width: 100%;
-     }
+    }
 
+    .session-header-div p {
+        width: 95%;   
+    }
+    
     .session-header-div {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
+}
 
+@media (max-width: 768px) {
     .session-header-div p{
         margin-bottom: 0px;
     }
@@ -259,11 +326,11 @@ html{
 
 @media (max-width: 425px) {
     .session-item{
-        width: 350px;
+        width: 95vw;
     }
 
     .session-image{
-        width: 300px;
+        width: 80vw;
     }
 
     .all-session-buttons {
@@ -276,14 +343,7 @@ html{
 }
 
 @media (max-width: 370px) {
-    .session-item {
-        width: 325px;
-    }
-    
-    .session-image {
-        width: 275px;
-    }
-
+   
     .session-add-button {
         font-size: 13px;
     }
@@ -299,10 +359,6 @@ html{
 }
 
 @media (max-width: 340px) {
-    .session-item {
-        width: 315px;
-    }
-
     .admin-dropdown {
         right: 3px !important;
     }
