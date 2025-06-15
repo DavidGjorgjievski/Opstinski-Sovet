@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import '../styles/Municipalities.css'; 
 import Header from '../components/Header';
@@ -14,7 +14,6 @@ function Municipalities() {
     const [showModal, setShowModal] = useState(false); // Modal visibility state
     const [selectedMunicipality, setSelectedMunicipality] = useState(null); // Selected municipality state
     const [openMenuId, setOpenMenuId] = useState(null); // Track which municipality's menu is open
-    const adminMenuRef = useRef(null);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -128,13 +127,15 @@ function Municipalities() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (adminMenuRef.current && !adminMenuRef.current.contains(event.target)) {
-                setOpenMenuId(null); // Close all menus when clicking outside
+            const clickedInsideDropdown = event.target.closest('.admin-dropdown-wrapper');
+            if (!clickedInsideDropdown) {
+                setOpenMenuId(null); // Close all dropdowns
             }
         };
-        document.addEventListener("mousedown", handleClickOutside);
+    
+        document.addEventListener('mousedown', handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
@@ -150,44 +151,47 @@ function Municipalities() {
                 <div className="municipality-header">
                     <p className="municipality-header-title">Општини</p>
                 </div>
+    
                 {userInfo.role === 'ROLE_ADMIN' && (
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
-                            <button className="municipality-add-button">Додади Општина <FontAwesomeIcon icon={faPlus} /></button>
+                            <button className="municipality-add-button">
+                                Додади Општина <FontAwesomeIcon icon={faPlus} />
+                            </button>
                         </a>
                     </div>
                 )}
-
-                <div className={`grid-container ${
-                    municipalities.length >= 4 ? "size-4up" :
-                    municipalities.length === 3 ? "size-3" :
-                    municipalities.length === 2 ? "size-2" :
-                    municipalities.length === 1 ? "size-1" : "size-4up"
-                }`}>
-                    {loading ? (
-                        <div className="loading-spinner">
-                            <img
-                                src={`${process.env.PUBLIC_URL}/images/loading.svg`}
-                                alt="Loading..."
-                            />
-                        </div>
-                    ) : municipalities.length > 0 ? (
-                        municipalities.map((municipality) => (
-                            <div key={municipality.id} className="municipality-item">
-                                <span
-                                    id={`municipality-${municipality.id}`}
-                                    className="id-selector-municipality"
-                                ></span>
-                                <img
-                                    src={`data:image/jpeg;base64,${municipality.logoImage}`}
-                                    alt="municipality"
-                                    className="municipality-image"
-                                />
-                                <div className="municipality-info">
-                                    <div className="municipality-text">
-                                        <h3>{municipality.name}</h3>
-                                    </div>
-                                    <div>
+    
+                {loading ? (
+                    <div className="loading-spinner">
+                        <img
+                            src={`${process.env.PUBLIC_URL}/images/loading.svg`}
+                            alt="Loading..."
+                        />
+                    </div>
+                ) : (
+                    <div className={`grid-container ${
+                        municipalities.length >= 4 ? "size-4up" :
+                        municipalities.length === 3 ? "size-3" :
+                        municipalities.length === 2 ? "size-2" :
+                        municipalities.length === 1 ? "size-1" : "size-4up"
+                    }`}>
+                        {municipalities.length > 0 ? (
+                            municipalities.map((municipality) => (
+                                <div key={municipality.id} className="municipality-item">
+                                    <span
+                                        id={`municipality-${municipality.id}`}
+                                        className="id-selector-municipality"
+                                    ></span>
+                                    <img
+                                        src={`data:image/jpeg;base64,${municipality.logoImage}`}
+                                        alt="municipality"
+                                        className="municipality-image"
+                                    />
+                                    <div className="municipality-info">
+                                        <div className="municipality-text">
+                                            <h3>{municipality.name}</h3>
+                                        </div>
                                         <div>
                                             <div className="d-flex align-items-center municipality-buttons">
                                                 <div className='me-2'>
@@ -195,9 +199,9 @@ function Municipalities() {
                                                         Преглед <FontAwesomeIcon icon={faMagnifyingGlass} />
                                                     </a>
                                                 </div>
-
+    
                                                 {userInfo.role === 'ROLE_ADMIN' && (
-                                                    <div className="admin-dropdown-wrapper" ref={adminMenuRef}>
+                                                    <div className="admin-dropdown-wrapper">
                                                         <button
                                                             className="button-option-content municipality-button-size"
                                                             onClick={() =>
@@ -228,26 +232,26 @@ function Municipalities() {
                                         </div>
                                     </div>
                                 </div>
+                            ))
+                        ) : (
+                            <div className="mt-3">
+                                <h4>Нема достапни општини</h4>
                             </div>
-                        ))
-                    ) : (
-                        <div className="mt-3">
-                            <h4>Нема достапни општини</h4>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
             </main>
-
+    
             <MunicipalityConfirmModal
                 show={showModal}
                 onClose={handleCloseModal}
                 onConfirm={handleConfirmDelete}
                 municipalityName={selectedMunicipality ? selectedMunicipality.name : ''}
             />
-
+    
             {!loading && <Footer />}
         </div>
-    );
+    );    
 }
 
 export default Municipalities;
