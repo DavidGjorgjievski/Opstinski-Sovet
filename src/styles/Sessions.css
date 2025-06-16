@@ -138,6 +138,9 @@ html{
     width: 400px;
     border: 2px solid #ddd;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .session-image {
@@ -160,11 +163,16 @@ html{
 
 .session-info {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow:1;
 }
 
 .all-session-buttons {
     display: flex;
     align-items: center;
+    margin-top: auto;
+    gap: 10px;
 }
 
 .export-button-div {
