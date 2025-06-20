@@ -55,6 +55,7 @@ function Login() {
     } catch (error) {
         console.error('Error:', error);
         setError('Невалидно корисничко име или лозинка.');
+        setPassword('');
     } finally {
         setLoading(false);
     }
