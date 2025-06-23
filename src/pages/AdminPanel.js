@@ -156,6 +156,13 @@ function AdminPanel() {
                                         onDeleteClick={handleDeleteClick}
                                         onEditClick={handleEditClick}
                                     />
+                                    <UserTable
+                                        users={users.filter(user => user.role === 'ROLE_GUEST')}
+                                        title="Гостини"
+                                        bgColor="light"
+                                        onDeleteClick={handleDeleteClick}
+                                        onEditClick={handleEditClick}
+                                    />
                                 </>
                             ) : (
                                 <p className="text-center mt-4">Нема достапни корисници.</p>

@@ -65,7 +65,7 @@ function AddUserForm() {
     const [passwordError, setPasswordError] = useState(false);
     const [fileName, setFileName] = useState('Нема избрана слика'); 
     const [fileSizeError, setFileSizeError] = useState(false);
-    const roles = ["ROLE_ADMIN", "ROLE_PRESIDENT", "ROLE_USER", "ROLE_SPECTATOR", "ROLE_PRESENTER"];
+    const roles = ["ROLE_ADMIN", "ROLE_PRESIDENT", "ROLE_USER", "ROLE_SPECTATOR", "ROLE_PRESENTER", "ROLE_GUEST"];
     const statuses = ["ACTIVE", "INACTIVE"];
 
     const [showPassword, setShowPassword] = useState(true);
