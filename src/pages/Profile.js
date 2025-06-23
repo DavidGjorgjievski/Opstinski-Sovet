@@ -45,8 +45,10 @@ function Profile() {
                 return "Презентер";
             case "ROLE_ADMIN":
                 return "Админ";
+            case "ROLE_GUEST":
+                return "Гостин"; 
             default:
-                return "Непозната улога"; // or just return the raw role
+                return "Непозната улога";
         }
     };
 
@@ -89,9 +91,10 @@ function Profile() {
                         <div className="detail-row">
                             <span className="label">Општина: </span>
                             <span className="value">
-                                {userData.municipalityName
-                                    ? userData.municipalityName.replace(/^Општина\s+/i, '')
-                                    : "Нема податоци"}
+                            {userData.municipalityName &&
+                            userData.municipalityName !== "Not Assigned"
+                                ? userData.municipalityName.replace(/^Општина\s+/i, '')
+                                : '/'}
                             </span>
                         </div>
                         <div className="change-password">

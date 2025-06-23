@@ -99,7 +99,18 @@ function Login() {
                 <input type="submit" className='login-button' value={loading ? "Ве молам, почекајте..." : "Најави се"} disabled={loading} /> 
             </form>       
                 <div>
-                    <button className='guest-button'>Најави се како гостин</button>
+                    <button
+                        className='guest-button'
+                        onClick={() => {
+                            setUsername('gostin.gostin');
+                            setPassword('gostin');
+                            setTimeout(() => {
+                                document.querySelector('form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                            }, 0);
+                        }}
+                    >
+                        Најави се како гостин
+                    </button>
                 </div>
         </div>
     );

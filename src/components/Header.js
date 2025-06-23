@@ -128,7 +128,11 @@ useEffect(() => {
                         {isProfileMenuOpen && (
                             <div className="profile-dropdown">
                             <p className="fw-bold">{userInfo.name} {userInfo.surname}</p>
-                            <Link to="/profile"> <FontAwesomeIcon icon={faGear} /> Поставки </Link>
+                            {userInfo.role !== 'ROLE_GUEST' && (
+                              <Link to="/profile">
+                                <FontAwesomeIcon icon={faGear} /> Поставки
+                              </Link>
+                            )}
                             <Link to="/logout"> <FontAwesomeIcon icon={faRightFromBracket} /> Одјави се</Link>
                             </div>
                         )}
