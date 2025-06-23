@@ -33,7 +33,7 @@ input {
 
 .login-button {
     background-color: #e3d356;
-    color: white;
+    color: black !important;
     cursor: pointer;
     border-radius: 5px;
     border: none;
@@ -55,4 +55,22 @@ input {
     width: 70px;
     height: 70px;
     object-fit: contain;
+}
+
+.guest-button{
+    background-color: white;
+    padding: 5px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.guest-button:hover{
+    background-color: #ddd;
+    transform: scale(1.03);
 }

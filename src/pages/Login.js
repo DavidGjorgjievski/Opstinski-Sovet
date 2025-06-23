@@ -97,7 +97,10 @@ function Login() {
                     required
                 />
                 <input type="submit" className='login-button' value={loading ? "Ве молам, почекајте..." : "Најави се"} disabled={loading} /> 
-            </form>            
+            </form>       
+                <div>
+                    <button className='guest-button'>Најави се како гостин</button>
+                </div>
         </div>
     );
 }
