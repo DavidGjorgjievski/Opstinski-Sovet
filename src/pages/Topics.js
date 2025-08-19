@@ -10,6 +10,8 @@ import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
+import useWebSocket from "../hooks/useWebSocket";
+
 
 function Topics() {
     const [topics, setTopics] = useState([]);
@@ -23,7 +25,7 @@ function Topics() {
     const [openMenus, setOpenMenus] = useState({}); // Object to track open menus
     const menuRefs = useRef({});
     const [isLiveModalOpen, setIsLiveModalOpen] = useState(false);
-     const [sessionTitle, setSessionTitle] = useState('');
+    const [sessionTitle, setSessionTitle] = useState('');
 
     const [onlineUsers, setOnlineUsers] = useState(0);
 
@@ -35,6 +37,11 @@ function Topics() {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
         return saved === 'true'; // convert to boolean
     });
+
+
+    const { messages, sendMessage } = useWebSocket(
+        `${process.env.REACT_APP_API_URL}/ws`
+    );
 
     const handleToggle = () => {
         const newValue = !isOn;
@@ -66,6 +73,8 @@ function Topics() {
       [id]: !prevMenus[id], // Toggle the specific menu's visibility
     }));
   };
+
+
 
    const [showNumber, setShowNumber] = useState(false); // State to control visibility of number
 
@@ -320,7 +329,8 @@ useEffect(() => {
             ...prevVotes,
             [String(topicId)]: 'HAVE_NOT_VOTED' // Ensure topicId is treated as string
         }));
-       
+
+        sendMessage(topicId);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -343,6 +353,7 @@ useEffect(() => {
             await fetchTopics();
             console.log('Voting finished successfully');
             // Trigger additional effects here if needed
+            sendMessage(topicId);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -372,6 +383,7 @@ useEffect(() => {
 
             // Trigger additional effects here if needed
             await fetchTopics();
+            sendMessage(topicId);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -402,6 +414,8 @@ const handleVote = async (topicId, voteType) => {
         }));
 
         await fetchTopics();
+
+        sendMessage(topicId);
     } catch (error) {
         console.error('Error:', error);
     }
@@ -477,8 +491,61 @@ const handlePresentClick = async (topicId) => {
     }
 };
 
- 
+//   
+const fetchTopicResults = useCallback(async (topicId) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/results/${topicId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
 
+        if (!response.ok) throw new Error('Failed to fetch topic results');
+
+        const updatedTopic = await response.json(); // { topicId, yes, no, abstained, status, ... }
+
+        console.log("Fetching results for topicId:", topicId, updatedTopic);
+
+        setTopics(prevTopics =>
+            prevTopics.map(topic =>
+                topic.id === topicId
+                    ? { 
+                        ...topic, 
+                        yes: updatedTopic.yes,
+                        no: updatedTopic.no,
+                        abstained: updatedTopic.abstained,
+                        cantVote: updatedTopic.cantVote,
+                        haveNotVoted: updatedTopic.havenotVoted,
+                        absent: updatedTopic.absent,
+                        topicStatus: updatedTopic.status 
+                    }
+                    : topic
+            )
+        );
+
+    } catch (error) {
+        console.error('Error fetching topic results:', error);
+    }
+}, [token]);
+
+
+
+// Effect to log updated topics after state changes
+useEffect(() => {
+    console.log("Updated topics array:", topics);
+}, [topics]);
+
+// WebSocket effect to call fetchTopicResults when a topicId message arrives
+useEffect(() => {
+  if (messages.length > 0) {
+    const changedTopicId = Number(messages[messages.length - 1]);
+    fetchTopicResults(changedTopicId);
+  }
+}, [messages, fetchTopicResults]);
+
+// 
     return (
         <div className="topics-container">
             <HelmetProvider>
@@ -796,7 +863,6 @@ const handlePresentClick = async (topicId) => {
                         )}
                     </div>
                 </div>
-
             </main>
             {topics.length > 0 && <Footer />}
 
