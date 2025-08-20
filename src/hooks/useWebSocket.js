@@ -1,54 +1,37 @@
-// src/hooks/useWebSocket.js
 import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 
-export default function useWebSocket() {
+export default function useWebSocket(sessionId, type = "vote") {
   const [messages, setMessages] = useState([]);
-  const [connected, setConnected] = useState(false);
   const stompClientRef = useRef(null);
-  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    // Connect using SockJS
-    const socket = new SockJS(`${API_URL}/ws`);
-    const stompClient = new Client({
+    const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
+    const client = new Client({
       webSocketFactory: () => socket,
-      debug: (str) => console.log(str),
+      reconnectDelay: 5000,
       onConnect: () => {
-        setConnected(true);
-        console.log("✅ Connected to WebSocket");
-
-        // subscribe to /topic/greetings (matches your Spring config)
-        stompClient.subscribe("/topic/votes", (msg) => {
-          setMessages((prev) => [...prev, msg.body]);
+        client.subscribe(`/topic/${type === "presenter" ? "presenters" : "sessions"}/${sessionId}`, (msg) => {
+          const topicId = Number(msg.body);
+          setMessages(prev => [...prev, topicId]);
         });
       },
-      onDisconnect: () => {
-        setConnected(false);
-        console.log("❌ Disconnected from WebSocket");
-      },
     });
+    client.activate();
+    stompClientRef.current = client;
 
-    stompClient.activate();
-    stompClientRef.current = stompClient;
+    return () => client.deactivate();
+  }, [sessionId, type]);
 
-    return () => {
-      stompClient.deactivate();
-    };
-  }, [API_URL]);
+  const send = (topicId) => {
+    if (stompClientRef.current && stompClientRef.current.connected) {
+      stompClientRef.current.publish({
+        destination: `/app/${type}/${sessionId}`,
+        body: `${topicId}`,
+      });
+    }
+  };
 
-const sendMessage = (topicId) => {
-  if (stompClientRef.current && stompClientRef.current.connected) {
-    stompClientRef.current.publish({
-      destination: "/app/vote",
-      body: topicId.toString(), // send the topicId
-    });
-  } else {
-    console.warn("STOMP client not connected yet");
-  }
-};
-
-
-  return { connected, messages, sendMessage };
+  return { messages, sendVote: type === "vote" ? send : undefined, sendPresenterUpdate: type === "presenter" ? send : undefined };
 }

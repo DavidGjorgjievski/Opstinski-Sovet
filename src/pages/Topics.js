@@ -13,6 +13,7 @@ import Footer from '../components/Footer';
 import useWebSocket from "../hooks/useWebSocket";
 
 
+
 function Topics() {
     const [topics, setTopics] = useState([]);
     const [presentedTopicId, setPresentedTopicId] = useState(null);
@@ -39,9 +40,7 @@ function Topics() {
     });
 
 
-    const { messages, sendMessage } = useWebSocket(
-        `${process.env.REACT_APP_API_URL}/ws`
-    );
+
 
     const handleToggle = () => {
         const newValue = !isOn;
@@ -330,7 +329,8 @@ useEffect(() => {
             [String(topicId)]: 'HAVE_NOT_VOTED' // Ensure topicId is treated as string
         }));
 
-        sendMessage(topicId);
+        sendVote(topicId);
+        sendPresenterUpdate(topicId);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -353,7 +353,8 @@ useEffect(() => {
             await fetchTopics();
             console.log('Voting finished successfully');
             // Trigger additional effects here if needed
-            sendMessage(topicId);
+            sendVote(topicId);
+            sendPresenterUpdate(topicId);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -383,7 +384,8 @@ useEffect(() => {
 
             // Trigger additional effects here if needed
             await fetchTopics();
-            sendMessage(topicId);
+            sendVote(topicId);
+            sendPresenterUpdate(topicId);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -415,7 +417,7 @@ const handleVote = async (topicId, voteType) => {
 
         await fetchTopics();
 
-        sendMessage(topicId);
+        sendVote(topicId);
     } catch (error) {
         console.error('Error:', error);
     }
@@ -469,7 +471,18 @@ useEffect(() => {
     }
 }, [topics]);
 
-// present topic
+const { messages, sendVote } = useWebSocket(id); // for voting
+const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); // for presenter updates
+
+useEffect(() => {
+    if (!presenterMessages.length) return;
+
+    const lastTopicId = Number(presenterMessages[presenterMessages.length - 1]);
+
+    // Optionally update local state if needed
+    setPresentedTopicId(lastTopicId); // just update locally
+}, [presenterMessages]);
+
 
 const handlePresentClick = async (topicId) => {
     try {
@@ -481,9 +494,10 @@ const handlePresentClick = async (topicId) => {
             },
         });
 
-        if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-        }
+        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+
+        // Notify all presenters via WebSocket — only the topic ID
+        sendPresenterUpdate(topicId);
 
     } catch (error) {
         console.error("Failed to present topic:", error);
@@ -491,51 +505,58 @@ const handlePresentClick = async (topicId) => {
     }
 };
 
+
+
 //   
 const fetchTopicResults = useCallback(async (topicId) => {
     try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/results/${topicId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/topics/results/${topicId}`,
+        {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-        if (!response.ok) throw new Error('Failed to fetch topic results');
+      if (!response.ok) throw new Error("Failed to fetch topic results");
 
-        const updatedTopic = await response.json(); // { topicId, yes, no, abstained, status, ... }
+      const updatedTopic = await response.json();
 
-        console.log("Fetching results for topicId:", topicId, updatedTopic);
-
-        setTopics(prevTopics =>
-            prevTopics.map(topic =>
-                topic.id === topicId
-                    ? { 
-                        ...topic, 
-                        yes: updatedTopic.yes,
-                        no: updatedTopic.no,
-                        abstained: updatedTopic.abstained,
-                        cantVote: updatedTopic.cantVote,
-                        haveNotVoted: updatedTopic.havenotVoted,
-                        absent: updatedTopic.absent,
-                        topicStatus: updatedTopic.status 
-                    }
-                    : topic
-            )
-        );
-
+      setTopics((prevTopics) =>
+        prevTopics.map((topic) =>
+          topic.id === topicId
+            ? {
+                ...topic,
+                yes: updatedTopic.yes,
+                no: updatedTopic.no,
+                abstained: updatedTopic.abstained,
+                cantVote: updatedTopic.cantVote,
+                haveNotVoted: updatedTopic.havenotVoted,
+                absent: updatedTopic.absent,
+                topicStatus: updatedTopic.status,
+              }
+            : topic
+        )
+      );
     } catch (error) {
-        console.error('Error fetching topic results:', error);
+      console.error("Error fetching topic results:", error);
     }
-}, [token]);
+  }, [token]);
+
+  // When WebSocket sends a topicId → fetch new results for that topic only
+  useEffect(() => {
+    if (messages.length > 0) {
+      const changedTopicId = Number(messages[messages.length - 1]);
+      fetchTopicResults(changedTopicId);
+    }
+  }, [messages, fetchTopicResults]);
+ 
 
 
 
-// Effect to log updated topics after state changes
-useEffect(() => {
-    console.log("Updated topics array:", topics);
-}, [topics]);
 
 // WebSocket effect to call fetchTopicResults when a topicId message arrives
 useEffect(() => {
@@ -544,6 +565,8 @@ useEffect(() => {
     fetchTopicResults(changedTopicId);
   }
 }, [messages, fetchTopicResults]);
+
+
 
 // 
     return (
@@ -669,7 +692,7 @@ useEffect(() => {
                                                         <span className="text-for-rez">За</span>
                                                     </div>
                                                     <div
-                                                        onClick={canVote ? () => handleVote(topic.id, 'YES') : undefined}
+                                                        onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'YES') : undefined}
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-yes',
@@ -692,7 +715,7 @@ useEffect(() => {
                                                         </span>
                                                     </div>
                                                     <div
-                                                        onClick={canVote ? () => handleVote(topic.id, 'NO') : undefined}
+                                                        onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'NO') : undefined}
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-no',
@@ -717,7 +740,7 @@ useEffect(() => {
                                                     </span>
                                                 </div>
                                                 <div
-                                                    onClick={canVote ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
+                                                    onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
                                                     className={[
                                                         'topic-button-vote',
                                                         'vote-abstained',
@@ -738,7 +761,7 @@ useEffect(() => {
                                                         <span className="text-for-rez">Се иземува</span>
                                                     </div>
                                                     <div
-                                                        onClick={canVote ? () => handleVote(topic.id, 'CANNOT_VOTE') : undefined}
+                                                        onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'CANNOT_VOTE') : undefined}
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-cantvote',
@@ -763,7 +786,7 @@ useEffect(() => {
                                                         </span>
                                                     </div>
                                                     <div
-                                                        onClick={canVote ? () => handleVote(topic.id, 'HAVE_NOT_VOTED') : undefined}
+                                                        onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'HAVE_NOT_VOTED') : undefined}
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-haventvote',
