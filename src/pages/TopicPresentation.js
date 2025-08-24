@@ -13,6 +13,8 @@ const TopicPresentation = () => {
 
   const { messages } = useWebSocket(id); // Voting updates (optional)
   const { messages: presenterMessages } = useWebSocket(id, "presenter"); // Presenter updates
+  const { messages: newTopicMessages } = useWebSocket(id, "newTopic"); // New topics updates
+
 
   let municipalityImage = null;
   if (municipalityId) {
@@ -75,6 +77,14 @@ useEffect(() => {
       fetchPresenterTopic();
     }
   }, [messages, fetchPresenterTopic, topic]);
+
+   useEffect(() => {
+    if (!newTopicMessages.length) return;
+
+    // A new topic was added — fetch the current presented topic
+    fetchPresenterTopic();
+  }, [newTopicMessages, fetchPresenterTopic]);
+
 
   return (
     <div className={`topic-presentar-container ${

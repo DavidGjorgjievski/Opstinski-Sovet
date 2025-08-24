@@ -12,8 +12,6 @@ import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChe
 import Footer from '../components/Footer';
 import useWebSocket from "../hooks/useWebSocket";
 
-
-
 function Topics() {
     const [topics, setTopics] = useState([]);
     const [presentedTopicId, setPresentedTopicId] = useState(null);
@@ -33,6 +31,11 @@ function Topics() {
     const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
+
+    // WEB SOCKETS
+    const { messages, sendVote } = useWebSocket(id); // for voting
+    const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); // for presenter updates
+    const { messages: newTopics } = useWebSocket(id, "newTopic");   
 
     const [isOn, setIsOn] = useState(() => {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
@@ -471,8 +474,7 @@ useEffect(() => {
     }
 }, []);
 
-const { messages, sendVote } = useWebSocket(id); // for voting
-const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); // for presenter updates
+
 
 useEffect(() => {
     if (!presenterMessages.length) return;
@@ -483,6 +485,13 @@ useEffect(() => {
     setPresentedTopicId(lastTopicId); // just update locally
 }, [presenterMessages]);
 
+
+    useEffect(() => {
+    if (newTopics.length > 0) {
+        // fetch new topics from API
+        fetchTopics();
+    }
+}, [newTopics,fetchTopics]);
 
 const handlePresentClick = async (topicId) => {
     try {
@@ -556,9 +565,6 @@ const fetchTopicResults = useCallback(async (topicId) => {
     }
   }, [messages, fetchTopicResults]);
  
-
-
-
 
 // WebSocket effect to call fetchTopicResults when a topicId message arrives
 useEffect(() => {
