@@ -12,6 +12,8 @@ import {
     MAX_FILE_SIZE_BYTES,
 } from '../util/fileUpload';
 import '../styles/AddTopicForm.css';
+import useWebSocket from '../hooks/useWebSocket';
+
 
 const AddTopicForm = () => {
     const { id, idt } = useParams();
@@ -30,6 +32,8 @@ const AddTopicForm = () => {
     
 
     const [topicStatus, setTopicStatus] = useState('');
+
+    const { sendPresenterUpdate } = useWebSocket(id, "presenter");
     
      const topicStatusOptions = [
             { value: 'CREATED', label: 'Креирана' },
@@ -139,6 +143,11 @@ const AddTopicForm = () => {
             const data = await response.json();
             const topicId = data.topicId; // Retrieve the topic ID
             console.log("topicId:" + topicId);
+
+            if (sendPresenterUpdate) {
+                    sendPresenterUpdate(topicId);
+                }
+
             sessionStorage.removeItem('scrollPosition');
             navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${topicId}`);
         } else {

@@ -415,7 +415,7 @@ const handleVote = async (topicId, voteType) => {
             [topicId]: voteType,
         }));
 
-        await fetchTopics();
+        // await fetchTopics();
 
         sendVote(topicId);
     } catch (error) {
@@ -469,7 +469,7 @@ useEffect(() => {
 
         return () => clearTimeout(timeoutId);
     }
-}, [topics]);
+}, []);
 
 const { messages, sendVote } = useWebSocket(id); // for voting
 const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); // for presenter updates
@@ -524,6 +524,8 @@ const fetchTopicResults = useCallback(async (topicId) => {
       if (!response.ok) throw new Error("Failed to fetch topic results");
 
       const updatedTopic = await response.json();
+
+      console.log(updatedTopic);
 
       setTopics((prevTopics) =>
         prevTopics.map((topic) =>
