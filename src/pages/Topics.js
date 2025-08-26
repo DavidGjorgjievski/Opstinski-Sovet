@@ -26,7 +26,7 @@ function Topics() {
     const [isLiveModalOpen, setIsLiveModalOpen] = useState(false);
     const [sessionTitle, setSessionTitle] = useState('');
 
-    const [onlineUsers, setOnlineUsers] = useState(0);
+    const [onlineUsersNumber, setOnlineUsersNumber] = useState(0);
 
     const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
     const [restartTopicId, setRestartTopicId] = useState(null);
@@ -217,7 +217,7 @@ const handleClickOutside = useCallback(
 
         if (response.ok) {
             const data = await response.json();
-            setOnlineUsers(data);
+            setOnlineUsersNumber(data);
         } else {
             console.error("Failed to fetch online users:", response.status);
         }
@@ -912,7 +912,7 @@ useEffect(() => {
                             <div>
                             <div className="number" onClick={() => setIsLiveModalOpen(true)}>
                                 <p className='number-content'>
-                                <span className='number-content-span'>{onlineUsers}</span>
+                                <span className='number-content-span'>{onlineUsersNumber}</span>
                                 <FontAwesomeIcon icon={faUsers} />
                                 </p>
                             </div>

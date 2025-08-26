@@ -1,0 +1,29 @@
+.unauthorized-back-button {
+    display: inline-block;
+    background-color: white;
+    padding: 8px 20px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s ease-in-out;
+    text-decoration: none;
+    max-width: 90%;
+    box-sizing: border-box;
+}
+
+.unauthorized-back-button:hover {
+    background-color: #ddd;
+    transform: scale(1.03);
+}
+
+@media (max-width: 600px) {
+    .unauthorized-back-button {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+    }
+}

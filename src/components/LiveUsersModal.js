@@ -3,9 +3,6 @@ import "../styles/LiveUsersModal.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
-
-
-
 const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [offlineUsers, setOfflineUsers] = useState([]);
