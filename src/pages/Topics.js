@@ -582,7 +582,7 @@ useEffect(() => {
                     <title>Точки</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userInfo} fetchTopics={fetchTopics} setIsFromLogo={setIsFromLogo} fetchOnlineUsers={fetchOnlineUsers}/>
+            <Header userInfo={userInfo} />
             <main className="topcis-container-body">
                 <div className='d-flex justify-content-center'>
                      <div className="topic-header">

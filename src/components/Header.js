@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef  } from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faRightFromBracket, faBars   } from '@fortawesome/free-solid-svg-icons';
-import { useParams  } from "react-router-dom";
+import { faGear, faRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from "react-router-dom";
 
-
-function Header({ userInfo, fetchTopics = null, setIsFromLogo = null, fetchOnlineUsers=null }) {
+function Header({ userInfo }) {
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
     const profileRef = useRef(null);
@@ -16,14 +15,13 @@ function Header({ userInfo, fetchTopics = null, setIsFromLogo = null, fetchOnlin
     if (municipalityId) {
         const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
         const municipality = municipalities.find(
-          (m) => m.id === Number(municipalityId)
+            (m) => m.id === Number(municipalityId)
         );
-    
-        if (municipality) {
-          municipalityImage = municipality.logoImage;
-        }
-      }
 
+        if (municipality) {
+            municipalityImage = municipality.logoImage;
+        }
+    }
 
     const toggleMobileMenu = () => {
         setMobileNavOpen(!isMobileNavOpen);
@@ -33,64 +31,63 @@ function Header({ userInfo, fetchTopics = null, setIsFromLogo = null, fetchOnlin
         return window.location.pathname === path ? 'active' : '';
     };
 
-useEffect(() => {
-  const logoImg = document.getElementById('logo-img');
-  const handleClick = () => {
-    if (typeof setIsFromLogo === 'function') {
-      setIsFromLogo(true);
-    }
-    if (fetchTopics) {
-      fetchTopics();
-      fetchOnlineUsers();
-    } else {
-      window.location.reload();
-    }
-  };
-  logoImg.addEventListener('click', handleClick);
-  return () => logoImg.removeEventListener('click', handleClick);
-}, [fetchTopics, setIsFromLogo, fetchOnlineUsers]);
+    // ✅ Handle logo click → ONLY refresh page
+    useEffect(() => {
+        const logoImg = document.getElementById('logo-img');
+        const handleClick = () => {
+            window.location.reload();
+        };
 
+        if (logoImg) {
+            logoImg.addEventListener('click', handleClick);
+        }
 
- useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target)
-      ) {
-        setProfileMenuOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () =>
-      document.removeEventListener('mousedown', handleClickOutside);
-  }, [profileRef]);
+        return () => {
+            if (logoImg) {
+                logoImg.removeEventListener('click', handleClick);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                profileRef.current &&
+                !profileRef.current.contains(event.target)
+            ) {
+                setProfileMenuOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
         <header>
             <nav>
                 <div className="d-flex flex-row">
                     <div>
-                    <img
-                        id="logo-img"
-                        src={
-                        municipalityImage
-                            ? `data:image/png;base64,${municipalityImage}`
-                            : `${process.env.PUBLIC_URL}/images/grb.png`
-                        }
-                        className="logo-img"
-                        alt="Logo"
+                        <img
+                            id="logo-img"
+                            src={
+                                municipalityImage
+                                    ? `data:image/png;base64,${municipalityImage}`
+                                    : `${process.env.PUBLIC_URL}/images/grb.png`
+                            }
+                            className="logo-img"
+                            alt="Logo"
                         />
                     </div>
 
-
-                     {/* Mobile Navigation */}
+                    {/* Mobile Navigation */}
                     <div id="mobile-menu-toggle" className="mobile-menu-toggle" onClick={toggleMobileMenu}>
-                       <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
+                        <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
                     </div>
                     <ul className={`nav-item-mobile ${isMobileNavOpen ? 'open' : ''}`} id="mobile-nav">
                         <li><Link to="/">Почетна</Link></li>
                         <li><Link to="/municipalities">Општини</Link></li>
-                         {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
+                        {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
                             <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
                                 <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>Мои седници</Link>
                             </li>
@@ -99,44 +96,42 @@ useEffect(() => {
                             <Link to="/admin-panel">Админ панел</Link>
                         </li>
                     </ul>
-
                 </div>
 
-
-                    {/* Desktop Navigation */}
-                    <ul className="nav-item" id="desktop-nav">
-                        <li className={getActiveClass('/')}><Link to="/">Почетна</Link></li>
-                        <li className={getActiveClass('/municipalities')}><Link to="/municipalities">Општини</Link></li>
-                        {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
-                            <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
-                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>Мои седници</Link>
-                            </li>
-                        )}
-                        <li className={getActiveClass('/admin-panel')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
-                            <Link to="/admin-panel">Админ панел</Link>
+                {/* Desktop Navigation */}
+                <ul className="nav-item" id="desktop-nav">
+                    <li className={getActiveClass('/')}><Link to="/">Почетна</Link></li>
+                    <li className={getActiveClass('/municipalities')}><Link to="/municipalities">Општини</Link></li>
+                    {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
+                        <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
+                            <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>Мои седници</Link>
                         </li>
-                    </ul>
+                    )}
+                    <li className={getActiveClass('/admin-panel')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
+                        <Link to="/admin-panel">Админ панел</Link>
+                    </li>
+                </ul>
 
                 {/* User Profile and Logout Links */}
-                    <div ref={profileRef} className="profile-menu-wrapper">
-                        <img
-                            src={`data:image/jpeg;base64,${userInfo.image}`}
-                            className="header-image"
-                            alt="User Profile"
-                            onClick={() => setProfileMenuOpen((open) => !open)}
-                        />
-                        {isProfileMenuOpen && (
-                            <div className="profile-dropdown">
+                <div ref={profileRef} className="profile-menu-wrapper">
+                    <img
+                        src={`data:image/jpeg;base64,${userInfo.image}`}
+                        className="header-image"
+                        alt="User Profile"
+                        onClick={() => setProfileMenuOpen((open) => !open)}
+                    />
+                    {isProfileMenuOpen && (
+                        <div className="profile-dropdown">
                             <p className="fw-bold">{userInfo.name} {userInfo.surname}</p>
                             {userInfo.role !== 'ROLE_GUEST' && (
-                              <Link to="/profile">
-                                <FontAwesomeIcon icon={faGear} /> Поставки
-                              </Link>
+                                <Link to="/profile">
+                                    <FontAwesomeIcon icon={faGear} /> Поставки
+                                </Link>
                             )}
                             <Link to="/logout"> <FontAwesomeIcon icon={faRightFromBracket} /> Одјави се</Link>
-                            </div>
-                        )}
                         </div>
+                    )}
+                </div>
             </nav>
         </header>
     );
