@@ -534,8 +534,6 @@ const fetchTopicResults = useCallback(async (topicId) => {
 
       const updatedTopic = await response.json();
 
-      console.log(updatedTopic);
-
       setTopics((prevTopics) =>
         prevTopics.map((topic) =>
           topic.id === topicId
