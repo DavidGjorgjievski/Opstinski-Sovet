@@ -14,8 +14,6 @@ import {
 import '../styles/AddTopicForm.css';
 import useWebSocket from "../hooks/useWebSocket";
 
-
-
 const AddTopicForm = () => {
     const { id, idt } = useParams();
     const { municipalityId } = useParams();

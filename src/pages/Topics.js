@@ -33,17 +33,14 @@ function Topics() {
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
 
     // WEB SOCKETS
-    const { messages, sendVote } = useWebSocket(id); // for voting
-    const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); // for presenter updates
-    const { messages: newTopics } = useWebSocket(id, "newTopic");   
+    const { messages, sendVote } = useWebSocket(id); 
+    const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); 
+   const { messages: newTopics, sendNewTopic } = useWebSocket(id, "newTopic");
 
     const [isOn, setIsOn] = useState(() => {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
         return saved === 'true'; // convert to boolean
     });
-
-
-
 
     const handleToggle = () => {
         const newValue = !isOn;
@@ -75,8 +72,6 @@ function Topics() {
       [id]: !prevMenus[id], // Toggle the specific menu's visibility
     }));
   };
-
-
 
    const [showNumber, setShowNumber] = useState(false); // State to control visibility of number
 
@@ -257,6 +252,7 @@ useEffect(() => {
             if (response.ok) {
                 closeModal();
                 await fetchTopics(); // Re-fetch topics immediately after deletion
+                sendNewTopic("NEW_TOPIC");
             } else {
                 console.error('Failed to delete the topic');
             }
@@ -488,7 +484,6 @@ useEffect(() => {
 
     useEffect(() => {
     if (newTopics.length > 0) {
-        // fetch new topics from API
         fetchTopics();
     }
 }, [newTopics,fetchTopics]);
