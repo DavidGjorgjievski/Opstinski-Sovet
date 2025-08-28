@@ -2,7 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import '../styles/TopicPresentation.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import useWebSocket from "../hooks/useWebSocket"; // ✅ WebSocket hook
+import useVoteWebSocket from "../hooks/useVoteWebSocket";
+import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
+import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
@@ -10,11 +12,10 @@ const TopicPresentation = () => {
   const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
 
-
-  const { messages } = useWebSocket(id); // Voting updates (optional)
-  const { messages: presenterMessages } = useWebSocket(id, "presenter"); // Presenter updates
-  const { messages: newTopicMessages } = useWebSocket(id, "newTopic"); // New topics updates
-
+  // ✅ Use separate hooks for different WebSocket channels
+  const { messages: voteMessages } = useVoteWebSocket(id); 
+  const { messages: presenterMessages } = usePresenterWebSocket(id); 
+  const { messages: newTopicMessages } = useNewTopicWebSocket(id); 
 
   let municipalityImage = null;
   if (municipalityId) {
@@ -46,7 +47,7 @@ const TopicPresentation = () => {
       if (!text) return;
 
       const data = JSON.parse(text);
-      setTopic(data); // Update topic state
+      setTopic(data); 
     } catch (error) {
       console.error("Error fetching topic:", error);
     }
@@ -58,33 +59,28 @@ const TopicPresentation = () => {
   }, [fetchPresenterTopic]);
 
   // Update topic when a new presenter topic ID arrives
-useEffect(() => {
-    if (!presenterMessages.length) return;
-
-    // Fetch the new presented topic
-    fetchPresenterTopic();
-}, [presenterMessages, fetchPresenterTopic]);
-
-
-  // Optional: Update topic if voting messages arrive (for counts)
   useEffect(() => {
-    if (!messages.length || !topic) return;
+    if (!presenterMessages.length) return;
+    fetchPresenterTopic();
+  }, [presenterMessages, fetchPresenterTopic]);
 
-    const lastMessage = messages[messages.length - 1];
+  // Update topic if voting messages arrive
+  useEffect(() => {
+    if (!voteMessages.length || !topic) return;
+
+    const lastMessage = voteMessages.at(-1);
     const updatedTopicId = Number(lastMessage);
 
     if (updatedTopicId === topic.id) {
       fetchPresenterTopic();
     }
-  }, [messages, fetchPresenterTopic, topic]);
+  }, [voteMessages, fetchPresenterTopic, topic]);
 
-   useEffect(() => {
+  // Update topic if a new topic is added
+  useEffect(() => {
     if (!newTopicMessages.length) return;
-
-    // A new topic was added — fetch the current presented topic
     fetchPresenterTopic();
   }, [newTopicMessages, fetchPresenterTopic]);
-
 
   return (
     <div className={`topic-presentar-container ${

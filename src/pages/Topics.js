@@ -10,7 +10,10 @@ import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
-import useWebSocket from "../hooks/useWebSocket";
+import useVoteWebSocket from "../hooks/useVoteWebSocket";
+import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
+import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
+
 
 function Topics() {
     const [topics, setTopics] = useState([]);
@@ -33,9 +36,9 @@ function Topics() {
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
 
     // WEB SOCKETS
-    const { messages, sendVote } = useWebSocket(id); 
-    const { messages: presenterMessages, sendPresenterUpdate } = useWebSocket(id, "presenter"); 
-   const { messages: newTopics, sendNewTopic } = useWebSocket(id, "newTopic");
+    const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
+    const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
+    const { messages: newTopicMessages, sendNewTopic } = useNewTopicWebSocket(id);
 
     const [isOn, setIsOn] = useState(() => {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
@@ -482,11 +485,11 @@ useEffect(() => {
 }, [presenterMessages]);
 
 
-    useEffect(() => {
-    if (newTopics.length > 0) {
+useEffect(() => {
+    if (newTopicMessages.length > 0) {
         fetchTopics();
     }
-}, [newTopics,fetchTopics]);
+}, [newTopicMessages, fetchTopics]);
 
 const handlePresentClick = async (topicId) => {
     try {
@@ -550,24 +553,16 @@ const fetchTopicResults = useCallback(async (topicId) => {
     }
   }, [token]);
 
-  // When WebSocket sends a topicId → fetch new results for that topic only
-  useEffect(() => {
-    if (messages.length > 0) {
-      const changedTopicId = Number(messages[messages.length - 1]);
-      fetchTopicResults(changedTopicId);
-    }
-  }, [messages, fetchTopicResults]);
- 
-
-// WebSocket effect to call fetchTopicResults when a topicId message arrives
 useEffect(() => {
-  if (messages.length > 0) {
-    const changedTopicId = Number(messages[messages.length - 1]);
+  if (voteMessages.length === 0) return;
+
+  const lastMessage = voteMessages.at(-1);
+  const changedTopicId = Number(lastMessage);
+
+  if (!isNaN(changedTopicId)) {
     fetchTopicResults(changedTopicId);
   }
-}, [messages, fetchTopicResults]);
-
-
+}, [voteMessages, fetchTopicResults]);
 
 // 
     return (
