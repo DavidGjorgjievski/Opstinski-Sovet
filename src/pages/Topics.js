@@ -512,57 +512,30 @@ const handlePresentClick = async (topicId) => {
     }
 };
 
-
-
-//   
-const fetchTopicResults = useCallback(async (topicId) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/topics/results/${topicId}`,
-        {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) throw new Error("Failed to fetch topic results");
-
-      const updatedTopic = await response.json();
-
-      setTopics((prevTopics) =>
-        prevTopics.map((topic) =>
-          topic.id === topicId
-            ? {
-                ...topic,
-                yes: updatedTopic.yes,
-                no: updatedTopic.no,
-                abstained: updatedTopic.abstained,
-                cantVote: updatedTopic.cantVote,
-                haveNotVoted: updatedTopic.havenotVoted,
-                absent: updatedTopic.absent,
-                topicStatus: updatedTopic.status,
-              }
-            : topic
-        )
-      );
-    } catch (error) {
-      console.error("Error fetching topic results:", error);
-    }
-  }, [token]);
-
 useEffect(() => {
   if (voteMessages.length === 0) return;
 
-  const lastMessage = voteMessages.at(-1);
-  const changedTopicId = Number(lastMessage);
+  const lastResult = voteMessages.at(-1);
+  const updatedTopicId = lastResult.topicId;
 
-  if (!isNaN(changedTopicId)) {
-    fetchTopicResults(changedTopicId);
-  }
-}, [voteMessages, fetchTopicResults]);
+  setTopics((prevTopics) =>
+    prevTopics.map((topic) =>
+      topic.id === updatedTopicId
+        ? {
+            ...topic,
+            yes: lastResult.yes,
+            no: lastResult.no,
+            abstained: lastResult.abstained,
+            cantVote: lastResult.cantVote,
+            haveNotVoted: lastResult.haveNotVoted,
+            absent: lastResult.absent,
+            topicStatus: lastResult.status,
+          }
+        : topic
+    )
+  );
+}, [voteMessages]);
+
 
 // 
     return (

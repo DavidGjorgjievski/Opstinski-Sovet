@@ -15,7 +15,12 @@ export default function useVoteWebSocket(sessionId) {
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe(`/topic/sessions/${sessionId}`, (msg) => {
-          setMessages((prev) => [...prev, msg.body]);
+          try {
+            const data = JSON.parse(msg.body); // now receiving JSON, not just ID
+            setMessages((prev) => [...prev, data]);
+          } catch (e) {
+            console.error("Failed to parse WebSocket message:", e);
+          }
         });
       },
     });
@@ -26,11 +31,11 @@ export default function useVoteWebSocket(sessionId) {
     return () => client.deactivate();
   }, [sessionId]);
 
-  const sendVote = (payload) => {
+  const sendVote = (topicId) => {
     if (stompClientRef.current && stompClientRef.current.connected) {
       stompClientRef.current.publish({
         destination: `/app/vote/${sessionId}`,
-        body: `${payload}`,
+        body: `${topicId}`,
       });
     }
   };

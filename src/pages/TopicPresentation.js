@@ -8,14 +8,13 @@ import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
-  const { id, municipalityId } = useParams(); // id === sessionId
+  const { id, municipalityId } = useParams();
   const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
 
-  // ✅ Use separate hooks for different WebSocket channels
-  const { messages: voteMessages } = useVoteWebSocket(id); 
-  const { messages: presenterMessages } = usePresenterWebSocket(id); 
-  const { messages: newTopicMessages } = useNewTopicWebSocket(id); 
+  const { messages: voteMessages } = useVoteWebSocket(id);
+  const { messages: presenterMessages } = usePresenterWebSocket(id);
+  const { messages: newTopicMessages } = useNewTopicWebSocket(id);
 
   let municipalityImage = null;
   if (municipalityId) {
@@ -26,7 +25,7 @@ const TopicPresentation = () => {
     }
   }
 
-  // Fetch currently presented topic
+  // Fetch currently presented topic initially
   const fetchPresenterTopic = useCallback(async () => {
     try {
       const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`;
@@ -47,36 +46,45 @@ const TopicPresentation = () => {
       if (!text) return;
 
       const data = JSON.parse(text);
-      setTopic(data); 
+      setTopic(data);
     } catch (error) {
       console.error("Error fetching topic:", error);
     }
   }, [id, token]);
 
-  // Initial fetch
+  // Initial fetch on mount
   useEffect(() => {
     fetchPresenterTopic();
   }, [fetchPresenterTopic]);
 
-  // Update topic when a new presenter topic ID arrives
+  // ✅ If a new presenter topic is set, refetch it
   useEffect(() => {
     if (!presenterMessages.length) return;
     fetchPresenterTopic();
   }, [presenterMessages, fetchPresenterTopic]);
 
-  // Update topic if voting messages arrive
+  // ✅ Update topic directly when vote results arrive
   useEffect(() => {
     if (!voteMessages.length || !topic) return;
 
-    const lastMessage = voteMessages.at(-1);
-    const updatedTopicId = Number(lastMessage);
+    const lastResult = voteMessages.at(-1);
 
-    if (updatedTopicId === topic.id) {
-      fetchPresenterTopic();
+    // Only update if the vote belongs to the currently presented topic
+    if (lastResult.topicId === topic.id) {
+      setTopic((prev) => ({
+        ...prev,
+        yes: lastResult.yes,
+        no: lastResult.no,
+        abstained: lastResult.abstained,
+        cantVote: lastResult.cantVote,
+        haveNotVoted: lastResult.haveNotVoted,
+        absent: lastResult.absent,
+        topicStatus: lastResult.status,
+      }));
     }
-  }, [voteMessages, fetchPresenterTopic, topic]);
+  }, [voteMessages, topic]);
 
-  // Update topic if a new topic is added
+  // ✅ Refetch topic when a new topic is added
   useEffect(() => {
     if (!newTopicMessages.length) return;
     fetchPresenterTopic();
@@ -85,8 +93,8 @@ const TopicPresentation = () => {
   return (
     <div className={`topic-presentar-container ${
       topic &&
-      (topic.topicStatus === 'FINISHED' || 
-       topic.topicStatus === 'WITHDRAWN' || 
+      (topic.topicStatus === 'FINISHED' ||
+       topic.topicStatus === 'WITHDRAWN' ||
        topic.topicStatus === 'INFORMATION')
         ? 'finished-topic'
         : ''
