@@ -23,6 +23,7 @@ import Unauthorized from './pages/Unauthorized';
 import AddMunicipalityForm from './pages/AddMunicipalityForm';
 import TopicPresentation from './pages/TopicPresentation'
 import HeadLinks from './components/HeadLinks';
+import "./i18n"; 
 
 function App() {
   return (
