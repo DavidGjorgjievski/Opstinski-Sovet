@@ -1,3 +1,10 @@
 {
-    
+  "loginTitle": "Ju lutem identifikohuni:",
+  "username": "Emri i përdoruesit",
+  "password": "Fjalëkalimi",
+  "loginButton": "Hyr",
+  "guestButton": "Vazhdo si mysafir",
+  "selectLanguage": "Zgjidh gjuhën:",
+  "pleaseWait": "Ju lutemi prisni...",
+  "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm."
 }

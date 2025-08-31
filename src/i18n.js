@@ -1,34 +1,34 @@
-// src/i18n.js
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 
-// Import translation files
-import enTranslation from "./locales/en/translation.json";
 import mkTranslation from "./locales/mk/translation.json";
+import enTranslation from "./locales/en/translation.json";
 import deTranslation from "./locales/de/translation.json";
 import sqTranslation from "./locales/sq/translation.json";
 
+// Initialize i18n
 i18n
-  .use(LanguageDetector) // Detects browser language
-  .use(initReactI18next) // Passes i18n down to react-i18next
+  .use(initReactI18next) // connect with React
   .init({
     resources: {
-      en: { translation: enTranslation },
       mk: { translation: mkTranslation },
+      en: { translation: enTranslation },
       de: { translation: deTranslation },
       sq: { translation: sqTranslation },
     },
-    fallbackLng: "en", // Default language
-    debug: true, // Set to false in production
-
+    lng: localStorage.getItem("selectedLanguage") || "mk", // default language
+    fallbackLng: "mk",
     interpolation: {
-      escapeValue: false, // React already escapes by default
-    },
-    detection: {
-      order: ["localStorage", "navigator"],
-      caches: ["localStorage"],
+      escapeValue: false,
     },
   });
+
+// Save selectedLanguage if not set
+const savedLang = localStorage.getItem("selectedLanguage");
+if (!savedLang) {
+  localStorage.setItem("selectedLanguage", i18n.language);
+} else {
+  i18n.changeLanguage(savedLang);
+}
 
 export default i18n;

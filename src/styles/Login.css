@@ -74,3 +74,81 @@ input {
     background-color: #ddd;
     transform: scale(1.03);
 }
+
+.language-dropdown-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.language-label {
+    font-weight: bold;
+}
+
+.language-dropdown {
+    position: relative;
+    width: 160px;
+}
+
+.selected-language {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    background-color: white;
+}
+
+.selected-language:hover {
+    transform: scale(1.03);
+}
+
+.selected-language .lang-flag {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.selected-language .arrow {
+    margin-left: auto;
+}
+
+.language-options {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.language-option:hover {
+    background-color: #f0f0f0;
+}
+
+.language-option img.lang-flag {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.arrow-lang{
+    font-size: 16px;
+    margin-left: 5px;
+}

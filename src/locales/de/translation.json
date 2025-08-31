@@ -1,3 +1,10 @@
 {
-    
+  "loginTitle": "Melden Sie sich an:",
+  "username": "Benutzername",
+  "password": "Passwort",
+  "loginButton": "Anmelden",
+  "guestButton": "Als Gast fortfahren",
+  "selectLanguage": "Sprache auswählen:",
+  "pleaseWait": "Bitte warten...",
+  "invalidCredentials": "Ungültiger Benutzername oder Passwort."
 }

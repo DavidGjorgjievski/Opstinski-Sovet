@@ -48,35 +48,38 @@ export const AuthProvider = ({ children }) => {
         setRole(role);
     }
 
-      const logout = async () => {
-        // Decrement online users on the server before logging out
-        const token = localStorage.getItem('jwtToken');
-        
-        if (token) {
-            try {
-                // Make the API call to decrement online users
-                const response = await fetch(process.env.REACT_APP_API_URL + '/api/logout', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
+     const logout = async () => {
+    const token = localStorage.getItem('jwtToken');
 
-                if (!response.ok) {
-                    console.error("Failed to decrement online users.");
-                }
-            } catch (error) {
-                console.error("Error during logout API call:", error);
-            }
+    if (token) {
+        try {
+            await fetch(process.env.REACT_APP_API_URL + '/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+        } catch (error) {
+            console.error("Error during logout API call:", error);
         }
+    }
 
-        // Clear all local storage and session storage data
-        localStorage.clear();
-        sessionStorage.clear();  
-        setIsAuthenticated(false);
-        setRole(null);
-    };
+    // Save selectedLanguage
+    const selectedLanguage = localStorage.getItem('selectedLanguage');
+
+    // Clear everything
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Restore selectedLanguage
+    if (selectedLanguage) {
+        localStorage.setItem('selectedLanguage', selectedLanguage);
+    }
+
+    setIsAuthenticated(false);
+    setRole(null);
+};
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, role, login, logout, loading }}>

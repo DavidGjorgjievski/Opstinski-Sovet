@@ -1,3 +1,10 @@
 {
-    
+  "loginTitle": "Please log in:",
+  "username": "Username",
+  "password": "Password",
+  "loginButton": "Log In",
+  "guestButton": "Continue as Guest",
+  "selectLanguage": "Select Language:",
+  "pleaseWait": "Please wait...",
+  "invalidCredentials": "Invalid username or password."
 }

@@ -1,3 +1,10 @@
 {
-    
+  "loginTitle": "Ве молиме најавете се:",
+  "username": "Корисничко име",
+  "password": "Лозинка",
+  "loginButton": "Најави се",
+  "guestButton": "Продолжи како гостин",
+  "selectLanguage": "Избери јазик:",
+  "pleaseWait": "Ве молам, почекајте...",
+  "invalidCredentials": "Невалидно корисничко име или лозинка."
 }
