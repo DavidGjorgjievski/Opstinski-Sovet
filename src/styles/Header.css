@@ -36,7 +36,6 @@ nav {
     margin-top: 70px;
 }
 
-
 .nav-item li {
     list-style-type: none;
     padding: 5px;
@@ -44,7 +43,7 @@ nav {
     color: #808080;
 }
 
-.nav-item li a:hover{
+.nav-item li a:hover {
     color: black;
 }
 
@@ -82,7 +81,7 @@ nav {
     cursor: pointer;
 }
 
-.header-image:hover{
+.header-image:hover {
     transform: scale(1.03);
 }
 
@@ -113,7 +112,6 @@ nav {
     padding: 0;
     margin: 0;
 }
-
 
 /* Default styles for the mobile navigation */
 #mobile-nav {
@@ -157,10 +155,10 @@ nav {
     cursor: pointer;
     margin-top: 5px;
     margin-left: 50px;
-    margin-bottom: 0px; 
+    margin-bottom: 0px;
 }
 
-.logo-img:hover{
+.logo-img:hover {
     transform: scale(1.03);
 }
 
@@ -191,6 +189,60 @@ nav {
 .profile-menu-wrapper {
     position: relative;
     display: inline-block;
+}
+
+/* Language dropdown in header */
+.language-dropdown-container-header {
+    position: absolute;
+    display: inline-block;
+    right: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.selected-language-header {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.selected-language-header:hover {
+    transform: scale(1.03);
+}
+
+.lang-flag-header {
+    width: 28px;
+    height: 20px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    object-fit: cover;
+}
+
+.language-options-header {
+    position: absolute;
+    top: 38px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.language-option-header {
+    padding: 4px;
+    cursor: pointer;
+}
+
+.language-option-header:hover {
+    background-color: #f2f2f2;
+    border-radius: 4px;
 }
 
 @media (max-width: 860px) {
@@ -224,12 +276,15 @@ nav {
         margin-left: 0px;
     }
 
-    .profile-menu-wrapper{
+    .profile-menu-wrapper {
         margin-right: 30px;
     }
 
-    .profile-dropdown{
+    .profile-dropdown {
         right: -60%;
     }
-}
 
+    .language-dropdown-container-header {
+        right: 60px;
+    }
+}

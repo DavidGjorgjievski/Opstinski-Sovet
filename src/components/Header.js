@@ -2,22 +2,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faRightFromBracket, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faRightFromBracket, faBars, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from "react-router-dom";
+import i18n from '../i18n';
 
 function Header({ userInfo }) {
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
-    const profileRef = useRef(null);
+    const [openLang, setOpenLang] = useState(false);
+    const profileLangRef = useRef(null);
     const { municipalityId } = useParams();
-    let municipalityImage = null;
 
+    const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'mk');
+
+    let municipalityImage = null;
     if (municipalityId) {
         const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
         const municipality = municipalities.find(
             (m) => m.id === Number(municipalityId)
         );
-
         if (municipality) {
             municipalityImage = municipality.logoImage;
         }
@@ -31,17 +34,15 @@ function Header({ userInfo }) {
         return window.location.pathname === path ? 'active' : '';
     };
 
-    // ✅ Handle logo click → ONLY refresh page
+    // ✅ Reload page on logo click
     useEffect(() => {
         const logoImg = document.getElementById('logo-img');
         const handleClick = () => {
             window.location.reload();
         };
-
         if (logoImg) {
             logoImg.addEventListener('click', handleClick);
         }
-
         return () => {
             if (logoImg) {
                 logoImg.removeEventListener('click', handleClick);
@@ -49,19 +50,25 @@ function Header({ userInfo }) {
         };
     }, []);
 
+    // ✅ Close dropdowns when clicking outside
     useEffect(() => {
         function handleClickOutside(event) {
-            if (
-                profileRef.current &&
-                !profileRef.current.contains(event.target)
-            ) {
+            if (profileLangRef.current && !profileLangRef.current.contains(event.target)) {
                 setProfileMenuOpen(false);
+                setOpenLang(false);
             }
         }
         document.addEventListener('mousedown', handleClickOutside);
-        return () =>
-            document.removeEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    // ✅ Language change
+    const changeLanguage = (lang) => {
+        setSelectedLang(lang);
+        i18n.changeLanguage(lang);
+        localStorage.setItem('selectedLanguage', lang);
+        setOpenLang(false);
+    };
 
     return (
         <header>
@@ -112,8 +119,43 @@ function Header({ userInfo }) {
                     </li>
                 </ul>
 
-                {/* User Profile and Logout Links */}
-                <div ref={profileRef} className="profile-menu-wrapper">
+                <div ref={profileLangRef} className="profile-lang-wrapper">
+                    {/* Language Selector */}
+                    <div className="language-dropdown-container-header">
+                        <button
+                            className="selected-language-header"
+                            onClick={() => setOpenLang(!openLang)}
+                        >
+                            <img
+                                src={`${process.env.PUBLIC_URL}/flags/${selectedLang}.png`}
+                                alt={selectedLang}
+                                className="lang-flag-header"
+                            />
+                            <FontAwesomeIcon className="arrow-lang-header" icon={openLang ? faChevronUp : faChevronDown} />
+                        </button>
+
+                        {openLang && (
+                            <div className="language-options-header">
+                                {['mk', 'en', 'de', 'sq']
+                                    .filter(lang => lang !== selectedLang)
+                                    .map(lang => (
+                                        <div
+                                            key={lang}
+                                            className="language-option-header"
+                                            onClick={() => changeLanguage(lang)}
+                                        >
+                                            <img
+                                                src={`${process.env.PUBLIC_URL}/flags/${lang}.png`}
+                                                alt={lang}
+                                                className="lang-flag-header"
+                                            />
+                                        </div>
+                                    ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Profile Picture */}
                     <img
                         src={`data:image/jpeg;base64,${userInfo.image}`}
                         className="header-image"
@@ -128,7 +170,9 @@ function Header({ userInfo }) {
                                     <FontAwesomeIcon icon={faGear} /> Поставки
                                 </Link>
                             )}
-                            <Link to="/logout"> <FontAwesomeIcon icon={faRightFromBracket} /> Одјави се</Link>
+                            <Link to="/logout">
+                                <FontAwesomeIcon icon={faRightFromBracket} /> Одјави се
+                            </Link>
                         </div>
                     )}
                 </div>
