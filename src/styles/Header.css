@@ -117,7 +117,7 @@ nav {
 #mobile-nav {
     display: none;
     position: absolute;
-    top: 0;
+    top: 10%;
     left: 20px;
     flex-direction: column;
     width: auto;
@@ -125,6 +125,7 @@ nav {
     border-radius: 5%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
+    border: 1px solid #ddd;
 }
 
 /* Show mobile navigation when the 'show' class is added */
@@ -280,11 +281,7 @@ nav {
         margin-right: 30px;
     }
 
-    .profile-dropdown {
-        /* right: -60%; */
-    }
-
     .language-dropdown-container-header {
-        right: 60px;
+        right: 70px;
     }
 }
