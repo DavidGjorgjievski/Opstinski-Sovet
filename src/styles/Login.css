@@ -108,6 +108,10 @@ input {
     transform: scale(1.03);
 }
 
+.selected-language span{
+    color: black;
+}
+
 .selected-language .lang-flag {
     width: 24px;
     height: 24px;

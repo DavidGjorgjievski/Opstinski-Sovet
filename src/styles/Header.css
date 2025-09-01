@@ -246,6 +246,10 @@ nav {
     border-radius: 4px;
 }
 
+.arrow-lang-header{
+    color: black;
+}
+
 @media (max-width: 860px) {
     #desktop-nav {
         display: none;
