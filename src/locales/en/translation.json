@@ -6,5 +6,10 @@
   "guestButton": "Continue as Guest",
   "selectLanguage": "Select Language:",
   "pleaseWait": "Please wait...",
-  "invalidCredentials": "Invalid username or password."
+  "invalidCredentials": "Invalid username or password.",
+
+  "logoutTitle": "Logout",
+  "logoutMessage": "You have successfully logged out!",
+  "logoutThanks": "Thank you for using our application.",
+  "loginAgain": "Log in again"
 }

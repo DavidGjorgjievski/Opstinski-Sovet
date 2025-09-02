@@ -6,5 +6,10 @@
   "guestButton": "Vazhdo si mysafir",
   "selectLanguage": "Zgjidh gjuhën:",
   "pleaseWait": "Ju lutemi prisni...",
-  "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm."
+  "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm.",
+
+   "logoutTitle": "Shkyçja",
+  "logoutMessage": "Jeni shkyçur me sukses!",
+  "logoutThanks": "Faleminderit që e keni përdorur aplikacionin tonë.",
+  "loginAgain": "Hyni përsëri"
 }

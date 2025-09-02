@@ -6,5 +6,10 @@
   "guestButton": "Als Gast fortfahren",
   "selectLanguage": "Sprache auswählen:",
   "pleaseWait": "Bitte warten...",
-  "invalidCredentials": "Ungültiger Benutzername oder Passwort."
+  "invalidCredentials": "Ungültiger Benutzername oder Passwort.",
+
+  "logoutTitle": "Abmeldung",
+  "logoutMessage": "Sie haben sich erfolgreich abgemeldet!",
+  "logoutThanks": "Vielen Dank, dass Sie unsere Anwendung genutzt haben.",
+  "loginAgain": "Erneut anmelden"
 }
