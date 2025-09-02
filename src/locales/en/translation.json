@@ -11,5 +11,26 @@
   "logoutTitle": "Logout",
   "logoutMessage": "You have successfully logged out!",
   "logoutThanks": "Thank you for using our application.",
-  "loginAgain": "Log in again"
+  "loginAgain": "Log in again",
+
+  "navHome": "Home",
+  "navMunicipalities": "Municipalities",
+  "navMySessions": "My Sessions",
+  "navAdminPanel": "Admin Panel",
+  "navSettings": "Settings",
+  "navLogout": "Logout",
+
+  "homeTitle": "Home",
+  "homeWelcome": "Welcome to the municipal council voting system.",
+  "homeDescription": "In each session, council members, including the council president, participate and manage the session. They are responsible for creating and approving proposals that affect all citizens in the municipality.",
+  "municipalitiesButton": "Municipalities",
+
+  "municipalitiesTitle": "Municipalities",
+  "addMunicipality": "Add Municipality",
+  "view": "View",
+  "options": "Options",
+  "edit": "Edit",
+  "delete": "Delete",
+  "noMunicipalities": "No municipalities available",
+  "loading": "Loading..."
 }

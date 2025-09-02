@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faRightFromBracket, faBars, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from "react-router-dom";
 import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 function Header({ userInfo }) {
+    const { t } = useTranslation();
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
     const [openLang, setOpenLang] = useState(false);
@@ -92,30 +94,30 @@ function Header({ userInfo }) {
                         <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
                     </div>
                     <ul className={`nav-item-mobile ${isMobileNavOpen ? 'open' : ''}`} id="mobile-nav">
-                        <li><Link to="/">Почетна</Link></li>
-                        <li><Link to="/municipalities">Општини</Link></li>
+                        <li><Link to="/">{t('navHome')}</Link></li>
+                        <li><Link to="/municipalities">{t('navMunicipalities')}</Link></li>
                         {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
                             <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
-                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>Мои седници</Link>
+                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('navMySessions')}</Link>
                             </li>
                         )}
                         <li style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
-                            <Link to="/admin-panel">Админ панел</Link>
+                            <Link to="/admin-panel">{t('navAdminPanel')}</Link>
                         </li>
                     </ul>
                 </div>
 
                 {/* Desktop Navigation */}
                 <ul className="nav-item" id="desktop-nav">
-                    <li className={getActiveClass('/')}><Link to="/">Почетна</Link></li>
-                    <li className={getActiveClass('/municipalities')}><Link to="/municipalities">Општини</Link></li>
+                    <li className={getActiveClass('/')}><Link to="/">{t('navHome')}</Link></li>
+                    <li className={getActiveClass('/municipalities')}><Link to="/municipalities">{t('navMunicipalities')}</Link></li>
                     {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
                         <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
-                            <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>Мои седници</Link>
+                            <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('navMySessions')}</Link>
                         </li>
                     )}
                     <li className={getActiveClass('/admin-panel')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
-                        <Link to="/admin-panel">Админ панел</Link>
+                        <Link to="/admin-panel">{t('navAdminPanel')}</Link>
                     </li>
                 </ul>
 
@@ -167,11 +169,11 @@ function Header({ userInfo }) {
                             <p className="fw-bold">{userInfo.name} {userInfo.surname}</p>
                             {userInfo.role !== 'ROLE_GUEST' && (
                                 <Link to="/profile">
-                                    <FontAwesomeIcon icon={faGear} /> Поставки
+                                    <FontAwesomeIcon icon={faGear} /> {t('navSettings')}
                                 </Link>
                             )}
                             <Link to="/logout">
-                                <FontAwesomeIcon icon={faRightFromBracket} /> Одјави се
+                                <FontAwesomeIcon icon={faRightFromBracket} /> {t('navLogout')}
                             </Link>
                         </div>
                     )}

@@ -7,13 +7,15 @@ import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
+import { useTranslation } from 'react-i18next';
 
 function Municipalities() {
+    const { t } = useTranslation();
     const [municipalities, setMunicipalities] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false); // Modal visibility state
-    const [selectedMunicipality, setSelectedMunicipality] = useState(null); // Selected municipality state
-    const [openMenuId, setOpenMenuId] = useState(null); // Track which municipality's menu is open
+    const [showModal, setShowModal] = useState(false);
+    const [selectedMunicipality, setSelectedMunicipality] = useState(null);
+    const [openMenuId, setOpenMenuId] = useState(null);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -23,7 +25,6 @@ function Municipalities() {
         const fetchMunicipalities = async () => {
             setLoading(true);
             try {
-                // Check if municipalities are in localStorage
                 const cachedMunicipalities = localStorage.getItem('municipalities');
                 if (cachedMunicipalities) {
                     setMunicipalities(JSON.parse(cachedMunicipalities));
@@ -45,7 +46,6 @@ function Municipalities() {
 
                 const data = await response.json();
 
-                // Cache the data in localStorage
                 localStorage.setItem('municipalities', JSON.stringify(data));
                 setMunicipalities(data);
             } catch (error) {
@@ -66,54 +66,49 @@ function Municipalities() {
     }, []);
 
     const handleDeleteClick = (municipality) => {
-        setSelectedMunicipality(municipality); // Set the municipality to be deleted
-        setShowModal(true); // Show the confirmation modal
+        setSelectedMunicipality(municipality);
+        setShowModal(true);
     };
 
     const handleCloseModal = () => {
-        setShowModal(false); // Close the modal
-        setSelectedMunicipality(null); // Clear the selected municipality
+        setShowModal(false);
+        setSelectedMunicipality(null);
     };
 
-   const handleConfirmDelete = async () => {
-    if (!selectedMunicipality) return;
+    const handleConfirmDelete = async () => {
+        if (!selectedMunicipality) return;
 
-    const token = localStorage.getItem('jwtToken');
-    try {
-        const response = await fetch(
-            `${process.env.REACT_APP_API_URL}/api/municipalities/delete/${selectedMunicipality.id}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json', 
-                },
+        const token = localStorage.getItem('jwtToken');
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}/api/municipalities/delete/${selectedMunicipality.id}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json', 
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to delete municipality');
             }
-        );
 
-        if (!response.ok) {
-            throw new Error('Failed to delete municipality');
+            const updatedMunicipalities = municipalities.filter(
+                (m) => m.id !== selectedMunicipality.id
+            );
+
+            localStorage.setItem('municipalities', JSON.stringify(updatedMunicipalities));
+            setMunicipalities(updatedMunicipalities);
+            
+        } catch (error) {
+            console.error('Error deleting municipality:', error);
+        } finally {
+            setShowModal(false);
+            setSelectedMunicipality(null);
         }
-
-        // Remove the deleted municipality from the list in localStorage
-        const updatedMunicipalities = municipalities.filter(
-            (m) => m.id !== selectedMunicipality.id
-        );
-
-        // Update localStorage with the new list of municipalities
-        localStorage.setItem('municipalities', JSON.stringify(updatedMunicipalities));
-
-        // Update the state with the new list
-        setMunicipalities(updatedMunicipalities);
-        
-    } catch (error) {
-        console.error('Error deleting municipality:', error);
-    } finally {
-        setShowModal(false); // Hide the modal
-        setSelectedMunicipality(null); // Reset the selected municipality
-    }
-};
-
+    };
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -129,7 +124,7 @@ function Municipalities() {
         const handleClickOutside = (event) => {
             const clickedInsideDropdown = event.target.closest('.admin-dropdown-wrapper');
             if (!clickedInsideDropdown) {
-                setOpenMenuId(null); // Close all dropdowns
+                setOpenMenuId(null);
             }
         };
     
@@ -143,20 +138,20 @@ function Municipalities() {
         <div className="municipalities-container">
             <HelmetProvider>
                 <Helmet>
-                    <title>Општини</title>
+                    <title>{t('municipalitiesTitle')}</title>
                 </Helmet>
             </HelmetProvider>
             <Header userInfo={userInfo} />
             <main className="municipality-body-container">
                 <div className="municipality-header">
-                    <p className="municipality-header-title">Општини</p>
+                    <p className="municipality-header-title">{t('municipalitiesTitle')}</p>
                 </div>
     
                 {userInfo.role === 'ROLE_ADMIN' && (
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
                             <button className="municipality-add-button">
-                                Додади Општина <FontAwesomeIcon icon={faPlus} />
+                                {t('addMunicipality')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
                     </div>
@@ -166,7 +161,7 @@ function Municipalities() {
                     <div className="loading-spinner">
                         <img
                             src={`${process.env.PUBLIC_URL}/images/loading.svg`}
-                            alt="Loading..."
+                            alt={t('loading')}
                         />
                     </div>
                 ) : (
@@ -196,7 +191,7 @@ function Municipalities() {
                                             <div className="d-flex align-items-center municipality-buttons">
                                                 <div className='me-2'>
                                                     <a href={`/municipalities/${municipality.id}/sessions`} className='button-see-content municipality-button-size'>
-                                                        Преглед <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                                        {t('view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
                                                     </a>
                                                 </div>
     
@@ -208,21 +203,21 @@ function Municipalities() {
                                                                 setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
                                                             }
                                                         >
-                                                            Опции <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
+                                                            {t('options')} <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
                                                         </button>
                                                         {openMenuId === municipality.id && (
                                                             <div className="admin-dropdown">
                                                                 <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
-                                                                   <FontAwesomeIcon icon={faPenToSquare} /> Уреди
+                                                                   <FontAwesomeIcon icon={faPenToSquare} /> {t('edit')}
                                                                 </a>
                                                                 <button
                                                                     className="dropdown-item"
                                                                     onClick={() => {
                                                                         handleDeleteClick(municipality);
-                                                                        setOpenMenuId(null); // Close the menu after delete
+                                                                        setOpenMenuId(null);
                                                                     }}
                                                                 >
-                                                                   <FontAwesomeIcon icon={faTrash} /> Избриши
+                                                                   <FontAwesomeIcon icon={faTrash} /> {t('delete')}
                                                                 </button>
                                                             </div>
                                                         )}
@@ -235,7 +230,7 @@ function Municipalities() {
                             ))
                         ) : (
                             <div className="mt-3">
-                                <h4>Нема достапни општини</h4>
+                                <h4>{t('noMunicipalities')}</h4>
                             </div>
                         )}
                     </div>

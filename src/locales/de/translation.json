@@ -11,5 +11,26 @@
   "logoutTitle": "Abmeldung",
   "logoutMessage": "Sie haben sich erfolgreich abgemeldet!",
   "logoutThanks": "Vielen Dank, dass Sie unsere Anwendung genutzt haben.",
-  "loginAgain": "Erneut anmelden"
+  "loginAgain": "Erneut anmelden",
+
+  "navHome": "Startseite",
+  "navMunicipalities": "Gemeinden",
+  "navMySessions": "Meine Sitzungen",
+  "navAdminPanel": "Admin-Panel",
+  "navSettings": "Einstellungen",
+  "navLogout": "Abmelden",
+
+  "homeTitle": "Startseite",
+  "homeWelcome": "Willkommen im Abstimmungssystem des Gemeinderates.",
+  "homeDescription": "In jeder Sitzung nehmen die Ratsmitglieder, einschließlich des Ratsvorsitzenden, teil und leiten die Sitzung. Sie sind verantwortlich für die Erstellung und Genehmigung von Vorschlägen, die alle Bürger in der Gemeinde betreffen.",
+  "municipalitiesButton": "Gemeinden",
+
+  "municipalitiesTitle": "Gemeinden",
+  "addMunicipality": "Gemeinde hinzufügen",
+  "view": "Ansehen",
+  "options": "Optionen",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "noMunicipalities": "Keine Gemeinden verfügbar",
+  "loading": "Wird geladen..."
 }

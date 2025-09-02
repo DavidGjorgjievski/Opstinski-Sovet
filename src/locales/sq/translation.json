@@ -8,8 +8,29 @@
   "pleaseWait": "Ju lutemi prisni...",
   "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm.",
 
-   "logoutTitle": "Shkyçja",
+  "logoutTitle": "Shkyçja",
   "logoutMessage": "Jeni shkyçur me sukses!",
   "logoutThanks": "Faleminderit që e keni përdorur aplikacionin tonë.",
-  "loginAgain": "Hyni përsëri"
+  "loginAgain": "Hyni përsëri",
+
+  "navHome": "Ballina",
+  "navMunicipalities": "Komunat",
+  "navMySessions": "Seancat e mia",
+  "navAdminPanel": "Paneli i Adminit",
+  "navSettings": "Cilësimet",
+  "navLogout": "Shkyçu",
+
+  "homeTitle": "Ballina",
+  "homeWelcome": "Mirë se vini në sistemin e votimit të këshillit komunal.",
+  "homeDescription": "Në çdo seancë marrin pjesë këshilltarët, përfshirë edhe kryetarin e këshillit, i cili udhëheq seancën. Ata janë përgjegjës për krijimin dhe miratimin e propozimeve që ndikojnë te të gjithë qytetarët e komunës.",
+  "municipalitiesButton": "Komunat",
+
+  "municipalitiesTitle": "Komunat",
+  "addMunicipality": "Shto Komunë",
+  "view": "Shiko",
+  "options": "Opsione",
+  "edit": "Përpuno",
+  "delete": "Fshi",
+  "noMunicipalities": "Nuk ka komuna të disponueshme",
+  "loading": "Po ngarkohet..."
 }
