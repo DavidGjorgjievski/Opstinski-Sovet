@@ -32,5 +32,53 @@
   "edit": "Bearbeiten",
   "delete": "Löschen",
   "noMunicipalities": "Keine Gemeinden verfügbar",
-  "loading": "Wird geladen..."
+  "loading": "Wird geladen...",
+
+  "profile": {
+    "title": "Profil",
+    "username": "Benutzername",
+    "fullName": "Name",
+    "role": "Rolle",
+    "municipality": "Gemeinde",
+    "changePassword": "Passwort ändern"
+  },
+  "roles": {
+    "user": "Ratsmitglied",
+    "president": "Ratspäsident",
+    "spectator": "Beobachter",
+    "presenter": "Präsentator",
+    "admin": "Administrator",
+    "guest": "Gast",
+    "unknown": "Unbekannte Rolle"
+  },
+
+  "changeImage": {
+    "title": "Profilbild ändern",
+    "header": "Bild hochladen",
+    "noFileSelected": "Keine Datei ausgewählt",
+    "selectedFile": "Ausgewählte Datei",
+    "dragOrClick": "Ziehen Sie eine Datei hierher oder",
+    "clickHere": "klicken Sie, um ein Bild auszuwählen",
+    "invalidType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
+    "sizeLimit": "Maximale Dateigröße: 50 KB!",
+    "selectFile": "Bitte wählen Sie ein Bild aus, um fortzufahren.",
+    "uploadError": "Fehler beim Hochladen des Bildes.",
+    "uploadSuccess": "Bild erfolgreich hochgeladen.",
+    "uploadButton": "Hochladen",
+    "backButton": "Zurück"
+  },
+
+  "changePassword": {
+    "title": "Passwort ändern",
+    "header": "Passwort ändern",
+    "current": "Aktuelles Passwort",
+    "new": "Neues Passwort",
+    "confirm": "Neues Passwort bestätigen",
+    "passwordMismatch": "Neues Passwort und Bestätigung stimmen nicht überein.",
+    "incorrectCurrent": "Falsches aktuelles Passwort.",
+    "generalError": "Beim Ändern des Passworts ist ein Fehler aufgetreten.",
+    "success": "Passwort erfolgreich geändert.",
+    "submit": "Passwort ändern",
+    "back": "Zurück"
+  }
 }

@@ -32,5 +32,53 @@
   "edit": "Edit",
   "delete": "Delete",
   "noMunicipalities": "No municipalities available",
-  "loading": "Loading..."
+  "loading": "Loading...",
+
+  "profile": {
+    "title": "Profile",
+    "username": "Username",
+    "fullName": "Full Name",
+    "role": "Role",
+    "municipality": "Municipality",
+    "changePassword": "Change Password"
+  },
+  "roles": {
+    "user": "Councilor",
+    "president": "Council President",
+    "spectator": "Spectator",
+    "presenter": "Presenter",
+    "admin": "Admin",
+    "guest": "Guest",
+    "unknown": "Unknown Role"
+  },
+
+  "changeImage": {
+    "title": "Change Profile Image",
+    "header": "Upload Image",
+    "noFileSelected": "No file selected",
+    "selectedFile": "Selected file",
+    "dragOrClick": "Drop a file here or",
+    "clickHere": "click to choose an image",
+    "invalidType": "Only JPG or PNG images are allowed.",
+    "sizeLimit": "Maximum file size is 50KB!",
+    "selectFile": "Please select an image to continue.",
+    "uploadError": "Error uploading image.",
+    "uploadSuccess": "Image uploaded successfully.",
+    "uploadButton": "Upload",
+    "backButton": "Back"
+  },
+
+   "changePassword": {
+    "title": "Change Password",
+    "header": "Change Password",
+    "current": "Current Password",
+    "new": "New Password",
+    "confirm": "Confirm New Password",
+    "passwordMismatch": "New password and confirmation do not match.",
+    "incorrectCurrent": "Incorrect current password.",
+    "generalError": "Something went wrong while changing the password.",
+    "success": "Password changed successfully.",
+    "submit": "Change Password",
+    "back": "Back"
+  }
 }

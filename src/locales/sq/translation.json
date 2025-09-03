@@ -32,5 +32,53 @@
   "edit": "Përpuno",
   "delete": "Fshi",
   "noMunicipalities": "Nuk ka komuna të disponueshme",
-  "loading": "Po ngarkohet..."
+  "loading": "Po ngarkohet...",
+
+  "profile": {
+    "title": "Profili",
+    "username": "Emri i përdoruesit",
+    "fullName": "Emri dhe mbiemri",
+    "role": "Roli",
+    "municipality": "Komuna",
+    "changePassword": "Ndrysho fjalëkalimin"
+  },
+  "roles": {
+    "user": "Këshilltar",
+    "president": "Kryetar i këshillit",
+    "spectator": "Vëzhgues",
+    "presenter": "Prezantues",
+    "admin": "Administrator",
+    "guest": "Vizitor",
+    "unknown": "Roli i panjohur"
+  },
+
+   "changeImage": {
+    "title": "Ndrysho profilin",
+    "header": "Ngarko imazhin",
+    "noFileSelected": "Asnjë skedar i zgjedhur",
+    "selectedFile": "Skedari i zgjedhur",
+    "dragOrClick": "Lëshoni skedarin këtu ose",
+    "clickHere": "klikoni për të zgjedhur një imazh",
+    "invalidType": "Lejohen vetëm imazhet JPG ose PNG.",
+    "sizeLimit": "Madhësia maksimale e skedarit është 50KB!",
+    "selectFile": "Ju lutemi zgjidhni një imazh për të vazhduar.",
+    "uploadError": "Gabim gjatë ngarkimit të imazhit.",
+    "uploadSuccess": "Imazhi u ngarkua me sukses.",
+    "uploadButton": "Ngarko",
+    "backButton": "Kthehu"
+  },
+
+  "changePassword": {
+    "title": "Ndrysho fjalëkalimin",
+    "header": "Ndrysho fjalëkalimin",
+    "current": "Fjalëkalimi aktual",
+    "new": "Fjalëkalimi i ri",
+    "confirm": "Konfirmo fjalëkalimin e ri",
+    "passwordMismatch": "Fjalëkalimi i ri dhe konfirmimi nuk përputhen.",
+    "incorrectCurrent": "Fjalëkalimi aktual është i pasaktë.",
+    "generalError": "Diçka shkoi keq gjatë ndryshimit të fjalëkalimit.",
+    "success": "Fjalëkalimi u ndryshua me sukses.",
+    "submit": "Ndrysho fjalëkalimin", 
+    "back": "Kthehu"
+  }
 }

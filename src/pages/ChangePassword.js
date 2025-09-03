@@ -4,33 +4,33 @@ import '../styles/ChangePassword.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ChangePassword = () => {
+  const { t } = useTranslation();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  // Store KEYS, not translated strings
+  const [passwordErrorKey, setPasswordErrorKey] = useState(null); // string | null
+  const [successKey, setSuccessKey] = useState(null);             // string | null
+
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
   const [token] = useState(localStorage.getItem('jwtToken'));
   const navigate = useNavigate();
 
   useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
-
-    return () => {
-      cleanupMobileMenu();
-    };
+    return () => cleanupMobileMenu();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    setPasswordError(null);
-    setSuccessMessage('');
+    setPasswordErrorKey(null);
+    setSuccessKey(null);
 
     if (newPassword !== confirmPassword) {
-      setPasswordError('Новата лозинка и потврдата не се совпаѓаат.');
+      setPasswordErrorKey('changePassword.passwordMismatch');
       return;
     }
 
@@ -47,23 +47,19 @@ const ChangePassword = () => {
       if (response.status === 400) {
         const errorMessage = await response.text();
         if (errorMessage.includes("Incorrect current password")) {
-          setPasswordError('Погрешна сегашна лозинка.'); 
+          setPasswordErrorKey('changePassword.incorrectCurrent');
         } else {
-          setPasswordError('Нешто не е во ред при промената на лозинката.');
+          setPasswordErrorKey('changePassword.generalError');
         }
         return;
       }
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
 
-      const data = await response.text(); 
-      console.log(data)
-      setSuccessMessage("Лозинката е променета успешно."); 
+      setSuccessKey('changePassword.success');
     } catch (error) {
       console.error('Error changing password:', error.message);
-      setPasswordError('Нешто не е во ред при промената на лозинката.'); 
+      setPasswordErrorKey('changePassword.generalError');
     }
   };
 
@@ -71,19 +67,19 @@ const ChangePassword = () => {
     <div className="change-password-container">
       <HelmetProvider>
         <Helmet>
-          <title>Промена на лозинка</title>
+          <title>{t('changePassword.title')}</title>
         </Helmet>
       </HelmetProvider>
       <Header userInfo={userInfo} />
 
       <main className="change-password-body">
         <div className="password-change-header">
-          <h1 className="password-change-title">Промена на лозинка</h1>
+          <h1 className="password-change-title">{t('changePassword.header')}</h1>
         </div>
         <div>
           <form onSubmit={handleSubmit} className="change-password-form">
             <div className="form-group">
-              <label htmlFor="currentPassword">Сегашна лозинка</label>
+              <label htmlFor="currentPassword">{t('changePassword.current')}</label>
               <input
                 type="password"
                 id="currentPassword"
@@ -95,7 +91,7 @@ const ChangePassword = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="newPassword">Нова лозинка</label>
+              <label htmlFor="newPassword">{t('changePassword.new')}</label>
               <input
                 type="password"
                 id="newPassword"
@@ -107,7 +103,7 @@ const ChangePassword = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="confirmPassword">Потврди нова лозинка</label>
+              <label htmlFor="confirmPassword">{t('changePassword.confirm')}</label>
               <input
                 type="password"
                 id="confirmPassword"
@@ -118,12 +114,20 @@ const ChangePassword = () => {
               />
             </div>
 
-            {passwordError && <p className="error-message">{passwordError}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
+            {passwordErrorKey && <p className="error-message">{t(passwordErrorKey)}</p>}
+            {successKey && <p className="success-message">{t(successKey)}</p>}
 
             <div className='d-flex flex-row mt-2'>
-              <button type="submit" className="button-change-password-submit me-2">Промени лозинка</button>
-              <button type="button" onClick={() => navigate('/profile')} className="button-change-password-back">Назад</button>
+              <button type="submit" className="button-change-password-submit me-2">
+                {t('changePassword.submit')}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/profile')}
+                className="button-change-password-back"
+              >
+                {t('changePassword.back')}
+              </button>
             </div>
           </form>
         </div>
