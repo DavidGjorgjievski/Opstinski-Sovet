@@ -6,6 +6,11 @@ import { faGear, faRightFromBracket, faBars, faChevronDown, faChevronUp } from '
 import { useParams } from "react-router-dom";
 import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
+import mkFlag from '../assets/flags/mk.png';
+import enFlag from '../assets/flags/en.png';
+import deFlag from '../assets/flags/de.png';
+import sqFlag from '../assets/flags/sq.png';
+
 
 function Header({ userInfo }) {
     const { t } = useTranslation();
@@ -16,6 +21,14 @@ function Header({ userInfo }) {
     const { municipalityId } = useParams();
 
     const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'mk');
+
+
+const languageData = {
+    mk: { flag: mkFlag, label: 'Македонски' },
+    en: { flag: enFlag, label: 'English' },
+    de: { flag: deFlag, label: 'Deutsch' },
+    sq: { flag: sqFlag, label: 'Shqip' }
+};
 
     let municipalityImage = null;
     if (municipalityId) {
@@ -129,16 +142,19 @@ function Header({ userInfo }) {
                             onClick={() => setOpenLang(!openLang)}
                         >
                             <img
-                                src={`${process.env.PUBLIC_URL}/flags/${selectedLang}.png`}
+                                src={languageData[selectedLang].flag}
                                 alt={selectedLang}
                                 className="lang-flag-header"
                             />
-                            <FontAwesomeIcon className="arrow-lang-header" icon={openLang ? faChevronUp : faChevronDown} />
+                            <FontAwesomeIcon
+                                className="arrow-lang-header"
+                                icon={openLang ? faChevronUp : faChevronDown}
+                            />
                         </button>
 
-                        {openLang && (
+                         {openLang && (
                             <div className="language-options-header">
-                                {['mk', 'en', 'de', 'sq']
+                                {Object.keys(languageData)
                                     .filter(lang => lang !== selectedLang)
                                     .map(lang => (
                                         <div
@@ -147,7 +163,7 @@ function Header({ userInfo }) {
                                             onClick={() => changeLanguage(lang)}
                                         >
                                             <img
-                                                src={`${process.env.PUBLIC_URL}/flags/${lang}.png`}
+                                                src={languageData[lang].flag}
                                                 alt={lang}
                                                 className="lang-flag-header"
                                             />

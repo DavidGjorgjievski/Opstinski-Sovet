@@ -1,22 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext'; 
-import { useNavigate } from 'react-router-dom'; 
-import '../styles/Login.css'; 
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Login.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import i18n from '../i18n';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 
+// Import flag images from assets (cached by Webpack/Vite automatically)
+import mkFlag from '../assets/flags/mk.png';
+import enFlag from '../assets/flags/en.png';
+import deFlag from '../assets/flags/de.png';
+import sqFlag from '../assets/flags/sq.png';
+
+// Map languages to flags and names for cleaner code
+const languageData = {
+    mk: { name: 'Македонски', flag: mkFlag },
+    en: { name: 'English', flag: enFlag },
+    de: { name: 'Deutsch', flag: deFlag },
+    sq: { name: 'Shqip', flag: sqFlag }
+};
+
 function Login() {
     const { t } = useTranslation();
     const { login, isAuthenticated } = useAuth();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorKey, setErrorKey] = useState('');
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
     const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'mk');
     const [open, setOpen] = useState(false);
 
@@ -26,7 +40,7 @@ function Login() {
         }
     }, [isAuthenticated, navigate]);
 
-    // Login handler
+    // Handle login
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -46,7 +60,7 @@ function Login() {
             const data = await response.json();
             const { token, userInfo } = data;
             const role = userInfo.role;
-            login(token, JSON.stringify(userInfo), role); 
+            login(token, JSON.stringify(userInfo), role);
             navigate('/');
         } catch (error) {
             console.error('Error:', error);
@@ -57,7 +71,7 @@ function Login() {
         }
     };
 
-    // Language change handler
+    // Handle language change
     const changeLanguage = (lang) => {
         setSelectedLang(lang);
         i18n.changeLanguage(lang);
@@ -70,8 +84,13 @@ function Login() {
                 <Helmet><title>{t('loginTitle')}</title></Helmet>
             </HelmetProvider>
 
+            {/* Logo stays in public/images */}
             <div className="login-header">
-                <img src={`${process.env.PUBLIC_URL}/images/grb.png`} alt="Grb Gold" className="login-logo" />
+                <img
+                    src={`${process.env.PUBLIC_URL}/images/grb.png`}
+                    alt="Grb Gold"
+                    className="login-logo"
+                />
             </div>
 
             <h2>{t('loginTitle')}</h2>
@@ -99,8 +118,8 @@ function Login() {
                     className='login-button'
                     value={loading ? t('pleaseWait') : t('loginButton')}
                     disabled={loading}
-                /> 
-            </form>       
+                />
+            </form>
 
             <div>
                 <button
@@ -117,53 +136,41 @@ function Login() {
                 </button>
             </div>
 
-            {/* Language selector */}
+            {/* Language Selector */}
             <div className="language-dropdown-container">
                 <label className="language-label">{t('selectLanguage')}</label>
                 <div className="language-dropdown">
                     <button className="selected-language" onClick={() => setOpen(!open)}>
                         <img
-                            src={`${process.env.PUBLIC_URL}/flags/${selectedLang}.png`}
+                            src={languageData[selectedLang].flag}
                             alt={selectedLang}
                             className="lang-flag"
                         />
-                        <span>
-                            {selectedLang === 'mk' ? 'Македонски' :
-                             selectedLang === 'en' ? 'English' :
-                             selectedLang === 'de' ? 'Deutsch' :
-                             'Shqip'}
-                        </span>
-                        <span>
-                            <FontAwesomeIcon className="arrow-lang" icon={open ? faChevronUp : faChevronDown} />
-                        </span>
+                        <span>{languageData[selectedLang].name}</span>
+                        <FontAwesomeIcon className="arrow-lang" icon={open ? faChevronUp : faChevronDown} />
                     </button>
 
                     {open && (
                         <div className="language-options">
-                            {['mk', 'en', 'de', 'sq']
-                              .filter(lang => lang !== selectedLang)
-                              .map(lang => (
-                                <div
-                                  key={lang}
-                                  className="language-option"
-                                  onClick={() => {
-                                    changeLanguage(lang);
-                                    setOpen(false);
-                                  }}
-                                >
-                                    <img
-                                      src={`${process.env.PUBLIC_URL}/flags/${lang}.png`}
-                                      alt={lang}
-                                      className="lang-flag"
-                                    />
-                                    <span>
-                                      {lang === 'mk' ? 'Македонски' :
-                                       lang === 'en' ? 'English' :
-                                       lang === 'de' ? 'Deutsch' :
-                                       'Shqip'}
-                                    </span>
-                                </div>
-                              ))}
+                            {Object.keys(languageData)
+                                .filter(lang => lang !== selectedLang)
+                                .map(lang => (
+                                    <div
+                                        key={lang}
+                                        className="language-option"
+                                        onClick={() => {
+                                            changeLanguage(lang);
+                                            setOpen(false);
+                                        }}
+                                    >
+                                        <img
+                                            src={languageData[lang].flag}
+                                            alt={lang}
+                                            className="lang-flag"
+                                        />
+                                        <span>{languageData[lang].name}</span>
+                                    </div>
+                                ))}
                         </div>
                     )}
                 </div>
