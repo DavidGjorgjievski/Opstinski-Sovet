@@ -80,5 +80,42 @@
     "success": "Password changed successfully.",
     "submit": "Change Password",
     "back": "Back"
+  },
+
+  "sessionsTitle": "Sessions",
+  "sessionsSubtitle": "Each session includes the members of the council.",
+  "addSession": "Add Session",
+  "viewSession": "View",
+  "editSession": "Edit",
+  "deleteSession": "Delete",
+  "optionsSession": "Options",
+  "exportSession": "Export",
+  "noSessions": "No available sessions",
+  "loadingSessions": "Loading sessions...",
+  "exportLoading": "Generating PDF...",
+
+  "months": [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+  ],
+
+  "sessionModal": {
+    "confirmDeleteTitle": "Confirm Deletion",
+    "confirmDeleteMessage": "Are you sure you want to delete the session:",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel"
+  },
+
+   "addSessionForm": {
+    "addTitle": "Add Session",
+    "editTitle": "Edit Session",
+    "addHeader": "Add a New Session",
+    "editHeader": "Edit Session",
+    "sessionNameLabel": "Session Name:",
+    "sessionNamePlaceholder": "Enter session name",
+    "sessionDateLabel": "Session Date:",
+    "addButton": "Add",
+    "editButton": "Edit",
+    "backButton": "Back"
   }
 }

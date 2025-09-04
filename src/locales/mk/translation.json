@@ -80,5 +80,42 @@
     "success": "Лозинката е променета успешно.",
     "submit": "Промени лозинка",
     "back": "Назад"
+  },
+
+  "sessionsTitle": "Седници",
+  "sessionsSubtitle": "Секоја седница ги вклучува членовите на советот.",
+  "addSession": "Додади Седница",
+  "viewSession": "Преглед",
+  "editSession": "Уреди",
+  "deleteSession": "Избриши",
+  "optionsSession": "Опции",
+  "exportSession": "Експорт",
+  "noSessions": "Нема достапни седници",
+  "loadingSessions": "Се вчитуваат седниците...",
+  "exportLoading": "Се генерира PDF...",
+
+  "months": [
+  "Јануари", "Февруари", "Март", "Април", "Мај", "Јуни",
+  "Јули", "Август", "Септември", "Октомври", "Ноември", "Декември"
+  ],
+
+  "sessionModal": {
+    "confirmDeleteTitle": "Потврди Бришење",
+    "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете седницата:",
+    "deleteButton": "Избриши",
+    "cancelButton": "Откажи"
+  },
+
+  "addSessionForm": {
+    "addTitle": "Додади Седница",
+    "editTitle": "Уреди Седница",
+    "addHeader": "Додади нова седница",
+    "editHeader": "Уреди седница",
+    "sessionNameLabel": "Име на седница:",
+    "sessionNamePlaceholder": "Внеси име на седница",
+    "sessionDateLabel": "Дата на седница:",
+    "addButton": "Додади",
+    "editButton": "Уреди",
+    "backButton": "Назад"
   }
 }

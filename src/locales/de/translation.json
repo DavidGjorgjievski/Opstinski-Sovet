@@ -80,5 +80,42 @@
     "success": "Passwort erfolgreich geändert.",
     "submit": "Passwort ändern",
     "back": "Zurück"
+  },
+
+  "sessionsTitle": "Sitzungen",
+  "sessionsSubtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
+  "addSession": "Sitzung anlegen",
+  "viewSession": "Ansehen",
+  "editSession": "Bearbeiten",
+  "deleteSession": "Löschen",
+  "optionsSession": "Optionen",
+  "exportSession": "Exportieren",
+  "noSessions": "Keine verfügbaren Sitzungen",
+  "loadingSessions": "Sitzungen werden geladen...",
+  "exportLoading": "PDF wird generiert...",
+
+  "months": [
+  "Januar", "Februar", "März", "April", "Mai", "Juni",
+  "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ],
+
+   "sessionModal": {
+    "confirmDeleteTitle": "Löschung Bestätigen",
+    "confirmDeleteMessage": "Sind Sie sicher, dass Sie die Sitzung löschen möchten:",
+    "deleteButton": "Löschen",
+    "cancelButton": "Abbrechen"
+  },
+
+  "addSessionForm": {
+    "addTitle": "Sitzung Hinzufügen",
+    "editTitle": "Sitzung Bearbeiten",
+    "addHeader": "Neue Sitzung hinzufügen",
+    "editHeader": "Sitzung bearbeiten",
+    "sessionNameLabel": "Name der Sitzung:",
+    "sessionNamePlaceholder": "Sitzungsname eingeben",
+    "sessionDateLabel": "Datum der Sitzung:",
+    "addButton": "Hinzufügen",
+    "editButton": "Bearbeiten",
+    "backButton": "Zurück"
   }
 }

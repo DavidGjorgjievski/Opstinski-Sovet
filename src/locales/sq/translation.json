@@ -80,5 +80,42 @@
     "success": "Fjalëkalimi u ndryshua me sukses.",
     "submit": "Ndrysho fjalëkalimin", 
     "back": "Kthehu"
+  },
+
+  "sessionsTitle": "Seancat",
+  "sessionsSubtitle": "Çdo seancë përfshin anëtarët e këshillit.",
+  "addSession": "Shto Seancë",
+  "viewSession": "Shiko",
+  "editSession": "Ndrysho",
+  "deleteSession": "Fshi",
+  "optionsSession": "Opsione",
+  "exportSession": "Eksporto",
+  "noSessions": "Nuk ka seanca të disponueshme",
+  "loadingSessions": "Duke ngarkuar seancat...",
+  "exportLoading": "Po gjenerohet PDF...",
+
+  "months": [
+  "Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor",
+  "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
+  ],
+
+   "sessionModal": {
+    "confirmDeleteTitle": "Konfirmo Fshirjen",
+    "confirmDeleteMessage": "A jeni i sigurt që dëshironi të fshini seancën:",
+    "deleteButton": "Fshi",
+    "cancelButton": "Anulo"
+  },
+
+  "addSessionForm": {
+    "addTitle": "Shto Seancë",
+    "editTitle": "Redakto Seancën",
+    "addHeader": "Shto një seancë të re",
+    "editHeader": "Redakto seancën",
+    "sessionNameLabel": "Emri i seancës:",
+    "sessionNamePlaceholder": "Shkruani emrin e seancës",
+    "sessionDateLabel": "Data e seancës:",
+    "addButton": "Shto",
+    "editButton": "Redakto",
+    "backButton": "Kthehu"
   }
 }

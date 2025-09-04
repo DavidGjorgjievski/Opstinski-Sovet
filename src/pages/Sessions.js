@@ -8,8 +8,11 @@ import SessionConfirmModal from '../components/SessionConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
+import { useTranslation } from "react-i18next";
+
 
 function Sessions() {
+    const { t } = useTranslation();
     const [sessions, setSessions] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedSession, setSelectedSession] = useState(null);
@@ -243,33 +246,19 @@ const handleExportClick = async (sessionId, sessionName) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
 }, []);
-function formatMacedonianDate(dateString) {
-    const date = new Date(dateString);
 
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are 0-based
-    const year = date.getFullYear();
 
-    const macedonianMonths = {
-        1: 'Јануари',
-        2: 'Февруари',
-        3: 'Март',
-        4: 'Април',
-        5: 'Мај',
-        6: 'Јуни',
-        7: 'Јули',
-        8: 'Август',
-        9: 'Септември',
-        10: 'Октомври',
-        11: 'Ноември',
-        12: 'Декември'
-    };
+function formatDateByLanguage(dateString, t) {
+  const date = new Date(dateString);
+  if (isNaN(date)) return '';
 
-    const monthName = macedonianMonths[month];
+  const months = t('months', { returnObjects: true });
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
 
-    return `${day} ${monthName} ${year}`;
+  return `${day} ${month} ${year}`;
 }
-
 
 return (
     <div className="sessions-container">
@@ -284,14 +273,14 @@ return (
       <main className="session-body-container">
          <div className={`session-header ${sessions.length === 1 ? 'session-header-size1' : ''}`}>
           <div className='session-header-div'>
-            <h1 className="session-header-title">Седници</h1>
-            <p>Во секоја седница, се вклучуваат советници.</p>
+            <h1 className="session-header-title">{t('sessionsTitle')}</h1>
+            <p>{t('sessionsSubtitle')}</p>
           </div>
           <div className="session-button-container">
             {userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
               <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
                 <button className="session-add-button">
-                  Додади Седница <FontAwesomeIcon icon={faPlus} />
+                  {t('addSession')} <FontAwesomeIcon icon={faPlus} />
                 </button>
               </a>
             )}
@@ -324,7 +313,7 @@ return (
                   <div className="session-info">
                     <div className="session-text">
                       <h2 className='session-name'>{session.name}</h2>
-                      <p className='session-date'>{formatMacedonianDate(session.date)}</p>
+                    <p className='session-date'>{formatDateByLanguage(session.date, t)}</p>
                     </div>
 
                     <div className="all-session-buttons d-flex flex-row justify-content-between align-items-start w-100">
@@ -334,10 +323,10 @@ return (
                           className="button-see-content w-100"
                         >
                           {userInfo.role === 'ROLE_PRESENTER' ? (
-                            'Презентирај'
+                            t('present')
                           ) : (
                             <>
-                              Преглед <FontAwesomeIcon icon={faMagnifyingGlass} />
+                              {t('viewSession')} <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </>
                           )}
                         </a>
@@ -354,19 +343,19 @@ return (
                               setOpenMenuId(openMenuId === session.id ? null : session.id)
                             }
                           >
-                            Опции <FontAwesomeIcon icon={openMenuId === session.id ? faChevronUp : faChevronDown} />
+                            {t('optionsSession')} <FontAwesomeIcon icon={openMenuId === session.id ? faChevronUp : faChevronDown} />
                           </button>
 
                           {openMenuId === session.id && (
                             <div className="admin-dropdown">
-                              <button
+                             <button
                                 className="dropdown-item"
                                 onClick={() => {
                                   handleExportClick(session.id, session.name);
                                   setOpenMenuId(null);
                                 }}
                               >
-                                <FontAwesomeIcon icon={faFilePdf} /> Експорт
+                                <FontAwesomeIcon icon={faFilePdf} /> {t('exportSession')}
                               </button>
 
                               {userInfo.role === 'ROLE_PRESIDENT' &&
@@ -376,17 +365,17 @@ return (
                                       className="dropdown-item"
                                       href={`/municipalities/${municipalityId}/sessions/edit/${session.id}`}
                                     >
-                                      <FontAwesomeIcon icon={faPenToSquare} /> Уреди
+                                      <FontAwesomeIcon icon={faPenToSquare} /> {t('editSession')}
                                     </a>
-                                    <button
-                                      className="dropdown-item"
-                                      onClick={() => {
-                                        handleDeleteClick(session);
-                                        setOpenMenuId(null);
-                                      }}
-                                    >
-                                      <FontAwesomeIcon icon={faTrash} /> Избриши
-                                    </button>
+                                   <button
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      handleDeleteClick(session);
+                                      setOpenMenuId(null);
+                                    }}
+                                  >
+                                    <FontAwesomeIcon icon={faTrash} /> {t('deleteSession')}
+                                  </button>
                                   </>
                                 )}
                             </div>
@@ -399,7 +388,7 @@ return (
               ))
             ) : (
               <div className="mt-3">
-                <h4>Нема достапни седници</h4>
+                <h4>{t('noSessions')}</h4>
               </div>
             )}
           </div>
@@ -408,7 +397,7 @@ return (
         {exportLoading && (
           <div className="modal-overlay">
             <div className="export-loading-spinner">
-              <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt="Export Loading..." />
+              <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt={t('exportLoading')} />
             </div>
           </div>
         )}
