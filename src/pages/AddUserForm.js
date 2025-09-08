@@ -318,12 +318,12 @@ function AddUserForm() {
                             )}
 
                             <div className="form-group d-flex justify-content-between mt-2">
-                                <button type="submit" className="btn btn-lg btn-primary action-buttons">
+                                <button type="submit" className="btn btn-md btn-primary action-buttons">
                                     {t("addUserForm.addUser")}
                                 </button>
                                 <button
                                     type="button"
-                                    className="btn btn-danger btn-lg action-buttons"
+                                    className="btn btn-danger btn-md action-buttons"
                                     onClick={() => navigate("/admin-panel")}
                                 >
                                     {t("addUserForm.back")}
