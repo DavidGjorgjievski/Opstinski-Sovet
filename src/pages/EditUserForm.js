@@ -305,8 +305,8 @@ function EditUserForm() {
                             {fileSizeError && <div className="error-message">{t("editUserForm.fileTooLarge")}</div>}
 
                             <div className="form-group d-flex justify-content-between mt-4">
-                                <button type="submit" className="btn btn-lg btn-warning">{t("editUserForm.editUser")}</button>
-                                <button type="button" className="btn btn-lg btn-danger" onClick={() => navigate("/admin-panel")}>{t("editUserForm.cancel")}</button>
+                                <button type="submit" className="btn btn-warning">{t("editUserForm.editUser")}</button>
+                                <button type="button" className="btn btn-danger" onClick={() => navigate("/admin-panel")}>{t("editUserForm.cancel")}</button>
                             </div>
                         </form>
                     </div>
