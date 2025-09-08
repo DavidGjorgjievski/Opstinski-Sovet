@@ -184,5 +184,31 @@
     "passwordMismatch": "Passwords do not match.",
     "addUser": "Add User",
     "back": "Back"
+  },
+
+  "editUserForm": {
+  "pageTitle": "Edit User",
+  "formTitle": "Edit User",
+  "username": "Username:",
+  "enterUsername": "Enter username",
+  "name": "First Name:",
+  "enterName": "Enter first name",
+  "surname": "Last Name:",
+  "enterSurname": "Enter last name",
+  "role": "Role:",
+  "selectRole": "Select role",
+  "status": "Status:",
+  "municipality": "Select Municipality:",
+  "selectMunicipality": "Select municipality",
+  "password": "New Password:",
+  "enterNewPassword": "Enter new password",
+  "noFileSelected": "No file selected",
+  "selectedFile": "Selected file",
+  "dragOrClick": "Drag file here or",
+  "chooseFile": "click to choose an image",
+  "invalidFileType": "Only JPG or PNG images are allowed.",
+  "fileTooLarge": "Maximum allowed image size is 50KB.",
+  "editUser": "Update User",
+  "cancel": "Cancel"
   }
 }

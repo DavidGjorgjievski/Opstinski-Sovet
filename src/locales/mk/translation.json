@@ -184,5 +184,31 @@
     "passwordMismatch": "Лозинките не се совпаѓаат.",
     "addUser": "Додади корисник",
     "back": "Назад"
+  },
+
+  "editUserForm": {
+  "pageTitle": "Измени корисник",
+  "formTitle": "Измени корисник",
+  "username": "Корисничко име:",
+  "enterUsername": "Внеси корисничко име",
+  "name": "Име:",
+  "enterName": "Внеси име",
+  "surname": "Презиме:",
+  "enterSurname": "Внеси презиме",
+  "role": "Роља:",
+  "selectRole": "Избери роља",
+  "status": "Статус:",
+  "municipality": "Изберете Општина:",
+  "selectMunicipality": "Изберете општина",
+  "password": "Нова лозинка:",
+  "enterNewPassword": "Внеси нова лозинка",
+  "noFileSelected": "Нема избрана слика",
+  "selectedFile": "Избрана датотека",
+  "dragOrClick": "Пуштете датотека тука или",
+  "chooseFile": "кликнете за да изберете слика",
+  "invalidFileType": "Дозволени се само JPG или PNG слики.",
+  "fileTooLarge": "Максималната големина на сликата е 50KB.",
+  "editUser": "Измени корисник",
+  "cancel": "Откажи"
   }
 }

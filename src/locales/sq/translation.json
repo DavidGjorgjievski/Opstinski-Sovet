@@ -184,6 +184,33 @@
     "passwordMismatch": "Fjalëkalimet nuk përputhen.",
     "addUser": "Shto përdorues",
     "back": "Kthehu"
+  },
+
+  "editUserForm": {
+  "pageTitle": "Ndrysho Përdorues",
+  "formTitle": "Ndrysho përdorues",
+  "username": "Emri i përdoruesit:",
+  "enterUsername": "Shkruaj emrin e përdoruesit",
+  "name": "Emri:",
+  "enterName": "Shkruaj emrin",
+  "surname": "Mbiemri:",
+  "enterSurname": "Shkruaj mbiemrin",
+  "role": "Roli:",
+  "selectRole": "Zgjidh rolin",
+  "status": "Statusi:",
+  "municipality": "Zgjidh komunën:",
+  "selectMunicipality": "Zgjidh komunën",
+  "password": "Fjalëkalimi i ri:",
+  "enterNewPassword": "Shkruaj fjalëkalimin e ri",
+  "noFileSelected": "Asnjë fotografi e zgjedhur",
+  "selectedFile": "Skedari i zgjedhur",
+  "dragOrClick": "Tërhiqni skedarin këtu ose",
+  "chooseFile": "klikoni për të zgjedhur fotografi",
+  "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
+  "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
+  "editUser": "Ndrysho përdorues",
+  "cancel": "Anulo"
 }
+
 
 }
