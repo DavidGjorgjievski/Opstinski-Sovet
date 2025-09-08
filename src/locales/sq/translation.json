@@ -117,5 +117,73 @@
     "addButton": "Shto",
     "editButton": "Redakto",
     "backButton": "Kthehu"
-  }
+  },
+
+  "adminPanel": {
+    "adminPanelTitle": "Paneli i Administratorit",
+    "backButton": "Kthehu",
+    "allUsers": "Të gjithë përdoruesit",
+    "addUserButton": "Shto përdorues",
+    "admins": "Administratorë",
+    "presidents": "Presidentë",
+    "councilors": "Këshilltarë",
+    "spectators": "Vëzhgues",
+    "presenters": "Prezantues",
+    "guests": "Mysafirë",
+    "noUsersAvailable": "Nuk ka përdorues të disponueshëm.",
+    "deleteError": "Nuk mund të fshihet ky përdorues sepse është i lidhur me të dhëna të tjera."
+  },
+
+   "adminpanel": {
+    "image": "Foto",
+    "username": "Përdoruesi",
+    "name": "Emri",
+    "surname": "Mbiemri",
+    "role": "Roli",
+    "status": "Statusi",
+    "municipality": "Komuna",
+    "actions": "Veprime",
+    "delete": "Fshi",
+    "edit": "Redakto",
+    "notAvailable": "Nuk ka"
+  },
+
+  "confirmModal": {
+    "title": "A jeni i sigurt?",
+    "message": "A jeni i sigurt që dëshironi të fshini përdoruesin",
+    "delete": "Fshi",
+    "cancel": "Anulo",
+    "close": "Mbylle",
+    "errorTitle": "Gabim"
+  },
+
+  "addUserForm": {
+    "pageTitle": "Shto Përdorues",
+    "formTitle": "Shto përdorues të ri",
+    "username": "Emri i përdoruesit:",
+    "enterUsername": "Shkruaj emrin e përdoruesit",
+    "name": "Emri:",
+    "enterName": "Shkruaj emrin",
+    "surname": "Mbiemri:",
+    "enterSurname": "Shkruaj mbiemrin",
+    "password": "Fjalëkalimi:",
+    "enterPassword": "Shkruaj fjalëkalimin",
+    "confirmPassword": "Konfirmo fjalëkalimin:",
+    "confirmPasswordPlaceholder": "Shkruaj fjalëkalimin përsëri",
+    "role": "Roli:",
+    "selectRole": "Zgjidh rolin",
+    "status": "Statusi:",
+    "municipality": "Zgjidh komunën:",
+    "selectMunicipality": "Zgjidh komunën",
+    "noFileSelected": "Asnjë fotografi e zgjedhur",
+    "selectedFile": "Skedari i zgjedhur",
+    "dragOrClick": "Tërhiqni skedarin këtu ose",
+    "chooseFile": "klikoni për të zgjedhur fotografi",
+    "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
+    "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
+    "passwordMismatch": "Fjalëkalimet nuk përputhen.",
+    "addUser": "Shto përdorues",
+    "back": "Kthehu"
+}
+
 }

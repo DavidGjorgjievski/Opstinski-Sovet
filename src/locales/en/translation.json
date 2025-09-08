@@ -117,5 +117,72 @@
     "addButton": "Add",
     "editButton": "Edit",
     "backButton": "Back"
+  },
+
+   "adminPanel": {
+    "adminPanelTitle": "Admin Panel",
+    "backButton": "Back",
+    "allUsers": "All Users",
+    "addUserButton": "Add User",
+    "admins": "Admins",
+    "presidents": "Presidents",
+    "councilors": "Councilors",
+    "spectators": "Spectators",
+    "presenters": "Presenters",
+    "guests": "Guests",
+    "noUsersAvailable": "No users available.",
+    "deleteError": "Cannot delete this user because they are linked to other data."
+  },
+
+    "adminpanel": {
+    "image": "Image",
+    "username": "Username",
+    "name": "First Name",
+    "surname": "Last Name",
+    "role": "Role",
+    "status": "Status",
+    "municipality": "Municipality",
+    "actions": "Actions",
+    "delete": "Delete",
+    "edit": "Edit",
+    "notAvailable": "N/A"
+  },
+
+   "confirmModal": {
+    "title": "Are you sure?",
+    "message": "Are you sure you want to delete user",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "close": "Close",
+    "errorTitle": "Error"
+  },
+
+  "addUserForm": {
+    "pageTitle": "Add User",
+    "formTitle": "Add New User",
+    "username": "Username:",
+    "enterUsername": "Enter username",
+    "name": "Name:",
+    "enterName": "Enter name",
+    "surname": "Surname:",
+    "enterSurname": "Enter surname",
+    "password": "Password:",
+    "enterPassword": "Enter password",
+    "confirmPassword": "Confirm Password:",
+    "confirmPasswordPlaceholder": "Re-enter password",
+    "role": "Role:",
+    "selectRole": "Select role",
+    "status": "Status:",
+    "municipality": "Select Municipality:",
+    "selectMunicipality": "Choose a municipality",
+    "noFileSelected": "No file selected",
+    "selectedFile": "Selected file",
+    "dragOrClick": "Drag and drop file here or",
+    "chooseFile": "click to select an image",
+    "invalidFileType": "Only JPG or PNG images are allowed.",
+    "fileTooLarge": "Maximum image size allowed is 50KB.",
+    "passwordMismatch": "Passwords do not match.",
+    "addUser": "Add User",
+    "back": "Back"
   }
 }

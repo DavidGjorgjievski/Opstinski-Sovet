@@ -1,6 +1,9 @@
-import React from 'react';
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
+    const { t } = useTranslation();
+
     const renderUserRow = (user) => (
         <tr key={user.username}>
             <td>
@@ -17,19 +20,19 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>{user.surname}</td>
             <td>{user.role}</td>
             <td>{user.status}</td>
-            <td>{user.municipalityName || 'N/A'}</td>  
+            <td>{user.municipalityName || t("adminpanel.notAvailable")}</td>
             <td>
                 <button
                     className="btn btn-sm btn-danger me-2"
                     onClick={() => onDeleteClick(user)}
                 >
-                    Избриши
+                    {t("adminpanel.delete")}
                 </button>
                 <button
                     className="btn btn-sm btn-warning"
                     onClick={() => onEditClick(user)}
                 >
-                    Уреди
+                    {t("adminpanel.edit")}
                 </button>
             </td>
         </tr>
@@ -42,14 +45,14 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
                 <table className="table table-bordered table-striped text-center">
                     <thead className="thead-light">
                         <tr>
-                            <th className={`bg-${bgColor}`}>Слика</th>
-                            <th className={`bg-${bgColor}`}>Корисничко име</th>
-                            <th className={`bg-${bgColor}`}>Име</th>
-                            <th className={`bg-${bgColor}`}>Презиме</th>
-                            <th className={`bg-${bgColor}`}>Роља</th>
-                            <th className={`bg-${bgColor}`}>Статус</th>
-                            <th className={`bg-${bgColor}`}>Општина</th> 
-                            <th className={`bg-${bgColor}`}>Акции</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.image")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.username")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.name")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.surname")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.role")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.status")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.municipality")}</th>
+                            <th className={`bg-${bgColor}`}>{t("adminpanel.actions")}</th>
                         </tr>
                     </thead>
                     <tbody>

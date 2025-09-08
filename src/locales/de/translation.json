@@ -117,5 +117,72 @@
     "addButton": "Hinzufügen",
     "editButton": "Bearbeiten",
     "backButton": "Zurück"
+  },
+
+  "adminPanel": {
+    "adminPanelTitle": "Admin-Panel",
+    "backButton": "Zurück",
+    "allUsers": "Alle Benutzer",
+    "addUserButton": "Benutzer hinzufügen",
+    "admins": "Admins",
+    "presidents": "Präsidenten",
+    "councilors": "Ratsmitglieder",
+    "spectators": "Beobachter",
+    "presenters": "Präsentatoren",
+    "guests": "Gäste",
+    "noUsersAvailable": "Keine Benutzer verfügbar.",
+    "deleteError": "Der Benutzer kann nicht gelöscht werden, da er mit anderen Daten verknüpft ist."
+  },
+
+  "adminpanel": {
+    "image": "Bild",
+    "username": "Benutzername",
+    "name": "Vorname",
+    "surname": "Nachname",
+    "role": "Rolle",
+    "status": "Status",
+    "municipality": "Gemeinde",
+    "actions": "Aktionen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "notAvailable": "Nicht verfügbar"
+  },
+
+  "confirmModal": {
+    "title": "Bist du sicher?",
+    "message": "Möchten Sie den Benutzer löschen",
+    "delete": "Löschen",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "errorTitle": "Fehler"
+  },
+
+  "addUserForm": {
+    "pageTitle": "Benutzer hinzufügen",
+    "formTitle": "Neuen Benutzer hinzufügen",
+    "username": "Benutzername:",
+    "enterUsername": "Benutzernamen eingeben",
+    "name": "Vorname:",
+    "enterName": "Vornamen eingeben",
+    "surname": "Nachname:",
+    "enterSurname": "Nachnamen eingeben",
+    "password": "Passwort:",
+    "enterPassword": "Passwort eingeben",
+    "confirmPassword": "Passwort bestätigen:",
+    "confirmPasswordPlaceholder": "Passwort erneut eingeben",
+    "role": "Rolle:",
+    "selectRole": "Rolle auswählen",
+    "status": "Status:",
+    "municipality": "Gemeinde auswählen:",
+    "selectMunicipality": "Gemeinde auswählen",
+    "noFileSelected": "Keine Datei ausgewählt",
+    "selectedFile": "Ausgewählte Datei",
+    "dragOrClick": "Datei hierher ziehen oder",
+    "chooseFile": "klicken, um ein Bild auszuwählen",
+    "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
+    "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
+    "passwordMismatch": "Passwörter stimmen nicht überein.",
+    "addUser": "Benutzer hinzufügen",
+    "back": "Zurück"
   }
 }

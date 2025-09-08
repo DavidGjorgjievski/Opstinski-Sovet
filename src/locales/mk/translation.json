@@ -117,5 +117,72 @@
     "addButton": "Додади",
     "editButton": "Уреди",
     "backButton": "Назад"
+  },
+
+  "adminPanel": {
+    "adminPanelTitle": "Админ Панел",
+    "backButton": "Назад",
+    "allUsers": "Сите корисници",
+    "addUserButton": "Додади корисник",
+    "admins": "Админи",
+    "presidents": "Претседатели",
+    "councilors": "Советници",
+    "spectators": "Набљудувачи",
+    "presenters": "Презентери",
+    "guests": "Гости",
+    "noUsersAvailable": "Нема достапни корисници.",
+    "deleteError": "Не може да се избрише корисникот затоа што е поврзан со други податоци."
+  },
+
+  "adminpanel": {
+    "image": "Слика",
+    "username": "Корисничко име",
+    "name": "Име",
+    "surname": "Презиме",
+    "role": "Роља",
+    "status": "Статус",
+    "municipality": "Општина",
+    "actions": "Акции",
+    "delete": "Избриши",
+    "edit": "Уреди",
+    "notAvailable": "Нема"
+  },
+
+  "confirmModal": {
+    "title": "Дали си сигурен?",
+    "message": "Дали сакате да го избришете корисникот",
+    "delete": "Избриши",
+    "cancel": "Откажи",
+    "close": "Затвори",
+    "errorTitle": "Грешка"
+  },
+
+  "addUserForm": {
+    "pageTitle": "Додади Корисник",
+    "formTitle": "Додади нов корисник",
+    "username": "Корисничко име:",
+    "enterUsername": "Внеси корисничко име",
+    "name": "Име:",
+    "enterName": "Внеси име",
+    "surname": "Презиме:",
+    "enterSurname": "Внеси презиме",
+    "password": "Лозинка:",
+    "enterPassword": "Внеси лозинка",
+    "confirmPassword": "Потврди лозинка:",
+    "confirmPasswordPlaceholder": "Внеси лозинка повторно",
+    "role": "Роља:",
+    "selectRole": "Избери роља",
+    "status": "Статус:",
+    "municipality": "Изберете општина:",
+    "selectMunicipality": "Изберете општина",
+    "noFileSelected": "Нема избрана слика",
+    "selectedFile": "Избрана датотека",
+    "dragOrClick": "Пуштете датотека тука или",
+    "chooseFile": "кликнете за да изберете слика",
+    "invalidFileType": "Дозволени се само JPG или PNG слики.",
+    "fileTooLarge": "Максималната големина на сликата е 50KB.",
+    "passwordMismatch": "Лозинките не се совпаѓаат.",
+    "addUser": "Додади корисник",
+    "back": "Назад"
   }
 }

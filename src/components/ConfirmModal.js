@@ -1,7 +1,10 @@
 import React from 'react';
 import '../styles/ConfirmModal.css';
+import { useTranslation } from 'react-i18next';
 
 const ConfirmModal = ({ show, onClose, onConfirm, userName, errorMessage }) => {
+    const { t } = useTranslation();
+
     if (!show) return null;
 
     return (
@@ -9,19 +12,27 @@ const ConfirmModal = ({ show, onClose, onConfirm, userName, errorMessage }) => {
             <div className="modal-content">
                 {errorMessage ? (
                     <>
-                        <h2>Грешка</h2>
+                        <h2>{t("confirmModal.errorTitle")}</h2>
                         <p className="text-danger">{errorMessage}</p>
                         <div className="modal-actions">
-                            <button className="btn btn-secondary" onClick={onClose}>Затвори</button>
+                            <button className="btn btn-secondary" onClick={onClose}>
+                                {t("confirmModal.close")}
+                            </button>
                         </div>
                     </>
                 ) : (
                     <>
-                        <h2>Дали си сигурен?</h2>
-                        <p>Дали сакате да го избришете корисникот <strong>{userName}</strong>?</p>
+                        <h2>{t("confirmModal.title")}</h2>
+                        <p>
+                            {t("confirmModal.message")} <strong>{userName}</strong>?
+                        </p>
                         <div className="modal-actions">
-                            <button className="btn btn-danger" onClick={onConfirm}>Избриши</button>
-                            <button className="btn btn-secondary" onClick={onClose}>Откажи</button>
+                            <button className="btn btn-danger" onClick={onConfirm}>
+                                {t("confirmModal.delete")}
+                            </button>
+                            <button className="btn btn-secondary" onClick={onClose}>
+                                {t("confirmModal.cancel")}
+                            </button>
                         </div>
                     </>
                 )}
