@@ -210,5 +210,22 @@
   "fileTooLarge": "Максималната големина на сликата е 50KB.",
   "editUser": "Измени корисник",
   "cancel": "Откажи"
+  },
+
+    "topicsPage": {
+    "pageTitle": "Точки",
+    "headerTitle": "Точки",
+    "backButton": "Назад",
+    "addTopicButton": "Додади Точка",
+    "present": "Презентирај",
+    "newTopicBefore": "Нова точка",
+    "newTopicAfter": "Нова точка",
+    "edit": "Уреди",
+    "delete": "Избриши",
+    "details": "Детали",
+    "detailedResults": "Детални резултати",
+    "startVoting": "Започни гласање",
+    "finishVoting": "Заврши гласање",
+    "restartVoting": "Повторно гласање"
   }
 }

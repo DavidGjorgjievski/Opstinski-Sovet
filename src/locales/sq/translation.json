@@ -210,7 +210,23 @@
   "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
   "editUser": "Ndrysho përdorues",
   "cancel": "Anulo"
-}
+  },
 
+  "topicsPage": {
+    "pageTitle": "Pikat",
+    "headerTitle": "Pikat",
+    "backButton": "Kthehu",
+    "addTopicButton": "Shto Pikë",
+    "present": "Prezantoni",
+    "newTopicBefore": "Pikë e re",
+    "newTopicAfter": "Pikë e re",
+    "edit": "Përpuno",
+    "delete": "Fshij",
+    "details": "Detajet",
+    "detailedResults": "Rezultatet e Detajuara",
+    "startVoting": "Fillo votimin",
+    "finishVoting": "Përfundo votimin",
+    "restartVoting": "Rifillo votimin"
+  }
 
 }

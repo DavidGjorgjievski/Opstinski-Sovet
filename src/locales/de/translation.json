@@ -212,29 +212,20 @@
   "cancel": "Abbrechen"
   },
 
-  "editUserForm": {
-  "pageTitle": "Benutzer bearbeiten",
-  "formTitle": "Benutzer bearbeiten",
-  "username": "Benutzername:",
-  "enterUsername": "Benutzernamen eingeben",
-  "name": "Vorname:",
-  "enterName": "Vornamen eingeben",
-  "surname": "Nachname:",
-  "enterSurname": "Nachnamen eingeben",
-  "role": "Rolle:",
-  "selectRole": "Rolle auswählen",
-  "status": "Status:",
-  "municipality": "Gemeinde auswählen:",
-  "selectMunicipality": "Gemeinde auswählen",
-  "password": "Neues Passwort:",
-  "enterNewPassword": "Neues Passwort eingeben",
-  "noFileSelected": "Keine Datei ausgewählt",
-  "selectedFile": "Ausgewählte Datei",
-  "dragOrClick": "Datei hier ablegen oder",
-  "chooseFile": "klicken, um ein Bild auszuwählen",
-  "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
-  "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
-  "editUser": "Benutzer bearbeiten",
-  "cancel": "Abbrechen"
+   "topicsPage": {
+    "pageTitle": "Themen",
+    "headerTitle": "Themen",
+    "backButton": "Zurück",
+    "addTopicButton": "Thema hinzufügen",
+    "present": "Präsentieren",
+    "newTopicBefore": "Neues Thema",
+    "newTopicAfter": "Neues Thema",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "details": "Details",
+    "detailedResults": "Detaillierte Ergebnisse",
+    "startVoting": "Abstimmung starten",
+    "finishVoting": "Abstimmung beenden",
+    "restartVoting": "Abstimmung wiederholen"
   }
 }

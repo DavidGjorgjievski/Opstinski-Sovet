@@ -210,5 +210,22 @@
   "fileTooLarge": "Maximum allowed image size is 50KB.",
   "editUser": "Update User",
   "cancel": "Cancel"
+  },
+
+  "topicsPage": {
+    "pageTitle": "Topics",
+    "headerTitle": "Topics",
+    "backButton": "Back",
+    "addTopicButton": "Add Topic",
+    "present": "Present",
+    "newTopicBefore": "New Topic",
+    "newTopicAfter": "New Topic",
+    "edit": "Edit",
+    "delete": "Delete",
+    "details": "Details",
+    "detailedResults": "Detailed Results",
+    "startVoting": "Start Voting",
+    "finishVoting": "Finish Voting",
+    "restartVoting": "Restart Voting"
   }
 }

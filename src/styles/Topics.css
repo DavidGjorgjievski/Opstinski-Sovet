@@ -65,6 +65,11 @@ html {
     color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    white-space: nowrap;
+    min-width: 130px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .topic-add-button:hover {
@@ -72,24 +77,70 @@ html {
     transform: scale(1.03);
 }
 
+.change-topic-status-button {
+    height: 36.2px;
+    background-color: white;
+    color: black;
+    border: 2px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 10px !important;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 210px;
+}
+
+.change-topic-status-button:hover {
+    background-color: #f7f7f7;
+    border-color: #ccc;
+    transform: scale(1.03);
+}
+
 .gold-button {
+    height: 36.2px;
     background-color: #fbe64e;
     color: #000;
     padding: 6px 10px;
-    font-size: 14px;
     font-weight: 500;
     border: none;
-    border-radius: 8px;
+    font-weight: 500;
+    border-radius: 10px;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 180px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    width: 210px;
 }
 
 .gold-button:hover {
     background-color: #f7db2c;
     transform: scale(1.03);
+}
+
+.gold-button.mk,
+.change-topic-status-button.mk {
+    font-size: 14px;
+}
+
+.gold-button.en,
+.change-topic-status-button.en {
+    font-size: 14px;
+}
+
+.gold-button.sq,
+.change-topic-status-button.sq {
+    font-size: 14px;
+}
+
+.gold-button.de,
+.change-topic-status-button.de {
+    font-size: 14px;
 }
 
 .finished-topic{
@@ -371,29 +422,7 @@ html {
     font-size: 1.25rem;
 }
 
-.change-topic-status-button {
-    background-color: white;
-    color: black;
-    border: 2px solid #ddd;
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 10px !important;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s, border-color 0.3s;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    width: 180px;
-}
 
-.change-topic-status-button:hover {
-    background-color: #f7f7f7;
-    border-color: #ccc;
-    transform: scale(1.03);
-}
 
 .topic-status-text{
     background-color: #c3c0c0;
@@ -579,7 +608,6 @@ html {
 .live-icon {
     width: 40px;
     margin-left: 3px;
-
 }
 
 .tooltip-container {
@@ -792,14 +820,33 @@ html {
         justify-content: center;
     }
 
-    .gold-button{
-        width: 155px;
-        font-size: 12px;
-    }
+   .gold-button,
+   .change-topic-status-button {
+       width: 175px;
+   }
 
-    .change-topic-status-button{
-        width: 155px;
-        font-size: 12px;
+   .gold-button.mk,
+   .change-topic-status-button.mk {
+       font-size: 13.5px;
+   }
+
+   .gold-button.en,
+   .change-topic-status-button.en {
+       font-size: 14px;
+   }
+
+   .gold-button.sq,
+   .change-topic-status-button.sq {
+       font-size: 13px;
+   }
+
+   .gold-button.de,
+   .change-topic-status-button.de {
+       font-size: 11.2px;
+   }
+
+    .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
+        margin-right: 10px;
     }
 }
 
@@ -813,35 +860,119 @@ html {
         width: 120px;
     }
 
-    .gold-button {
-        width: 145px;
-        font-size: 11px;
+   .gold-button,
+   .change-topic-status-button {
+       width: 165px;
+   }
+
+    .gold-button.mk,
+    .change-topic-status-button.mk {
+        font-size: 13.5px;
     }
     
+    .gold-button.en,
+    .change-topic-status-button.en {
+        font-size: 14px;
+    }
+    
+    .gold-button.sq,
+    .change-topic-status-button.sq {
+        font-size: 12px;
+    }
+    
+    .gold-button.de,
+    .change-topic-status-button.de {
+        font-size: 10.7px;
+    }
+    
+    .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 365px) {
+.gold-button,
     .change-topic-status-button {
-        width: 145px;
-        font-size: 11px;
+        width: 160px;
+    }
+
+    .gold-button.mk,
+    .change-topic-status-button.mk {
+        font-size: 13.5px;
+    }
+     
+    .gold-button.de,
+    .change-topic-status-button.de {
+        font-size: 10.3px;
+    }
+}
+
+@media (max-width: 355px) {
+    .gold-button,
+    .change-topic-status-button {
+        width: 155px;
+    }
+
+    .gold-button.mk,
+    .change-topic-status-button.mk {
+        font-size: 13px;
+    }
+
+    .gold-button.sq,
+    .change-topic-status-button.sq {
+        font-size: 11.5px;
+    }
+
+    .gold-button.de,
+    .change-topic-status-button.de {
+        font-size: 9.5px;
     }
 }
 
 @media (max-width: 345px) {
-    .gold-button {
-        width: 130px;
-        font-size: 10px;
-    }
-    
+.gold-button,
     .change-topic-status-button {
-        width: 130px;
-        font-size: 10px;
+        width: 150px;
+    }
+
+    .gold-button.mk,
+    .change-topic-status-button.mk {
+        font-size: 12.5px;
+    }
+
+    .gold-button.de,
+    .change-topic-status-button.de {
+        font-size: 9.2px;
+    }
+
+    .gold-button.sq,
+    .change-topic-status-button.sq {
+        font-size: 11px;
     }
 }
 
+@media (max-width: 330px) {
+    .gold-button,
+    .change-topic-status-button {
+        width: 145px;
+    }
+
+    .gold-button.mk,
+    .change-topic-status-button.mk {
+        font-size: 12px;
+    }
+
+    .gold-button.de,
+    .change-topic-status-button.de {
+        font-size: 9px;
+    }
+
+    .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
+        margin-right: 6.5px;
+    }
+}
 
 /* 3 dots menu */
-
-
-
-
 
 @keyframes blink {
     0% {
