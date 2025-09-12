@@ -212,20 +212,30 @@
   "cancel": "Откажи"
   },
 
-    "topicsPage": {
-    "pageTitle": "Точки",
-    "headerTitle": "Точки",
-    "backButton": "Назад",
-    "addTopicButton": "Додади Точка",
-    "present": "Презентирај",
-    "newTopicBefore": "Нова точка",
-    "newTopicAfter": "Нова точка",
-    "edit": "Уреди",
-    "delete": "Избриши",
-    "details": "Детали",
-    "detailedResults": "Детални резултати",
-    "startVoting": "Започни гласање",
-    "finishVoting": "Заврши гласање",
-    "restartVoting": "Повторно гласање"
+   "topicsPage": {
+  "pageTitle": "Точки",
+  "headerTitle": "Точки",
+  "backButton": "Назад",
+  "addTopicButton": "Додади Точка",
+  "present": "Презентирај",
+  "newTopicBefore": "Нова точка",
+  "newTopicAfter": "Нова точка",
+  "edit": "Уреди",
+  "delete": "Избриши",
+  "details": "Детали",
+  "detailedResults": "Детални резултати",
+  "startVoting": "Започни гласање",
+  "finishVoting": "Заврши гласање",
+  "restartVoting": "Повторно гласање",
+  "yes": "За",
+  "no": "Против",
+  "abstained": "Воздржан",
+  "cantVote": "Се иземува",
+  "notVoted": "Не гласале",
+  "absent": "Отсутен"
+  },
+
+  "tooltip": {
+  "easyMode": "Лесен режим"
   }
 }

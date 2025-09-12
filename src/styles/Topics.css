@@ -416,13 +416,15 @@ html {
 .rez-container {
     margin-bottom: 8px;
     margin-right: 0px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .text-for-rez {
     font-size: 1.25rem;
 }
-
-
 
 .topic-status-text{
     background-color: #c3c0c0;

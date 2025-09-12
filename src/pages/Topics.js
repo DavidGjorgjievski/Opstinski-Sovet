@@ -665,7 +665,7 @@ useEffect(() => {
                                         <div className="topic-item-body-detail-group">
                                            <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
-                                                        <span className="text-for-rez">За</span>
+                                                        <span className="text-for-rez">{t("topicsPage.yes")}</span>
                                                     </div>
                                                     <div
                                                         onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'YES') : undefined}
@@ -686,9 +686,7 @@ useEffect(() => {
                                             </div>
                                            <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
-                                                        <span className="text-for-rez">
-                                                             Против
-                                                        </span>
+                                                        <span className="text-for-rez">{t("topicsPage.no")}</span>
                                                     </div>
                                                     <div
                                                         onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'NO') : undefined}
@@ -711,9 +709,7 @@ useEffect(() => {
                                         <div className="topic-item-body-detail-group">
                                            <div className="topic-item-body-detail-group-chunk">
                                                  <div className="rez-container">
-                                                     <span className="text-for-rez">
-                                                        Воздржан
-                                                    </span>
+                                                     <span className="text-for-rez">{t("topicsPage.abstained")}</span>
                                                 </div>
                                                 <div
                                                     onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
@@ -734,7 +730,7 @@ useEffect(() => {
                                             </div>
                                             <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
-                                                        <span className="text-for-rez">Се иземува</span>
+                                                        <span className="text-for-rez">{t("topicsPage.cantVote")}</span>
                                                     </div>
                                                     <div
                                                         onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'CANNOT_VOTE') : undefined}
@@ -757,9 +753,7 @@ useEffect(() => {
                                         <div className="topic-item-body-detail-group">
                                            <div className="topic-item-body-detail-group-chunk">
                                                     <div className="rez-container">
-                                                        <span className="text-for-rez">
-                                                            Не гласале
-                                                        </span>
+                                                       <span className="text-for-rez">{t("topicsPage.notVoted")}</span>
                                                     </div>
                                                     <div
                                                         onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'HAVE_NOT_VOTED') : undefined}
@@ -780,7 +774,7 @@ useEffect(() => {
                                                 </div>
                                             <div className="topic-item-body-detail-group-chunk">
                                                 <div className="rez-container">
-                                                    <span className="text-for-rez">Отсутен</span>
+                                                    <span className="text-for-rez">{t("topicsPage.absent")}</span>
                                                 </div>
                                                 <div className="topic-button-vote vote-absent">{topic.absent}</div>
                                             </div>
@@ -878,7 +872,7 @@ useEffect(() => {
                             <div onClick={handleToggle} className='toggle-topics'>
                                 <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
                             </div>
-                            <span className="tooltip-text">Лесен режим</span>
+                            <span className="tooltip-text">{t("tooltip.easyMode")}</span>
                             </div>
 
                             <div>

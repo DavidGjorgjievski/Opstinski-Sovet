@@ -226,6 +226,16 @@
     "detailedResults": "Detaillierte Ergebnisse",
     "startVoting": "Abstimmung starten",
     "finishVoting": "Abstimmung beenden",
-    "restartVoting": "Abstimmung wiederholen"
+    "restartVoting": "Abstimmung wiederholen",
+     "yes": "Ja",
+    "no": "Nein",
+    "abstained": "Enthalten",
+    "cantVote": "Befreit",
+    "notVoted": "Nicht abgestimmt",
+    "absent": "Abwesend"
+  },
+
+  "tooltip": {
+  "easyMode": "Einfacher Modus"
   }
 }

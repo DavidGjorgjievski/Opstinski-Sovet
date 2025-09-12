@@ -226,6 +226,16 @@
     "detailedResults": "Detailed Results",
     "startVoting": "Start Voting",
     "finishVoting": "Finish Voting",
-    "restartVoting": "Restart Voting"
+    "restartVoting": "Restart Voting",
+    "yes": "Yes",
+    "no": "No",
+    "abstained": "Abstained",
+    "cantVote": "Exempted from voting",
+    "notVoted": "Did not vote",
+    "absent": "Absent"
+  },
+
+  "tooltip": {
+  "easyMode": "Easy mode"
   }
 }

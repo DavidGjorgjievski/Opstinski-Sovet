@@ -226,7 +226,16 @@
     "detailedResults": "Rezultatet e Detajuara",
     "startVoting": "Fillo votimin",
     "finishVoting": "Përfundo votimin",
-    "restartVoting": "Rifillo votimin"
-  }
+    "restartVoting": "Rifillo votimin",
+    "yes": "Po",
+    "no": "Jo",
+    "abstained": "Abstenuar",
+    "cantVote": "Përjashtuar",
+    "notVoted": "Nuk kanë votuar",
+    "absent": "Mungon"
+  },
 
+  "tooltip": {
+  "easyMode": "Modalitet i lehtë"
+  }
 }
