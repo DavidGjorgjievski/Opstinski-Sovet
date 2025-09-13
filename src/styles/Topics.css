@@ -850,6 +850,13 @@ html {
     }
 }
 
+@media (max-width: 400px) {
+    .gold-button.de,
+    .change-topic-status-button.de {
+        font-size: 10.7px;
+    }
+}
+
 @media (max-width: 380px) {
 
     .topic-item-size {
@@ -882,7 +889,7 @@ html {
     
     .gold-button.de,
     .change-topic-status-button.de {
-        font-size: 10.7px;
+        font-size: 10.5px;
     }
     
     .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
