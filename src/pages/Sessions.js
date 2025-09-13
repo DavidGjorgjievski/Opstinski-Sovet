@@ -264,7 +264,7 @@ return (
     <div className="sessions-container">
       <HelmetProvider>
         <Helmet>
-          <title>Седници</title>
+          <title>{t('sessionsTitle')}</title>
         </Helmet>
       </HelmetProvider>
 
