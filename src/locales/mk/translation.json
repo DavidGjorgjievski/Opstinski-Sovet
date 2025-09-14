@@ -232,7 +232,11 @@
   "abstained": "Воздржан",
   "cantVote": "Се иземува",
   "notVoted": "Не гласале",
-  "absent": "Отсутен"
+  "absent": "Отсутен",
+  "confirmDeleteTitle": "Потврди Бришење",
+  "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете точката:",
+  "confirmDeleteButton": "Избриши",
+  "cancelButton": "Откажи"
   },
 
   "tooltip": {

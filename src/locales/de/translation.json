@@ -232,7 +232,11 @@
     "abstained": "Enthalten",
     "cantVote": "Befreit",
     "notVoted": "Nicht abgestimmt",
-    "absent": "Abwesend"
+    "absent": "Abwesend",
+    "confirmDeleteTitle": "Löschen bestätigen",
+    "confirmDeleteMessage": "Sind Sie sicher, dass Sie das Thema löschen möchten:",
+    "confirmDeleteButton": "Löschen",
+    "cancelButton": "Abbrechen"
   },
 
   "tooltip": {

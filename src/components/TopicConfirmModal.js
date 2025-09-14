@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function TopicConfirmModal({ isOpen, onClose, onConfirm, topicTitle }) {
+
+    const { t } = useTranslation();
+    
     useEffect(() => {
         const handleEscape = (event) => {
             if (event.key === 'Escape') {
@@ -16,12 +20,16 @@ function TopicConfirmModal({ isOpen, onClose, onConfirm, topicTitle }) {
     return (
           <div className="modal-overlay">
             <div className="modal-content">
-                <h2>Потврди Бришење</h2>
-                <p>Дали сте сигурни дека сакате да ја избришете точката:</p>
+                <h2>{t("topicsPage.confirmDeleteTitle")}</h2>
+                <p>{t("topicsPage.confirmDeleteMessage")}</p>
                 <p><strong>{topicTitle}</strong>?</p>
                 <div className="modal-actions">
-                    <button className="btn btn-danger" onClick={onConfirm}>Избриши</button>
-                    <button className="btn btn-secondary" onClick={onClose}>Откажи</button>
+                <button className="btn btn-danger" onClick={onConfirm}>
+                    {t("topicsPage.confirmDeleteButton")}
+                </button>
+                <button className="btn btn-secondary" onClick={onClose}>
+                    {t("topicsPage.cancelButton")}
+                </button>
                 </div>
             </div>
         </div>

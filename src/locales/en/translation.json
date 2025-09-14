@@ -232,7 +232,11 @@
     "abstained": "Abstained",
     "cantVote": "Exempted from voting",
     "notVoted": "Did not vote",
-    "absent": "Absent"
+    "absent": "Absent",
+    "confirmDeleteTitle": "Confirm Deletion",
+    "confirmDeleteMessage": "Are you sure you want to delete the topic:",
+    "confirmDeleteButton": "Delete",
+    "cancelButton": "Cancel"
   },
 
   "tooltip": {

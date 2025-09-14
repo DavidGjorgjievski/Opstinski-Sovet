@@ -232,7 +232,11 @@
     "abstained": "Abstenuar",
     "cantVote": "Përjashtuar",
     "notVoted": "Nuk kanë votuar",
-    "absent": "Mungon"
+    "absent": "Mungon",
+     "confirmDeleteTitle": "Konfirmo Fshirjen",
+    "confirmDeleteMessage": "A jeni i sigurt që dëshironi ta fshini çështjen:",
+    "confirmDeleteButton": "Fshi",
+    "cancelButton": "Anulo"
   },
 
   "tooltip": {
