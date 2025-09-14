@@ -241,5 +241,24 @@
 
   "tooltip": {
   "easyMode": "Easy mode"
+  },
+
+  "liveUsers": {
+  "offlineUsers": "Offline users",
+  "onlineUsers": "Online users",
+  "noOffline": "No offline users",
+  "noOnline": "No online users",
+  "image": "Image",
+  "name": "Name",
+  "surname": "Surname",
+  "action": "Action",
+  "turnOn": "Turn on",
+  "turnOff": "Turn off"
+  },
+
+  "unauthorized": {
+  "title": "Unauthorized",
+  "message": "You are not authorized to access this page.",
+  "backButton": "Go to homepage"
   }
 }

@@ -241,5 +241,24 @@
 
   "tooltip": {
   "easyMode": "Modalitet i lehtë"
+  },
+
+  "liveUsers": {
+  "offlineUsers": "Përdoruesit jashtë linje",
+  "onlineUsers": "Përdoruesit në linjë",
+  "noOffline": "Nuk ka përdorues jashtë linje",
+  "noOnline": "Nuk ka përdorues në linjë",
+  "image": "Foto",
+  "name": "Emri",
+  "surname": "Mbiemri",
+  "action": "Veprim",
+  "turnOn": "Aktivizo",
+  "turnOff": "Çaktivizo"
+  },
+
+  "unauthorized": {
+  "title": "E palejuar",
+  "message": "Nuk keni leje të hyni në këtë faqe.",
+  "backButton": "Shko te faqja kryesore"
   }
 }

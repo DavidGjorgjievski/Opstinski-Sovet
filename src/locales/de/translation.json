@@ -241,5 +241,24 @@
 
   "tooltip": {
   "easyMode": "Einfacher Modus"
+  },
+
+  "liveUsers": {
+  "offlineUsers": "Offline-Benutzer",
+  "onlineUsers": "Online-Benutzer",
+  "noOffline": "Keine Offline-Benutzer",
+  "noOnline": "Keine Online-Benutzer",
+  "image": "Bild",
+  "name": "Name",
+  "surname": "Nachname",
+  "action": "Aktion",
+  "turnOn": "Einschalten",
+  "turnOff": "Ausschalten"
+  },
+
+  "unauthorized": {
+  "title": "Unzulässig",
+  "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen.",
+  "backButton": "Zur Startseite"
   }
 }

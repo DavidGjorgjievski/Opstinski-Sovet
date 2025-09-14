@@ -2,10 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import "../styles/LiveUsersModal.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from "react-i18next";
 
 const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [offlineUsers, setOfflineUsers] = useState([]);
+  const { t } = useTranslation();
 
   const fetchOnlineUsers = useCallback(async () => {
     try {
@@ -117,15 +119,15 @@ const makeUserOnline = async (username) => {
 
         {/* Offline Users Table */}
        <h3 className="live-users-table-header">
-        <FontAwesomeIcon icon={faCircle} className="red-dot" /> Офлајн корисници ({offlineUsers.length})
+        <FontAwesomeIcon icon={faCircle} className="red-dot" /> {t("liveUsers.offlineUsers")} ({offlineUsers.length})
       </h3>
         <table className="liv-user-table">
           <thead>
             <tr>
-              <th>Слика</th>
-              <th>Име</th>
-              <th>Презиме</th>
-              {role === "ROLE_PRESIDENT" &&<th>Акција</th>}
+              <th>{t("liveUsers.image")}</th>
+              <th>{t("liveUsers.name")}</th>
+              <th>{t("liveUsers.surname")}</th>
+              {role === "ROLE_PRESIDENT" &&<th>{t("liveUsers.action")}</th>}
             </tr>
           </thead>
          <tbody>
@@ -143,14 +145,14 @@ const makeUserOnline = async (username) => {
                   <td>{user.surname}</td>
                   {role === "ROLE_PRESIDENT" && (
                     <td>
-                     <button className="liv-action-btn" onClick={() => makeUserOnline(user.username)}>вклучи</button>
+                     <button className="liv-action-btn" onClick={() => makeUserOnline(user.username)}>{t("liveUsers.turnOn")}</button>
                     </td>
                   )}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>Нема офлајн корисници</td>
+                <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>{t("liveUsers.noOffline")}</td>
               </tr>
             )}
           </tbody>
@@ -158,15 +160,15 @@ const makeUserOnline = async (username) => {
 
         {/* Online Users Table */}
        <h3 className="live-users-table-header">
-        <FontAwesomeIcon icon={faCircle} className="green-dot" /> Онлајн корисници ({onlineUsers.length})
+        <FontAwesomeIcon icon={faCircle} className="green-dot" /> {t("liveUsers.onlineUsers")} ({onlineUsers.length})
       </h3>
         <table className="liv-user-table">
           <thead>
             <tr>
-              <th>Слика</th>
-              <th>Име</th>
-              <th>Презиме</th>
-              {role === "ROLE_PRESIDENT" &&<th>Акција</th>}
+              <th>{t("liveUsers.image")}</th>
+              <th>{t("liveUsers.name")}</th>
+              <th>{t("liveUsers.surname")}</th>
+              {role === "ROLE_PRESIDENT" &&<th>{t("liveUsers.action")}</th>}
             </tr>
           </thead>
              <tbody>
@@ -184,14 +186,14 @@ const makeUserOnline = async (username) => {
                     <td>{user.surname}</td>
                     {role === "ROLE_PRESIDENT" && (
                       <td>
-                        <button className="liv-action-btn" onClick={() => makeUserOffline(user.username)}>исклучи</button>
+                        <button className="liv-action-btn" onClick={() => makeUserOffline(user.username)}>{t("liveUsers.turnOff")}</button>
                       </td>
                     )}
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>Нема онлајн корисници</td>
+                  <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>{t("liveUsers.noOnline")}</td>
                 </tr>
               )}
             </tbody>
