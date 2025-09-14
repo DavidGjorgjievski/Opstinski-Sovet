@@ -16,8 +16,9 @@ html {
 }
 
 .topcis-container-body {
-    margin-top: 80px;
+    padding-top: calc(80px + env(safe-area-inset-top));
     width: 100%;
+    box-sizing: border-box;
 }
 
 .topic-header {
