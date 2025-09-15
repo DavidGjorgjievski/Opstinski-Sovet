@@ -146,11 +146,14 @@ html {
     background-color: #d8d5d5;
 }
 
+.topic-header-title{
+    font-size: 3rem;
+}
+
 .topic-header-title-div{
     display: flex;
     flex-direction: column;
     align-items: start;
-    font-size: 3rem;
 }
 
 .back-button-topic {
