@@ -734,6 +734,10 @@ html {
         margin-top: 5px;
     }
 
+    .topcis-container-body {
+        padding-top: 60px;
+    }
+
     .topic-add-button{
         margin-left: 0px !important;
     }
