@@ -150,6 +150,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: start;
+    font-size: 3rem;
 }
 
 .back-button-topic {
