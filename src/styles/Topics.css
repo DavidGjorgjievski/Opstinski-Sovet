@@ -16,7 +16,7 @@ html {
 }
 
 .topcis-container-body {
-    padding-top: calc(80px + env(safe-area-inset-top));
+    padding-top: 80px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -731,7 +731,7 @@ html {
     .topic-header{
         width: 90%;
         flex-direction: column;
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .topic-add-button{
