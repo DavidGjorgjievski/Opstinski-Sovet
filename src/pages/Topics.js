@@ -784,10 +784,10 @@ useEffect(() => {
 
                         <div>
                             {topic.topicStatus === "INFORMATION" && (
-                                <h4 className='topic-status-text'>Информација</h4>
+                                <h4 className='topic-status-text'>{t("topicsPage.information")}</h4>
                             )}
                             {topic.topicStatus === "WITHDRAWN" && (
-                                <h4 className='topic-status-text'>Повлечена</h4>
+                                <h4 className='topic-status-text'>{t("topicsPage.withdrawn")}</h4>
                             )}
                         </div>
 

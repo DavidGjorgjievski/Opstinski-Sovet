@@ -13,6 +13,7 @@ import {
 } from '../util/fileUpload';
 import '../styles/AddTopicForm.css';
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
+import { useTranslation } from "react-i18next";
 
 const AddTopicForm = () => {
     const { id, idt, municipalityId } = useParams();
@@ -27,16 +28,17 @@ const AddTopicForm = () => {
     const isAddAfter = !!idt && window.location.pathname.includes('add-after');
     const isAddBefore = !!idt && window.location.pathname.includes('add-before');
     const [exportLoading, setExportLoading] = useState(false);
+    const { t } = useTranslation();
 
     const { sendNewTopic } = useNewTopicWebSocket(id);
 
     const [topicStatus, setTopicStatus] = useState('');
-    const topicStatusOptions = [
-        { value: 'CREATED', label: 'Креирана' },
-        { value: 'ACTIVE', label: 'Активна' },
-        { value: 'FINISHED', label: 'Завршена' },
-        { value: 'INFORMATION', label: 'Информација' },
-        { value: 'WITHDRAWN', label: 'Повлечена' }, 
+   const topicStatusOptions = [
+        { value: 'CREATED', label: t("addTopicForm.statusOptions.created") },
+        { value: 'ACTIVE', label: t("addTopicForm.statusOptions.active") },
+        { value: 'FINISHED', label: t("addTopicForm.statusOptions.finished") },
+        { value: 'INFORMATION', label: t("addTopicForm.statusOptions.information") },
+        { value: 'WITHDRAWN', label: t("addTopicForm.statusOptions.withdrawn") },
     ];
 
     // Fetch topic details if editing
@@ -197,8 +199,14 @@ const AddTopicForm = () => {
         <HelmetProvider>
             <div className="add-session-container">
                 <Helmet>
-                    <title>
-                        {isAddAfter ? 'Додади точка подолу' : isAddBefore ? 'Додади точка нагоре' : idt ? 'Уреди точка' : 'Додади точка'}
+                   <title>
+                        {isAddAfter
+                            ? t("addTopicForm.addBelow")
+                            : isAddBefore
+                            ? t("addTopicForm.addAbove")
+                            : idt
+                            ? t("addTopicForm.editTitle")
+                            : t("addTopicForm.addTitle")}
                     </title>
                 </Helmet>
                 <Header userInfo={userInfo} />
@@ -206,31 +214,41 @@ const AddTopicForm = () => {
                 <div className="add-session-body-container container">
                     <div className="container mt-4">
                         <div className="add-session-header-div">
-                           <h1>{isAddAfter ? "Додади точка подолу" : isAddBefore ? "Додади точка нагоре" : idt ? "Уреди точка" : "Додади точка"}</h1>
+                           <h1>
+                                {isAddAfter
+                                    ? t("addTopicForm.addBelow")
+                                    : isAddBefore
+                                    ? t("addTopicForm.addAbove")
+                                    : idt
+                                    ? t("addTopicForm.editTitle")
+                                    : t("addTopicForm.addTitle")}
+                            </h1>
                         </div>
 
                         <div className="row justify-content-center">
                             <div className="col-md-6">
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
-                                        <label htmlFor="title" className="label-add">Наслов на точка:</label>
-                                        <input type="text" className="form-control form-control-lg mb-2" id="title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Внеси наслов на точка"/>
+                                        <label htmlFor="title" className="label-add">{t("addTopicForm.topicTitle")}</label>
+                                        <input type="text" className="form-control form-control-lg mb-2" id="title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t("addTopicForm.placeholder")}/>
                                     </div>
 
-                                    <label htmlFor="file" className="label-add">Прикачи PDF датотека:</label>
+                                    <label htmlFor="file" className="label-add">{t("addTopicForm.uploadPdf")}</label>
                                     <div className="form-group d-flex justify-content-center">
                                         <div className={`file-drop-area ${fileError || fileTypeError ? 'is-active' : ''}`}>
-                                            <p className="file-drop-message">Пуштете датотека тука или <span>кликнете за да изберете PDF датотеката</span></p>
+                                            <p className="file-drop-message">
+                                            {t('addTopicForm.dropHere')} <span>{t('addTopicForm.orClick')}</span>
+                                            </p>
                                             <input type="file" id="file" name="file" accept="application/pdf" onChange={handleFileInputChange}/>
                                         </div>
                                     </div>
 
-                                    {fileError && <div className="error-message-pdf text-danger">Максималната големина на PDF датотека е 35MB!</div>}
-                                    {fileTypeError && <div className="error-message-pdf text-danger">Молам, прикачете само PDF датотеки!</div>}
+                                    {fileError && <div className="error-message-pdf text-danger">{t("addTopicForm.maxSizeError")}</div>}
+                                    {fileTypeError && <div className="error-message-pdf text-danger">{t("addTopicForm.typeError")}</div>}
 
                                     {currentPdfFileName && (
                                         <div>
-                                            <span>Тековна PDF датотека: </span>
+                                            <span>{t("addTopicForm.currentPdf")}: </span>
                                             <span onClick={() => handlePdfFetch(pdfId)} style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
                                                 {currentPdfFileName}
                                             </span>
@@ -238,19 +256,22 @@ const AddTopicForm = () => {
                                     )}
 
                                     <div className="form-group">
-                                        <label htmlFor="topicStatus" className="label-add">Статус на точка:</label>
+                                        <label htmlFor="topicStatus" className="label-add">{t("addTopicForm.topicStatus")}</label>
                                         <select id="topicStatus" className="form-control form-control-lg mb-2" value={topicStatus} onChange={(e) => setTopicStatus(e.target.value)} required>
-                                            <option value="" disabled>Избери статус</option>
+                                            <option value="" disabled>{t("addTopicForm.selectStatus")}</option>
                                             {topicStatusOptions.map(status => <option key={status.value} value={status.value}>{status.label}</option>)}
                                         </select>
                                     </div>
 
                                     <div className="mt-3 d-flex flex-start">
-                                        <button type="submit" className={`btn ${idt && !isAddAfter && !isAddBefore ? "btn-warning" : "btn-primary"} btn-lg me-2`}>
-                                            {idt && !isAddAfter && !isAddBefore ? "Уреди" : "Додади"}
+                                         <button
+                                            type="submit"
+                                            className={`btn ${idt && !isAddAfter && !isAddBefore ? "btn-warning" : "btn-primary"} btn-lg me-2`}
+                                        >
+                                            {idt && !isAddAfter && !isAddBefore ? t("addTopicForm.editButton") : t("addTopicForm.addButton")}
                                         </button>
                                         <button type="button" className="btn btn-danger btn-lg" onClick={() => navigate(idt ? `/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}` : `/municipalities/${municipalityId}/sessions/${id}/topics`)}>
-                                            Назад
+                                            {t("addTopicForm.back")}
                                         </button>
                                     </div>
                                 </form>

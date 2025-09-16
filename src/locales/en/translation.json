@@ -230,9 +230,11 @@
     "yes": "Yes",
     "no": "No",
     "abstained": "Abstained",
-    "cantVote": "Exempted from voting",
+    "cantVote": "Exempted",
     "notVoted": "Did not vote",
     "absent": "Absent",
+    "information": "Information",
+    "withdrawn": "Withdrawn",
     "confirmDeleteTitle": "Confirm Deletion",
     "confirmDeleteMessage": "Are you sure you want to delete the topic:",
     "confirmDeleteButton": "Delete",
@@ -260,5 +262,32 @@
   "title": "Unauthorized",
   "message": "You are not authorized to access this page.",
   "backButton": "Go to homepage"
+  },
+
+  "addTopicForm": {
+  "addTitle": "Add Topic",
+  "editTitle": "Edit Topic",
+  "addBelow": "Add Topic Below",
+  "addAbove": "Add Topic Above",
+  "topicTitle": "Topic Title:",
+  "placeholder": "Enter topic title",
+  "uploadPdf": "Upload PDF file:",
+  "maxSizeError": "Maximum PDF size is 35MB!",
+  "typeError": "Please upload only PDF files!",
+  "currentPdf": "Current PDF file",
+  "topicStatus": "Topic Status:",
+  "selectStatus": "Select status",
+  "dropHere": "Drop a file here",
+  "orClick": "or click to select the PDF file",
+  "statusOptions": {
+    "created": "Created",
+    "active": "Active",
+    "finished": "Finished",
+    "information": "Information",
+    "withdrawn": "Withdrawn"
+  },
+  "addButton": "Add",
+  "editButton": "Edit",
+  "back": "Back"
   }
 }

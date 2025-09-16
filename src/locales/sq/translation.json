@@ -231,8 +231,10 @@
     "no": "Jo",
     "abstained": "Abstenuar",
     "cantVote": "Përjashtuar",
-    "notVoted": "Nuk kanë votuar",
+    "notVoted": "Nuk votoi",
     "absent": "Mungon",
+    "information": "Informacion",
+    "withdrawn": "Tërhequr",
      "confirmDeleteTitle": "Konfirmo Fshirjen",
     "confirmDeleteMessage": "A jeni i sigurt që dëshironi ta fshini çështjen:",
     "confirmDeleteButton": "Fshi",
@@ -260,5 +262,32 @@
   "title": "E palejuar",
   "message": "Nuk keni leje të hyni në këtë faqe.",
   "backButton": "Shko te faqja kryesore"
+  },
+
+  "addTopicForm": {
+  "addTitle": "Shto Temë",
+  "editTitle": "Redakto Temë",
+  "addBelow": "Shto Temë poshtë",
+  "addAbove": "Shto Temë sipër",
+  "topicTitle": "Titulli i temës:",
+  "placeholder": "Shkruaj titullin e temës",
+  "uploadPdf": "Ngarko skedë PDF:",
+  "maxSizeError": "Madhësia maksimale e skedës PDF është 35MB!",
+  "typeError": "Ju lutem, ngarkoni vetëm skeda PDF!",
+  "currentPdf": "Skeda aktuale PDF",
+  "topicStatus": "Statusi i temës:",
+  "selectStatus": "Zgjidh statusin",
+  "dropHere": "Hidhni një dokument këtu",
+  "orClick": "ose klikoni për të zgjedhur PDF-in",
+  "statusOptions": {
+    "created": "Krijuar",
+    "active": "Aktive",
+    "finished": "Përfunduar",
+    "information": "Informacion",
+    "withdrawn": "Tërhequr"
+  },
+  "addButton": "Shto",
+  "editButton": "Redakto",
+  "back": "Kthehu"
   }
 }

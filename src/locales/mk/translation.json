@@ -233,6 +233,8 @@
   "cantVote": "Се иземува",
   "notVoted": "Не гласале",
   "absent": "Отсутен",
+  "information": "Информација",
+  "withdrawn": "Повлечена",
   "confirmDeleteTitle": "Потврди Бришење",
   "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете точката:",
   "confirmDeleteButton": "Избриши",
@@ -260,5 +262,33 @@
   "title": "Непозволено",
   "message": "Немате дозвола да пристапите на оваа страница.",
   "backButton": "Одете на почетната страница"
+  },
+
+  "addTopicForm": {
+  "addTitle": "Додади точка",
+  "editTitle": "Уреди точка",
+  "addBelow": "Додади точка подолу",
+  "addAbove": "Додади точка нагоре",
+  "topicTitle": "Наслов на точка:",
+  "placeholder": "Внеси наслов на точка",
+  "uploadPdf": "Прикачи PDF датотека:",
+  "maxSizeError": "Максималната големина на PDF датотека е 35MB!",
+  "typeError": "Молам, прикачете само PDF датотеки!",
+  "currentPdf": "Тековна PDF датотека",
+  "topicStatus": "Статус на точка:",
+  "selectStatus": "Избери статус",
+  "dropHere": "Пуштете датотека тука",
+  "orClick": "кликнете за да изберете PDF датотеката",
+  "statusOptions": {
+    "created": "Креирана",
+    "active": "Активна",
+    "finished": "Завршена",
+    "information": "Информација",
+    "withdrawn": "Повлечена"
+  },
+  "addButton": "Додади",
+  "editButton": "Уреди",
+  "back": "Назад"
   }
+
 }

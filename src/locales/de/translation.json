@@ -233,6 +233,8 @@
     "cantVote": "Befreit",
     "notVoted": "Nicht abgestimmt",
     "absent": "Abwesend",
+    "information": "Information",
+    "withdrawn": "Zurückgezogen",
     "confirmDeleteTitle": "Löschen bestätigen",
     "confirmDeleteMessage": "Sind Sie sicher, dass Sie das Thema löschen möchten:",
     "confirmDeleteButton": "Löschen",
@@ -260,5 +262,32 @@
   "title": "Unzulässig",
   "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen.",
   "backButton": "Zur Startseite"
+  },
+
+  "addTopicForm": {
+  "addTitle": "Thema hinzufügen",
+  "editTitle": "Thema bearbeiten",
+  "addBelow": "Thema unten hinzufügen",
+  "addAbove": "Thema oben hinzufügen",
+  "topicTitle": "Thema Titel:",
+  "placeholder": "Titel des Themas eingeben",
+  "uploadPdf": "PDF-Datei hochladen:",
+  "maxSizeError": "Die maximale Größe der PDF-Datei beträgt 35MB!",
+  "typeError": "Bitte nur PDF-Dateien hochladen!",
+  "currentPdf": "Aktuelle PDF-Datei",
+  "topicStatus": "Thema Status:",
+  "selectStatus": "Status auswählen",
+  "dropHere": "Datei hier ablegen",
+  "orClick": "oder klicken, um die PDF auszuwählen",
+  "statusOptions": {
+    "created": "Erstellt",
+    "active": "Aktiv",
+    "finished": "Beendet",
+    "information": "Information",
+    "withdrawn": "Zurückgezogen"
+  },
+  "addButton": "Hinzufügen",
+  "editButton": "Bearbeiten",
+  "back": "Zurück"
   }
 }
