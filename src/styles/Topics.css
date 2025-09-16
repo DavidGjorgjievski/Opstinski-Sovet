@@ -715,6 +715,10 @@ html {
         width: 730px;
     }
 
+    .topic-header-title {
+        font-size: 2.5rem;
+    }
+
     .topic-item-body-detail-group-chunk{
         width: 100px;     
     }
