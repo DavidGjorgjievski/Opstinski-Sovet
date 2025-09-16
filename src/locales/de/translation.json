@@ -289,5 +289,22 @@
   "addButton": "Hinzufügen",
   "editButton": "Bearbeiten",
   "back": "Zurück"
+  },
+
+  "topicsDetails": {
+    "detailedResults": "Detaillierte Ergebnisse",
+    "details": "Details",
+    "backButton": "Zurück",
+    "notStartedMessage": "Das Thema hat noch nicht begonnen",
+    "viewDocument": "Dokument ansehen",
+    "yes": "Ja",
+    "no": "Nein",
+    "abstained": "Enthalten",
+    "cantVote": "Befreit",
+    "notVoted": "Nicht abgestimmt",
+    "absent": "Abwesend",
+    "image": "Bild",
+    "fullName": "Vor- und Nachname",
+    "vote": "Stimme"
   }
 }

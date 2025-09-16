@@ -289,6 +289,23 @@
   "addButton": "Додади",
   "editButton": "Уреди",
   "back": "Назад"
+  },
+
+  "topicsDetails": {
+    "detailedResults": "Детални резултати",
+    "details": "Детали",
+    "backButton": "Назад",
+    "notStartedMessage": "Темата сè уште не е започната",
+    "viewDocument": "Види документ",
+    "yes": "За",
+    "no": "Против",
+    "abstained": "Воздржан",
+    "cantVote": "Се иземува",
+    "notVoted": "Не гласал",
+    "absent": "Отсутен",
+    "image": "Слика",
+    "fullName": "Име и презиме",
+    "vote": "Глас"
   }
 
 }

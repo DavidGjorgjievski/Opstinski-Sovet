@@ -289,5 +289,22 @@
   "addButton": "Shto",
   "editButton": "Redakto",
   "back": "Kthehu"
+  },
+
+  "topicsDetails": {
+    "detailedResults": "Rezultatet e Detajuara",
+    "details": "Detajet",
+    "backButton": "Kthehu",
+    "notStartedMessage": "Tema ende nuk ka filluar",
+    "viewDocument": "Shiko dokumentin",
+    "yes": "Po",
+    "no": "Jo",
+    "abstained": "Abstenuar",
+    "cantVote": "Përjashtuar",
+    "notVoted": "Nuk votoi",
+    "absent": "Mungon",
+    "image": "Foto",
+    "fullName": "Emri dhe mbiemri",
+    "vote": "Vota"
   }
 }

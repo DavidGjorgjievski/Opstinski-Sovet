@@ -67,10 +67,6 @@
     margin: 20px 0;
 }
 
-.vote-summary-grid span{
-    width: 160px;
-}
-
 .vote-summary-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(90px, 1fr));
@@ -80,6 +76,17 @@
     font-weight: 600;
 }
 
+.vote-summary-grid span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    /* same height for all */
+    width: 100%;
+    border-radius: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+}
 
 .details-table th,
 .details-table td {
@@ -285,10 +292,6 @@
 
    .details-table tr td{
     font-size: 13px;
-   }
-
-   .vote-summary-grid span {
-       width: 150px;
    }
 
    .topic-detail-yes-sum,

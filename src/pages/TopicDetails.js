@@ -7,6 +7,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faChevronLeft, faFilter, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
+import { useTranslation } from "react-i18next";
 
 
 
@@ -22,6 +23,8 @@ function TopicDetails() {
     const [loading, setLoading] = useState(true); // Add loading state
     const jwtToken = localStorage.getItem('jwtToken') || '';
     const [showVotes, setShowVotes] = useState(null);
+    const { t } = useTranslation();
+
  useEffect(() => {
         const fetchTopicDetails = async () => {
             setLoading(true); // Show loading before fetching data
@@ -103,9 +106,9 @@ function TopicDetails() {
             <HelmetProvider>
                 <Helmet>
                     <title>
-                        {topicDetails && (topicDetails.status === 'ACTIVE' || topicDetails.status === 'FINISHED')
-                        ? 'Детални резултати'
-                        : 'Детали'}
+                    {topicDetails && (topicDetails.status === 'ACTIVE' || topicDetails.status === 'FINISHED')
+                        ? t("topicsDetails.detailedResults")
+                        : t("topicsDetails.details")}
                     </title>
                 </Helmet>
             </HelmetProvider>
@@ -113,12 +116,12 @@ function TopicDetails() {
             <main className='topic-details-body-container'>
                  <div className='back-button-detailed-results-container'>
                     <button onClick={handleBackButtonClick} className="back-button">
-                        <FontAwesomeIcon icon={faChevronLeft} /> Назад
+                        <FontAwesomeIcon icon={faChevronLeft} /> {t("topicsDetails.backButton")}
                     </button>
                 </div>
                 <div className="detailed-result-header">
                     <h1 className="topic-header-title">
-                        {showVotes ? 'Детални резултати' : 'Детали'}
+                        {showVotes ? t("topicsDetails.detailedResults") : t("topicsDetails.details")}
                     </h1>
                 </div>
 
@@ -135,25 +138,25 @@ function TopicDetails() {
                         </div>
                         {topicDetails && topicDetails.status === "CREATED" && (
                             <div>
-                                <p><strong>Точката сеуште не е поставена на гласање</strong></p>
+                                <p><strong>{t("topicsDetails.notStartedMessage")}</strong></p>
                             </div>
                         )}
                         {topicDetails.pdfFileId != null && (
                             <div>
                                 <button className='button-pdf' onClick={() => handlePdfFetch(topicDetails.pdfFileId)}>
-                                    Преглед на документ <FontAwesomeIcon icon={faFilePdf} />
+                                    {t("topicsDetails.viewDocument")} <FontAwesomeIcon icon={faFilePdf} />
                                 </button>
                             </div>
                         )}
                         {showVotes && (
                             <div className="vote-summary-container">
                                 <div className="vote-summary-grid">
-                                    <span className="topic-detail-yes-sum">За: {topicDetails.yesUsers.length}</span>
-                                    <span className="topic-detail-no-sum">Против: {topicDetails.noUsers.length}</span>
-                                    <span className="topic-detail-abstained-sum">Воздржан: {topicDetails.abstainedUsers.length}</span>
-                                    <span className="topic-detail-cant-vote-sum">Се иземува: {topicDetails.cantVoteUsers.length}</span>
-                                    <span className="topic-detail-havent-vote-sum">Не гласал: {topicDetails.haventVoteUsers.length}</span>
-                                    <span className="topic-detail-absent-sum">Отсутен: {topicDetails.absentVoteUsers.length}</span>
+                                    <span className="topic-detail-yes-sum">{t("topicsDetails.yes")}: {topicDetails.yesUsers.length}</span>
+                                    <span className="topic-detail-no-sum">{t("topicsDetails.no")}: {topicDetails.noUsers.length}</span>
+                                    <span className="topic-detail-abstained-sum">{t("topicsDetails.abstained")}: {topicDetails.abstainedUsers.length}</span>
+                                    <span className="topic-detail-cant-vote-sum">{t("topicsDetails.cantVote")}: {topicDetails.cantVoteUsers.length}</span>
+                                    <span className="topic-detail-havent-vote-sum">{t("topicsDetails.notVoted")}: {topicDetails.haventVoteUsers.length}</span>
+                                    <span className="topic-detail-absent-sum">{t("topicsDetails.absent")}: {topicDetails.absentVoteUsers.length}</span>
                                 </div>
                             </div>
                         )}
@@ -162,9 +165,9 @@ function TopicDetails() {
             <table className="details-table">
                 <thead>
                     <tr>
-                        <th className="text-center details-table-th">Слика</th>
-                        <th className="text-center details-table-th">Име и презиме</th>
-                        <th className="text-center details-table-th">Глас  <FontAwesomeIcon icon={faFilter} /></th>
+                        <th className="text-center details-table-th">{t("topicsDetails.image")}</th>
+                        <th className="text-center details-table-th">{t("topicsDetails.fullName")}</th>
+                        <th className="text-center details-table-th">{t("topicsDetails.vote")} <FontAwesomeIcon icon={faFilter} /></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -174,7 +177,7 @@ function TopicDetails() {
                                 <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
-                            <td><span className="topic-detail-yes">За</span></td>
+                            <td><span className="topic-detail-yes">{t("topicsDetails.yes")}</span></td>
                         </tr>
                     ))}
 
@@ -184,7 +187,7 @@ function TopicDetails() {
                                 <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
-                            <td><span className="topic-detail-no">Против</span></td>
+                            <td><span className="topic-detail-no">{t("topicsDetails.no")}</span></td>
                         </tr>
                     ))}
 
@@ -194,7 +197,7 @@ function TopicDetails() {
                                 <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
-                            <td><span className="topic-detail-abstained">Воздржан</span></td>
+                            <td><span className="topic-detail-abstained">{t("topicsDetails.abstained")}</span></td>
                         </tr>
                     ))}
 
@@ -204,7 +207,7 @@ function TopicDetails() {
                                 <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
-                            <td><span className="topic-detail-cant-vote">Се иземува</span></td>
+                            <td><span className="topic-detail-cant-vote">{t("topicsDetails.cantVote")}</span></td>
                         </tr>
                     ))}
 
@@ -214,7 +217,7 @@ function TopicDetails() {
                                 <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
-                            <td><span className="topic-detail-havent-vote">Не гласал</span></td>
+                            <td><span className="topic-detail-havent-vote">{t("topicsDetails.notVoted")}</span></td>
                         </tr>
                     ))}
 
@@ -224,7 +227,7 @@ function TopicDetails() {
                                 <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
-                            <td><span className="topic-detail-absent">Отсутен</span></td>
+                            <td><span className="topic-detail-absent">{t("topicsDetails.absent")}</span></td>
                         </tr>
                     ))}
                 </tbody>

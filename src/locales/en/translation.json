@@ -289,5 +289,22 @@
   "addButton": "Add",
   "editButton": "Edit",
   "back": "Back"
+  },
+
+  "topicsDetails": {
+    "detailedResults": "Detailed Results",
+    "details": "Details",
+    "backButton": "Back",
+    "notStartedMessage": "The topic has not started yet",
+    "viewDocument": "View Document",
+    "yes": "Yes",
+    "no": "No",
+    "abstained": "Abstained",
+    "cantVote": "Exempted",
+    "notVoted": "Did not vote",
+    "absent": "Absent",
+    "image": "Image",
+    "fullName": "Full Name",
+    "vote": "Vote"
   }
 }
