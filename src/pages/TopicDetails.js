@@ -120,7 +120,7 @@ function TopicDetails() {
                     </button>
                 </div>
                 <div className="detailed-result-header">
-                    <h1 className="topic-header-title">
+                    <h1 className="topicDetails-header-title">
                         {showVotes ? t("topicsDetails.detailedResults") : t("topicsDetails.details")}
                     </h1>
                 </div>
