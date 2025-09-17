@@ -188,9 +188,13 @@
     font-weight: bold;
     padding: 5px;
     border-radius: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 6px 0;
+    box-sizing: border-box;
 }
 
-/* Individual background + text colors */
 .topic-detail-yes-sum,
 .topic-detail-yes {
     color: #348469;
@@ -282,17 +286,6 @@
     .vote-summary-grid {
         grid-template-columns: repeat(2, minmax(90px, 1fr));
     }
-
-    .topic-detail-yes,
-    .topic-detail-no,
-    .topic-detail-abstained,
-    .topic-detail-cant-vote,
-    .topic-detail-havent-vote,
-    .topic-detail-absent{
-        display:inline-block;
-        word-break: break-word;
-        padding: 2px 6px;
-    }
 }
 
 @media (max-width: 415px) {
@@ -326,6 +319,28 @@
         font-size: 2rem;
     }
 }
+
+@media (max-width: 470px) {
+
+    .topic-detail-yes,
+    .topic-detail-no,
+    .topic-detail-abstained,
+    .topic-detail-cant-vote,
+    .topic-detail-havent-vote,
+    .topic-detail-absent {
+        display: block;
+        /* spans full cell width */
+        width: 100%;
+        /* takes all available width */
+        text-align: center;
+        /* keeps text centered */
+        padding: 6px 0;
+        /* equal top/bottom, no side overflow */
+        box-sizing: border-box;
+        /* padding stays inside width */
+    }
+}
+
 
 @media (max-width: 345px) {
 
