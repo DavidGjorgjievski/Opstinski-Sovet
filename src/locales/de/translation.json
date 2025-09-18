@@ -28,7 +28,7 @@
 
   "home": {
     "title": "Startseite",
-    "welcome": "Willkommen im Abstimmungssystem des Gemeinderates.",
+    "welcome": "Willkommen im Abstimmungssystem des Gemeinderates",
     "description": "In jeder Sitzung nehmen die Ratsmitglieder, einschließlich des Ratsvorsitzenden, teil und leiten die Sitzung. Sie sind verantwortlich für die Erstellung und Genehmigung von Vorschlägen, die alle Bürger in der Gemeinde betreffen.",
     "municipalitiesButton": "Gemeinden"
   },

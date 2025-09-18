@@ -28,7 +28,7 @@
 
   "home": {
     "title": "Home",
-    "welcome": "Welcome to the municipal council voting system.",
+    "welcome": "Welcome to the municipal council voting system",
     "description": "In each session, council members, including the council president, participate and manage the session. They are responsible for creating and approving proposals that affect all citizens in the municipality.",
     "municipalitiesButton": "Municipalities"
   },
