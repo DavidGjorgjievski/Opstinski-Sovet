@@ -25,14 +25,18 @@
   "homeDescription": "Во секоја седница, се вклучуваат советници, меѓу кои и претседателот на советот, кој ја води самата седница. Тие се одговорни за креирање и прифаќање на предлози кои влијаат на сите граѓани во општината.",
   "municipalitiesButton": "Општини",
 
-  "municipalitiesTitle": "Општини",
-  "addMunicipalityButton": "Додади Општина",
-  "view": "Преглед",
-  "options": "Опции",
-  "edit": "Уреди",
-  "delete": "Избриши",
-  "noMunicipalities": "Нема достапни општини",
-  "loading": "Се вчитува...",
+
+  "Municipality": {
+    "municipalitiesTitle": "Општини",
+    "addMunicipalityButton": "Додади Општина",
+    "view": "Преглед",
+    "options": "Опции",
+    "edit": "Уреди",
+    "delete": "Избриши",
+    "noMunicipalities": "Нема достапни општини",
+    "loading": "Се вчитува..."
+  },
+  
 
 
   "addMunicipality": {
@@ -60,6 +64,7 @@
     "municipality": "Општина",
     "changePassword": "Промени лозинка"
   },
+
   "roles": {
     "user": "Советник",
     "president": "Претседател на совет",
@@ -70,7 +75,7 @@
     "unknown": "Непозната улога"
   },
 
-   "changeImage": {
+  "changeImage": {
     "title": "Промена на профилна",
     "header": "Прикачи слика",
     "noFileSelected": "Нема избрана слика",
@@ -205,108 +210,108 @@
   },
 
   "editUserForm": {
-  "pageTitle": "Измени корисник",
-  "formTitle": "Измени корисник",
-  "username": "Корисничко име:",
-  "enterUsername": "Внеси корисничко име",
-  "name": "Име:",
-  "enterName": "Внеси име",
-  "surname": "Презиме:",
-  "enterSurname": "Внеси презиме",
-  "role": "Роља:",
-  "selectRole": "Избери роља",
-  "status": "Статус:",
-  "municipality": "Изберете Општина:",
-  "selectMunicipality": "Изберете општина",
-  "password": "Нова лозинка:",
-  "enterNewPassword": "Внеси нова лозинка",
-  "noFileSelected": "Нема избрана слика",
-  "selectedFile": "Избрана датотека",
-  "dragOrClick": "Пуштете датотека тука или",
-  "chooseFile": "кликнете за да изберете слика",
-  "invalidFileType": "Дозволени се само JPG или PNG слики.",
-  "fileTooLarge": "Максималната големина на сликата е 50KB.",
-  "editUser": "Измени корисник",
-  "cancel": "Откажи"
+    "pageTitle": "Измени корисник",
+    "formTitle": "Измени корисник",
+    "username": "Корисничко име:",
+    "enterUsername": "Внеси корисничко име",
+    "name": "Име:",
+    "enterName": "Внеси име",
+    "surname": "Презиме:",
+    "enterSurname": "Внеси презиме",
+    "role": "Роља:",
+    "selectRole": "Избери роља",
+    "status": "Статус:",
+    "municipality": "Изберете Општина:",
+    "selectMunicipality": "Изберете општина",
+    "password": "Нова лозинка:",
+    "enterNewPassword": "Внеси нова лозинка",
+    "noFileSelected": "Нема избрана слика",
+    "selectedFile": "Избрана датотека",
+    "dragOrClick": "Пуштете датотека тука или",
+    "chooseFile": "кликнете за да изберете слика",
+    "invalidFileType": "Дозволени се само JPG или PNG слики.",
+    "fileTooLarge": "Максималната големина на сликата е 50KB.",
+    "editUser": "Измени корисник",
+    "cancel": "Откажи"
   },
 
-   "topicsPage": {
-  "pageTitle": "Точки",
-  "headerTitle": "Точки",
-  "backButton": "Назад",
-  "addTopicButton": "Додади Точка",
-  "present": "Презентирај",
-  "newTopicBefore": "Нова точка",
-  "newTopicAfter": "Нова точка",
-  "edit": "Уреди",
-  "delete": "Избриши",
-  "details": "Детали",
-  "detailedResults": "Детални резултати",
-  "startVoting": "Започни гласање",
-  "finishVoting": "Заврши гласање",
-  "restartVoting": "Повторно гласање",
-  "yes": "За",
-  "no": "Против",
-  "abstained": "Воздржан",
-  "cantVote": "Се иземува",
-  "notVoted": "Не гласале",
-  "absent": "Отсутен",
-  "information": "Информација",
-  "withdrawn": "Повлечена",
-  "confirmDeleteTitle": "Потврди Бришење",
-  "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете точката:",
-  "confirmDeleteButton": "Избриши",
-  "cancelButton": "Откажи"
+  "topicsPage": {
+    "pageTitle": "Точки",
+    "headerTitle": "Точки",
+    "backButton": "Назад",
+    "addTopicButton": "Додади Точка",
+    "present": "Презентирај",
+    "newTopicBefore": "Нова точка",
+    "newTopicAfter": "Нова точка",
+    "edit": "Уреди",
+    "delete": "Избриши",
+    "details": "Детали",
+    "detailedResults": "Детални резултати",
+    "startVoting": "Започни гласање",
+    "finishVoting": "Заврши гласање",
+    "restartVoting": "Повторно гласање",
+    "yes": "За",
+    "no": "Против",
+    "abstained": "Воздржан",
+    "cantVote": "Се иземува",
+    "notVoted": "Не гласале",
+    "absent": "Отсутен",
+    "information": "Информација",
+    "withdrawn": "Повлечена",
+    "confirmDeleteTitle": "Потврди Бришење",
+    "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете точката:",
+    "confirmDeleteButton": "Избриши",
+    "cancelButton": "Откажи"
   },
 
   "tooltip": {
-  "easyMode": "Лесен режим"
+    "easyMode": "Лесен режим"
   },
 
   "liveUsers": {
-  "offlineUsers": "Офлајн корисници",
-  "onlineUsers": "Онлајн корисници",
-  "noOffline": "Нема офлајн корисници",
-  "noOnline": "Нема онлајн корисници",
-  "image": "Слика",
-  "name": "Име",
-  "surname": "Презиме",
-  "action": "Акција",
-  "turnOn": "Вклучи",
-  "turnOff": "Исклучи"
+    "offlineUsers": "Офлајн корисници",
+    "onlineUsers": "Онлајн корисници",
+    "noOffline": "Нема офлајн корисници",
+    "noOnline": "Нема онлајн корисници",
+    "image": "Слика",
+    "name": "Име",
+    "surname": "Презиме",
+    "action": "Акција",
+    "turnOn": "Вклучи",
+    "turnOff": "Исклучи"
   },
 
   "unauthorized": {
-  "title": "Непозволено",
-  "message": "Немате дозвола да пристапите на оваа страница.",
-  "backButton": "Одете на почетната страница"
+    "title": "Непозволено",
+    "message": "Немате дозвола да пристапите на оваа страница.",
+    "backButton": "Одете на почетната страница"
   },
 
   "addTopicForm": {
-  "addTitle": "Додади точка",
-  "editTitle": "Уреди точка",
-  "addBelow": "Додади точка подолу",
-  "addAbove": "Додади точка нагоре",
-  "topicTitle": "Наслов на точка:",
-  "placeholder": "Внеси наслов на точка",
-  "uploadPdf": "Прикачи PDF датотека:",
-  "maxSizeError": "Максималната големина на PDF датотека е 35MB!",
-  "typeError": "Молам, прикачете само PDF датотеки!",
-  "currentPdf": "Тековна PDF датотека",
-  "topicStatus": "Статус на точка:",
-  "selectStatus": "Избери статус",
-  "dropHere": "Пуштете датотека тука",
-  "orClick": "кликнете за да изберете PDF датотеката",
-  "statusOptions": {
-    "created": "Креирана",
-    "active": "Активна",
-    "finished": "Завршена",
-    "information": "Информација",
-    "withdrawn": "Повлечена"
-  },
-  "addButton": "Додади",
-  "editButton": "Уреди",
-  "back": "Назад"
+    "addTitle": "Додади точка",
+    "editTitle": "Уреди точка",
+    "addBelow": "Додади точка подолу",
+    "addAbove": "Додади точка нагоре",
+    "topicTitle": "Наслов на точка:",
+    "placeholder": "Внеси наслов на точка",
+    "uploadPdf": "Прикачи PDF датотека:",
+    "maxSizeError": "Максималната големина на PDF датотека е 35MB!",
+    "typeError": "Молам, прикачете само PDF датотеки!",
+    "currentPdf": "Тековна PDF датотека",
+    "topicStatus": "Статус на точка:",
+    "selectStatus": "Избери статус",
+    "dropHere": "Пуштете датотека тука",
+    "orClick": "кликнете за да изберете PDF датотеката",
+    "statusOptions": {
+      "created": "Креирана",
+      "active": "Активна",
+      "finished": "Завршена",
+      "information": "Информација",
+      "withdrawn": "Повлечена"
+    },
+    "addButton": "Додади",
+    "editButton": "Уреди",
+    "back": "Назад"
   },
 
   "topicsDetails": {
@@ -325,5 +330,4 @@
     "fullName": "Име и презиме",
     "vote": "Глас"
   }
-
 }

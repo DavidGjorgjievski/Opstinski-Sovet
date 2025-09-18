@@ -138,20 +138,20 @@ function Municipalities() {
         <div className="municipalities-container">
             <HelmetProvider>
                 <Helmet>
-                    <title>{t('municipalitiesTitle')}</title>
+                    <title>{t('Municipality.municipalitiesTitle')}</title>
                 </Helmet>
             </HelmetProvider>
             <Header userInfo={userInfo} />
             <main className="municipality-body-container">
                 <div className="municipality-header">
-                    <p className="municipality-header-title">{t('municipalitiesTitle')}</p>
+                    <p className="municipality-header-title">{t('Municipality.municipalitiesTitle')}</p>
                 </div>
     
                 {userInfo.role === 'ROLE_ADMIN' && (
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
                             <button className="municipality-add-button">
-                                {t('addMunicipalityButton')} <FontAwesomeIcon icon={faPlus} />
+                                {t('Municipality.addMunicipalityButton')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
                     </div>
@@ -161,7 +161,7 @@ function Municipalities() {
                     <div className="loading-spinner">
                         <img
                             src={`${process.env.PUBLIC_URL}/images/loading.svg`}
-                            alt={t('loading')}
+                            alt={t('Municipality.loading')}
                         />
                     </div>
                 ) : (
@@ -191,7 +191,7 @@ function Municipalities() {
                                             <div className="d-flex align-items-center municipality-buttons">
                                                 <div className='me-2'>
                                                     <a href={`/municipalities/${municipality.id}/sessions`} className='button-see-content municipality-button-size'>
-                                                        {t('view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                                        {t('Municipality.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
                                                     </a>
                                                 </div>
     
@@ -203,12 +203,12 @@ function Municipalities() {
                                                                 setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
                                                             }
                                                         >
-                                                            {t('options')} <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
+                                                            {t('Municipality.options')} <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
                                                         </button>
                                                         {openMenuId === municipality.id && (
                                                             <div className="admin-dropdown">
                                                                 <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
-                                                                   <FontAwesomeIcon icon={faPenToSquare} /> {t('edit')}
+                                                                   <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
                                                                 </a>
                                                                 <button
                                                                     className="dropdown-item"
@@ -217,7 +217,7 @@ function Municipalities() {
                                                                         setOpenMenuId(null);
                                                                     }}
                                                                 >
-                                                                   <FontAwesomeIcon icon={faTrash} /> {t('delete')}
+                                                                   <FontAwesomeIcon icon={faTrash} /> {t('Municipality.delete')}
                                                                 </button>
                                                             </div>
                                                         )}
@@ -230,7 +230,7 @@ function Municipalities() {
                             ))
                         ) : (
                             <div className="mt-3">
-                                <h4>{t('noMunicipalities')}</h4>
+                                <h4>{t('Municipality.noMunicipalities')}</h4>
                             </div>
                         )}
                     </div>

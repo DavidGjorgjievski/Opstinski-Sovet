@@ -25,14 +25,16 @@
   "homeDescription": "In jeder Sitzung nehmen die Ratsmitglieder, einschließlich des Ratsvorsitzenden, teil und leiten die Sitzung. Sie sind verantwortlich für die Erstellung und Genehmigung von Vorschlägen, die alle Bürger in der Gemeinde betreffen.",
   "municipalitiesButton": "Gemeinden",
 
-  "municipalitiesTitle": "Gemeinden",
-  "addMunicipalityButton": "Gemeinde hinzufügen",
-  "view": "Ansehen",
-  "options": "Optionen",
-  "edit": "Bearbeiten",
-  "delete": "Löschen",
-  "noMunicipalities": "Keine Gemeinden verfügbar",
-  "loading": "Wird geladen...",
+  "Municipality": {
+    "municipalitiesTitle": "Gemeinden",
+    "addMunicipalityButton": "Gemeinde hinzufügen",
+    "view": "Ansehen",
+    "options": "Optionen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "noMunicipalities": "Keine Gemeinden verfügbar",
+    "loading": "Wird geladen..."
+  },
 
   "addMunicipality": {
     "pageTitleAdd": "Gemeinde hinzufügen",
@@ -59,6 +61,7 @@
     "municipality": "Gemeinde",
     "changePassword": "Passwort ändern"
   },
+  
   "roles": {
     "user": "Ratsmitglied",
     "president": "Ratspäsident",
@@ -116,7 +119,7 @@
   "Juli", "August", "September", "Oktober", "November", "Dezember"
   ],
 
-   "sessionModal": {
+  "sessionModal": {
     "confirmDeleteTitle": "Löschung Bestätigen",
     "confirmDeleteMessage": "Sind Sie sicher, dass Sie die Sitzung löschen möchten:",
     "deleteButton": "Löschen",
@@ -204,32 +207,32 @@
   },
 
   "editUserForm": {
-  "pageTitle": "Benutzer bearbeiten",
-  "formTitle": "Benutzer bearbeiten",
-  "username": "Benutzername:",
-  "enterUsername": "Benutzernamen eingeben",
-  "name": "Vorname:",
-  "enterName": "Vornamen eingeben",
-  "surname": "Nachname:",
-  "enterSurname": "Nachnamen eingeben",
-  "role": "Rolle:",
-  "selectRole": "Rolle auswählen",
-  "status": "Status:",
-  "municipality": "Gemeinde auswählen:",
-  "selectMunicipality": "Gemeinde auswählen",
-  "password": "Neues Passwort:",
-  "enterNewPassword": "Neues Passwort eingeben",
-  "noFileSelected": "Keine Datei ausgewählt",
-  "selectedFile": "Ausgewählte Datei",
-  "dragOrClick": "Datei hier ablegen oder",
-  "chooseFile": "klicken, um ein Bild auszuwählen",
-  "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
-  "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
-  "editUser": "Benutzer bearbeiten",
-  "cancel": "Abbrechen"
+    "pageTitle": "Benutzer bearbeiten",
+    "formTitle": "Benutzer bearbeiten",
+    "username": "Benutzername:",
+    "enterUsername": "Benutzernamen eingeben",
+    "name": "Vorname:",
+    "enterName": "Vornamen eingeben",
+    "surname": "Nachname:",
+    "enterSurname": "Nachnamen eingeben",
+    "role": "Rolle:",
+    "selectRole": "Rolle auswählen",
+    "status": "Status:",
+    "municipality": "Gemeinde auswählen:",
+    "selectMunicipality": "Gemeinde auswählen",
+    "password": "Neues Passwort:",
+    "enterNewPassword": "Neues Passwort eingeben",
+    "noFileSelected": "Keine Datei ausgewählt",
+    "selectedFile": "Ausgewählte Datei",
+    "dragOrClick": "Datei hier ablegen oder",
+    "chooseFile": "klicken, um ein Bild auszuwählen",
+    "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
+    "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
+    "editUser": "Benutzer bearbeiten",
+    "cancel": "Abbrechen"
   },
 
-   "topicsPage": {
+  "topicsPage": {
     "pageTitle": "Themen",
     "headerTitle": "Themen",
     "backButton": "Zurück",
@@ -259,53 +262,53 @@
   },
 
   "tooltip": {
-  "easyMode": "Einfacher Modus"
+    "easyMode": "Einfacher Modus"
   },
 
   "liveUsers": {
-  "offlineUsers": "Offline-Benutzer",
-  "onlineUsers": "Online-Benutzer",
-  "noOffline": "Keine Offline-Benutzer",
-  "noOnline": "Keine Online-Benutzer",
-  "image": "Bild",
-  "name": "Name",
-  "surname": "Nachname",
-  "action": "Aktion",
-  "turnOn": "Einschalten",
-  "turnOff": "Ausschalten"
+    "offlineUsers": "Offline-Benutzer",
+    "onlineUsers": "Online-Benutzer",
+    "noOffline": "Keine Offline-Benutzer",
+    "noOnline": "Keine Online-Benutzer",
+    "image": "Bild",
+    "name": "Name",
+    "surname": "Nachname",
+    "action": "Aktion",
+    "turnOn": "Einschalten",
+    "turnOff": "Ausschalten"
   },
 
   "unauthorized": {
-  "title": "Unzulässig",
-  "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen.",
-  "backButton": "Zur Startseite"
+    "title": "Unzulässig",
+    "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen.",
+    "backButton": "Zur Startseite"
   },
 
   "addTopicForm": {
-  "addTitle": "Thema hinzufügen",
-  "editTitle": "Thema bearbeiten",
-  "addBelow": "Thema unten hinzufügen",
-  "addAbove": "Thema oben hinzufügen",
-  "topicTitle": "Thema Titel:",
-  "placeholder": "Titel des Themas eingeben",
-  "uploadPdf": "PDF-Datei hochladen:",
-  "maxSizeError": "Die maximale Größe der PDF-Datei beträgt 35MB!",
-  "typeError": "Bitte nur PDF-Dateien hochladen!",
-  "currentPdf": "Aktuelle PDF-Datei",
-  "topicStatus": "Thema Status:",
-  "selectStatus": "Status auswählen",
-  "dropHere": "Datei hier ablegen",
-  "orClick": "oder klicken, um die PDF auszuwählen",
-  "statusOptions": {
-    "created": "Erstellt",
-    "active": "Aktiv",
-    "finished": "Beendet",
-    "information": "Information",
-    "withdrawn": "Zurückgezogen"
-  },
-  "addButton": "Hinzufügen",
-  "editButton": "Bearbeiten",
-  "back": "Zurück"
+    "addTitle": "Thema hinzufügen",
+    "editTitle": "Thema bearbeiten",
+    "addBelow": "Thema unten hinzufügen",
+    "addAbove": "Thema oben hinzufügen",
+    "topicTitle": "Thema Titel:",
+    "placeholder": "Titel des Themas eingeben",
+    "uploadPdf": "PDF-Datei hochladen:",
+    "maxSizeError": "Die maximale Größe der PDF-Datei beträgt 35MB!",
+    "typeError": "Bitte nur PDF-Dateien hochladen!",
+    "currentPdf": "Aktuelle PDF-Datei",
+    "topicStatus": "Thema Status:",
+    "selectStatus": "Status auswählen",
+    "dropHere": "Datei hier ablegen",
+    "orClick": "oder klicken, um die PDF auszuwählen",
+    "statusOptions": {
+      "created": "Erstellt",
+      "active": "Aktiv",
+      "finished": "Beendet",
+      "information": "Information",
+      "withdrawn": "Zurückgezogen"
+    },
+    "addButton": "Hinzufügen",
+    "editButton": "Bearbeiten",
+    "back": "Zurück"
   },
 
   "topicsDetails": {

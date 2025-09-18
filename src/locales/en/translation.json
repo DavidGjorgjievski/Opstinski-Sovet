@@ -25,14 +25,16 @@
   "homeDescription": "In each session, council members, including the council president, participate and manage the session. They are responsible for creating and approving proposals that affect all citizens in the municipality.",
   "municipalitiesButton": "Municipalities",
 
-  "municipalitiesTitle": "Municipalities",
-  "addMunicipalityButton": "Add Municipality",
-  "view": "View",
-  "options": "Options",
-  "edit": "Edit",
-  "delete": "Delete",
-  "noMunicipalities": "No municipalities available",
-  "loading": "Loading...",
+  "Municipality": {
+    "municipalitiesTitle": "Municipalities",
+    "addMunicipalityButton": "Add Municipality",
+    "view": "View",
+    "options": "Options",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noMunicipalities": "No municipalities available",
+    "loading": "Loading..."
+  },
 
   "addMunicipality": {
     "pageTitleAdd": "Add Municipality",
@@ -59,6 +61,7 @@
     "municipality": "Municipality",
     "changePassword": "Change Password"
   },
+  
   "roles": {
     "user": "Councilor",
     "president": "Council President",
@@ -85,7 +88,7 @@
     "backButton": "Back"
   },
 
-   "changePassword": {
+  "changePassword": {
     "title": "Change Password",
     "header": "Change Password",
     "current": "Current Password",
@@ -123,7 +126,7 @@
     "cancelButton": "Cancel"
   },
 
-   "addSessionForm": {
+  "addSessionForm": {
     "addTitle": "Add Session",
     "editTitle": "Edit Session",
     "addHeader": "Add a New Session",
@@ -136,7 +139,7 @@
     "backButton": "Back"
   },
 
-   "adminPanel": {
+  "adminPanel": {
     "adminPanelTitle": "Admin Panel",
     "backButton": "Back",
     "allUsers": "All Users",
@@ -151,7 +154,7 @@
     "deleteError": "Cannot delete this user because they are linked to other data."
   },
 
-    "adminpanel": {
+  "adminpanel": {
     "image": "Image",
     "username": "Username",
     "name": "First Name",
@@ -165,7 +168,7 @@
     "notAvailable": "N/A"
   },
 
-   "confirmModal": {
+  "confirmModal": {
     "title": "Are you sure?",
     "message": "Are you sure you want to delete user",
     "delete": "Delete",
@@ -204,29 +207,29 @@
   },
 
   "editUserForm": {
-  "pageTitle": "Edit User",
-  "formTitle": "Edit User",
-  "username": "Username:",
-  "enterUsername": "Enter username",
-  "name": "First Name:",
-  "enterName": "Enter first name",
-  "surname": "Last Name:",
-  "enterSurname": "Enter last name",
-  "role": "Role:",
-  "selectRole": "Select role",
-  "status": "Status:",
-  "municipality": "Select Municipality:",
-  "selectMunicipality": "Select municipality",
-  "password": "New Password:",
-  "enterNewPassword": "Enter new password",
-  "noFileSelected": "No file selected",
-  "selectedFile": "Selected file",
-  "dragOrClick": "Drag file here or",
-  "chooseFile": "click to choose an image",
-  "invalidFileType": "Only JPG or PNG images are allowed.",
-  "fileTooLarge": "Maximum allowed image size is 50KB.",
-  "editUser": "Update User",
-  "cancel": "Cancel"
+    "pageTitle": "Edit User",
+    "formTitle": "Edit User",
+    "username": "Username:",
+    "enterUsername": "Enter username",
+    "name": "First Name:",
+    "enterName": "Enter first name",
+    "surname": "Last Name:",
+    "enterSurname": "Enter last name",
+    "role": "Role:",
+    "selectRole": "Select role",
+    "status": "Status:",
+    "municipality": "Select Municipality:",
+    "selectMunicipality": "Select municipality",
+    "password": "New Password:",
+    "enterNewPassword": "Enter new password",
+    "noFileSelected": "No file selected",
+    "selectedFile": "Selected file",
+    "dragOrClick": "Drag file here or",
+    "chooseFile": "click to choose an image",
+    "invalidFileType": "Only JPG or PNG images are allowed.",
+    "fileTooLarge": "Maximum allowed image size is 50KB.",
+    "editUser": "Update User",
+    "cancel": "Cancel"
   },
 
   "topicsPage": {
@@ -259,53 +262,53 @@
   },
 
   "tooltip": {
-  "easyMode": "Easy mode"
+    "easyMode": "Easy mode"
   },
 
   "liveUsers": {
-  "offlineUsers": "Offline users",
-  "onlineUsers": "Online users",
-  "noOffline": "No offline users",
-  "noOnline": "No online users",
-  "image": "Image",
-  "name": "Name",
-  "surname": "Surname",
-  "action": "Action",
-  "turnOn": "Turn on",
-  "turnOff": "Turn off"
+    "offlineUsers": "Offline users",
+    "onlineUsers": "Online users",
+    "noOffline": "No offline users",
+    "noOnline": "No online users",
+    "image": "Image",
+    "name": "Name",
+    "surname": "Surname",
+    "action": "Action",
+    "turnOn": "Turn on",
+    "turnOff": "Turn off"
   },
 
   "unauthorized": {
-  "title": "Unauthorized",
-  "message": "You are not authorized to access this page.",
-  "backButton": "Go to homepage"
+    "title": "Unauthorized",
+    "message": "You are not authorized to access this page.",
+    "backButton": "Go to homepage"
   },
 
   "addTopicForm": {
-  "addTitle": "Add Topic",
-  "editTitle": "Edit Topic",
-  "addBelow": "Add Topic Below",
-  "addAbove": "Add Topic Above",
-  "topicTitle": "Topic Title:",
-  "placeholder": "Enter topic title",
-  "uploadPdf": "Upload PDF file:",
-  "maxSizeError": "Maximum PDF size is 35MB!",
-  "typeError": "Please upload only PDF files!",
-  "currentPdf": "Current PDF file",
-  "topicStatus": "Topic Status:",
-  "selectStatus": "Select status",
-  "dropHere": "Drop a file here",
-  "orClick": "or click to select the PDF file",
-  "statusOptions": {
-    "created": "Created",
-    "active": "Active",
-    "finished": "Finished",
-    "information": "Information",
-    "withdrawn": "Withdrawn"
-  },
-  "addButton": "Add",
-  "editButton": "Edit",
-  "back": "Back"
+    "addTitle": "Add Topic",
+    "editTitle": "Edit Topic",
+    "addBelow": "Add Topic Below",
+    "addAbove": "Add Topic Above",
+    "topicTitle": "Topic Title:",
+    "placeholder": "Enter topic title",
+    "uploadPdf": "Upload PDF file:",
+    "maxSizeError": "Maximum PDF size is 35MB!",
+    "typeError": "Please upload only PDF files!",
+    "currentPdf": "Current PDF file",
+    "topicStatus": "Topic Status:",
+    "selectStatus": "Select status",
+    "dropHere": "Drop a file here",
+    "orClick": "or click to select the PDF file",
+    "statusOptions": {
+      "created": "Created",
+      "active": "Active",
+      "finished": "Finished",
+      "information": "Information",
+      "withdrawn": "Withdrawn"
+    },
+    "addButton": "Add",
+    "editButton": "Edit",
+    "back": "Back"
   },
 
   "topicsDetails": {

@@ -25,14 +25,16 @@
   "homeDescription": "Në çdo seancë marrin pjesë këshilltarët, përfshirë edhe kryetarin e këshillit, i cili udhëheq seancën. Ata janë përgjegjës për krijimin dhe miratimin e propozimeve që ndikojnë te të gjithë qytetarët e komunës.",
   "municipalitiesButton": "Komunat",
 
-  "municipalitiesTitle": "Komunat",
-  "addMunicipalityButton": "Shto Komunë",
-  "view": "Shiko",
-  "options": "Opsione",
-  "edit": "Përpuno",
-  "delete": "Fshi",
-  "noMunicipalities": "Nuk ka komuna të disponueshme",
-  "loading": "Po ngarkohet...",
+  "Municipality": {
+    "municipalitiesTitle": "Komunat",
+    "addMunicipalityButton": "Shto Komunë",
+    "view": "Shiko",
+    "options": "Opsione",
+    "edit": "Përpuno",
+    "delete": "Fshi",
+    "noMunicipalities": "Nuk ka komuna të disponueshme",
+    "loading": "Po ngarkohet..."
+  },
 
   "addMunicipality": {
     "pageTitleAdd": "Shto Komunë",
@@ -59,6 +61,7 @@
     "municipality": "Komuna",
     "changePassword": "Ndrysho fjalëkalimin"
   },
+
   "roles": {
     "user": "Këshilltar",
     "president": "Kryetar i këshillit",
@@ -151,7 +154,7 @@
     "deleteError": "Nuk mund të fshihet ky përdorues sepse është i lidhur me të dhëna të tjera."
   },
 
-   "adminpanel": {
+  "adminpanel": {
     "image": "Foto",
     "username": "Përdoruesi",
     "name": "Emri",
@@ -204,29 +207,29 @@
   },
 
   "editUserForm": {
-  "pageTitle": "Ndrysho Përdorues",
-  "formTitle": "Ndrysho përdorues",
-  "username": "Emri i përdoruesit:",
-  "enterUsername": "Shkruaj emrin e përdoruesit",
-  "name": "Emri:",
-  "enterName": "Shkruaj emrin",
-  "surname": "Mbiemri:",
-  "enterSurname": "Shkruaj mbiemrin",
-  "role": "Roli:",
-  "selectRole": "Zgjidh rolin",
-  "status": "Statusi:",
-  "municipality": "Zgjidh komunën:",
-  "selectMunicipality": "Zgjidh komunën",
-  "password": "Fjalëkalimi i ri:",
-  "enterNewPassword": "Shkruaj fjalëkalimin e ri",
-  "noFileSelected": "Asnjë fotografi e zgjedhur",
-  "selectedFile": "Skedari i zgjedhur",
-  "dragOrClick": "Tërhiqni skedarin këtu ose",
-  "chooseFile": "klikoni për të zgjedhur fotografi",
-  "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
-  "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
-  "editUser": "Ndrysho përdorues",
-  "cancel": "Anulo"
+    "pageTitle": "Ndrysho Përdorues",
+    "formTitle": "Ndrysho përdorues",
+    "username": "Emri i përdoruesit:",
+    "enterUsername": "Shkruaj emrin e përdoruesit",
+    "name": "Emri:",
+    "enterName": "Shkruaj emrin",
+    "surname": "Mbiemri:",
+    "enterSurname": "Shkruaj mbiemrin",
+    "role": "Roli:",
+    "selectRole": "Zgjidh rolin",
+    "status": "Statusi:",
+    "municipality": "Zgjidh komunën:",
+    "selectMunicipality": "Zgjidh komunën",
+    "password": "Fjalëkalimi i ri:",
+    "enterNewPassword": "Shkruaj fjalëkalimin e ri",
+    "noFileSelected": "Asnjë fotografi e zgjedhur",
+    "selectedFile": "Skedari i zgjedhur",
+    "dragOrClick": "Tërhiqni skedarin këtu ose",
+    "chooseFile": "klikoni për të zgjedhur fotografi",
+    "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
+    "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
+    "editUser": "Ndrysho përdorues",
+    "cancel": "Anulo"
   },
 
   "topicsPage": {
@@ -259,53 +262,53 @@
   },
 
   "tooltip": {
-  "easyMode": "Modalitet i lehtë"
+    "easyMode": "Modalitet i lehtë"
   },
 
   "liveUsers": {
-  "offlineUsers": "Përdoruesit jashtë linje",
-  "onlineUsers": "Përdoruesit në linjë",
-  "noOffline": "Nuk ka përdorues jashtë linje",
-  "noOnline": "Nuk ka përdorues në linjë",
-  "image": "Foto",
-  "name": "Emri",
-  "surname": "Mbiemri",
-  "action": "Veprim",
-  "turnOn": "Aktivizo",
-  "turnOff": "Çaktivizo"
+    "offlineUsers": "Përdoruesit jashtë linje",
+    "onlineUsers": "Përdoruesit në linjë",
+    "noOffline": "Nuk ka përdorues jashtë linje",
+    "noOnline": "Nuk ka përdorues në linjë",
+    "image": "Foto",
+    "name": "Emri",
+    "surname": "Mbiemri",
+    "action": "Veprim",
+    "turnOn": "Aktivizo",
+    "turnOff": "Çaktivizo"
   },
 
   "unauthorized": {
-  "title": "E palejuar",
-  "message": "Nuk keni leje të hyni në këtë faqe.",
-  "backButton": "Shko te faqja kryesore"
+    "title": "E palejuar",
+    "message": "Nuk keni leje të hyni në këtë faqe.",
+    "backButton": "Shko te faqja kryesore"
   },
 
   "addTopicForm": {
-  "addTitle": "Shto Temë",
-  "editTitle": "Redakto Temë",
-  "addBelow": "Shto Temë poshtë",
-  "addAbove": "Shto Temë sipër",
-  "topicTitle": "Titulli i temës:",
-  "placeholder": "Shkruaj titullin e temës",
-  "uploadPdf": "Ngarko skedë PDF:",
-  "maxSizeError": "Madhësia maksimale e skedës PDF është 35MB!",
-  "typeError": "Ju lutem, ngarkoni vetëm skeda PDF!",
-  "currentPdf": "Skeda aktuale PDF",
-  "topicStatus": "Statusi i temës:",
-  "selectStatus": "Zgjidh statusin",
-  "dropHere": "Hidhni një dokument këtu",
-  "orClick": "ose klikoni për të zgjedhur PDF-in",
-  "statusOptions": {
-    "created": "Krijuar",
-    "active": "Aktive",
-    "finished": "Përfunduar",
-    "information": "Informacion",
-    "withdrawn": "Tërhequr"
-  },
-  "addButton": "Shto",
-  "editButton": "Redakto",
-  "back": "Kthehu"
+    "addTitle": "Shto Temë",
+    "editTitle": "Redakto Temë",
+    "addBelow": "Shto Temë poshtë",
+    "addAbove": "Shto Temë sipër",
+    "topicTitle": "Titulli i temës:",
+    "placeholder": "Shkruaj titullin e temës",
+    "uploadPdf": "Ngarko skedë PDF:",
+    "maxSizeError": "Madhësia maksimale e skedës PDF është 35MB!",
+    "typeError": "Ju lutem, ngarkoni vetëm skeda PDF!",
+    "currentPdf": "Skeda aktuale PDF",
+    "topicStatus": "Statusi i temës:",
+    "selectStatus": "Zgjidh statusin",
+    "dropHere": "Hidhni një dokument këtu",
+    "orClick": "ose klikoni për të zgjedhur PDF-in",
+    "statusOptions": {
+      "created": "Krijuar",
+      "active": "Aktive",
+      "finished": "Përfunduar",
+      "information": "Informacion",
+      "withdrawn": "Tërhequr"
+    },
+    "addButton": "Shto",
+    "editButton": "Redakto",
+    "back": "Kthehu"
   },
 
   "topicsDetails": {
