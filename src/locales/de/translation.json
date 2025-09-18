@@ -1,29 +1,37 @@
 {
-  "loginTitle": "Melden Sie sich an:",
-  "username": "Benutzername",
-  "password": "Passwort",
-  "loginButton": "Anmelden",
-  "guestButton": "Als Gast fortfahren",
-  "selectLanguage": "Sprache auswählen:",
-  "pleaseWait": "Bitte warten...",
-  "invalidCredentials": "Ungültiger Benutzername oder Passwort.",
+  "login": {
+    "title": "Melden Sie sich an:",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "loginButton": "Anmelden",
+    "guestButton": "Als Gast fortfahren",
+    "selectLanguage": "Sprache auswählen:",
+    "pleaseWait": "Bitte warten...",
+    "invalidCredentials": "Ungültiger Benutzername oder Passwort."
+  },
 
-  "logoutTitle": "Abmeldung",
-  "logoutMessage": "Sie haben sich erfolgreich abgemeldet!",
-  "logoutThanks": "Vielen Dank, dass Sie unsere Anwendung genutzt haben.",
-  "loginAgain": "Erneut anmelden",
+  "logout": {
+    "title": "Abmeldung",
+    "message": "Sie haben sich erfolgreich abgemeldet!",
+    "thanks": "Vielen Dank, dass Sie unsere Anwendung genutzt haben.",
+    "loginAgain": "Erneut anmelden"
+  },
 
-  "navHome": "Startseite",
-  "navMunicipalities": "Gemeinden",
-  "navMySessions": "Meine Sitzungen",
-  "navAdminPanel": "Admin-Panel",
-  "navSettings": "Einstellungen",
-  "navLogout": "Abmelden",
+  "nav": {
+    "home": "Startseite",
+    "municipalities": "Gemeinden",
+    "mySessions": "Meine Sitzungen",
+    "adminPanel": "Admin-Panel",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  },
 
-  "homeTitle": "Startseite",
-  "homeWelcome": "Willkommen im Abstimmungssystem des Gemeinderates.",
-  "homeDescription": "In jeder Sitzung nehmen die Ratsmitglieder, einschließlich des Ratsvorsitzenden, teil und leiten die Sitzung. Sie sind verantwortlich für die Erstellung und Genehmigung von Vorschlägen, die alle Bürger in der Gemeinde betreffen.",
-  "municipalitiesButton": "Gemeinden",
+  "home": {
+    "title": "Startseite",
+    "welcome": "Willkommen im Abstimmungssystem des Gemeinderates.",
+    "description": "In jeder Sitzung nehmen die Ratsmitglieder, einschließlich des Ratsvorsitzenden, teil und leiten die Sitzung. Sie sind verantwortlich für die Erstellung und Genehmigung von Vorschlägen, die alle Bürger in der Gemeinde betreffen.",
+    "municipalitiesButton": "Gemeinden"
+  },
 
   "Municipality": {
     "municipalitiesTitle": "Gemeinden",

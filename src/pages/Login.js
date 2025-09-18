@@ -53,7 +53,7 @@ function Login() {
             });
 
             if (!response.ok) {
-                setErrorKey('invalidCredentials');
+                setErrorKey('login.invalidCredentials');
                 throw new Error('Login failed');
             }
 
@@ -64,7 +64,7 @@ function Login() {
             navigate('/');
         } catch (error) {
             console.error('Error:', error);
-            setErrorKey('invalidCredentials');
+            setErrorKey('login.invalidCredentials');
             setPassword('');
         } finally {
             setLoading(false);
@@ -81,7 +81,7 @@ function Login() {
     return (
         <div className="login-container">
             <HelmetProvider>
-                <Helmet><title>{t('loginTitle')}</title></Helmet>
+                <Helmet><title>{t('login.title')}</title></Helmet>
             </HelmetProvider>
 
             {/* Logo stays in public/images */}
@@ -93,14 +93,14 @@ function Login() {
                 />
             </div>
 
-            <h2>{t('loginTitle')}</h2>
+            <h2>{t('login.title')}</h2>
             {errorKey && <div className="error-message">{t(errorKey)}</div>}
 
             <form onSubmit={handleLogin}>
                 <input
                     type="text"
                     name="username"
-                    placeholder={t('username')}
+                    placeholder={t('login.username')}
                     value={username}
                     onChange={(e) => { setUsername(e.target.value); setErrorKey(''); }}
                     required
@@ -108,7 +108,7 @@ function Login() {
                 <input
                     type="password"
                     name="password"
-                    placeholder={t('password')}
+                    placeholder={t('login.password')}
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
                     required
@@ -116,7 +116,7 @@ function Login() {
                 <input
                     type="submit"
                     className='login-button'
-                    value={loading ? t('pleaseWait') : t('loginButton')}
+                    value={loading ? t('login.pleaseWait') : t('login.loginButton')}
                     disabled={loading}
                 />
             </form>
@@ -132,13 +132,13 @@ function Login() {
                         }, 0);
                     }}
                 >
-                    {t('guestButton')}
+                    {t('login.guestButton')}
                 </button>
             </div>
 
             {/* Language Selector */}
             <div className="language-dropdown-container">
-                <label className="language-label">{t('selectLanguage')}</label>
+                <label className="language-label">{t('login.selectLanguage')}</label>
                 <div className="language-dropdown">
                     <button className="selected-language" onClick={() => setOpen(!open)}>
                         <img

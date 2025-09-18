@@ -107,30 +107,30 @@ const languageData = {
                         <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
                     </div>
                     <ul className={`nav-item-mobile ${isMobileNavOpen ? 'open' : ''}`} id="mobile-nav">
-                        <li><Link to="/">{t('navHome')}</Link></li>
-                        <li><Link to="/municipalities">{t('navMunicipalities')}</Link></li>
+                        <li><Link to="/">{t('nav.home')}</Link></li>
+                        <li><Link to="/municipalities">{t('nav.municipalities')}</Link></li>
                         {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
                             <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
-                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('navMySessions')}</Link>
+                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('nav.mySessions')}</Link>
                             </li>
                         )}
                         <li style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
-                            <Link to="/admin-panel">{t('navAdminPanel')}</Link>
+                            <Link to="/admin-panel">{t('nav.adminPanel')}</Link>
                         </li>
                     </ul>
                 </div>
 
                 {/* Desktop Navigation */}
                 <ul className="nav-item" id="desktop-nav">
-                    <li className={getActiveClass('/')}><Link to="/">{t('navHome')}</Link></li>
-                    <li className={getActiveClass('/municipalities')}><Link to="/municipalities">{t('navMunicipalities')}</Link></li>
+                    <li className={getActiveClass('/')}><Link to="/">{t('nav.home')}</Link></li>
+                    <li className={getActiveClass('/municipalities')}><Link to="/municipalities">{t('nav.municipalities')}</Link></li>
                     {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
                         <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
-                            <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('navMySessions')}</Link>
+                            <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('nav.mySessions')}</Link>
                         </li>
                     )}
                     <li className={getActiveClass('/admin-panel')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
-                        <Link to="/admin-panel">{t('navAdminPanel')}</Link>
+                        <Link to="/admin-panel">{t('nav.adminPanel')}</Link>
                     </li>
                 </ul>
 
@@ -185,11 +185,11 @@ const languageData = {
                             <p className="fw-bold">{userInfo.name} {userInfo.surname}</p>
                             {userInfo.role !== 'ROLE_GUEST' && (
                                 <Link to="/profile">
-                                    <FontAwesomeIcon icon={faGear} /> {t('navSettings')}
+                                    <FontAwesomeIcon icon={faGear} /> {t('nav.settings')}
                                 </Link>
                             )}
                             <Link to="/logout">
-                                <FontAwesomeIcon icon={faRightFromBracket} /> {t('navLogout')}
+                                <FontAwesomeIcon icon={faRightFromBracket} /> {t('nav.logout')}
                             </Link>
                         </div>
                     )}

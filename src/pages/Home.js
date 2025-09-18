@@ -36,7 +36,7 @@ function Home() {
         <div className="home-container">
             <HelmetProvider>
                 <Helmet>
-                    <title>{t('homeTitle')}</title>
+                    <title>{t('home.title')}</title>
                 </Helmet>
             </HelmetProvider>
             <Header userInfo={userData} />
@@ -45,18 +45,18 @@ function Home() {
                     <div className="introduction">
                         <div className="introduction-header text-center my-3">
                             <h1 className="display-4 fw-bold">
-                                {t('homeWelcome')}
+                                {t('home.welcome')}
                             </h1>
                         </div>
                         <div className="introduction-body">
                             <p className="lead">
-                                {t('homeDescription')}
+                                {t('home.description')}
                             </p>
                         </div>
                         <div className="d-flex justify-content-center">
                             <Link to="/municipalities">
                                 <button className="municipality-nav-button">
-                                    {t('municipalitiesButton')} <FontAwesomeIcon icon={faBuildingColumns} />
+                                    {t('home.municipalitiesButton')} <FontAwesomeIcon icon={faBuildingColumns} />
                                 </button>
                             </Link>
                         </div>

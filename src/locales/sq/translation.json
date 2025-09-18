@@ -1,29 +1,37 @@
 {
-  "loginTitle": "Ju lutem identifikohuni:",
-  "username": "Emri i përdoruesit",
-  "password": "Fjalëkalimi",
-  "loginButton": "Hyr",
-  "guestButton": "Vazhdo si mysafir",
-  "selectLanguage": "Zgjidh gjuhën:",
-  "pleaseWait": "Ju lutemi prisni...",
-  "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm.",
+  "login": {
+    "title": "Ju lutem identifikohuni:",
+    "username": "Emri i përdoruesit",
+    "password": "Fjalëkalimi",
+    "loginButton": "Hyr",
+    "guestButton": "Vazhdo si mysafir",
+    "selectLanguage": "Zgjidh gjuhën:",
+    "pleaseWait": "Ju lutemi prisni...",
+    "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm."
+  },
 
-  "logoutTitle": "Shkyçja",
-  "logoutMessage": "Jeni shkyçur me sukses!",
-  "logoutThanks": "Faleminderit që e keni përdorur aplikacionin tonë.",
-  "loginAgain": "Hyni përsëri",
+  "logout": {
+    "title": "Shkyçja",
+    "message": "Jeni shkyçur me sukses!",
+    "thanks": "Faleminderit që e keni përdorur aplikacionin tonë.",
+    "loginAgain": "Hyni përsëri"
+  },
 
-  "navHome": "Ballina",
-  "navMunicipalities": "Komunat",
-  "navMySessions": "Seancat e mia",
-  "navAdminPanel": "Paneli i Adminit",
-  "navSettings": "Cilësimet",
-  "navLogout": "Shkyçu",
+  "nav": {
+    "home": "Ballina",
+    "municipalities": "Komunat",
+    "mySessions": "Seancat e mia",
+    "adminPanel": "Paneli i Adminit",
+    "settings": "Cilësimet",
+    "logout": "Shkyçu"
+  },
 
-  "homeTitle": "Ballina",
-  "homeWelcome": "Mirë se vini në sistemin e votimit të këshillit komunal.",
-  "homeDescription": "Në çdo seancë marrin pjesë këshilltarët, përfshirë edhe kryetarin e këshillit, i cili udhëheq seancën. Ata janë përgjegjës për krijimin dhe miratimin e propozimeve që ndikojnë te të gjithë qytetarët e komunës.",
-  "municipalitiesButton": "Komunat",
+  "home": {
+    "title": "Ballina",
+    "welcome": "Mirë se vini në sistemin e votimit të këshillit komunal.",
+    "description": "Në çdo seancë marrin pjesë këshilltarët, përfshirë edhe kryetarin e këshillit, i cili udhëheq seancën. Ata janë përgjegjës për krijimin dhe miratimin e propozimeve që ndikojnë te të gjithë qytetarët e komunës.",
+    "municipalitiesButton": "Komunat"
+  },
 
   "Municipality": {
     "municipalitiesTitle": "Komunat",

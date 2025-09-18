@@ -16,16 +16,16 @@ const Logout = () => {
         <div className="logout-container">
             <HelmetProvider>
                 <Helmet>
-                    <title>{t('logoutTitle')}</title>
+                    <title>{t('logout.title')}</title>
                 </Helmet>
             </HelmetProvider>
-            <h1>{t('logoutMessage')}</h1>
-            <p>{t('logoutThanks')}</p>
+            <h1>{t('logout.message')}</h1>
+            <p>{t('logout.thanks')}</p>
             <button 
                 onClick={() => window.location.href = '/login'} 
                 className="login-button"
             >
-                {t('loginAgain')}
+                {t('logout.loginAgain')}
             </button>
         </div>
     );

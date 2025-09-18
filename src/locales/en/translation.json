@@ -1,29 +1,37 @@
 {
-  "loginTitle": "Please log in:",
-  "username": "Username",
-  "password": "Password",
-  "loginButton": "Log In",
-  "guestButton": "Continue as Guest",
-  "selectLanguage": "Select Language:",
-  "pleaseWait": "Please wait...",
-  "invalidCredentials": "Invalid username or password.",
+  "login": {
+    "title": "Please log in:",
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Log In",
+    "guestButton": "Continue as Guest",
+    "selectLanguage": "Select Language:",
+    "pleaseWait": "Please wait...",
+    "invalidCredentials": "Invalid username or password."
+  },
 
-  "logoutTitle": "Logout",
-  "logoutMessage": "You have successfully logged out!",
-  "logoutThanks": "Thank you for using our application.",
-  "loginAgain": "Log in again",
+  "logout": {
+    "title": "Logout",
+    "message": "You have successfully logged out!",
+    "thanks": "Thank you for using our application.",
+    "loginAgain": "Log in again"
+  },
 
-  "navHome": "Home",
-  "navMunicipalities": "Municipalities",
-  "navMySessions": "My Sessions",
-  "navAdminPanel": "Admin Panel",
-  "navSettings": "Settings",
-  "navLogout": "Logout",
+  "nav": {
+    "home": "Home",
+    "municipalities": "Municipalities",
+    "mySessions": "My Sessions",
+    "adminPanel": "Admin Panel",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
 
-  "homeTitle": "Home",
-  "homeWelcome": "Welcome to the municipal council voting system.",
-  "homeDescription": "In each session, council members, including the council president, participate and manage the session. They are responsible for creating and approving proposals that affect all citizens in the municipality.",
-  "municipalitiesButton": "Municipalities",
+  "home": {
+    "title": "Home",
+    "welcome": "Welcome to the municipal council voting system.",
+    "description": "In each session, council members, including the council president, participate and manage the session. They are responsible for creating and approving proposals that affect all citizens in the municipality.",
+    "municipalitiesButton": "Municipalities"
+  },
 
   "Municipality": {
     "municipalitiesTitle": "Municipalities",
@@ -61,7 +69,7 @@
     "municipality": "Municipality",
     "changePassword": "Change Password"
   },
-  
+
   "roles": {
     "user": "Councilor",
     "president": "Council President",
