@@ -4,6 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'; // Helmet for metad
 import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityForm.css';
+import { useTranslation } from "react-i18next";
 
 function AddMunicipalityForm() {
     const { id } = useParams(); // Get the ID from the route parameters
@@ -14,6 +15,7 @@ function AddMunicipalityForm() {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
     const isEditMode = !!id; // Check if in edit mode
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (isEditMode) {
@@ -117,13 +119,15 @@ function AddMunicipalityForm() {
         <HelmetProvider>
             <div className="add-municipality-container">
                 <Helmet>
-                    <title>{isEditMode ? 'Уреди Општина' : 'Додади Општина'}</title>
+                    {isEditMode ? t("addMunicipality.pageTitleEdit") : t("addMunicipality.pageTitleAdd")}
                 </Helmet>
                 <Header userInfo={userInfo} />
 
                 <div className="add-municipality-body-container container">
                     <div className="add-municipality-header-div mt-2">
-                        <h1>{isEditMode ? 'Уреди Општина' : 'Додади Општина'}</h1>
+                        <h1>
+                            {isEditMode ? t("addMunicipality.headerEdit") : t("addMunicipality.headerAdd")}
+                        </h1>
                     </div>
 
                     {error && <div className="error-message alert alert-danger">{error}</div>}
@@ -132,7 +136,7 @@ function AddMunicipalityForm() {
                         <div className="col-md-6">
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <label htmlFor="name" className="label-add">Име на Општина:</label>
+                                    <label htmlFor="name" className="label-add">{t("addMunicipality.nameLabel")}</label>
                                     <input
                                         type="text"
                                         className="form-control form-control-lg mb-2"
@@ -141,12 +145,12 @@ function AddMunicipalityForm() {
                                         value={name}
                                         onChange={handleNameChange}
                                         required
-                                        placeholder="Внеси име на општина"
+                                        placeholder={t("addMunicipality.namePlaceholder")}
                                     />
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="fileLogo" className="label-add">Лого:</label>
+                                    <label htmlFor="fileLogo" className="label-add">{t("addMunicipality.logoLabel")}</label>
                                     <input
                                         type="file"
                                         className="form-control form-control-lg mb-2"
@@ -158,7 +162,7 @@ function AddMunicipalityForm() {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="fileSessionImage" className="label-add">Слика за Седница:</label>
+                                    <label htmlFor="fileSessionImage" className="label-add">{t("addMunicipality.sessionImageLabel")}</label>
                                     <input
                                         type="file"
                                         className="form-control form-control-lg mb-2"
@@ -171,14 +175,14 @@ function AddMunicipalityForm() {
 
                                 <div className="mt-3 d-flex">
                                     <button type="submit" className={`btn btn-${isEditMode ? 'warning' : 'primary'} btn-lg me-2`}>
-                                        {isEditMode ? 'Уреди' : 'Додади'}
+                                        {isEditMode ? t("addMunicipality.submitEdit") : t("addMunicipality.submitAdd")}
                                     </button>
                                     <button
                                         type="button"
                                         className="btn btn-danger btn-lg"
                                         onClick={() => navigate('/municipalities')}
                                     >
-                                        Назад
+                                        {t("addMunicipality.back")}
                                     </button>
                                 </div>
                             </form>

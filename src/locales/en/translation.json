@@ -26,13 +26,30 @@
   "municipalitiesButton": "Municipalities",
 
   "municipalitiesTitle": "Municipalities",
-  "addMunicipality": "Add Municipality",
+  "addMunicipalityButton": "Add Municipality",
   "view": "View",
   "options": "Options",
   "edit": "Edit",
   "delete": "Delete",
   "noMunicipalities": "No municipalities available",
   "loading": "Loading...",
+
+  "addMunicipality": {
+    "pageTitleAdd": "Add Municipality",
+    "pageTitleEdit": "Edit Municipality",
+    "headerAdd": "Add Municipality",
+    "headerEdit": "Edit Municipality",
+    "nameLabel": "Municipality Name:",
+    "namePlaceholder": "Enter municipality name",
+    "logoLabel": "Logo:",
+    "sessionImageLabel": "Session Image:",
+    "submitAdd": "Add",
+    "submitEdit": "Edit",
+    "back": "Back",
+    "errorNameRequired": "Municipality name is required!",
+    "errorLogoRequired": "Logo selection is required!",
+    "errorGeneral": "There was an error processing the municipality."
+},
 
   "profile": {
     "title": "Profile",

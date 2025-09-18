@@ -26,13 +26,30 @@
   "municipalitiesButton": "Gemeinden",
 
   "municipalitiesTitle": "Gemeinden",
-  "addMunicipality": "Gemeinde hinzufügen",
+  "addMunicipalityButton": "Gemeinde hinzufügen",
   "view": "Ansehen",
   "options": "Optionen",
   "edit": "Bearbeiten",
   "delete": "Löschen",
   "noMunicipalities": "Keine Gemeinden verfügbar",
   "loading": "Wird geladen...",
+
+  "addMunicipality": {
+    "pageTitleAdd": "Gemeinde hinzufügen",
+    "pageTitleEdit": "Gemeinde bearbeiten",
+    "headerAdd": "Gemeinde hinzufügen",
+    "headerEdit": "Gemeinde bearbeiten",
+    "nameLabel": "Gemeindename:",
+    "namePlaceholder": "Geben Sie den Gemeindenamen ein",
+    "logoLabel": "Logo:",
+    "sessionImageLabel": "Bild für Sitzung:",
+    "submitAdd": "Hinzufügen",
+    "submitEdit": "Bearbeiten",
+    "back": "Zurück",
+    "errorNameRequired": "Der Gemeindename ist erforderlich!",
+    "errorLogoRequired": "Die Auswahl eines Logos ist erforderlich!",
+    "errorGeneral": "Beim Verarbeiten der Gemeinde ist ein Fehler aufgetreten."
+  },
 
   "profile": {
     "title": "Profil",

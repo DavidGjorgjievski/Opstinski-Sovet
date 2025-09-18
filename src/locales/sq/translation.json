@@ -26,13 +26,30 @@
   "municipalitiesButton": "Komunat",
 
   "municipalitiesTitle": "Komunat",
-  "addMunicipality": "Shto Komunë",
+  "addMunicipalityButton": "Shto Komunë",
   "view": "Shiko",
   "options": "Opsione",
   "edit": "Përpuno",
   "delete": "Fshi",
   "noMunicipalities": "Nuk ka komuna të disponueshme",
   "loading": "Po ngarkohet...",
+
+  "addMunicipality": {
+    "pageTitleAdd": "Shto Komunë",
+    "pageTitleEdit": "Ndrysho Komunën",
+    "headerAdd": "Shto Komunë",
+    "headerEdit": "Ndrysho Komunën",
+    "nameLabel": "Emri i Komunës:",
+    "namePlaceholder": "Shkruaj emrin e komunës",
+    "logoLabel": "Logo:",
+    "sessionImageLabel": "Foto për Seancën:",
+    "submitAdd": "Shto",
+    "submitEdit": "Ndrysho",
+    "back": "Kthehu",
+    "errorNameRequired": "Emri i komunës është i detyrueshëm!",
+    "errorLogoRequired": "Zgjedhja e logos është e detyrueshme!",
+    "errorGeneral": "Ndodhi një gabim gjatë përpunimit të komunës."
+  },
 
   "profile": {
     "title": "Profili",

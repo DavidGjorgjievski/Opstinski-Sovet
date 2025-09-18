@@ -151,7 +151,7 @@ function Municipalities() {
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
                             <button className="municipality-add-button">
-                                {t('addMunicipality')} <FontAwesomeIcon icon={faPlus} />
+                                {t('addMunicipalityButton')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
                     </div>

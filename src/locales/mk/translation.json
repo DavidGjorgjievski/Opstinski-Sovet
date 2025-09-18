@@ -26,13 +26,31 @@
   "municipalitiesButton": "Општини",
 
   "municipalitiesTitle": "Општини",
-  "addMunicipality": "Додади Општина",
+  "addMunicipalityButton": "Додади Општина",
   "view": "Преглед",
   "options": "Опции",
   "edit": "Уреди",
   "delete": "Избриши",
   "noMunicipalities": "Нема достапни општини",
   "loading": "Се вчитува...",
+
+
+  "addMunicipality": {
+    "pageTitleAdd": "Додади Општина",
+    "pageTitleEdit": "Уреди Општина",
+    "headerAdd": "Додади Општина",
+    "headerEdit": "Уреди Општина",
+    "nameLabel": "Име на Општина:",
+    "namePlaceholder": "Внеси име на општина",
+    "logoLabel": "Лого:",
+    "sessionImageLabel": "Слика за Седница:",
+    "submitAdd": "Додади",
+    "submitEdit": "Уреди",
+    "back": "Назад",
+    "errorNameRequired": "Името на општината е задолжително!",
+    "errorLogoRequired": "Изборот на лого е задолжителен!",
+    "errorGeneral": "Имаше грешка при обработка на општината."
+  },
 
   "profile": {
     "title": "Профил",
