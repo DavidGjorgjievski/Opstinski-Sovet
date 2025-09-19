@@ -110,21 +110,24 @@
     "back": "Back"
   },
 
-  "sessionsTitle": "Sessions",
-  "sessionsSubtitle": "Each session includes the members of the council.",
-  "addSession": "Add Session",
-  "viewSession": "View",
-  "editSession": "Edit",
-  "deleteSession": "Delete",
-  "optionsSession": "Options",
-  "exportSession": "Export",
-  "noSessions": "No available sessions",
-  "loadingSessions": "Loading sessions...",
-  "exportLoading": "Generating PDF...",
+  "session": {
+    "title": "Sessions",
+    "subtitle": "Each session includes the members of the council.",
+    "add": "Add Session",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "options": "Options",
+    "export": "Export",
+    "noSessions": "No available sessions",
+    "loading": "Loading sessions...",
+    "exportLoading": "Generating PDF...",
+    "present": "Present"
+  },
 
   "months": [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
   ],
 
   "sessionModal": {

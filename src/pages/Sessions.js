@@ -264,7 +264,7 @@ return (
     <div className="sessions-container">
       <HelmetProvider>
         <Helmet>
-          <title>{t('sessionsTitle')}</title>
+          <title>{t('session.title')}</title>
         </Helmet>
       </HelmetProvider>
 
@@ -273,14 +273,14 @@ return (
       <main className="session-body-container">
          <div className={`session-header ${sessions.length === 1 ? 'session-header-size1' : ''}`}>
           <div className='session-header-div'>
-            <h1 className="session-header-title">{t('sessionsTitle')}</h1>
-            <p>{t('sessionsSubtitle')}</p>
+            <h1 className="session-header-title">{t('session.title')}</h1>
+            <p>{t('session.subtitle')}</p>
           </div>
           <div className="session-button-container">
             {userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
               <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
                 <button className="session-add-button">
-                  {t('addSession')} <FontAwesomeIcon icon={faPlus} />
+                  {t('session.add')} <FontAwesomeIcon icon={faPlus} />
                 </button>
               </a>
             )}
@@ -323,10 +323,10 @@ return (
                           className="button-see-content w-100"
                         >
                           {userInfo.role === 'ROLE_PRESENTER' ? (
-                            t('present')
+                            t('session.present')
                           ) : (
                             <>
-                              {t('viewSession')} <FontAwesomeIcon icon={faMagnifyingGlass} />
+                              {t('session.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </>
                           )}
                         </a>
@@ -343,7 +343,7 @@ return (
                               setOpenMenuId(openMenuId === session.id ? null : session.id)
                             }
                           >
-                            {t('optionsSession')} <FontAwesomeIcon icon={openMenuId === session.id ? faChevronUp : faChevronDown} />
+                            {t('session.options')} <FontAwesomeIcon icon={openMenuId === session.id ? faChevronUp : faChevronDown} />
                           </button>
 
                           {openMenuId === session.id && (
@@ -355,7 +355,7 @@ return (
                                   setOpenMenuId(null);
                                 }}
                               >
-                                <FontAwesomeIcon icon={faFilePdf} /> {t('exportSession')}
+                                <FontAwesomeIcon icon={faFilePdf} /> {t('session.export')}
                               </button>
 
                               {userInfo.role === 'ROLE_PRESIDENT' &&
@@ -365,7 +365,7 @@ return (
                                       className="dropdown-item"
                                       href={`/municipalities/${municipalityId}/sessions/edit/${session.id}`}
                                     >
-                                      <FontAwesomeIcon icon={faPenToSquare} /> {t('editSession')}
+                                      <FontAwesomeIcon icon={faPenToSquare} /> {t('session.edit')}
                                     </a>
                                    <button
                                     className="dropdown-item"
@@ -374,7 +374,7 @@ return (
                                       setOpenMenuId(null);
                                     }}
                                   >
-                                    <FontAwesomeIcon icon={faTrash} /> {t('deleteSession')}
+                                    <FontAwesomeIcon icon={faTrash} /> {t('session.delete')}
                                   </button>
                                   </>
                                 )}
@@ -388,7 +388,7 @@ return (
               ))
             ) : (
               <div className="mt-3">
-                <h4>{t('noSessions')}</h4>
+                <h4>{t('session.noSessions')}</h4>
               </div>
             )}
           </div>
@@ -397,7 +397,7 @@ return (
         {exportLoading && (
           <div className="modal-overlay">
             <div className="export-loading-spinner">
-              <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt={t('exportLoading')} />
+              <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt={t('session.exportLoading')} />
             </div>
           </div>
         )}

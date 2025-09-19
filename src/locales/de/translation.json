@@ -110,21 +110,24 @@
     "back": "Zurück"
   },
 
-  "sessionsTitle": "Sitzungen",
-  "sessionsSubtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
-  "addSession": "Sitzung anlegen",
-  "viewSession": "Ansehen",
-  "editSession": "Bearbeiten",
-  "deleteSession": "Löschen",
-  "optionsSession": "Optionen",
-  "exportSession": "Exportieren",
-  "noSessions": "Keine verfügbaren Sitzungen",
-  "loadingSessions": "Sitzungen werden geladen...",
-  "exportLoading": "PDF wird generiert...",
+  "session": {
+    "title": "Sitzungen",
+    "subtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
+    "add": "Sitzung anlegen",
+    "view": "Ansehen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "options": "Optionen",
+    "export": "Exportieren",
+    "noSessions": "Keine verfügbaren Sitzungen",
+    "loading": "Sitzungen werden geladen...",
+    "exportLoading": "PDF wird generiert...",
+    "present": "Präsentieren"
+  },
 
   "months": [
-  "Januar", "Februar", "März", "April", "Mai", "Juni",
-  "Juli", "August", "September", "Oktober", "November", "Dezember"
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
   ],
 
   "sessionModal": {

@@ -110,24 +110,27 @@
     "back": "Kthehu"
   },
 
-  "sessionsTitle": "Seancat",
-  "sessionsSubtitle": "Çdo seancë përfshin anëtarët e këshillit.",
-  "addSession": "Shto Seancë",
-  "viewSession": "Shiko",
-  "editSession": "Ndrysho",
-  "deleteSession": "Fshi",
-  "optionsSession": "Opsione",
-  "exportSession": "Eksporto",
-  "noSessions": "Nuk ka seanca të disponueshme",
-  "loadingSessions": "Duke ngarkuar seancat...",
-  "exportLoading": "Po gjenerohet PDF...",
+  "session": {
+    "title": "Seancat",
+    "subtitle": "Çdo seancë përfshin anëtarët e këshillit.",
+    "add": "Shto Seancë",
+    "view": "Shiko",
+    "edit": "Ndrysho",
+    "delete": "Fshi",
+    "options": "Opsione",
+    "export": "Eksporto",
+    "noSessions": "Nuk ka seanca të disponueshme",
+    "loading": "Duke ngarkuar seancat...",
+    "exportLoading": "Po gjenerohet PDF...",
+    "present": "Prezantoni"
+  },
 
   "months": [
-  "Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor",
-  "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
+    "Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor",
+    "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
   ],
 
-   "sessionModal": {
+  "sessionModal": {
     "confirmDeleteTitle": "Konfirmo Fshirjen",
     "confirmDeleteMessage": "A jeni i sigurt që dëshironi të fshini seancën:",
     "deleteButton": "Fshi",

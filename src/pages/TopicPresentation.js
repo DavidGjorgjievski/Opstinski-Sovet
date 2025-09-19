@@ -5,12 +5,14 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
+import { useTranslation } from 'react-i18next';
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
   const { id, municipalityId } = useParams();
   const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { messages: voteMessages } = useVoteWebSocket(id);
   const { messages: presenterMessages } = usePresenterWebSocket(id);
@@ -134,27 +136,27 @@ const TopicPresentation = () => {
             {!(topic.topicStatus === 'CREATED' || topic.topicStatus === 'INFORMATION' || topic.topicStatus === 'WITHDRAWN') && (
               <>
                 <div className="presented-topic-body-div">
-                  <p className="presented-text">За</p>
+                  <p className="presented-text">{t("topicsPage.yes")}</p>
                   <h1 className="presented-number yes">{topic.yes}</h1>
                 </div>
                 <div className="presented-topic-body-div">
-                  <p className="presented-text">Против</p>
+                  <p className="presented-text">{t("topicsPage.no")}</p>
                   <h1 className="presented-number no">{topic.no}</h1>
                 </div>
                 <div className="presented-topic-body-div">
-                  <p className="presented-text">Воздржан</p>
+                  <p className="presented-text">{t("topicsPage.abstained")}</p>
                   <h1 className="presented-number abstained">{topic.abstained}</h1>
                 </div>
                 <div className="presented-topic-body-div">
-                  <p className="presented-text">Се иземува</p>
+                  <p className="presented-text">{t("topicsPage.cantVote")}</p>
                   <h1 className="presented-number cant-vote">{topic.cantVote}</h1>
                 </div>
                 <div className="presented-topic-body-div">
-                  <p className="presented-text">Не гласале</p>
+                  <p className="presented-text">{t("topicsPage.notVoted")}</p>
                   <h1 className="presented-number havent-vote">{topic.haveNotVoted}</h1>
                 </div>
                 <div className="presented-topic-body-div">
-                  <p className="presented-text">Отсутен</p>
+                  <p className="presented-text">{t("topicsPage.absent")}</p>
                   <h1 className="presented-number absent">{topic.absent}</h1>
                 </div>
               </>
