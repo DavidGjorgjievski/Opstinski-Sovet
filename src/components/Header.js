@@ -20,7 +20,7 @@ function Header({ userInfo }) {
     const profileLangRef = useRef(null);
     const { municipalityId } = useParams();
 
-    const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'mk');
+    const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'en');
 
 
 const languageData = {

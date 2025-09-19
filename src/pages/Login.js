@@ -31,7 +31,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [errorKey, setErrorKey] = useState('');
     const [loading, setLoading] = useState(false);
-    const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'mk');
+    const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'en');
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function Login() {
     };
 
     // Handle language change
-    const changeLanguage = (lang) => {
+   const changeLanguage = (lang) => {
         setSelectedLang(lang);
         i18n.changeLanguage(lang);
         localStorage.setItem('selectedLanguage', lang);
