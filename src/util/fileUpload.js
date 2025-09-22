@@ -10,65 +10,71 @@ export const handleDragLeave = (dropArea) => {
     dropArea.classList.remove('is-active');
 };
 
-export const handleDrop = (event, fileInput, updateFileName, setFileError, setFileTypeError) => {
+/**
+ * Handle file drop
+ */
+export const handleDrop = (event, setFiles, updateFileName, setFileError, setFileTypeError, existingFiles = []) => {
     event.preventDefault();
-    const files = event.dataTransfer.files;
 
-    // Clear previous error messages
     setFileError(false);
     setFileTypeError(false);
 
-    if (files.length) {
-        const file = files[0];
-        fileInput.files = files;
-        if (file.type !== 'application/pdf') {
+    const droppedFiles = Array.from(event.dataTransfer.files);
+
+    const validFiles = droppedFiles.filter(file => {
+        if (file.type !== "application/pdf") {
             setFileTypeError(true);
-            updateFileName(''); // Clear file name if error
-            return;
+            return false;
         }
-        checkFileSize(fileInput, updateFileName, setFileError, setFileTypeError);
-    }
-};
+        return true;
+    });
 
-export const handleFileChange = (event, updateFileName, setFileError, setFileTypeError) => {
-    // Clear previous error messages
-    setFileError(false);
-    setFileTypeError(false);
+    const totalSize = [...existingFiles, ...validFiles].reduce((acc, f) => acc + f.size, 0);
 
-    const file = event.target.files[0];
-    if (file.type !== 'application/pdf') {
-        setFileTypeError(true);
-        updateFileName(''); // Clear file name if error
+    if (totalSize > MAX_FILE_SIZE_BYTES) {
+        setFileError(true);
         return;
     }
-    checkFileSize(event.target, updateFileName, setFileError, setFileTypeError);
-};
 
-const checkFileSize = (fileInput, updateFileName, setFileError, setFileTypeError) => {
-    const file = fileInput.files[0];
-
-    if (file.size > MAX_FILE_SIZE_BYTES) {
-        setFileError(true);
-        updateFileName(''); // Clear file name if error
-    } else {
-        updateFileName(file.name);
-        setFileError(false); // Reset error state if file is valid
-        setFileTypeError(false); // Reset file type error state
+    if (validFiles.length > 0) {
+        setFiles(prev => [...prev, ...validFiles]);
+        if (updateFileName) {
+            updateFileName(validFiles.map(f => f.name).join(", "));
+        }
     }
 };
 
-export const handlePaste = (event, fileInput, updateFileName, setFileError, setFileTypeError) => {
-    // Clear previous error messages
+
+/**
+ * Handle pasted file(s)
+ */
+export const handlePaste = (event, setFiles, updateFileName, setFileError, setFileTypeError, existingFiles = []) => {
     setFileError(false);
     setFileTypeError(false);
 
     const items = (event.clipboardData || window.clipboardData).items;
+    const pastedFiles = [];
+
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        if (item.kind === 'file' && item.type === 'application/pdf') {
+        if (item.kind === "file" && item.type === "application/pdf") {
             const file = item.getAsFile();
-            fileInput.files = [file];
-            checkFileSize(fileInput, updateFileName, setFileError, setFileTypeError);
+            pastedFiles.push(file);
+        }
+    }
+
+    const totalSize = [...existingFiles, ...pastedFiles].reduce((acc, f) => acc + f.size, 0);
+
+    if (totalSize > MAX_FILE_SIZE_BYTES) {
+        setFileError(true);
+        return;
+    }
+
+    if (pastedFiles.length > 0) {
+        setFiles(prev => [...prev, ...pastedFiles]);
+        if (updateFileName) {
+            updateFileName(pastedFiles.map(f => f.name).join(", "));
         }
     }
 };
+

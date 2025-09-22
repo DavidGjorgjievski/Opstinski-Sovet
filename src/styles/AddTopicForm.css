@@ -1,3 +1,24 @@
+.add-topic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.add-topic-body-container {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 80px;
+    padding: 0 16px 50px;
+    box-sizing: border-box;
+}
+
+.add-topic-header-div {
+    display: flex;
+    justify-content: center;
+}
+
 .file-drop-area {
     position: relative;
     display: flex;
@@ -46,4 +67,105 @@
     padding: 10px;
     font-weight: 500;
     border: 1px solid #f8d7da;
+}
+
+.uploaded-files {
+    background: #f9fafc;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.uploaded-files h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    transition: background 0.2s ease;
+}
+
+.file-item:hover {
+    background: #f0f4f8;
+}
+
+.file-name {
+    font-size: 0.95rem;
+    color: #444;
+    word-break: break-word;
+}
+
+.remove-file-btn {
+    background: transparent;
+    border: none;
+    color: #d9534f;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s ease;
+}
+
+.remove-file-btn:hover {
+    color: #b52b27;
+}
+
+.current-pdf-div {
+    border: 1px solid #e5e7eb;
+    /* light gray border */
+    border-radius: 12px;
+    padding: 12px 16px;
+    background-color: #f9fafb;
+    /* subtle background */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.current-pdf-label {
+    font-weight: 600;
+    color: #374151;
+    /* neutral dark gray */
+}
+
+.pdf-link {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.pdf-link:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .add-topic-body-container {
+        margin-top: 40px;
+        padding: 0 12px 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-topic-body-container {
+        margin-top: 30px;
+        padding: 0 8px 30px;
+    }
 }
