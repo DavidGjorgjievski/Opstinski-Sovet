@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityForm.css';
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function AddMunicipalityForm() {
     const { id } = useParams(); // Get the ID from the route parameters
@@ -123,7 +125,7 @@ function AddMunicipalityForm() {
                 </Helmet>
                 <Header userInfo={userInfo} />
 
-                <div className="add-municipality-body-container container">
+                <div className="add-municipality-body-container">
                     <div className="add-municipality-header-div mt-2">
                         <h1>
                             {isEditMode ? t("addMunicipality.headerEdit") : t("addMunicipality.headerAdd")}
@@ -133,7 +135,7 @@ function AddMunicipalityForm() {
                     {error && <div className="error-message alert alert-danger">{error}</div>}
 
                     <div className="row justify-content-center">
-                        <div className="col-md-6">
+                        <div>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="name" className="label-add">{t("addMunicipality.nameLabel")}</label>
@@ -174,15 +176,26 @@ function AddMunicipalityForm() {
                                 </div>
 
                                 <div className="mt-3 d-flex">
-                                    <button type="submit" className={`btn btn-${isEditMode ? 'warning' : 'primary'} btn-lg me-2`}>
+                                   <button
+                                        type="submit"
+                                        className="me-2 municipality-form-add-button"
+                                    >
                                         {isEditMode ? t("addMunicipality.submitEdit") : t("addMunicipality.submitAdd")}
+                                       <FontAwesomeIcon 
+                                            icon={isEditMode ? faPenToSquare : faPlus} 
+                                            className="ms-2"
+                                        />
                                     </button>
                                     <button
                                         type="button"
-                                        className="btn btn-danger btn-lg"
+                                        className="municipality-form-back-button-topic"
                                         onClick={() => navigate('/municipalities')}
                                     >
-                                        {t("addMunicipality.back")}
+                                        <FontAwesomeIcon 
+                                            icon={faChevronLeft} 
+                                            className="me-2"
+                                        />
+                                        {t("addMunicipality.back")} 
                                     </button>
                                 </div>
                             </form>

@@ -1,11 +1,160 @@
-.add-municipality-container{
+.add-municipality-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
     width: 100vw;
-    height: 100vh;
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
 }
 
-.add-municipality-body-container{
-    margin-top: 80px;
+.add-municipality-body-container {
+    margin-top: 100px;
+    background: #ffffffcc;
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 40px 30px;
+    max-width: 600px;
+    width: 100%;
+    animation: fadeIn 0.2s ease-in-out;
+    width: 100%;
+}
+
+.add-municipality-header-div h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: #1a1a2e;
+    margin-bottom: 25px;
+}
+
+.label-add {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.municipality-form-add-button {
+    background-color: #fbe64e;
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 0px solid white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.municipality-form-add-button:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
+.municipality-form-back-button-topic {
+    background-color: white;
+    padding: 10px 20px;
+    width: 140px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.municipality-form-back-button-topic:hover {
+    background-color: #ddd;
+    transform: scale(1.03);
+}
+
+.form-control:focus {
+    border-color: #f7db2c;
+    box-shadow: 0 0 6px rgba(79, 110, 247, 0.3);
+    outline: none;
+}
+
+.error-message {
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+
+/* Hide only inputs with this class */
+.custom-file-input {
+    display: none;
+}
+
+/* Custom file upload button */
+.custom-file-label {
+    display: inline-block;
+    background-color: #fbe64e;
+    color: #000;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 12px;
+}
+
+/* Hover effect */
+.custom-file-label:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
+/* Make sure label takes full width on mobile */
+@media (max-width: 480px) {
+    .custom-file-label {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .add-municipality-body-container {
+        width: 95%;
+    }
+}
+
+
+@media (max-width: 380px) {
+
+    .municipality-form-add-button,
+    .municipality-form-back-button-topic {
+        font-size: 13px !important;
+        padding: 8px 12px;
+        /* optional: shrink padding for tiny screens */
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
