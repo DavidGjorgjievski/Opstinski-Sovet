@@ -1,21 +1,118 @@
-.add-session-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-}
-
-.add-session-body-container{
-    margin-top: 80px;
-}
-
-.add-session-header-div {
+.add-session-container {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+}
+
+.add-session-body-container {
+    margin-top: 100px;
+    background: #ffffffcc;
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 40px 30px;
+    max-width: 600px !important;
+    width: 100%;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.add-session-header-div h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: #1a1a2e;
+    margin-bottom: 25px;
 }
 
 .label-add {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #f7db2c;
+    box-shadow: 0 0 6px rgba(79, 110, 247, 0.3);
+    outline: none;
+}
+
+/* --- Buttons --- */
+.session-form-submit-button {
+    background-color: #fbe64e;
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.session-form-submit-button:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
+.session-form-back-button {
+    background-color: white;
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.session-form-back-button:hover {
+    background-color: #ddd;
+    transform: scale(1.03);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .add-session-body-container {
+        width: 95% !important;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .session-form-submit-button,
+    .session-form-back-button {
+        font-size: 13px !important;
+        padding: 8px 12px;
+    }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

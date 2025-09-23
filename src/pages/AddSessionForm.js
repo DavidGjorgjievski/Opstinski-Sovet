@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import '../styles/AddSessionForm.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function AddSessionForm() {
     const { t } = useTranslation();
@@ -111,7 +113,7 @@ function AddSessionForm() {
                             <h1>{id ? t("addSessionForm.editHeader") : t("addSessionForm.addHeader")}</h1>
                         </div>
                         <div className="row justify-content-center">
-                            <div className="col-md-6">
+                            <div>
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="name" className="label-add">
@@ -145,13 +147,29 @@ function AddSessionForm() {
                                     </div>
 
                                     <div className="mt-3 d-flex">
-                                        <button type="submit" className={`btn ${id ? 'btn-warning' : 'btn-primary'} btn-lg me-2`}>
-                                            {id ? t("addSessionForm.editButton") : t("addSessionForm.addButton")}
-                                        </button>
-                                        <button type="button" className="btn btn-danger btn-lg" onClick={handleBack}>
-                                            {t("addSessionForm.backButton")}
-                                        </button>
-                                    </div>
+                                    <button 
+                                        type="submit" 
+                                        className="me-2 session-form-submit-button"
+                                    >
+                                        {id ? t("addSessionForm.editButton") : t("addSessionForm.addButton")}
+                                        <FontAwesomeIcon 
+                                            icon={id ? faPenToSquare : faPlus} 
+                                            className="ms-2"
+                                        />
+                                    </button>
+
+                                    <button 
+                                        type="button" 
+                                        className="session-form-back-button"
+                                        onClick={handleBack}
+                                    >
+                                        <FontAwesomeIcon 
+                                            icon={faChevronLeft} 
+                                            className="me-2"
+                                        />
+                                        {t("addSessionForm.backButton")}
+                                    </button>
+                                </div>
                                 </form>
                             </div>
                         </div>
