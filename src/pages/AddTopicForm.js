@@ -13,8 +13,8 @@ import {
 import '../styles/AddTopicForm.css';
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const AddTopicForm = () => {
     const { id, idt, municipalityId } = useParams();
@@ -227,7 +227,7 @@ const AddTopicForm = () => {
                 <Header userInfo={userInfo} />
 
                 <div className="add-topic-body-container">
-                    <div className="container mt-4">
+                    <div>
                         <div className="add-topic-header-div">
                             <h1>
                                 {isAddAfter
@@ -335,19 +335,31 @@ const AddTopicForm = () => {
                                     <div className="mt-3 d-flex flex-start">
                                         <button
                                             type="submit"
-                                            className={`btn ${idt && !isAddAfter && !isAddBefore ? "btn-warning" : "btn-primary"} btn-lg me-2`}
+                                            className="topic-form-submit-button me-2"
                                         >
-                                            {idt && !isAddAfter && !isAddBefore ? t("addTopicForm.editButton") : t("addTopicForm.addButton")}
+                                            {idt && !isAddAfter && !isAddBefore ? (
+                                                <>
+                                                    <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
+                                                    {t("addTopicForm.editButton")}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <FontAwesomeIcon icon={faPlus} className="me-2" />
+                                                    {t("addTopicForm.addButton")}
+                                                </>
+                                            )}
                                         </button>
+
                                         <button
                                             type="button"
-                                            className="btn btn-danger btn-lg"
+                                            className="topic-form-back-button"
                                             onClick={() => navigate(
                                                 idt
                                                     ? `/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`
                                                     : `/municipalities/${municipalityId}/sessions/${id}/topics`
                                             )}
                                         >
+                                            <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
                                             {t("addTopicForm.back")}
                                         </button>
                                     </div>
@@ -357,6 +369,7 @@ const AddTopicForm = () => {
                     </div>
                 </div>
 
+                    <p>&nbsp;</p>
                 {exportLoading && (
                     <div className="modal-overlay">
                         <div className="export-loading-spinner">
