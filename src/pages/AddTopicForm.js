@@ -210,6 +210,11 @@ const AddTopicForm = () => {
         setTotalSize(total);
     }, [files]);
 
+    useEffect(() => {
+    // Scroll to top when the component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
+
     return (
         <HelmetProvider>
             <div className="add-topic-container">
