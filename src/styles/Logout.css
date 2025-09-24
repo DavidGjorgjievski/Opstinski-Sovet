@@ -10,6 +10,15 @@ body {
     box-sizing: border-box;
 }
 
+.logout-page-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+}
+
 .logout-container {
     background-color: #fff;
     padding: 20px;
@@ -59,5 +68,11 @@ p {
     .login-button {
         padding: 10px 15px;
         font-size: 14px;
+    }
+}
+
+@media (max-width: 405px) {
+    .logout-container{
+        width: 95%;
     }
 }

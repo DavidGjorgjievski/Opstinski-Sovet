@@ -12,21 +12,24 @@ const Logout = () => {
         logout();
     }, [logout]); 
 
-    return (
-        <div className="logout-container">
-            <HelmetProvider>
-                <Helmet>
-                    <title>{t('logout.title')}</title>
-                </Helmet>
-            </HelmetProvider>
-            <h1>{t('logout.message')}</h1>
-            <p>{t('logout.thanks')}</p>
-            <button 
-                onClick={() => window.location.href = '/login'} 
-                className="login-button"
-            >
-                {t('logout.loginAgain')}
-            </button>
+     return (
+        <div className="logout-page-wrapper">
+            <div className="logout-container">
+                <HelmetProvider>
+                    <Helmet>
+                        <title>{t('logout.title')}</title>
+                    </Helmet>
+                </HelmetProvider>
+
+                <h1>{t('logout.message')}</h1>
+                <p>{t('logout.thanks')}</p>
+                <button 
+                    onClick={() => window.location.href = '/login'} 
+                    className="login-button"
+                >
+                    {t('logout.loginAgain')}
+                </button>
+            </div>
         </div>
     );
 };
