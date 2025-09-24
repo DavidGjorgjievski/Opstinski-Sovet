@@ -78,101 +78,104 @@ function Login() {
         localStorage.setItem('selectedLanguage', lang);
     };
 
-    return (
-        <div className="login-container">
-            <HelmetProvider>
-                <Helmet><title>{t('login.title')}</title></Helmet>
-            </HelmetProvider>
+   return (
+        <div className="login-page-wrapper">
+            <div className="login-container">
+                <HelmetProvider>
+                    <Helmet><title>{t('login.title')}</title></Helmet>
+                </HelmetProvider>
 
-            {/* Logo stays in public/images */}
-            <div className="login-header">
-                <img
-                    src={`${process.env.PUBLIC_URL}/images/grb.png`}
-                    alt="Grb Gold"
-                    className="login-logo"
-                />
-            </div>
+                {/* Logo */}
+                <div className="login-header">
+                    <img
+                        src={`${process.env.PUBLIC_URL}/images/grb.png`}
+                        alt="Grb Gold"
+                        className="login-logo"
+                    />
+                </div>
 
-            <h2>{t('login.title')}</h2>
-            {errorKey && <div className="error-message">{t(errorKey)}</div>}
+                <h2>{t('login.title')}</h2>
+                {errorKey && <div className="error-message">{t(errorKey)}</div>}
 
-            <form onSubmit={handleLogin}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder={t('login.username')}
-                    value={username}
-                    onChange={(e) => { setUsername(e.target.value); setErrorKey(''); }}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder={t('login.password')}
-                    value={password}
-                    onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
-                    required
-                />
-                <input
-                    type="submit"
-                    className='login-button'
-                    value={loading ? t('login.pleaseWait') : t('login.loginButton')}
-                    disabled={loading}
-                />
-            </form>
+                <form onSubmit={handleLogin}>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder={t('login.username')}
+                        value={username}
+                        onChange={(e) => { setUsername(e.target.value); setErrorKey(''); }}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder={t('login.password')}
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
+                        required
+                    />
+                    <input
+                        type="submit"
+                        className='login-button'
+                        value={loading ? t('login.pleaseWait') : t('login.loginButton')}
+                        disabled={loading}
+                    />
+                </form>
 
-            <div>
-                <button
-                    className='guest-button'
-                    onClick={() => {
-                        setUsername('gostin.gostin');
-                        setPassword('gostin');
-                        setTimeout(() => {
-                            document.querySelector('form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-                        }, 0);
-                    }}
-                >
-                    {t('login.guestButton')}
-                </button>
-            </div>
-
-            {/* Language Selector */}
-            <div className="language-dropdown-container">
-                <label className="language-label">{t('login.selectLanguage')}</label>
-                <div className="language-dropdown">
-                    <button className="selected-language" onClick={() => setOpen(!open)}>
-                        <img
-                            src={languageData[selectedLang].flag}
-                            alt={selectedLang}
-                            className="lang-flag"
-                        />
-                        <span>{languageData[selectedLang].name}</span>
-                        <FontAwesomeIcon className="arrow-lang" icon={open ? faChevronUp : faChevronDown} />
+                {/* Guest button */}
+                <div>
+                    <button
+                        className='guest-button'
+                        onClick={() => {
+                            setUsername('gostin.gostin');
+                            setPassword('gostin');
+                            setTimeout(() => {
+                                document.querySelector('form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                            }, 0);
+                        }}
+                    >
+                        {t('login.guestButton')}
                     </button>
+                </div>
 
-                    {open && (
-                        <div className="language-options">
-                            {Object.keys(languageData)
-                                .filter(lang => lang !== selectedLang)
-                                .map(lang => (
-                                    <div
-                                        key={lang}
-                                        className="language-option"
-                                        onClick={() => {
-                                            changeLanguage(lang);
-                                            setOpen(false);
-                                        }}
-                                    >
-                                        <img
-                                            src={languageData[lang].flag}
-                                            alt={lang}
-                                            className="lang-flag"
-                                        />
-                                        <span>{languageData[lang].name}</span>
-                                    </div>
-                                ))}
-                        </div>
-                    )}
+                {/* Language Selector */}
+                <div className="language-dropdown-container">
+                    <label className="language-label">{t('login.selectLanguage')}</label>
+                    <div className="language-dropdown">
+                        <button className="selected-language" onClick={() => setOpen(!open)}>
+                            <img
+                                src={languageData[selectedLang].flag}
+                                alt={selectedLang}
+                                className="lang-flag"
+                            />
+                            <span>{languageData[selectedLang].name}</span>
+                            <FontAwesomeIcon className="arrow-lang" icon={open ? faChevronUp : faChevronDown} />
+                        </button>
+
+                        {open && (
+                            <div className="language-options">
+                                {Object.keys(languageData)
+                                    .filter(lang => lang !== selectedLang)
+                                    .map(lang => (
+                                        <div
+                                            key={lang}
+                                            className="language-option"
+                                            onClick={() => {
+                                                changeLanguage(lang);
+                                                setOpen(false);
+                                            }}
+                                        >
+                                            <img
+                                                src={languageData[lang].flag}
+                                                alt={lang}
+                                                className="lang-flag"
+                                            />
+                                            <span>{languageData[lang].name}</span>
+                                        </div>
+                                    ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,6 +9,15 @@ body {
     box-sizing: border-box;
 }
 
+.login-page-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+}
+
 .login-container {
     background-color: #fff;
     padding: 20px;
@@ -157,6 +166,13 @@ input {
     margin-left: 5px;
     color: black;
 }
+
+@media (max-width: 440px) {
+    .login-container{
+        width: 95%;
+    }
+}
+
 
 @media (max-width: 380px) {
     .language-dropdown-container {

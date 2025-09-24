@@ -49,6 +49,10 @@
     outline: none;
 }
 
+.add-topic-body-container .form-control {
+    border-radius: 10px !important;
+}
+
 /* --- Buttons --- */
 .session-form-submit-button {
     background-color: #fbe64e;
