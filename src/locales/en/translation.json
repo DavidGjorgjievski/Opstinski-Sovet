@@ -58,7 +58,8 @@
     "back": "Back",
     "errorNameRequired": "Municipality name is required!",
     "errorLogoRequired": "Logo selection is required!",
-    "errorGeneral": "There was an error processing the municipality."
+    "errorGeneral": "There was an error processing the municipality.",
+    "chooseFile": "Choose"
 },
 
   "profile": {

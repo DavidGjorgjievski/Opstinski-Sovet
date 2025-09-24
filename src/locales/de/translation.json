@@ -58,7 +58,8 @@
     "back": "Zurück",
     "errorNameRequired": "Der Gemeindename ist erforderlich!",
     "errorLogoRequired": "Die Auswahl eines Logos ist erforderlich!",
-    "errorGeneral": "Beim Verarbeiten der Gemeinde ist ein Fehler aufgetreten."
+    "errorGeneral": "Beim Verarbeiten der Gemeinde ist ein Fehler aufgetreten.",
+    "chooseFile": "auswählen"
   },
 
   "profile": {

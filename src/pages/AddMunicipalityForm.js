@@ -6,7 +6,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityForm.css';
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faPlus, faChevronLeft, faImage } from '@fortawesome/free-solid-svg-icons';
 
 function AddMunicipalityForm() {
     const { id } = useParams(); // Get the ID from the route parameters
@@ -151,29 +151,45 @@ function AddMunicipalityForm() {
                                     />
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="fileLogo" className="label-add">{t("addMunicipality.logoLabel")}</label>
-                                    <input
-                                        type="file"
-                                        className="form-control form-control-lg mb-2"
-                                        id="fileLogo"
-                                        name="fileLogo"
-                                        onChange={handleLogoChange}
-                                        accept="image/*"
-                                    />
-                                </div>
+                               <div className="form-group">
+    <label className="label-add">{t("addMunicipality.logoLabel")}</label>
+    <div className="image-upload-wrapper">
+        <label className={`image-upload-button-preview ${logo ? 'has-file' : ''}`}>
+    {logo ? (
+        <img src={URL.createObjectURL(logo)} alt="Logo Preview" />
+    ) : (
+        <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+    )}
+    <input
+        type="file"
+        accept="image/*"
+        onChange={handleLogoChange}
+        className="hidden-file-input"
+    />
+</label>
+    </div>
+</div>
 
-                                <div className="form-group">
-                                    <label htmlFor="fileSessionImage" className="label-add">{t("addMunicipality.sessionImageLabel")}</label>
-                                    <input
-                                        type="file"
-                                        className="form-control form-control-lg mb-2"
-                                        id="fileSessionImage"
-                                        name="fileSessionImage"
-                                        onChange={handleSessionImageChange}
-                                        accept="image/*"
-                                    />
-                                </div>
+<div className="form-group">
+    <label className="label-add">{t("addMunicipality.sessionImageLabel")}</label>
+    <div className="image-upload-wrapper">
+        <label className={`image-upload-button-preview ${sessionImage ? 'has-file' : ''}`}>
+    {sessionImage ? (
+        <img src={URL.createObjectURL(sessionImage)} alt="Session Preview" />
+    ) : (
+        <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+    )}
+    <input
+        type="file"
+        accept="image/*"
+        onChange={handleSessionImageChange}
+        className="hidden-file-input"
+    />
+</label>
+    </div>
+</div>
+
+
 
                                 <div className="mt-3 d-flex">
                                    <button

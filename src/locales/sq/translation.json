@@ -58,7 +58,8 @@
     "back": "Kthehu",
     "errorNameRequired": "Emri i komunës është i detyrueshëm!",
     "errorLogoRequired": "Zgjedhja e logos është e detyrueshme!",
-    "errorGeneral": "Ndodhi një gabim gjatë përpunimit të komunës."
+    "errorGeneral": "Ndodhi një gabim gjatë përpunimit të komunës.",
+    "chooseFile": "Zgjidhni"
   },
 
   "profile": {
