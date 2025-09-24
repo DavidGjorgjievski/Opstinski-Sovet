@@ -97,6 +97,11 @@
     .add-session-body-container {
         width: 95% !important;
     }
+
+    .session-form-submit-button,
+    .session-form-back-button {
+        font-size: 13.5px !important;
+    }
 }
 
 @media (max-width: 380px) {

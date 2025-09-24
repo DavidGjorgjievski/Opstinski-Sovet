@@ -210,10 +210,21 @@
         padding: 0 12px 40px;
         width: 95% !important;
     }
+    .topic-form-back-button,
+    .topic-form-submit-button{
+        font-size: 13.5px !important;
+    }
 }
 
 @media (max-width: 480px) {
     .add-topic-body-container {
         padding: 0 8px 30px;
+    }
+}
+
+@media (max-width: 380px) {
+    .topic-form-back-button,
+    .topic-form-submit-button {
+        font-size: 13px !important;
     }
 }
