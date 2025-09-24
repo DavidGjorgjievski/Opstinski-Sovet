@@ -151,46 +151,43 @@ function AddMunicipalityForm() {
                                     />
                                 </div>
 
-                               <div className="form-group">
-    <label className="label-add">{t("addMunicipality.logoLabel")}</label>
-    <div className="image-upload-wrapper">
-        <label className={`image-upload-button-preview ${logo ? 'has-file' : ''}`}>
-    {logo ? (
-        <img src={URL.createObjectURL(logo)} alt="Logo Preview" />
-    ) : (
-        <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-    )}
-    <input
-        type="file"
-        accept="image/*"
-        onChange={handleLogoChange}
-        className="hidden-file-input"
-    />
-</label>
-    </div>
-</div>
+                                <div className="form-group">
+                                    <label className="label-add">{t("addMunicipality.logoLabel")}</label>
+                                        <div className="image-upload-wrapper">
+                                            <label className={`image-upload-button-preview ${logo ? 'has-file' : ''}`}>
+                                                {logo ? (
+                                                    <img src={URL.createObjectURL(logo)} alt="Logo Preview" />
+                                                ) : (
+                                                    <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={handleLogoChange}
+                                                    className="hidden-file-input"
+                                                />
+                                            </label>
+                                        </div>
+                                </div>
 
-<div className="form-group">
-    <label className="label-add">{t("addMunicipality.sessionImageLabel")}</label>
-    <div className="image-upload-wrapper">
-        <label className={`image-upload-button-preview ${sessionImage ? 'has-file' : ''}`}>
-    {sessionImage ? (
-        <img src={URL.createObjectURL(sessionImage)} alt="Session Preview" />
-    ) : (
-        <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-    )}
-    <input
-        type="file"
-        accept="image/*"
-        onChange={handleSessionImageChange}
-        className="hidden-file-input"
-    />
-</label>
-    </div>
-</div>
-
-
-
+                                <div className="form-group">
+                                    <label className="label-add">{t("addMunicipality.sessionImageLabel")}</label>
+                                        <div className="image-upload-wrapper">
+                                            <label className={`image-upload-button-preview ${sessionImage ? 'has-file' : ''}`}>
+                                                {sessionImage ? (
+                                                    <img src={URL.createObjectURL(sessionImage)} alt="Session Preview" />
+                                                ) : (
+                                                    <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={handleSessionImageChange}
+                                                    className="hidden-file-input"
+                                                />
+                                            </label>
+                                        </div>
+                                </div>
                                 <div className="mt-3 d-flex">
                                    <button
                                         type="submit"
