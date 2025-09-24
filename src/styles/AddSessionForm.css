@@ -104,12 +104,22 @@
     }
 }
 
+@media (max-width: 480px) {
+    .add-session-header-div h1 {
+        font-size: 1.9rem;
+    }
+}
+
 @media (max-width: 380px) {
 
     .session-form-submit-button,
     .session-form-back-button {
         font-size: 13px !important;
         padding: 8px 12px;
+    }
+
+    .add-session-header-div h1 {
+        font-size: 1.8rem;
     }
 }
 

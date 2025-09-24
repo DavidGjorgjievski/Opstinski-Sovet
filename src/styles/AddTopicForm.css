@@ -26,6 +26,10 @@
     justify-content: center;
 }
 
+.add-topic-header-div h1{
+    font-size: 2rem;
+}
+
 .file-drop-area {
     position: relative;
     display: flex;
@@ -207,9 +211,9 @@
 
 @media (max-width: 768px) {
     .add-topic-body-container {
-        padding: 0 12px 40px;
         width: 95% !important;
     }
+
     .topic-form-back-button,
     .topic-form-submit-button{
         font-size: 13.5px !important;
@@ -217,8 +221,8 @@
 }
 
 @media (max-width: 480px) {
-    .add-topic-body-container {
-        padding: 0 8px 30px;
+    .add-topic-header-div h1 {
+        font-size: 1.9rem;
     }
 }
 
@@ -226,5 +230,10 @@
     .topic-form-back-button,
     .topic-form-submit-button {
         font-size: 13px !important;
+        padding: 8px 12px;
+    }
+    
+    .add-topic-header-div h1 {
+        font-size: 1.8rem;
     }
 }
