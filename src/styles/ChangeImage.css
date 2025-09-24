@@ -18,7 +18,7 @@
     height: 250px;
     padding: 25px;
     border: 2px dashed black;
-    border-radius: .25rem;
+    border-radius: 20px;
     transition: border-color 0.3s;
     cursor: pointer;
     text-align: center;
@@ -60,7 +60,7 @@
     display: flex;
     justify-content: center;
     background-color: rgba(217, 83, 79, 0.4);
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
     color: #d9534f;
 }
@@ -68,7 +68,7 @@
 .button-change-image-submit {
     background-color: #fbe64e;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 8px 18px;
     color: #fff;
     font-weight: 500;

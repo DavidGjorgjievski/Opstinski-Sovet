@@ -28,14 +28,14 @@ input {
     padding: 10px;
     margin-bottom: 15px !important;
     box-sizing: border-box; 
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .login-button {
     background-color: #e3d356;
     color: black !important;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px !important;
     border: none;
     font-weight: bold;
 }
@@ -98,7 +98,7 @@ input {
     justify-content: space-between;
     width: 100%;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #ddd;
     cursor: pointer;
     background-color: white;
@@ -129,7 +129,7 @@ input {
     width: 100%;
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 10;
 }

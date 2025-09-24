@@ -56,7 +56,7 @@ html {
     border: 0px solid white;
     font-weight: bold;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     color: black;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
@@ -547,7 +547,7 @@ html {
     background-color: #fbe64e;
     color: black;
     padding: 3px;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 24px;
     z-index: 900;
     cursor: pointer;
@@ -620,7 +620,7 @@ html {
     color: #fff;
     text-align: center;
     font-size: 12px;
-    border-radius: 6px;
+    border-radius: 10px;
     padding: 5px 8px;
     position: absolute;
     top: 125%;
