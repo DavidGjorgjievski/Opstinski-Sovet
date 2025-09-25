@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
@@ -31,6 +31,9 @@ const AddTopicForm = () => {
     const [exportLoading, setExportLoading] = useState(false);
     const [totalSize, setTotalSize] = useState(0);
     const { t } = useTranslation();
+    const [open, setOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const [dropUp, setDropUp] = useState(false);
 
     const { sendNewTopic } = useNewTopicWebSocket(id);
 
@@ -215,6 +218,31 @@ const AddTopicForm = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }, []);
 
+useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setOpen(false); // close the dropdown
+        }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+}, []);
+
+const toggleDropdown = () => {
+  if (dropdownRef.current) {
+    const rect = dropdownRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const dropdownHeight = 200; // max-height of your dropdown in px
+
+    setDropUp(spaceBelow < dropdownHeight);
+  }
+  setOpen(prev => !prev);
+};
+
     return (
         <HelmetProvider>
             <div className="add-topic-container">
@@ -250,15 +278,29 @@ const AddTopicForm = () => {
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="title" className="label-add">{t("addTopicForm.topicTitle")}</label>
-                                        <input
-                                            type="text"
-                                            className="form-control form-control-lg mb-2"
-                                            id="title"
-                                            required
-                                            value={title}
-                                            onChange={(e) => setTitle(e.target.value)}
-                                            placeholder={t("addTopicForm.placeholder")}
-                                        />
+                                        {title.includes("\n") || title.length > 50 ? (
+                                            <textarea
+                                                id="title"
+                                                name="title"
+                                                className="mb-2 topic-textarea-title"
+                                                value={title}
+                                                onChange={(e) => setTitle(e.target.value)}
+                                                required
+                                                placeholder={t("addTopicForm.placeholder")}
+                                                rows={2}
+                                            />
+                                        ) : (
+                                            <input
+                                                type="text"
+                                                id="title"
+                                                name="title"
+                                                className="mb-2 topic-input-title"
+                                                value={title}
+                                                onChange={(e) => setTitle(e.target.value)}
+                                                required
+                                                placeholder={t("addTopicForm.placeholder")}
+                                            />
+                                        )}
                                     </div>
 
                                     <label htmlFor="file" className="label-add">{t("addTopicForm.uploadPdf")}</label>
@@ -321,20 +363,33 @@ const AddTopicForm = () => {
                                         </div>
                                     )}
 
-                                    <div className="form-group mt-3">
-                                        <label htmlFor="topicStatus" className="label-add">{t("addTopicForm.topicStatus")}</label>
-                                        <select
-                                            id="topicStatus"
-                                            className="form-control form-control-lg mb-2"
-                                            value={topicStatus}
-                                            onChange={(e) => setTopicStatus(e.target.value)}
-                                            required
+                                   <div className="topic-status-select-wrapper mt-3" ref={dropdownRef}>
+                                        <label htmlFor="topicStatus" className="label-add">{t("addTopicForm.selectStatus")}</label>
+
+                                        <div
+                                            className="custom-select-box"
+                                            onClick={toggleDropdown}
+                                            tabIndex={0}
                                         >
-                                            <option value="" disabled>{t("addTopicForm.selectStatus")}</option>
-                                            {topicStatusOptions.map(status => (
-                                                <option key={status.value} value={status.value}>{status.label}</option>
-                                            ))}
-                                        </select>
+                                            {topicStatusOptions.find((o) => o.value === topicStatus)?.label || "Select Status"}
+                                        </div>
+
+                                        {open && (
+                                            <div className={`custom-options ${dropUp ? 'drop-up' : ''}`}>
+                                                {topicStatusOptions.map((option) => (
+                                                    <div
+                                                        key={option.value}
+                                                        className={`custom-option ${topicStatus === option.value ? "selected" : ""}`}
+                                                        onClick={() => {
+                                                            setTopicStatus(option.value);
+                                                            setOpen(false);
+                                                        }}
+                                                    >
+                                                        {option.label}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="mt-3 d-flex flex-start">

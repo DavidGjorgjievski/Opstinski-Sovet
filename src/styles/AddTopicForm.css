@@ -81,8 +81,8 @@
 }
 
 .uploaded-files {
-    background: #f9fafc;
-    border: 1px solid #e1e4e8;
+    background: #fefefe;
+    border: 1px solid #ddd;
     border-radius: 10px;
     padding: 12px;
     margin-top: 10px;
@@ -93,6 +93,113 @@
     font-weight: 600;
     margin-bottom: 8px;
     color: #333;
+}
+
+.topic-input-title {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.topic-textarea-title {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    border-radius: 8px;
+    width: 100%;
+    resize: vertical;
+    min-height: 60px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.topic-input-title:focus,
+.topic-textarea-title:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.topic-textarea-title {
+    resize: none;
+    min-height: 60px;
+    overflow-y: auto;
+}
+
+.topic-status-select-wrapper{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-options.drop-up {
+    bottom: 100%;
+    top: auto;
+    margin-top: 0;
+    margin-bottom: -35px;
+}
+
+.custom-select-box {
+    width: 200px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    justify-content: center;
+    user-select: none;
+}
+
+.custom-select-box:hover {
+    background-color: #f9f9f9;
+}
+
+.custom-select-box:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.arrow {
+    margin-left: 8px;
+}
+
+.custom-options {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    right: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 0px;
+    width: 200px;
+}
+
+.custom-option {
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.custom-option:hover {
+    background-color: #e6e6e6;
+}
+
+.custom-option.selected {
+    background-color: #e6e6e6;
 }
 
 .file-list {
@@ -111,10 +218,6 @@
     padding: 8px 12px;
     margin-bottom: 6px;
     transition: background 0.2s ease;
-}
-
-.file-item:hover {
-    background: #f0f4f8;
 }
 
 .file-name {
