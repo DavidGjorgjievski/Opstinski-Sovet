@@ -27,6 +27,49 @@
     margin-bottom: 25px;
 }
 
+.session-input-title,
+.session-textarea-title {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Gold shadow on click (focus) */
+.session-input-title:focus,
+.session-textarea-title:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    /* soft gold glow */
+    outline: none;
+}
+
+/* Textarea-specific */
+.session-textarea-title {
+    resize: none;
+    min-height: 60px;
+    overflow-y: auto;
+}
+
+.session-date-input {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* Black shadow on focus */
+.session-date-input:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
 .label-add {
     font-weight: 600;
     font-size: 1.2rem;

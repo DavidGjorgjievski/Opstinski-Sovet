@@ -119,25 +119,39 @@ function AddSessionForm() {
                                         <label htmlFor="name" className="label-add">
                                             {t("addSessionForm.sessionNameLabel")}
                                         </label>
-                                        <input
-                                            type="text"
-                                            className="form-control form-control-lg mb-2"
-                                            id="name"
-                                            name="name"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            required
-                                            placeholder={t("addSessionForm.sessionNamePlaceholder")}
-                                        />
+                                        { name.includes("\n") || name.length > 50 ? (
+                                            <textarea
+                                                id="name"
+                                                name="name"
+                                                className="mb-2 session-textarea-title"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                required
+                                                placeholder={t("addSessionForm.sessionNamePlaceholder")}
+                                                rows={2}
+                                            />
+                                        ) : (
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                className="mb-2 session-input-title"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                required
+                                                placeholder={t("addSessionForm.sessionNamePlaceholder")}
+                                            />
+                                        )}
+
                                     </div>
 
-                                    <div className="form-group">
+                                   <div className="form-group">
                                         <label htmlFor="date" className="label-add">
                                             {t("addSessionForm.sessionDateLabel")}
                                         </label>
                                         <input
                                             type="date"
-                                            className="form-control form-control-lg mb-2"
+                                            className="mb-2 session-date-input"
                                             id="date"
                                             name="date"
                                             value={date}
