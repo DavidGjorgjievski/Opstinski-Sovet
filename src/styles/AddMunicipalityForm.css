@@ -36,12 +36,20 @@
     display: block;
 }
 
-.form-control {
+.municipality-input-name {
     border-radius: 12px;
     border: 1px solid #ddd;
     padding: 12px 15px;
-    font-size: 1rem;
+    font-size: 14px;
     transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* Black shadow on focus */
+.municipality-input-name:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    outline: none;
 }
 
 .image-upload-wrapper {

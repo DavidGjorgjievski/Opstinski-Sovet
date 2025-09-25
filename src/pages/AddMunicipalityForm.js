@@ -139,9 +139,9 @@ function AddMunicipalityForm() {
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="name" className="label-add">{t("addMunicipality.nameLabel")}</label>
-                                    <input
+                                   <input
                                         type="text"
-                                        className="form-control form-control-lg mb-2"
+                                        className="mb-2 municipality-input-name"
                                         id="name"
                                         name="name"
                                         value={name}
