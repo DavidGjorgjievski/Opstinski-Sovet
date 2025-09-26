@@ -303,6 +303,12 @@
     "backButton": "Zur Startseite"
   },
 
+  "notFound": {
+    "title": "404 - Seite nicht gefunden",
+    "message": "Die Seite, die Sie suchen, existiert nicht.",
+    "backButton": "Zur Startseite"
+  },
+
   "addTopicForm": {
     "addTitle": "Thema hinzufügen",
     "editTitle": "Thema bearbeiten",

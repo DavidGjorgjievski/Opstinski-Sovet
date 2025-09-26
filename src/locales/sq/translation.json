@@ -303,6 +303,12 @@
     "backButton": "Shko te faqja kryesore"
   },
 
+  "notFound": {
+    "title": "404 - Faqja nuk u gjet",
+    "message": "Faqja që po kërkoni nuk ekziston.",
+    "backButton": "Shko te faqja kryesore"
+  },
+
   "addTopicForm": {
     "addTitle": "Shto Temë",
     "editTitle": "Redakto Temë",
