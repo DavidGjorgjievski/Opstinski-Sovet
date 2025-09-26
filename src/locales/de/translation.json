@@ -62,6 +62,13 @@
     "chooseFile": "auswählen"
   },
 
+  "MunicipalityModal": {
+    "title": "Löschen bestätigen",
+    "message": "Sind Sie sicher, dass Sie die Gemeinde löschen möchten:",
+    "delete": "Löschen",
+    "cancel": "Abbrechen"
+  },
+
   "profile": {
     "title": "Profil",
     "username": "Benutzername",

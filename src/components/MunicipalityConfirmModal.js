@@ -1,20 +1,29 @@
 import React from 'react';
 import '../styles/MunicipalityConfirmModal.css'
+import { useTranslation } from "react-i18next";
+
 
 function MunicipalityConfirmModal({ show, onClose, onConfirm, municipalityName }) {
-  if (!show) {
+
+    const { t } = useTranslation();
+    
+    if (!show) {
         return null; 
     }
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
-                <h2>Потврди Бришење</h2>
-                <p>Дали сте сигурни дека сакате да ја избришете општината:</p>
+        <div className="municipality-modal-overlay">
+            <div className="municipality-modal-content">
+                <h2>{t("MunicipalityModal.title")}</h2>
+                <p>{t("MunicipalityModal.message")}</p>
                 <p><strong>{municipalityName}</strong>?</p>
-                <div className="modal-actions">
-                    <button className="btn btn-danger" onClick={onConfirm}>Избриши</button>
-                    <button className="btn btn-secondary" onClick={onClose}>Откажи</button>
+                <div className="municipality-modal-actions">
+                <button className="municipality-btn municipality-btn-danger" onClick={onConfirm}>
+                    {t("MunicipalityModal.delete")}
+                </button>
+                <button className="municipality-btn municipality-btn-secondary" onClick={onClose}>
+                    {t("MunicipalityModal.cancel")}
+                </button>
                 </div>
             </div>
         </div>

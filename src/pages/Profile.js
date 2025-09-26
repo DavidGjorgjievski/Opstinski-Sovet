@@ -7,7 +7,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
-import { useTranslation } from 'react-i18next'; // ✅ i18next hook
+import { useTranslation } from 'react-i18next';
 
 function Profile() {
     const { t } = useTranslation();

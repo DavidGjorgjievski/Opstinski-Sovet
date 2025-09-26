@@ -62,6 +62,13 @@
     "chooseFile": "Zgjidhni"
   },
 
+  "MunicipalityModal": {
+    "title": "Konfirmo Fshirjen",
+    "message": "A jeni i sigurt që doni ta fshini komunën:",
+    "delete": "Fshij",
+    "cancel": "Anulo"
+  },
+
   "profile": {
     "title": "Profili",
     "username": "Emri i përdoruesit",

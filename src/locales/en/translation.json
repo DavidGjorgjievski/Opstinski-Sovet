@@ -60,7 +60,14 @@
     "errorLogoRequired": "Logo selection is required!",
     "errorGeneral": "There was an error processing the municipality.",
     "chooseFile": "Choose"
-},
+  },
+
+  "MunicipalityModal": {
+    "title": "Confirm Deletion",
+    "message": "Are you sure you want to delete the municipality:",
+    "delete": "Delete",
+    "cancel": "Cancel"
+  },
 
   "profile": {
     "title": "Profile",
