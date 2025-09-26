@@ -4,7 +4,14 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+        min-height: 100vh;
+            /* at least one screen, but can grow */
+            box-sizing: border-box;
+            overflow-x: hidden;
+            position: relative;
 }
+
 
 .add-topic-body-container {
     background-color: #fff;
