@@ -331,6 +331,13 @@
     "back": "Kthehu"
   },
 
+  "restartTopicModal": {
+    "title": "Konfirmo Rivotimin",
+    "message": "A jeni i sigurt që doni ta rinisni pikën për rivotim?",
+    "confirm": "Po",
+    "cancel": "Anulo"
+  },
+
   "topicsDetails": {
     "detailedResults": "Rezultatet e Detajuara",
     "details": "Detajet",

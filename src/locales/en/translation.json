@@ -280,6 +280,13 @@
     "cancelButton": "Cancel"
   },
 
+  "restartTopicModal": {
+    "title": "Confirm Restart Voting",
+    "message": "Are you sure you want to restart the topic for a new vote?",
+    "confirm": "Yes",
+    "cancel": "Cancel"
+  },
+
   "tooltip": {
     "easyMode": "Easy mode"
   },

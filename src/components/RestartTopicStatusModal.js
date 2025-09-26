@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react';
-import '../styles/RestartTopicStatusModal.css';
+import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import "../styles/RestartTopicStatusModal.css";
 
 function RestartTopicStatusModal({ isOpen, onClose, onConfirm, topicTitle }) {
     const modalRef = useRef();
+    const { t } = useTranslation();
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -11,9 +13,9 @@ function RestartTopicStatusModal({ isOpen, onClose, onConfirm, topicTitle }) {
             }
         }
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [onClose]);
 
@@ -22,14 +24,16 @@ function RestartTopicStatusModal({ isOpen, onClose, onConfirm, topicTitle }) {
     return (
         <div className="top-modal-overlay">
             <div className="top-modal-content" ref={modalRef}>
-                <h2>Потврда за повторно гласање</h2>
+                <h2>{t("restartTopicModal.title")}</h2>
                 <p><strong>{topicTitle}</strong></p>
-                <p>
-                    Дали сте сигурни дека сакате да ја рестартирате точката за повторно гласање?
-                </p>
+                <p>{t("restartTopicModal.message")}</p>
                 <div className="top-modal-buttons">
-                    <button onClick={onConfirm} className="top-confirm-button">Да</button>
-                    <button onClick={onClose} className="top-cancel-button">Откажи</button>
+                    <button onClick={onConfirm} className="top-confirm-button">
+                        {t("restartTopicModal.confirm")}
+                    </button>
+                    <button onClick={onClose} className="top-cancel-button">
+                        {t("restartTopicModal.cancel")}
+                    </button>
                 </div>
             </div>
         </div>

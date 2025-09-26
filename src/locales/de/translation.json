@@ -331,6 +331,13 @@
     "back": "Zurück"
   },
 
+  "restartTopicModal": {
+    "title": "Bestätigung für erneute Abstimmung",
+    "message": "Sind Sie sicher, dass Sie den Punkt für eine erneute Abstimmung zurücksetzen möchten?",
+    "confirm": "Ja",
+    "cancel": "Abbrechen"
+  },
+
   "topicsDetails": {
     "detailedResults": "Detaillierte Ergebnisse",
     "details": "Details",
