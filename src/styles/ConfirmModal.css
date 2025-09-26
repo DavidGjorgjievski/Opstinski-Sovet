@@ -1,4 +1,4 @@
-.modal-overlay {
+.user-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,42 +11,48 @@
     z-index: 1000;
 }
 
-.modal-content {
-    padding: 30px;
-    border-radius: 10px;
+.user-modal-content {
+    padding: 20px;
+    border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     background-color: white !important;
     max-width: 400px;
-    width: 100%;
+    width: 90%;
 }
 
-.modal-actions {
+.user-modal-actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-.btn {
+.user-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.btn-danger {
+.user-btn-danger {
     background-color: #dc3545;
     color: white;
 }
 
-.btn-secondary {
+.user-btn-secondary {
     background-color: #6c757d;
     color: white;
 }
 
-.btn-danger:hover {
+.user-btn-danger:hover {
     background-color: #c82333;
+    transform: scale(1.03);
 }
 
-.btn-secondary:hover {
+.user-btn-secondary:hover {
     background-color: #5a6268;
+    transform: scale(1.03);
+}
+
+.user-text-danger {
+    color: #dc3545;
 }

@@ -8,14 +8,14 @@ const ConfirmModal = ({ show, onClose, onConfirm, userName, errorMessage }) => {
     if (!show) return null;
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="user-modal-overlay">
+            <div className="user-modal-content">
                 {errorMessage ? (
                     <>
                         <h2>{t("confirmModal.errorTitle")}</h2>
-                        <p className="text-danger">{errorMessage}</p>
-                        <div className="modal-actions">
-                            <button className="btn btn-secondary" onClick={onClose}>
+                        <p className="user-text-danger">{errorMessage}</p>
+                        <div className="user-modal-actions">
+                            <button className="user-btn user-btn-secondary" onClick={onClose}>
                                 {t("confirmModal.close")}
                             </button>
                         </div>
@@ -26,11 +26,11 @@ const ConfirmModal = ({ show, onClose, onConfirm, userName, errorMessage }) => {
                         <p>
                             {t("confirmModal.message")} <strong>{userName}</strong>?
                         </p>
-                        <div className="modal-actions">
-                            <button className="btn btn-danger" onClick={onConfirm}>
+                        <div className="user-modal-actions">
+                            <button className="user-btn user-btn-danger" onClick={onConfirm}>
                                 {t("confirmModal.delete")}
                             </button>
-                            <button className="btn btn-secondary" onClick={onClose}>
+                            <button className="user-btn user-btn-secondary" onClick={onClose}>
                                 {t("confirmModal.cancel")}
                             </button>
                         </div>
