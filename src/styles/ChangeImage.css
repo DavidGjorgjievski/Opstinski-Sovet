@@ -1,13 +1,18 @@
 .change-image-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+    box-sizing: border-box;
 }
 
 .image-form {
+
     width: 600px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .file-drop-area-image {
