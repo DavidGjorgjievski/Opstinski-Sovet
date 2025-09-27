@@ -1,14 +1,18 @@
 .add-municipality-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+    align-items: center;
     width: 100vw;
+    height: 100vh;
     background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .add-municipality-body-container {
-    margin-top: 100px;
+    margin-top: 30px;
     background-color: #fff;
     backdrop-filter: blur(12px);
     border-radius: 20px;
@@ -17,7 +21,6 @@
     max-width: 600px;
     width: 100%;
     animation: fadeIn 0.2s ease-in-out;
-    width: 100%;
 }
 
 .add-municipality-header-div h1 {

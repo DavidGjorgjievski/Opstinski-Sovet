@@ -38,16 +38,13 @@
     font-size: 14px;
 }
 
-/* Gold shadow on click (focus) */
 .session-input-title:focus,
 .session-textarea-title:focus {
     border-color: black;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    /* soft gold glow */
     outline: none;
 }
 
-/* Textarea-specific */
 .session-textarea-title {
     resize: none;
     min-height: 60px;
@@ -58,7 +55,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
     border-radius: 12px;
     border: 1px solid #ddd;
     padding: 12px 15px;
@@ -70,7 +66,6 @@
     color: black;
 }
 
-/* Black shadow on focus */
 .session-date-input:focus {
     border-color: black;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -173,7 +168,6 @@
     }
 }
 
-/* Fade-in animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
