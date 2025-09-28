@@ -221,7 +221,7 @@
     "invalidFileType": "Only JPG or PNG images are allowed.",
     "fileTooLarge": "Maximum image size allowed is 50KB.",
     "passwordMismatch": "Passwords do not match.",
-    "addUser": "Add User",
+    "addUser": "Add",
     "back": "Back"
   },
 
@@ -247,7 +247,7 @@
     "chooseFile": "click to choose an image",
     "invalidFileType": "Only JPG or PNG images are allowed.",
     "fileTooLarge": "Maximum allowed image size is 50KB.",
-    "editUser": "Update User",
+    "editUser": "Update",
     "cancel": "Cancel"
   },
 

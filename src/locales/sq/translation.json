@@ -221,7 +221,7 @@
     "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
     "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
     "passwordMismatch": "Fjalëkalimet nuk përputhen.",
-    "addUser": "Shto përdorues",
+    "addUser": "Shto",
     "back": "Kthehu"
   },
 
@@ -247,7 +247,7 @@
     "chooseFile": "klikoni për të zgjedhur fotografi",
     "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
     "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
-    "editUser": "Ndrysho përdorues",
+    "editUser": "Ndrysho",
     "cancel": "Anulo"
   },
 

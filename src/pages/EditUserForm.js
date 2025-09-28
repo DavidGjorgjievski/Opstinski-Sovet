@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { initializeMobileMenu } from "../components/mobileMenu";
 import "../styles/AddUserForm.css";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserEdit, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 function EditUserForm() {
     const { t } = useTranslation();
@@ -170,150 +172,189 @@ function EditUserForm() {
     };
 
     return (
-        <div className="add-user-form-container">
-            <HelmetProvider>
-                <Helmet>
-                    <title>{t("editUserForm.pageTitle")}</title>
-                </Helmet>
-            </HelmetProvider>
-            <Header userInfo={userData} />
+    <HelmetProvider>
+      <div className="add-user-form-container">
+        <Helmet>
+          <title>{t("editUserForm.pageTitle")}</title>
+        </Helmet>
 
-            <div className="container mt-5 pb-5">
-                <div className="add-user-form-body">
-                    <div className="form-wrapper">
-                        <h1 className="text-center">{t("editUserForm.formTitle")}</h1>
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label className="label-add">{t("editUserForm.username")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="username"
-                                    name="username"
-                                    value={formData.username}
-                                    onChange={handleInputChange}
-                                    required
-                                    disabled
-                                    placeholder={t("editUserForm.enterUsername")}
-                                />
-                            </div>
+        <Header userInfo={userData} />
 
-                            <div className="form-group">
-                                <label className="label-add">{t("editUserForm.name")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="name"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    required
-                                    placeholder={t("editUserForm.enterName")}
-                                />
-                            </div>
+        <div className="add-user-form-body-container container">
+          <div className="add-user-header-div container">
+            <h1 className="text-center">{t("editUserForm.formTitle")}</h1>
 
-                            <div className="form-group">
-                                <label className="label-add">{t("editUserForm.surname")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="surname"
-                                    name="surname"
-                                    value={formData.surname}
-                                    onChange={handleInputChange}
-                                    required
-                                    placeholder={t("editUserForm.enterSurname")}
-                                />
-                            </div>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+              <div className="form-group">
+                <label className="label-add">{t("editUserForm.username")}</label>
+                <input
+                  type="text"
+                  className="form-control form-control-lg mb-2"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  required
+                  disabled
+                  placeholder={t("editUserForm.enterUsername")}
+                />
+              </div>
 
-                            <div className="form-group mb-2">
-                                <label className="label-add">{t("editUserForm.role")}</label>
-                                <select
-                                    id="role"
-                                    name="role"
-                                    className="form-control form-control-lg mb-2"
-                                    value={formData.role}
-                                    onChange={handleInputChange}
-                                    required
-                                >
-                                    <option value="" disabled>{t("editUserForm.selectRole")}</option>
-                                    {roles.map((role) => (
-                                        <option key={role} value={role}>{role}</option>
-                                    ))}
-                                </select>
-                            </div>
+              <div className="form-group">
+                <label className="label-add">{t("editUserForm.name")}</label>
+                <input
+                  type="text"
+                  className="form-control form-control-lg mb-2"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  placeholder={t("editUserForm.enterName")}
+                />
+              </div>
 
-                            <div className="form-group mb-2">
-                                <label className="label-add">{t("editUserForm.status")}</label>
-                                <select
-                                    id="status"
-                                    name="status"
-                                    className="form-control form-control-lg mb-2"
-                                    value={formData.status}
-                                    onChange={handleInputChange}
-                                    required
-                                >
-                                    {statuses.map((status) => (
-                                        <option key={status} value={status}>{status}</option>
-                                    ))}
-                                </select>
-                            </div>
+              <div className="form-group">
+                <label className="label-add">{t("editUserForm.surname")}</label>
+                <input
+                  type="text"
+                  className="form-control form-control-lg mb-2"
+                  id="surname"
+                  name="surname"
+                  value={formData.surname}
+                  onChange={handleInputChange}
+                  required
+                  placeholder={t("editUserForm.enterSurname")}
+                />
+              </div>
 
-                            <div className="form-group">
-                                <label className="label-add">{t("editUserForm.municipality")}</label>
-                                <select
-                                    className="form-control form-control-lg mb-2"
-                                    id="municipality"
-                                    name="municipality"
-                                    value={selectedMunicipalityId}
-                                    onChange={handleMunicipalityChange}
-                                >
-                                    <option value="">{t("editUserForm.selectMunicipality")}</option>
-                                    {municipalities.map((municipality) => (
-                                        <option key={municipality.id} value={municipality.id}>
-                                            {municipality.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+              <div className="form-group mb-2">
+                <label className="label-add">{t("editUserForm.role")}</label>
+                <select
+                  id="role"
+                  name="role"
+                  className="form-control form-control-lg mb-2"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="" disabled>
+                    {t("editUserForm.selectRole")}
+                  </option>
+                  {roles.map((role) => (
+                    <option key={role} value={role}>
+                      {role}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                            <div className="form-group">
-                                <label className="label-add">{t("editUserForm.password")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    placeholder={t("editUserForm.enterNewPassword")}
-                                />
-                            </div>
+              <div className="form-group mb-2">
+                <label className="label-add">{t("editUserForm.status")}</label>
+                <select
+                  id="status"
+                  name="status"
+                  className="form-control form-control-lg mb-2"
+                  value={formData.status}
+                  onChange={handleInputChange}
+                  required
+                >
+                  {statuses.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                            <div className="form-group d-flex justify-content-center">
-                                <div className={`file-drop-area image-add-input ${fileError ? "is-active" : ""}`}>
-                                    <p className="file-drop-message text-info-image-input">
-                                        {formData.file
-                                            ? `${t("editUserForm.selectedFile")}: ${fileName}`
-                                            : <>{t("editUserForm.dragOrClick")} <span>{t("editUserForm.chooseFile")}</span></>
-                                        }
-                                    </p>
-                                    <input type="file" id="file" name="file" onChange={handleFileChange} />
-                                </div>
-                            </div>
-                            {fileError && <div className="error-message">{t("editUserForm.invalidFileType")}</div>}
-                            {fileSizeError && <div className="error-message">{t("editUserForm.fileTooLarge")}</div>}
+              <div className="form-group">
+                <label className="label-add">{t("editUserForm.municipality")}</label>
+                <select
+                  className="form-control form-control-lg mb-2"
+                  id="municipality"
+                  name="municipality"
+                  value={selectedMunicipalityId}
+                  onChange={handleMunicipalityChange}
+                >
+                  <option value="">{t("editUserForm.selectMunicipality")}</option>
+                  {municipalities.map((municipality) => (
+                    <option key={municipality.id} value={municipality.id}>
+                      {municipality.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                            <div className="form-group d-flex justify-content-between mt-4">
-                                <button type="submit" className="btn btn-md btn-warning">{t("editUserForm.editUser")}</button>
-                                <button type="button" className="btn btn-md btn-danger" onClick={() => navigate("/admin-panel")}>{t("editUserForm.cancel")}</button>
-                            </div>
-                        </form>
-                    </div>
+              <div className="form-group">
+                <label className="label-add">{t("editUserForm.password")}</label>
+                <input
+                  type="text"
+                  className="form-control form-control-lg mb-2"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder={t("editUserForm.enterNewPassword")}
+                />
+              </div>
+
+              <div className="form-group d-flex justify-content-center">
+                <div
+                  className={`file-drop-area image-add-input ${
+                    fileError ? "is-active" : ""
+                  }`}
+                >
+                  <p className="file-drop-message text-info-image-input">
+                    {formData.file ? (
+                      `${t("editUserForm.selectedFile")}: ${fileName}`
+                    ) : (
+                      <>
+                        {t("editUserForm.dragOrClick")}{" "}
+                        <span>{t("editUserForm.chooseFile")}</span>
+                      </>
+                    )}
+                  </p>
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    onChange={handleFileChange}
+                  />
                 </div>
-            </div>
+              </div>
+
+              {fileError && (
+                <div className="error-message">
+                  {t("editUserForm.invalidFileType")}
+                </div>
+              )}
+              {fileSizeError && (
+                <div className="error-message">
+                  {t("editUserForm.fileTooLarge")}
+                </div>
+              )}
+
+              <div className="mt-3 d-flex">
+                <button type="submit" className="me-2 user-form-submit-button">
+                  {t("editUserForm.editUser")}
+                  <FontAwesomeIcon icon={faUserEdit} className="ms-2" />
+                </button>
+
+                <button
+                  type="button"
+                  className="user-form-back-button"
+                  onClick={() => navigate("/admin-panel")}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+                  {t("editUserForm.cancel")}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    );
+      </div>
+    </HelmetProvider>
+  );
 }
 
 export default EditUserForm;

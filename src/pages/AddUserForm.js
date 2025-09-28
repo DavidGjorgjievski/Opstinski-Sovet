@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { initializeMobileMenu } from "../components/mobileMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faUserPlus, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import "../styles/AddUserForm.css";
 
@@ -151,189 +151,202 @@ function AddUserForm() {
     };
 
     return (
-        <div className="add-user-form-container">
-            <HelmetProvider>
+        <HelmetProvider>
+            <div className="add-user-form-container">
                 <Helmet>
                     <title>{t("addUserForm.pageTitle")}</title>
                 </Helmet>
-            </HelmetProvider>
-            <Header userInfo={userData} />
 
-            <div className="container mt-5 pb-5">
-                <div className="add-user-form-body">
-                    <div className="form-wrapper">
-                        <h1 className="text-center">{t("addUserForm.formTitle")}</h1>
-                        <form onSubmit={handleSubmit} encType="multipart/form-data">
-                            <div className="form-group">
-                                <label htmlFor="username" className="label-add">{t("addUserForm.username")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="username"
-                                    name="username"
-                                    value={formData.username}
-                                    onChange={handleInputChange}
-                                    required
-                                    placeholder={t("addUserForm.enterUsername")}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="name" className="label-add">{t("addUserForm.name")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="name"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    required
-                                    placeholder={t("addUserForm.enterName")}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="surname" className="label-add">{t("addUserForm.surname")}</label>
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg mb-2"
-                                    id="surname"
-                                    name="surname"
-                                    value={formData.surname}
-                                    onChange={handleInputChange}
-                                    required
-                                    placeholder={t("addUserForm.enterSurname")}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password" className="label-add">{t("addUserForm.password")}</label>
-                                <div className="d-flex flex-row">
+
+                <Header userInfo={userData} />
+
+                <div className="add-user-form-body-container container">
+                    <div className="add-user-header-div container">
+                            <h1 className="text-center">{t("addUserForm.formTitle")}</h1>
+                            <form onSubmit={handleSubmit} encType="multipart/form-data">
+                                <div className="form-group">
+                                    <label htmlFor="username" className="label-add">{t("addUserForm.username")}</label>
                                     <input
-                                        type={showPassword ? "text" : "password"}
+                                        type="text"
                                         className="form-control form-control-lg mb-2"
-                                        id="password"
-                                        name="password"
-                                        value={formData.password}
+                                        id="username"
+                                        name="username"
+                                        value={formData.username}
                                         onChange={handleInputChange}
                                         required
-                                        placeholder={t("addUserForm.enterPassword")}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={showPassword ? faEyeSlash : faEye}
-                                        className="eye-icon"
-                                        onClick={() => setShowPassword(!showPassword)}
+                                        placeholder={t("addUserForm.enterUsername")}
                                     />
                                 </div>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="confirmPassword" className="label-add">{t("addUserForm.confirmPassword")}</label>
-                                <div className="d-flex flex-row justify-content-center">
+                                <div className="form-group">
+                                    <label htmlFor="name" className="label-add">{t("addUserForm.name")}</label>
                                     <input
-                                        type={showConfirmPassword ? "text" : "password"}
+                                        type="text"
                                         className="form-control form-control-lg mb-2"
-                                        id="confirmPassword"
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
+                                        id="name"
+                                        name="name"
+                                        value={formData.name}
                                         onChange={handleInputChange}
                                         required
-                                        placeholder={t("addUserForm.confirmPasswordPlaceholder")}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={showConfirmPassword ? faEyeSlash : faEye}
-                                        className="eye-icon"
-                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        placeholder={t("addUserForm.enterName")}
                                     />
                                 </div>
-                            </div>
-
-                            <div className="form-group mb-2">
-                                <label htmlFor="role" className="label-add">{t("addUserForm.role")}</label>
-                                <select
-                                    id="role"
-                                    name="role"
-                                    className="form-control form-control-lg mb-2"
-                                    value={formData.role}
-                                    onChange={handleInputChange}
-                                    required
-                                >
-                                    <option value="" disabled>{t("addUserForm.selectRole")}</option>
-                                    {roles.map((role) => (
-                                        <option key={role} value={role}>{role}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div className="form-group mb-2">
-                                <label htmlFor="status" className="label-add">{t("addUserForm.status")}</label>
-                                <select
-                                    id="status"
-                                    name="status"
-                                    className="form-control form-control-lg mb-2"
-                                    value={formData.status}
-                                    onChange={handleInputChange}
-                                    required
-                                >
-                                    {statuses.map((status) => (
-                                        <option key={status} value={status}>{status}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="municipality" className="label-add">{t("addUserForm.municipality")}</label>
-                                <select
-                                    className="form-control form-control-lg mb-2"
-                                    id="municipality"
-                                    name="municipality"
-                                    value={selectedMunicipalityId}
-                                    onChange={handleMunicipalityChange}
-                                >
-                                    <option value="">{t("addUserForm.selectMunicipality")}</option>
-                                    {municipalities.map((municipality) => (
-                                        <option key={municipality.id} value={municipality.id}>
-                                            {municipality.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div className="form-group d-flex justify-content-center">
-                                <div className={`file-drop-area image-add-input ${fileError ? "is-active" : ""}`}>
-                                    <p className="file-drop-message text-info-image-input">
-                                        {formData.file ? `${t("addUserForm.selectedFile")}: ${fileName}` : (
-                                            <>
-                                                {t("addUserForm.dragOrClick")} <span>{t("addUserForm.chooseFile")}</span>
-                                            </>
-                                        )}
-                                    </p>
-                                    <input type="file" id="file" name="file" onChange={handleFileChange} required />
+                                <div className="form-group">
+                                    <label htmlFor="surname" className="label-add">{t("addUserForm.surname")}</label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-lg mb-2"
+                                        id="surname"
+                                        name="surname"
+                                        value={formData.surname}
+                                        onChange={handleInputChange}
+                                        required
+                                        placeholder={t("addUserForm.enterSurname")}
+                                    />
                                 </div>
-                            </div>
-                            {fileError && (
-                                <div className="error-message">{t("addUserForm.invalidFileType")}</div>
-                            )}
-                            {fileSizeError && (
-                                <div className="error-message">{t("addUserForm.fileTooLarge")}</div>
-                            )}
-                            {passwordError && (
-                                <div className="error-message">{t("addUserForm.passwordMismatch")}</div>
-                            )}
+                                <div className="form-group">
+                                    <label htmlFor="password" className="label-add">{t("addUserForm.password")}</label>
+                                    <div className="d-flex flex-row">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className="form-control form-control-lg mb-2"
+                                            id="password"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder={t("addUserForm.enterPassword")}
+                                        />
+                                        <FontAwesomeIcon
+                                            icon={showPassword ? faEyeSlash : faEye}
+                                            className="eye-icon"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="confirmPassword" className="label-add">{t("addUserForm.confirmPassword")}</label>
+                                    <div className="d-flex flex-row justify-content-center">
+                                        <input
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            className="form-control form-control-lg mb-2"
+                                            id="confirmPassword"
+                                            name="confirmPassword"
+                                            value={formData.confirmPassword}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder={t("addUserForm.confirmPasswordPlaceholder")}
+                                        />
+                                        <FontAwesomeIcon
+                                            icon={showConfirmPassword ? faEyeSlash : faEye}
+                                            className="eye-icon"
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        />
+                                    </div>
+                                </div>
 
-                            <div className="form-group d-flex justify-content-between mt-2">
-                                <button type="submit" className="btn btn-md btn-primary action-buttons">
-                                    {t("addUserForm.addUser")}
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-danger btn-md action-buttons"
-                                    onClick={() => navigate("/admin-panel")}
-                                >
-                                    {t("addUserForm.back")}
-                                </button>
-                            </div>
-                        </form>
+                                <div className="form-group mb-2">
+                                    <label htmlFor="role" className="label-add">{t("addUserForm.role")}</label>
+                                    <select
+                                        id="role"
+                                        name="role"
+                                        className="form-control form-control-lg mb-2"
+                                        value={formData.role}
+                                        onChange={handleInputChange}
+                                        required
+                                    >
+                                        <option value="" disabled>{t("addUserForm.selectRole")}</option>
+                                        {roles.map((role) => (
+                                            <option key={role} value={role}>{role}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="form-group mb-2">
+                                    <label htmlFor="status" className="label-add">{t("addUserForm.status")}</label>
+                                    <select
+                                        id="status"
+                                        name="status"
+                                        className="form-control form-control-lg mb-2"
+                                        value={formData.status}
+                                        onChange={handleInputChange}
+                                        required
+                                    >
+                                        {statuses.map((status) => (
+                                            <option key={status} value={status}>{status}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="municipality" className="label-add">{t("addUserForm.municipality")}</label>
+                                    <select
+                                        className="form-control form-control-lg mb-2"
+                                        id="municipality"
+                                        name="municipality"
+                                        value={selectedMunicipalityId}
+                                        onChange={handleMunicipalityChange}
+                                    >
+                                        <option value="">{t("addUserForm.selectMunicipality")}</option>
+                                        {municipalities.map((municipality) => (
+                                            <option key={municipality.id} value={municipality.id}>
+                                                {municipality.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="form-group d-flex justify-content-center">
+                                    <div className={`file-drop-area image-add-input ${fileError ? "is-active" : ""}`}>
+                                        <p className="file-drop-message text-info-image-input">
+                                            {formData.file ? `${t("addUserForm.selectedFile")}: ${fileName}` : (
+                                                <>
+                                                    {t("addUserForm.dragOrClick")} <span>{t("addUserForm.chooseFile")}</span>
+                                                </>
+                                            )}
+                                        </p>
+                                        <input type="file" id="file" name="file" onChange={handleFileChange} required />
+                                    </div>
+                                </div>
+                                {fileError && (
+                                    <div className="error-message">{t("addUserForm.invalidFileType")}</div>
+                                )}
+                                {fileSizeError && (
+                                    <div className="error-message">{t("addUserForm.fileTooLarge")}</div>
+                                )}
+                                {passwordError && (
+                                    <div className="error-message">{t("addUserForm.passwordMismatch")}</div>
+                                )}
+
+                                <div className="mt-3 d-flex">
+                                    <button 
+                                        type="submit" 
+                                        className="me-2 user-form-submit-button"
+                                    >
+                                        {t("addUserForm.addUser")}
+                                        <FontAwesomeIcon 
+                                            icon={faUserPlus} 
+                                            className="ms-2"
+                                        />
+                                    </button>
+
+                                    <button 
+                                        type="button" 
+                                        className="user-form-back-button"
+                                        onClick={() => navigate("/admin-panel")}
+                                    >
+                                        <FontAwesomeIcon 
+                                            icon={faChevronLeft} 
+                                            className="me-2"
+                                        />
+                                        {t("addUserForm.back")}
+                                    </button>
+                                </div>
+                            </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </HelmetProvider>
+
     );
 }
 

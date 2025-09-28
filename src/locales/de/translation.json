@@ -221,7 +221,7 @@
     "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
     "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
     "passwordMismatch": "Passwörter stimmen nicht überein.",
-    "addUser": "Benutzer hinzufügen",
+    "addUser": "Hinzufügen",
     "back": "Zurück"
   },
 
@@ -247,7 +247,7 @@
     "chooseFile": "klicken, um ein Bild auszuwählen",
     "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
     "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
-    "editUser": "Benutzer bearbeiten",
+    "editUser": "Bearbeiten",
     "cancel": "Abbrechen"
   },
 
