@@ -278,31 +278,17 @@ const toggleDropdown = () => {
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="title" className="label-add">{t("addTopicForm.topicTitle")}</label>
-                                        {title.includes("\n") || title.length > 50 ? (
-                                            <textarea
-                                                id="title"
-                                                name="title"
-                                                className="mb-2 topic-textarea-title"
-                                                value={title}
+                                           <textarea
+                                            id="title"
+                                            name="title"
+                                            className="mb-2 topic-textarea-title"
+                                            value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
                                                 required
                                                 placeholder={t("addTopicForm.placeholder")}
-                                                rows={2}
+                                                rows={title.split("\n").length > 1 ? 2 : 1}
                                             />
-                                        ) : (
-                                            <input
-                                                type="text"
-                                                id="title"
-                                                name="title"
-                                                className="mb-2 topic-input-title"
-                                                value={title}
-                                                onChange={(e) => setTitle(e.target.value)}
-                                                required
-                                                placeholder={t("addTopicForm.placeholder")}
-                                            />
-                                        )}
                                     </div>
-
                                     <label htmlFor="file" className="label-add">{t("addTopicForm.uploadPdf")}</label>
                                     <div className="form-group d-flex justify-content-center">
                                         <div className={`file-drop-area ${fileError || fileTypeError ? 'is-active' : ''}`}>

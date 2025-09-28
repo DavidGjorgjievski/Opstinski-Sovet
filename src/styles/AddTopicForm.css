@@ -115,8 +115,9 @@
     padding: 10px 14px;
     border-radius: 8px;
     width: 100%;
-    resize: vertical;
+    resize: none;
     min-height: 60px;
+    overflow-y: auto;
     transition: all 0.3s ease;
     font-weight: 500;
 }
