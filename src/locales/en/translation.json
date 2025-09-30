@@ -277,7 +277,8 @@
     "confirmDeleteTitle": "Confirm Deletion",
     "confirmDeleteMessage": "Are you sure you want to delete the topic:",
     "confirmDeleteButton": "Delete",
-    "cancelButton": "Cancel"
+    "cancelButton": "Cancel",
+    "noTopicsPresent": "No topic is being presented"
   },
 
   "restartTopicModal": {

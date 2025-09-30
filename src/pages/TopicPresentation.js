@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import '../styles/TopicPresentation.css';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import "../styles/TopicPresentation.css";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
@@ -20,14 +20,18 @@ const TopicPresentation = () => {
 
   let municipalityImage = null;
   if (municipalityId) {
-    const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
-    const municipality = municipalities.find((m) => m.id === Number(municipalityId));
+    const municipalities = JSON.parse(
+      localStorage.getItem("municipalities") || "[]"
+    );
+    const municipality = municipalities.find(
+      (m) => m.id === Number(municipalityId)
+    );
     if (municipality) {
       municipalityImage = municipality.logoImage;
     }
   }
 
-  // Fetch currently presented topic initially
+  // Fetch currently presented topic
   const fetchPresenterTopic = useCallback(async () => {
     try {
       const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`;
@@ -59,21 +63,23 @@ const TopicPresentation = () => {
     fetchPresenterTopic();
   }, [fetchPresenterTopic]);
 
-  // ✅ If a new presenter topic is set, refetch it
+  // Refetch whenever new websocket messages arrive
   useEffect(() => {
-    if (!presenterMessages.length) return;
     fetchPresenterTopic();
-  }, [presenterMessages, fetchPresenterTopic]);
+  }, [voteMessages, presenterMessages, newTopicMessages, fetchPresenterTopic]);
 
-  // ✅ Update topic directly when vote results arrive
-  useEffect(() => {
-    if (!voteMessages.length || !topic) return;
+ useEffect(() => {
+  if (voteMessages.length === 0) return;
 
-    const lastResult = voteMessages.at(-1);
+  const lastResult = voteMessages.at(-1);
 
-    // Only update if the vote belongs to the currently presented topic
-    if (lastResult.topicId === topic.id) {
-      setTopic((prev) => ({
+  setTopic((prev) => {
+    // If no topic is currently presented, just set it
+    if (!prev) return lastResult;
+
+    // If the vote is for the currently presented topic, update counts
+    if (prev.id === lastResult.topicId) {
+      return {
         ...prev,
         yes: lastResult.yes,
         no: lastResult.no,
@@ -82,25 +88,26 @@ const TopicPresentation = () => {
         haveNotVoted: lastResult.haveNotVoted,
         absent: lastResult.absent,
         topicStatus: lastResult.status,
-      }));
+      };
     }
-  }, [voteMessages, topic]);
 
-  // ✅ Refetch topic when a new topic is added
-  useEffect(() => {
-    if (!newTopicMessages.length) return;
-    fetchPresenterTopic();
-  }, [newTopicMessages, fetchPresenterTopic]);
+    // If the vote is for another topic, do nothing
+    return prev;
+  });
+}, [voteMessages]);
+
 
   return (
-    <div className={`topic-presentar-container ${
-      topic &&
-      (topic.topicStatus === 'FINISHED' ||
-       topic.topicStatus === 'WITHDRAWN' ||
-       topic.topicStatus === 'INFORMATION')
-        ? 'finished-topic'
-        : ''
-    }`}>
+    <div
+      className={`topic-presentar-container ${
+        topic &&
+        (topic.topicStatus === "FINISHED" ||
+          topic.topicStatus === "WITHDRAWN" ||
+          topic.topicStatus === "INFORMATION")
+          ? "finished-topic"
+          : ""
+      }`}
+    >
       <HelmetProvider>
         <Helmet>
           <title>Презентација</title>
@@ -121,19 +128,25 @@ const TopicPresentation = () => {
         />
         <button
           className="back-button-presenter"
-          onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}
+          onClick={() =>
+            navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)
+          }
         >
-          Назад
+          {t("topicsPage.backButton")}
         </button>
       </div>
 
       {!topic ? (
-        <h1 className="text-center">Нема презентирачка точка</h1>
+        <h1 className="text-center">{t("topicsPage.noTopicsPresent")}</h1>
       ) : (
         <>
           <h1 className="presented-topic-header">{topic.title}</h1>
           <div className="presented-topic-body">
-            {!(topic.topicStatus === 'CREATED' || topic.topicStatus === 'INFORMATION' || topic.topicStatus === 'WITHDRAWN') && (
+            {!(
+              topic.topicStatus === "CREATED" ||
+              topic.topicStatus === "INFORMATION" ||
+              topic.topicStatus === "WITHDRAWN"
+            ) && (
               <>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.yes")}</p>
@@ -149,11 +162,15 @@ const TopicPresentation = () => {
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.cantVote")}</p>
-                  <h1 className="presented-number cant-vote">{topic.cantVote}</h1>
+                  <h1 className="presented-number cant-vote">
+                    {topic.cantVote}
+                  </h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.notVoted")}</p>
-                  <h1 className="presented-number havent-vote">{topic.haveNotVoted}</h1>
+                  <h1 className="presented-number havent-vote">
+                    {topic.haveNotVoted}
+                  </h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.absent")}</p>
@@ -165,12 +182,16 @@ const TopicPresentation = () => {
 
           {topic.topicStatus === "INFORMATION" && (
             <div className="d-flex justify-content-center w-100">
-              <h1 className="text-center fw-bold topic-status-info">Информација</h1>
+              <h1 className="text-center fw-bold topic-status-info">
+                {t("topicsPage.information")}
+              </h1>
             </div>
           )}
           {topic.topicStatus === "WITHDRAWN" && (
             <div className="d-flex justify-content-center w-100">
-              <h1 className="text-center fw-bold topic-status-info">Повлечена</h1>
+              <h1 className="text-center fw-bold topic-status-info">
+                {t("topicsPage.withdrawn")}
+              </h1>
             </div>
           )}
         </>

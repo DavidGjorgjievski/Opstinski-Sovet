@@ -277,7 +277,8 @@
     "confirmDeleteTitle": "Потврди Бришење",
     "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете точката:",
     "confirmDeleteButton": "Избриши",
-    "cancelButton": "Откажи"
+    "cancelButton": "Откажи",
+    "noTopicsPresent": "Нема презентирачка точка"
   },
 
   "tooltip": {
