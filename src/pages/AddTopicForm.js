@@ -35,6 +35,7 @@ const AddTopicForm = () => {
     const dropdownRef = useRef(null);
     const [dropUp, setDropUp] = useState(false);
 
+    const fileInputRef = useRef(null);
     const { sendNewTopic } = useNewTopicWebSocket(id);
 
     const [topicStatus, setTopicStatus] = useState('');
@@ -160,14 +161,20 @@ const AddTopicForm = () => {
     setFileTypeError(false);
 
     const validFiles = selectedFiles.filter(file => {
+        // Check type
         if (file.type !== 'application/pdf') {
             setFileTypeError(true);
             return false;
         }
+        // Check individual file size
         if (file.size > MAX_FILE_SIZE_BYTES) {
             setFileError(true);
             return false;
         }
+        // Prevent duplicates: same name + size
+        const isDuplicate = files.some(f => f.name === file.name && f.size === file.size);
+        if (isDuplicate) return false;
+
         return true;
     });
 
@@ -182,11 +189,12 @@ const AddTopicForm = () => {
     setFiles(newFiles);
 };
 
-
-
     const handleFileInputChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
         validateAndSetFiles(selectedFiles);
+        if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+        }
     };
 
     const handlePdfFetch = async (pdfId) => {
@@ -301,6 +309,7 @@ const toggleDropdown = () => {
                                                 name="file"
                                                 accept="application/pdf"
                                                 multiple
+                                                ref={fileInputRef}
                                                 onChange={handleFileInputChange}
                                             />
                                         </div>
