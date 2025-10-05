@@ -59,7 +59,7 @@ function Profile() {
                     <title>{t("profile.title")}</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userData} />
+            <Header userInfo={userData} isSticky={true} />
             <main>
                 <div className="content-container">
                     <div className="profile-image-wrapper">

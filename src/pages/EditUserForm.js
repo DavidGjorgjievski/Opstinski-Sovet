@@ -178,7 +178,7 @@ function EditUserForm() {
           <title>{t("editUserForm.pageTitle")}</title>
         </Helmet>
 
-        <Header userInfo={userData} />
+        <Header userInfo={userData} isSticky={true} />
 
         <div className="add-user-form-body-container container">
           <div className="add-user-header-div container">
