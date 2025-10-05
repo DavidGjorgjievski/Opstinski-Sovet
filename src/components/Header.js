@@ -12,7 +12,7 @@ import deFlag from '../assets/flags/de.png';
 import sqFlag from '../assets/flags/sq.png';
 
 
-function Header({ userInfo }) {
+function Header({ userInfo, isSticky = false }) {
     const { t } = useTranslation();
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -86,7 +86,7 @@ const languageData = {
     };
 
     return (
-        <header>
+        <header className={isSticky ? 'sticky-header' : 'fixed-header'}>
             <nav>
                 <div className="d-flex flex-row">
                     <div>

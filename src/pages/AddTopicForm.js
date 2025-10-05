@@ -265,7 +265,8 @@ const toggleDropdown = () => {
                             : t("addTopicForm.addTitle")}
                     </title>
                 </Helmet>
-                <Header userInfo={userInfo} />
+
+                <Header userInfo={userInfo} isSticky={true} />
 
                 <div className="add-topic-body-container">
                     <div>
