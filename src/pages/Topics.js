@@ -38,6 +38,8 @@ function Topics() {
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
 
+    const [topicsLoaded, setTopicsLoaded] = useState(false);
+
     // WEB SOCKETS
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
     const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
@@ -112,11 +114,7 @@ const handleClickOutside = useCallback(
   };
 }, [handleClickOutside]);
 
-
-    const [isFromLogo, setIsFromLogo] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
-
-    const isFromLogoRef = useRef(isFromLogo);
     const isVoteActionRef = useRef(isVoteAction);
 
     const openModal = (topicId, topicTitle) => {
@@ -158,7 +156,8 @@ const handleClickOutside = useCallback(
           const data = await response.json();
       
           setTopics(data.topics); 
-          setPresentedTopicId(data.presentedTopicId); 
+          setPresentedTopicId(data.presentedTopicId);
+          setTopicsLoaded(true);
         } catch (error) {
           console.error('Error fetching topics:', error);
         }
@@ -451,31 +450,28 @@ const saveScrollPosition = () => {
 
 
 useEffect(() => {
-    isFromLogoRef.current = isFromLogo; // Sync state with ref value
     isVoteActionRef.current = isVoteAction;
-}, [isFromLogo,isVoteAction]);
+}, [isVoteAction]);
+
 
 useEffect(() => {
-    if (isFromLogoRef.current) {
-        setIsFromLogo(false); // Reset the flag after handling
-        return; // Skip restoring scroll position if action was from the logo
-    }
+  if (!topicsLoaded) return; // Wait until first load is complete
 
-     if (isVoteActionRef.current) {
-        setIsVoteAction(false);  // Reset flag after handling
-        return; // Exit early to skip scroll restoration
-    }
+  // Skip if action was from logo or from a voting WebSocket update
+  if (isVoteActionRef.current) {
+    isVoteActionRef.current = false;
+    return;
+  }
 
-    const scrollPosition = sessionStorage.getItem('scrollPosition');
-    if (scrollPosition) {
-        const timeoutId = setTimeout(() => {
-            window.scrollTo(0, parseInt(scrollPosition, 10));
-        }, 100); // Delay to ensure topics are rendered
+  const scrollPosition = sessionStorage.getItem('scrollPosition');
+  if (scrollPosition) {
+    const timeoutId = setTimeout(() => {
+      window.scrollTo({ top: parseInt(scrollPosition, 10), behavior: 'smooth' });
+    }, 200); // small delay to ensure layout is rendered
 
-        return () => clearTimeout(timeoutId);
-    }
-}, []);
-
+    return () => clearTimeout(timeoutId);
+  }
+}, [topicsLoaded]);
 
 
 useEffect(() => {
