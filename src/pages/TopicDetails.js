@@ -114,24 +114,23 @@ function TopicDetails() {
             </HelmetProvider>
             <Header userInfo={userData} />
             <main className='topic-details-body-container'>
-                 <div className='back-button-detailed-results-container'>
-                    <button onClick={handleBackButtonClick} className="back-button">
-                        <FontAwesomeIcon icon={faChevronLeft} /> {t("topicsDetails.backButton")}
-                    </button>
-                </div>
-                <div className="detailed-result-header">
-                    <h1 className="topicDetails-header-title">
-                        {showVotes ? t("topicsDetails.detailedResults") : t("topicsDetails.details")}
-                    </h1>
-                </div>
-
                 {loading ? ( 
                     <div className="loading-spinner">
                         <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt="Loading..." />
                     </div>
                 ) : (
                     topicDetails && (
-                        <>
+                    <>
+                        <div className='back-button-detailed-results-container'>
+                            <button onClick={handleBackButtonClick} className="back-button">
+                                <FontAwesomeIcon icon={faChevronLeft} /> {t("topicsDetails.backButton")}
+                            </button>
+                        </div>
+                        <div className="detailed-result-header">
+                            <h1 className="topicDetails-header-title">
+                                {showVotes ? t("topicsDetails.detailedResults") : t("topicsDetails.details")}
+                            </h1>
+                        </div>
                       <div>
                         <div>
                             <p className='detail-title'>{topicDetails.title}</p>
