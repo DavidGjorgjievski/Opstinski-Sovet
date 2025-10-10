@@ -111,6 +111,7 @@
     overflow-y: auto;
     transition: all 0.3s ease;
     font-weight: 500;
+    caret-color: black;
 }
 
 .topic-textarea-title:focus {

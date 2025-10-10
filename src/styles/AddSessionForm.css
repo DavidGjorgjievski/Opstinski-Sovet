@@ -33,12 +33,13 @@
 .session-input-title,
 .session-textarea-title {
     border-radius: 12px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     padding: 12px 15px;
     font-size: 1rem;
     transition: all 0.3s ease;
     width: 100%;
     font-size: 14px;
+    caret-color: black;
 }
 
 .session-input-title:focus,
@@ -59,7 +60,7 @@
     -moz-appearance: none;
     appearance: none;
     border-radius: 12px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     padding: 12px 15px;
     font-size: 14px;
     width: 100%;
@@ -67,6 +68,7 @@
     line-height: normal;
     height: 46.6px;
     color: black;
+    caret-color: black;
 }
 
 .session-date-input:focus {

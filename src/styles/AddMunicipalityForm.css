@@ -45,6 +45,7 @@
     font-size: 14px;
     transition: all 0.3s ease;
     width: 100%;
+    caret-color: black;
 }
 
 /* Black shadow on focus */
