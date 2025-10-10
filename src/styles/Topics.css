@@ -186,7 +186,7 @@ html {
 
 .topic-item {
     margin-bottom: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 2px solid #ddd;
 }
@@ -221,7 +221,7 @@ html {
     margin-bottom: 20px;
     margin: 10px;
     padding: 30px 10px;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 .topic-item-body-detail-active{
