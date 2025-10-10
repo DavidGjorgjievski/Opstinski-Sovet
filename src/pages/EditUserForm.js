@@ -189,7 +189,7 @@ function EditUserForm() {
                 <label className="label-add">{t("editUserForm.username")}</label>
                 <input
                   type="text"
-                  className="form-control form-control-lg mb-2"
+                  className="add-user-input-field mb-2"
                   id="username"
                   name="username"
                   value={formData.username}
@@ -204,7 +204,7 @@ function EditUserForm() {
                 <label className="label-add">{t("editUserForm.name")}</label>
                 <input
                   type="text"
-                  className="form-control form-control-lg mb-2"
+                  className="add-user-input-field mb-2"
                   id="name"
                   name="name"
                   value={formData.name}
@@ -218,7 +218,7 @@ function EditUserForm() {
                 <label className="label-add">{t("editUserForm.surname")}</label>
                 <input
                   type="text"
-                  className="form-control form-control-lg mb-2"
+                  className="add-user-input-field mb-2"
                   id="surname"
                   name="surname"
                   value={formData.surname}
@@ -289,7 +289,7 @@ function EditUserForm() {
                 <label className="label-add">{t("editUserForm.password")}</label>
                 <input
                   type="text"
-                  className="form-control form-control-lg mb-2"
+                  className="add-user-input-field mb-2"
                   id="password"
                   name="password"
                   value={formData.password}

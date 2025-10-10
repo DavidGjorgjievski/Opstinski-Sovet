@@ -86,7 +86,7 @@ const ChangePassword = () => {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 required
-                className='form-control'
+                className='change-password-input-field'
               />
             </div>
 
@@ -98,7 +98,7 @@ const ChangePassword = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
-                className='form-control'
+                className='change-password-input-field'
               />
             </div>
 
@@ -110,7 +110,7 @@ const ChangePassword = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className='form-control'
+                className='change-password-input-field'
               />
             </div>
 

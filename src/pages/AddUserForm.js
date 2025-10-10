@@ -168,7 +168,7 @@ function AddUserForm() {
                                     <label htmlFor="username" className="label-add">{t("addUserForm.username")}</label>
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg mb-2"
+                                        className="add-user-input-field mb-2"
                                         id="username"
                                         name="username"
                                         value={formData.username}
@@ -181,7 +181,7 @@ function AddUserForm() {
                                     <label htmlFor="name" className="label-add">{t("addUserForm.name")}</label>
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg mb-2"
+                                        className="add-user-input-field mb-2"
                                         id="name"
                                         name="name"
                                         value={formData.name}
@@ -194,7 +194,7 @@ function AddUserForm() {
                                     <label htmlFor="surname" className="label-add">{t("addUserForm.surname")}</label>
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg mb-2"
+                                        className="add-user-input-field mb-2"
                                         id="surname"
                                         name="surname"
                                         value={formData.surname}
@@ -208,7 +208,7 @@ function AddUserForm() {
                                     <div className="d-flex flex-row">
                                         <input
                                             type={showPassword ? "text" : "password"}
-                                            className="form-control form-control-lg mb-2"
+                                            className="add-user-input-field mb-2"
                                             id="password"
                                             name="password"
                                             value={formData.password}
@@ -228,7 +228,7 @@ function AddUserForm() {
                                     <div className="d-flex flex-row justify-content-center">
                                         <input
                                             type={showConfirmPassword ? "text" : "password"}
-                                            className="form-control form-control-lg mb-2"
+                                            className="add-user-input-field mb-2"
                                             id="confirmPassword"
                                             name="confirmPassword"
                                             value={formData.confirmPassword}
