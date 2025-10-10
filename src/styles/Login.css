@@ -40,6 +40,23 @@ input {
     border-radius: 10px;
 }
 
+.login-input-field {
+    border-radius: 12px;
+    border: 2px solid #ddd;
+    padding: 12px 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Black shadow on focus */
+.login-input-field:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
 .login-button {
     background-color: #e3d356;
     color: black !important;

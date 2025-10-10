@@ -98,9 +98,10 @@ function Login() {
                 {errorKey && <div className="error-message">{t(errorKey)}</div>}
 
                 <form onSubmit={handleLogin}>
-                    <input
+                     <input
                         type="text"
                         name="username"
+                        className="login-input-field"
                         placeholder={t('login.username')}
                         value={username}
                         onChange={(e) => { setUsername(e.target.value); setErrorKey(''); }}
@@ -109,6 +110,7 @@ function Login() {
                     <input
                         type="password"
                         name="password"
+                        className="login-input-field"
                         placeholder={t('login.password')}
                         value={password}
                         onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
