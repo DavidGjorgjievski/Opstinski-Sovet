@@ -48,6 +48,7 @@ input {
     transition: all 0.3s ease;
     width: 100%;
     margin-bottom: 10px;
+    caret-color: black;
 }
 
 /* Black shadow on focus */
