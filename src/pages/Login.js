@@ -5,8 +5,9 @@ import '../styles/Login.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import i18n from '../i18n';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+
 
 // Import flag images from assets (cached by Webpack/Vite automatically)
 import mkFlag from '../assets/flags/mk.png';
@@ -33,6 +34,7 @@ function Login() {
     const [loading, setLoading] = useState(false);
     const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'en');
     const [open, setOpen] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -107,15 +109,22 @@ function Login() {
                         onChange={(e) => { setUsername(e.target.value); setErrorKey(''); }}
                         required
                     />
-                    <input
-                        type="password"
-                        name="password"
-                        className="login-input-field"
-                        placeholder={t('login.password')}
-                        value={password}
-                        onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
-                        required
-                    />
+                    <div className="password-input-wrapper">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            className="login-input-field"
+                            placeholder={t('login.password')}
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
+                            required
+                        />
+                        <FontAwesomeIcon
+                            icon={showPassword ? faEyeSlash : faEye}
+                            className="eye-icon"
+                            onClick={() => setShowPassword(!showPassword)}
+                        />
+                    </div>
                     <input
                         type="submit"
                         className='login-button'

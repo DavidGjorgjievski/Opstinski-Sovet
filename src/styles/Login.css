@@ -58,6 +58,15 @@ input {
     outline: none;
 }
 
+.password-input-wrapper {
+    display: flex;
+}
+
+.login-input-field {
+    width: 100%;
+    padding-right: 40px;
+}
+
 .login-button {
     background-color: #e3d356;
     color: black !important;
