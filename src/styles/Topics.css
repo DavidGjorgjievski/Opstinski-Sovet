@@ -464,8 +464,14 @@ html {
 }
 
 .menu-dots {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .menu-dots:hover {
@@ -474,6 +480,15 @@ html {
 
 .menu-dots-icon{
     font-size: 2rem;
+}
+
+.menu-dots.active {
+    border: 2px solid black;
+    background-color: #f0f8ff;
+}
+
+.menu-dots:hover {
+    background-color: #f5f5f5;
 }
 
 .topic-header-div {
