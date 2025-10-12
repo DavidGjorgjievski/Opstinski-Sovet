@@ -493,6 +493,7 @@ html {
     display: inline-block;
     text-align: center;
     cursor: default;
+    padding-bottom: 10px;
 }
 
 .topic-header-pdf {
