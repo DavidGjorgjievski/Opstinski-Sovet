@@ -600,11 +600,8 @@ useEffect(() => {
                                     <div className='menu-wrapper'>
                                     {userInfo.role === "ROLE_PRESIDENT" && municipalityId === userInfo.municipalityId && (
                                        <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
-                                       <div
-                                        className={`menu-dots ${openMenus[topic.id] ? "active" : ""}`}
-                                        onClick={() => toggleMenu(topic.id)}
-                                        >
-                                        <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
+                                        <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
+                                            <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
                                         </div>
                                         {openMenus[topic.id] && (
                                             <ul className="menu-list">
