@@ -23,6 +23,7 @@ import Unauthorized from './pages/Unauthorized';
 import AddMunicipalityForm from './pages/AddMunicipalityForm';
 import TopicPresentation from './pages/TopicPresentation'
 import NotFound from './pages/NotFound'
+import Mandate from './pages/Mandate';
 import HeadLinks from './components/HeadLinks';
 import "./i18n"; 
 
@@ -44,6 +45,11 @@ function App() {
               <Route path="/profile" element={<ProtectedRoute element={<Profile />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT']} />}/>
               <Route path="/profile/change-password-form" element={<ProtectedRoute element={<ChangePassword />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT']}/>}/>
               <Route path="/profile/change-image-form" element={<ProtectedRoute element={<ChangeImage />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT']}/>}/>
+
+              <Route 
+              path="/mandate" 
+              element={<ProtectedRoute element={<Mandate />} allowedRoles={['ROLE_ADMIN']} />} 
+              />
 
               <Route path="/municipalities" element={<ProtectedRoute element={<Municipalities />} />} />
              <Route 

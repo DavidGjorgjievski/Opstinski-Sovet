@@ -117,6 +117,9 @@ const languageData = {
                         <li style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
                             <Link to="/admin-panel">{t('nav.adminPanel')}</Link>
                         </li>
+                        <li style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
+                            <Link to="/mandate">{t('nav.mandate')}</Link>
+                        </li>
                     </ul>
                 </div>
 
@@ -131,6 +134,9 @@ const languageData = {
                     )}
                     <li className={getActiveClass('/admin-panel')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
                         <Link to="/admin-panel">{t('nav.adminPanel')}</Link>
+                    </li>
+                    <li className={getActiveClass('/mandate')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
+                        <Link to="/mandate">{t('nav.mandate')}</Link>
                     </li>
                 </ul>
 

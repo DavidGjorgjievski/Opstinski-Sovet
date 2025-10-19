@@ -22,6 +22,7 @@
     "municipalities": "Komunat",
     "mySessions": "Seancat e mia",
     "adminPanel": "Paneli i Adminit",
+    "mandate": "Mandati",
     "settings": "Cilësimet",
     "logout": "Shkyçu"
   },
@@ -31,6 +32,11 @@
     "welcome": "Mirë se vini në sistemin e votimit të këshillit komunal",
     "description": "Në çdo seancë marrin pjesë këshilltarët, përfshirë edhe kryetarin e këshillit, i cili udhëheq seancën. Ata janë përgjegjës për krijimin dhe miratimin e propozimeve që ndikojnë te të gjithë qytetarët e komunës.",
     "municipalitiesButton": "Komunat"
+  },
+
+  "mandate": {
+      "title": "Mandati",
+      "addButton": "Shto të re"
   },
 
   "Municipality": {
