@@ -1,0 +1,206 @@
+.municipality-mandate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.municipality-mandate-body-container {
+    margin-top: 20px;
+    min-width: 50vw;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+.municipality-mandate-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.municipality-mandate-header-title {
+    font-size: 3rem;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.municipality-mandate-add-button {
+    background-color: #fbe64e;
+    width: 180px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.municipality-mandate-add-button:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
+.mandates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.mandate-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mandate-image {
+    height: 150px;
+    background-color: #e2e2e2;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.mandate-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    text-align: center;
+}
+
+.mandate-date {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.mandate-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.mandate-view-button {
+    width: 100px;
+    background-color: #fbe64e;
+    border: none;
+    height: 36.2px;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.mandate-view-button:hover {
+    background-color: #f7db2c;
+    transform: scale(1.05);
+}
+.municipality-mandate-option-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.municipality-mandate-option-menu {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    min-width: 120px;
+    padding: 6px 12px;
+}
+
+.municipality-mandate-button-option-content {
+    border: 2px solid #ddd;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 6px 8px;
+    font-weight: 500;
+    width: 100px;
+}
+
+.municipality-mandate-button-option-content:hover {
+    transform: scale(1.03);
+}
+
+.municipality-mandate-option-menu .dropdown-item {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    display: block;
+    background-color: white;
+    font-weight: 500;
+}
+
+.municipality-mandate-option-menu .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.municipality-mandate-option-menu .dropdown-item.delete {
+    color: #d9534f;
+}
+@media (max-width: 768px) {
+
+    .municipality-mandate-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .mandate-card {
+        flex-direction: column;
+        width: 90%;
+        text-align: center;
+    }
+
+    .mandate-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .mandate-info {
+        width: 100%;
+    }
+
+    .mandate-actions {
+        width: 100%;
+    }
+
+    .municipality-mandate-option-wrapper {
+        display: block;
+    }
+
+}

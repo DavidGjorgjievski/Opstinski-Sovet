@@ -35,15 +35,70 @@
   },
 
   "mandate": {
-      "title": "Мандат",
-      "addButton": "Додај нов"
+    "title": "Мандати",
+    "addButton": "Додади нов",
+    "startDate": "Почетен датум",
+    "endDate": "Краен датум",
+    "noMandates": "Нема достапни мандати",
+    "edit": "Уреди",
+    "delete": "Избриши"
   },
+
+  "addMandate": {
+    "title": "Додади мандат",
+    "editTitle": "Уреди мандат",
+    "startDate": "Почетен датум",
+    "endDate": "Краен датум",
+    "submit": "Додади",
+    "updateButton": "Уреди",
+    "success": "Мандатот е успешно додаден!",
+    "updated": "Мандатот е успешно ажуриран!",
+    "error": "Настана грешка при додавање на мандатот.",
+    "back": "Назад"
+  },
+
+  "mandateModal": {
+    "confirmDeleteTitle": "Потврда за бришење",
+    "confirmDeleteMessage": "Дали сте сигурни дека сакате да го избришете мандатот",
+    "deleteButton": "Избриши",
+    "cancelButton": "Откажи"
+  },
+
+  "MunicipalityMandate": {
+    "mandateTitle": "Општински мандат",
+    "add": "Додади",
+    "view": "Преглед"
+  },
+
+"AddMunicipalityMandate": {
+  "title": "Додади Општински мандат",
+  "editTitle": "Измени Општински мандат",
+  "mandateLabel": "Мандат",
+  "mandatePlaceholder": "Внеси мандат",
+  "municipalityLabel": "Општина",
+  "municipalityPlaceholder": "Внеси општина",
+  "imageLabel": "Слика",
+  "submitButton": "Додади",
+  "saveButton": "Уреди",
+  "backButton": "Назад",
+  "errorFieldsRequired": "Сите полиња се задолжителни!",
+  "errorImageRequired": "Ве молиме прикачете слика!",
+  "errorSubmit": "Неуспешно зачувување. Обидете се повторно!"
+},
+
+"municipalityMandateModal": {
+    "confirmDeleteTitle": "Потврда за бришење",
+    "confirmDeleteMessage": "Дали сте сигурни дека сакате да го избришете општинскиот мандат",
+    "deleteButton": "Избриши",
+    "cancelButton": "Откажи"
+},
 
   "Municipality": {
     "municipalitiesTitle": "Општини",
     "addMunicipalityButton": "Додади Општина",
     "view": "Преглед",
     "options": "Опции",
+    "mandates": "Мандати",
     "edit": "Уреди",
     "delete": "Избриши",
     "noMunicipalities": "Нема достапни општини",

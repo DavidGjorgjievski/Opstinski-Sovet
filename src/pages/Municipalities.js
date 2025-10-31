@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 
@@ -56,6 +56,8 @@ function Municipalities() {
         };
 
         fetchMunicipalities();
+
+        fetchMandates();
 
         const cleanupMobileMenu = initializeMobileMenu();
         sessionStorage.removeItem('scrollPosition');
@@ -109,6 +111,35 @@ function Municipalities() {
             setSelectedMunicipality(null);
         }
     };
+
+   const fetchMandates = async () => {
+    const token = localStorage.getItem('jwtToken');
+
+    // Check if mandates are already in localStorage
+    const cachedMandates = localStorage.getItem('mandates');
+    if (cachedMandates) return;
+
+    try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/terms`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch mandates');
+
+        const data = await response.json();
+
+        // Save all mandates under a single key
+        localStorage.setItem('mandates', JSON.stringify(data));
+
+    } catch (error) {
+        console.error('Error fetching mandates:', error);
+    }
+};
+
+
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -205,13 +236,19 @@ function Municipalities() {
                                                         >
                                                             {t('Municipality.options')} <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
                                                         </button>
-                                                        {openMenuId === municipality.id && (
+                                                        {openMenuId === municipality.id && (                                                            
                                                             <div className="admin-dropdown">
+                                                                <a
+                                                                className="dropdown-item"
+                                                                href={`/municipalities/${municipality.id}/mandates`}
+                                                                >
+                                                                <FontAwesomeIcon icon={faCalendar} /> {t('Municipality.mandates')}
+                                                                </a>
                                                                 <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
                                                                    <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
                                                                 </a>
                                                                 <button
-                                                                    className="dropdown-item"
+                                                                    className="dropdown-item delete"
                                                                     onClick={() => {
                                                                         handleDeleteClick(municipality);
                                                                         setOpenMenuId(null);

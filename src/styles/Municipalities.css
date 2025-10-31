@@ -230,6 +230,10 @@ button {
     background-color: #f1f1f1;
 }
 
+.admin-dropdown .dropdown-item.delete {
+    color: #d9534f;
+}
+
 
 @media (max-width: 768px) {
     .municipality-header-title {

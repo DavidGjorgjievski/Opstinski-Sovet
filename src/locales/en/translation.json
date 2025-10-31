@@ -35,15 +35,70 @@
   },
 
   "mandate": {
-      "title": "Mandate",
-      "addButton": "Add New"
+    "title": "Mandate",
+    "addButton": "Add New",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "noMandates": "No mandates available",
+    "edit": "Edit",
+    "delete": "Delete"
   },
+
+  "addMandate": {
+    "title": "Add Mandate",
+    "editTitle": "Edit Mandate",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "submit": "Add",
+    "updateButton": "Update",
+    "success": "Mandate added successfully!",
+    "updated": "Mandate updated successfully!",
+    "error": "An error occurred while processing the mandate.",
+    "back": "Back"
+  },
+
+  "mandateModal": {
+    "confirmDeleteTitle": "Delete Confirmation",
+    "confirmDeleteMessage": "Are you sure you want to delete the mandate",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel"
+  },
+
+  "MunicipalityMandate": {
+    "mandateTitle": "Municipal Mandate",
+    "add": "Add",
+    "view": "View"
+  },
+
+"AddMunicipalityMandate": {
+  "title": "Add Municipality Mandate",
+  "editTitle": "Edit Municipality Mandate",
+  "mandateLabel": "Mandate",
+  "mandatePlaceholder": "Enter mandate",
+  "municipalityLabel": "Municipality",
+  "municipalityPlaceholder": "Enter municipality",
+  "imageLabel": "Image",
+  "submitButton": "Add",
+  "saveButton": "Save",
+  "backButton": "Back",
+  "errorFieldsRequired": "All fields are required!",
+  "errorImageRequired": "Please upload an image!",
+  "errorSubmit": "Failed to save. Please try again!"
+},
+
+"municipalityMandateModal": {
+    "confirmDeleteTitle": "Delete Confirmation",
+    "confirmDeleteMessage": "Are you sure you want to delete the municipal mandate",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel"
+},
 
   "Municipality": {
     "municipalitiesTitle": "Municipalities",
     "addMunicipalityButton": "Add Municipality",
     "view": "View",
     "options": "Options",
+    "mandates": "Mandates",
     "edit": "Edit",
     "delete": "Delete",
     "noMunicipalities": "No municipalities available",

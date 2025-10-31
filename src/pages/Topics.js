@@ -634,7 +634,7 @@ useEffect(() => {
                                                         {t("topicsPage.edit")} <FontAwesomeIcon icon={faPenToSquare} />
                                                     </Link>
                                                 </li>
-                                                <li>
+                                                <li className="topic-delete-button">
                                                     <span onClick={() => { openModal(topic.id, topic.title); toggleMenu(topic.id); }}>
                                                         {t("topicsPage.delete")} <FontAwesomeIcon icon={faTrash} />
                                                     </span>

@@ -534,6 +534,10 @@ html {
     margin-right: 20px;
 }
 
+.topic-delete-button{
+    color: #d9534f;
+}
+
 
 .menu-wrapper {
     align-self: flex-start;

@@ -35,15 +35,70 @@
   },
 
   "mandate": {
-      "title": "Mandat",
-      "addButton": "Neu hinzufügen"
+    "title": "Mandat",
+    "addButton": "Neu hinzufügen",
+    "startDate": "Anfangsdatum",
+    "endDate": "Enddatum",
+    "noMandates": "Keine Mandate verfügbar",
+    "edit": "Bearbeiten",
+    "delete": "Löschen"
   },
+
+  "addMandate": {
+    "title": "Mandat hinzufügen",
+    "editTitle": "Mandat bearbeiten",
+    "startDate": "Anfangsdatum",
+    "endDate": "Enddatum",
+    "submit": "Hinzufügen",
+    "updateButton": "Aktualisieren",
+    "success": "Das Mandat wurde erfolgreich hinzugefügt!",
+    "updated": "Das Mandat wurde erfolgreich aktualisiert!",
+    "error": "Beim Verarbeiten des Mandats ist ein Fehler aufgetreten.",
+    "back": "Zurück"
+  },
+
+  "mandateModal": {
+    "confirmDeleteTitle": "Löschbestätigung",
+    "confirmDeleteMessage": "Sind Sie sicher, dass Sie das Mandat löschen möchten",
+    "deleteButton": "Löschen",
+    "cancelButton": "Abbrechen"
+  },
+  
+  "MunicipalityMandate": {
+    "mandateTitle": "Gemeindemandat",
+    "add": "Hinzufügen",
+    "view": "Ansehen"
+  },
+
+"AddMunicipalityMandate": {
+  "title": "Gemeindemandat hinzufügen",
+  "editTitle": "Gemeindemandat bearbeiten",
+  "mandateLabel": "Mandat",
+  "mandatePlaceholder": "Mandat eingeben",
+  "municipalityLabel": "Gemeinde",
+  "municipalityPlaceholder": "Gemeinde eingeben",
+  "imageLabel": "Bild",
+  "submitButton": "Hinzufügen",
+  "saveButton": "Speichern",
+  "backButton": "Zurück",
+  "errorFieldsRequired": "Alle Felder sind erforderlich!",
+  "errorImageRequired": "Bitte ein Bild hochladen!",
+  "errorSubmit": "Speichern fehlgeschlagen. Bitte erneut versuchen!"
+},
+
+"municipalityMandateModal": {
+    "confirmDeleteTitle": "Löschbestätigung",
+    "confirmDeleteMessage": "Sind Sie sicher, dass Sie das kommunale Mandat löschen möchten",
+    "deleteButton": "Löschen",
+    "cancelButton": "Abbrechen"
+},
 
   "Municipality": {
     "municipalitiesTitle": "Gemeinden",
     "addMunicipalityButton": "Gemeinde hinzufügen",
     "view": "Ansehen",
     "options": "Optionen",
+    "mandates": "Amtszeiten",
     "edit": "Bearbeiten",
     "delete": "Löschen",
     "noMunicipalities": "Keine Gemeinden verfügbar",

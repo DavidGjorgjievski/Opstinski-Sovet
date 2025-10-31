@@ -24,6 +24,9 @@ import AddMunicipalityForm from './pages/AddMunicipalityForm';
 import TopicPresentation from './pages/TopicPresentation'
 import NotFound from './pages/NotFound'
 import Mandate from './pages/Mandate';
+import AddFormMandate from './pages/AddFormMandate';
+import MunicipalityMandate from './pages/MunicipalityMandate';
+import AddMunicipalityMandateForm from './pages/AddMunicipalityMandateForm';
 import HeadLinks from './components/HeadLinks';
 import "./i18n"; 
 
@@ -51,6 +54,31 @@ function App() {
               element={<ProtectedRoute element={<Mandate />} allowedRoles={['ROLE_ADMIN']} />} 
               />
 
+              <Route 
+                path="/mandate/add-form" 
+                element={<ProtectedRoute element={<AddFormMandate />} allowedRoles={['ROLE_ADMIN']} />} 
+              />
+
+              <Route 
+                path="/mandate/edit/:id" 
+                element={<ProtectedRoute element={<AddFormMandate />} allowedRoles={['ROLE_ADMIN']} />} 
+              />
+
+              <Route
+                path="/municipalities/:id/mandates"
+                element={<ProtectedRoute element={<MunicipalityMandate />} allowedRoles={['ROLE_ADMIN']} />}
+              />
+
+              <Route
+                path="/municipalities/:id/mandates/add-form"
+                element={<ProtectedRoute element={<AddMunicipalityMandateForm />} allowedRoles={['ROLE_ADMIN']} />}
+              />
+
+               <Route
+                path="/municipalities/:id/mandates/edit/:mandateId"
+                element={<ProtectedRoute element={<AddMunicipalityMandateForm />} allowedRoles={['ROLE_ADMIN']} />}
+              />
+
               <Route path="/municipalities" element={<ProtectedRoute element={<Municipalities />} />} />
              <Route 
                 path="/municipalities/add-form" 
@@ -68,6 +96,7 @@ function App() {
                 path="/municipalities/:municipalityId/sessions/add-form" 
                 element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
               />
+
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/edit/:id?" 

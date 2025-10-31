@@ -1,0 +1,146 @@
+.add-mandate-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: calc(100vh - 80px);
+    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+    overflow-x: hidden;
+}
+
+.add-mandate-body-container {
+    background-color: #fff;
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 40px 30px;
+    max-width: 600px !important;
+    width: 100%;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.add-mandate-header-div h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: #1a1a2e;
+    margin-bottom: 25px;
+}
+
+.mandate-date-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+    padding: 12px 15px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: normal;
+    height: 46.6px;
+    color: black;
+    caret-color: black;
+}
+
+.mandate-date-input:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.label-add {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.mandate-form-submit-button {
+    background-color: #fbe64e;
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.mandate-form-submit-button:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
+.mandate-form-back-button {
+    background-color: white;
+    width: 140px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.mandate-form-back-button:hover {
+    background-color: #ddd;
+    transform: scale(1.03);
+}
+
+.mandate-message {
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-mandate-body-container {
+        width: 95% !important;
+    }
+
+    .mandate-form-submit-button,
+    .mandate-form-back-button {
+        font-size: 13.5px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-mandate-header-div h1 {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .mandate-form-submit-button,
+    .mandate-form-back-button {
+        font-size: 13px !important;
+        padding: 8px 12px;
+    }
+
+    .add-mandate-header-div h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

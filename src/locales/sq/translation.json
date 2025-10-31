@@ -35,15 +35,70 @@
   },
 
   "mandate": {
-      "title": "Mandati",
-      "addButton": "Shto të re"
+    "title": "Mandati",
+    "addButton": "Shto të re",
+    "startDate": "Data e fillimit",
+    "endDate": "Data e përfundimit",
+    "noMandates": "Nuk ka mandate të disponueshme",
+    "edit": "Redakto",
+    "delete": "Fshij"
   },
+
+  "addMandate": {
+    "title": "Shto mandat",
+    "editTitle": "Përditëso mandatin",
+    "startDate": "Data e fillimit",
+    "endDate": "Data e përfundimit",
+    "submit": "Shto",
+    "updateButton": "Përditëso",
+    "success": "Mandati u shtua me sukses!",
+    "updated": "Mandati u përditësua me sukses!",
+    "error": "Ndodhi një gabim gjatë shtimit të mandatit.",
+    "back": "Kthehu"
+  },
+
+  "mandateModal": {
+    "confirmDeleteTitle": "Konfirmimi i fshirjes",
+    "confirmDeleteMessage": "A jeni të sigurt që dëshironi të fshini mandatin",
+    "deleteButton": "Fshij",
+    "cancelButton": "Anulo"
+  },
+
+  "MunicipalityMandate": {
+    "mandateTitle": "Mandati komunal",
+    "add": "Shto",
+    "view": "Shiko"
+  },
+
+"AddMunicipalityMandate": {
+  "title": "Shto Mandatin Komunal",
+  "editTitle": "Ndrysho Mandatin Komunal",
+  "mandateLabel": "Mandat",
+  "mandatePlaceholder": "Shkruaj mandatin",
+  "municipalityLabel": "Komuna",
+  "municipalityPlaceholder": "Shkruaj komunën",
+  "imageLabel": "Imazh",
+  "submitButton": "Shto",
+  "saveButton": "Ruaj",
+  "backButton": "Kthehu",
+  "errorFieldsRequired": "Të gjitha fushat janë të detyrueshme!",
+  "errorImageRequired": "Ju lutemi ngarkoni një imazh!",
+  "errorSubmit": "Ruajtja dështoi. Provoni përsëri!"
+},
+
+"municipalityMandateModal": {
+    "confirmDeleteTitle": "Konfirmimi i fshirjes",
+    "confirmDeleteMessage": "A jeni të sigurt që dëshironi të fshini mandatin komunal",
+    "deleteButton": "Fshij",
+    "cancelButton": "Anulo"
+},
 
   "Municipality": {
     "municipalitiesTitle": "Komunat",
     "addMunicipalityButton": "Shto Komunë",
     "view": "Shiko",
     "options": "Opsione",
+    "mandates": "Mandatet",
     "edit": "Përpuno",
     "delete": "Fshi",
     "noMunicipalities": "Nuk ka komuna të disponueshme",

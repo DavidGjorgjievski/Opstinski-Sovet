@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    height: 100vh;
     min-height: 100vh;
     box-sizing: border-box;
     overflow-x: hidden;
@@ -22,14 +21,14 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .mandate-header-title {
     font-size: 3rem;
     color: black;
     font-weight: 500;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .mandate-add-button {
@@ -37,13 +36,13 @@
     width: 180px;
     padding: 10px 20px;
     font-size: 14px;
-    border: 0px solid white;
+    border: none;
     font-weight: bold;
     text-align: center;
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .mandate-add-button:hover {
@@ -51,10 +50,157 @@
     transform: scale(1.03);
 }
 
+.mandate-list-ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mandate-item {
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 10px 16px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.mandate-dates {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mandate-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mandate-date-label {
+    font-weight: 500;
+    color: #000;
+    font-size: 18px;
+}
+
+.mandate-date-value {
+    font-weight: normal;
+    color: #333;
+    font-size: 18px;
+}
+
+.mandate-separator {
+    margin: 0 6px;
+    color: #777;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.mandate-options {
+    position: relative;
+    margin-left: 12px;
+}
+
+.options-btn {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.options-btn:hover {
+    transform: scale(1.03);
+}
+
+.options-menu {
+    position: absolute;
+    top: 38px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+    z-index: 10;
+    padding: 0.5rem 0;
+}
+
+
+.option-item {
+    background: white;
+    border: none;
+    text-align: left;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+}
+
+.option-item:last-child{
+    border-bottom: none;
+}
+
+.option-item:hover {
+    background-color: #f1f1f1;
+}
+
+.option-item.delete {
+    color: #d9534f;
+}
+
+
+.mandate-spinner {
+    display: block;
+    margin: 30px auto;
+}
+
+.mandate-spinner img {
+    width: 120px;
+    height: 120px;
+}
 
 @media (max-width: 768px) {
     .mandate-container-body {
         width: 90vw;
+    }
+
+    .mandate-spinner img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .mandate-header {
+        flex-direction: column;
+        /* stack title and button */
+        align-items: center;
+        gap: 10px;
     }
 
     .mandate-header-title {
@@ -65,5 +211,51 @@
         width: 140px;
         padding: 8px 16px;
         font-size: 12px;
+    }
+
+    .mandate-item {
+        padding: 10px 50px 10px 12px;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        font-size: 15px;
+    }
+
+    .mandate-options {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        margin-left: 0;
+    }
+
+    .mandate-dates {
+        font-size: 15px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .mandate-date-label,
+    .mandate-date-value {
+        font-size: 15px !important;
+    }
+
+    .mandate-separator {
+        margin: 5px 0;
+        transform: rotate(90deg);
+        display: inline-block;
+    }
+
+    .options-btn {
+        font-size: 20px;
+    }
+
+    .option-item {
+        font-size: 15px;
     }
 }

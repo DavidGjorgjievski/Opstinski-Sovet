@@ -22,6 +22,41 @@ function Sessions() {
     const [sessionImage, setSessionImage] = useState(null);
     const [openMenuId, setOpenMenuId] = useState(null);
     const dropdownRefs = useRef({});
+    // const [municipalityTermImages, setMunicipalityTermImages] = useState([]);
+
+
+useEffect(() => {
+    const fetchMunicipalityImages = async () => {
+        const token = localStorage.getItem('jwtToken');
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/images/${municipalityId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch municipality term images');
+            }
+
+            const data = await response.json();
+            console.log('Municipality Term Images:', data);
+        } catch (error) {
+            console.error('Error fetching municipality term images:', error);
+        }
+    };
+
+    if (municipalityId) {
+        fetchMunicipalityImages();
+    }
+}, [municipalityId]);
+
+
+
+
 
     // Retrieve userInfo from local storage
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
@@ -99,13 +134,12 @@ useEffect(() => {
 
             const data = await response.json();
 
-            // Update state and cache
             setSessions(data);
             localStorage.setItem(`sessions_${municipalityId}`, JSON.stringify(data));
         } catch (error) {
             console.error('Error fetching sessions:', error);
         } finally {
-            setLoading(false); // Stop loading spinner
+            setLoading(false);
         }
     };
 
@@ -368,7 +402,7 @@ return (
                                       <FontAwesomeIcon icon={faPenToSquare} /> {t('session.edit')}
                                     </a>
                                    <button
-                                    className="dropdown-item"
+                                    className="dropdown-item delete"
                                     onClick={() => {
                                       handleDeleteClick(session);
                                       setOpenMenuId(null);
