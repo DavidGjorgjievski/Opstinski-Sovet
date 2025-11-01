@@ -913,6 +913,7 @@ useEffect(() => {
             municipalityId={municipalityId}
             token={token}
             role={userInfo.role}
+            status={userInfo.status}
         />
         </div>
     );

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 
-const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role }) => {
+const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role, status }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [offlineUsers, setOfflineUsers] = useState([]);
   const { t } = useTranslation();
@@ -127,7 +127,7 @@ const makeUserOnline = async (username) => {
               <th>{t("liveUsers.image")}</th>
               <th>{t("liveUsers.name")}</th>
               <th>{t("liveUsers.surname")}</th>
-              {role === "ROLE_PRESIDENT" &&<th>{t("liveUsers.action")}</th>}
+              {role === "ROLE_PRESIDENT" && status === "ACTIVE" &&<th>{t("liveUsers.action")}</th>}
             </tr>
           </thead>
          <tbody>
@@ -143,7 +143,7 @@ const makeUserOnline = async (username) => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.surname}</td>
-                  {role === "ROLE_PRESIDENT" && (
+                  {role === "ROLE_PRESIDENT" && status === "ACTIVE" && (
                     <td>
                      <button className="liv-action-btn" onClick={() => makeUserOnline(user.username)}>{t("liveUsers.turnOn")}</button>
                     </td>
@@ -152,7 +152,7 @@ const makeUserOnline = async (username) => {
               ))
             ) : (
               <tr>
-                <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>{t("liveUsers.noOffline")}</td>
+                <td colSpan={role === "ROLE_PRESIDENT" && status === "ACTIVE" ? "4" : "3"}>{t("liveUsers.noOffline")}</td>
               </tr>
             )}
           </tbody>
@@ -168,7 +168,7 @@ const makeUserOnline = async (username) => {
               <th>{t("liveUsers.image")}</th>
               <th>{t("liveUsers.name")}</th>
               <th>{t("liveUsers.surname")}</th>
-              {role === "ROLE_PRESIDENT" &&<th>{t("liveUsers.action")}</th>}
+              {role === "ROLE_PRESIDENT" && status === "ACTIVE" &&<th>{t("liveUsers.action")}</th>}
             </tr>
           </thead>
              <tbody>
@@ -184,7 +184,7 @@ const makeUserOnline = async (username) => {
                     </td>
                     <td>{user.name}</td>
                     <td>{user.surname}</td>
-                    {role === "ROLE_PRESIDENT" && (
+                    {role === "ROLE_PRESIDENT" && status === "ACTIVE" && (
                       <td>
                         <button className="liv-action-btn" onClick={() => makeUserOffline(user.username)}>{t("liveUsers.turnOff")}</button>
                       </td>
@@ -193,7 +193,7 @@ const makeUserOnline = async (username) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={role === "ROLE_PRESIDENT" ? "4" : "3"}>{t("liveUsers.noOnline")}</td>
+                  <td colSpan={role === "ROLE_PRESIDENT" && status === "ACTIVE" ? "4" : "3"}>{t("liveUsers.noOnline")}</td>
                 </tr>
               )}
             </tbody>
