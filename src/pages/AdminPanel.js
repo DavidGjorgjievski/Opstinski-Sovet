@@ -32,7 +32,15 @@ function AdminPanel() {
                             'Authorization': `Bearer ${token}`,
                         },
                     });
-                    setUsers(response.data);
+                    // Sort so that ACTIVE users come first
+                    const sortedUsers = response.data.sort((a, b) => {
+                        if (a.status === "ACTIVE" && b.status !== "ACTIVE") return -1;
+                        if (a.status !== "ACTIVE" && b.status === "ACTIVE") return 1;
+                        return 0;
+                    });
+
+                    setUsers(sortedUsers);
+
                 } catch (error) {
                     console.error("Error fetching users:", error);
                 } finally {

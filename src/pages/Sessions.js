@@ -19,93 +19,44 @@ function Sessions() {
     const [loading, setLoading] = useState(true);
     const [exportLoading, setExportLoading] = useState(false);
     const { municipalityId } = useParams();
-    const [sessionImage, setSessionImage] = useState(null);
     const [openMenuId, setOpenMenuId] = useState(null);
     const dropdownRefs = useRef({});
-    // const [municipalityTermImages, setMunicipalityTermImages] = useState([]);
+    const [municipalityTerms, setMunicipalityTerms] = useState([]);
 
 
-useEffect(() => {
-    const fetchMunicipalityImages = async () => {
+// Fetch municipality terms or use cache
+  useEffect(() => {
+    const fetchMunicipalityTerms = async () => {
+      const cacheKey = `municipalityMandates_${municipalityId}`;
+      const cachedData = localStorage.getItem(cacheKey);
+
+      if (cachedData) {
+        setMunicipalityTerms(JSON.parse(cachedData));
+        return;
+      }
+
+      try {
         const token = localStorage.getItem('jwtToken');
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/${municipalityId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (!response.ok) throw new Error('Failed to fetch terms');
 
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/images/${municipalityId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch municipality term images');
-            }
-
-            const data = await response.json();
-            console.log('Municipality Term Images:', data);
-        } catch (error) {
-            console.error('Error fetching municipality term images:', error);
-        }
+        const data = await response.json();
+        setMunicipalityTerms(data);
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+      } catch (error) {
+        console.error('Error fetching Municipality Terms:', error);
+      }
     };
 
-    if (municipalityId) {
-        fetchMunicipalityImages();
-    }
-}, [municipalityId]);
-
-
-
+    fetchMunicipalityTerms();
+  }, [municipalityId]);
 
 
     // Retrieve userInfo from local storage
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
-
-
-    useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
-
-    const fetchSessionImage = async () => {
-        setLoading(true); // Start loading
-
-        // Check if the session image is already cached
-        const cachedImage = localStorage.getItem(`sessionImage_${municipalityId}`);
-        if (cachedImage) {
-            setSessionImage(cachedImage); // Use the cached image
-            setLoading(false); // Stop loading
-            return;
-        }
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/session-image`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch the session image');
-            }
-
-            const data = await response.text(); // Since Base64 is a string
-            setSessionImage(data || null); // Set the image, or null if no image exists
-
-            // Cache the image in localStorage
-            if (data) {
-                localStorage.setItem(`sessionImage_${municipalityId}`, data);
-            }
-        } catch (error) {
-            console.error('Error fetching session image:', error);
-        } finally {
-            setLoading(false); // Stop loading
-        }
-    };
-
-    fetchSessionImage();
-}, [municipalityId]);
-
     
 useEffect(() => {
     const token = localStorage.getItem('jwtToken');
@@ -311,12 +262,14 @@ return (
             <p>{t('session.subtitle')}</p>
           </div>
           <div className="session-button-container">
-            {userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
-              <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
-                <button className="session-add-button">
-                  {t('session.add')} <FontAwesomeIcon icon={faPlus} />
-                </button>
-              </a>
+            {userInfo.role === 'ROLE_PRESIDENT' && 
+              userInfo.status === 'ACTIVE' &&
+              municipalityId === userInfo.municipalityId && (
+                <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
+                  <button className="session-add-button">
+                    {t('session.add')} <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                </a>
             )}
           </div>
         </div>
@@ -331,19 +284,22 @@ return (
             sessions.length === 2 ? "size-2" :
             sessions.length === 1 ? "size-1" : "size-3"
           }`}>
-            {sessions.length > 0 ? (
+            {sessions.length > 0 && municipalityTerms.length > 0 ? (
               sessions.map((session) => (
                 <div key={session.id} className="session-item">
                   <span id={`session-${session.id}`} className="id-selector-session"></span>
 
-                  {sessionImage && (
-                    <img
-                      src={`data:image/jpeg;base64,${sessionImage}`}
-                      alt="session"
-                      className="session-image"
-                    />
-                  )}
-
+                  <img
+                    src={
+                      municipalityTerms.find(mt => mt.id === session.municipalityMandateId)?.termImage
+                        ? `data:image/jpeg;base64,${
+                            municipalityTerms.find(mt => mt.id === session.municipalityMandateId)?.termImage
+                          }`
+                        : "/images/session-image.jpg"
+                    }
+                    alt="Term"
+                    className="session-image"
+                  />
                   <div className="session-info">
                     <div className="session-text">
                       <h2 className='session-name'>{session.name}</h2>
@@ -392,8 +348,9 @@ return (
                                 <FontAwesomeIcon icon={faFilePdf} /> {t('session.export')}
                               </button>
 
-                              {userInfo.role === 'ROLE_PRESIDENT' &&
-                                municipalityId === userInfo.municipalityId && (
+                             {userInfo.role === 'ROLE_PRESIDENT' &&
+                              municipalityId === userInfo.municipalityId &&
+                              userInfo.status === 'ACTIVE' && (
                                   <>
                                     <a
                                       className="dropdown-item"

@@ -62,6 +62,7 @@ function Login() {
             const data = await response.json();
             const { token, userInfo } = data;
             const role = userInfo.role;
+            console.log(data)
             login(token, JSON.stringify(userInfo), role);
             navigate('/');
         } catch (error) {

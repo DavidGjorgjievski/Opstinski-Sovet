@@ -285,8 +285,10 @@ useEffect(() => {
 
     // Determine if the user can vote
    const canVote = 
-    (userRole === 'ROLE_PRESIDENT' || userRole === 'ROLE_USER') && 
-    userInfo.municipalityId === municipalityId;
+    (userRole === 'ROLE_PRESIDENT' || userRole === 'ROLE_USER') &&
+    userInfo.municipalityId === municipalityId 
+    &&
+    userInfo.status === 'ACTIVE';
 
     const handlePdfFetch = async (pdfId) => {
         try {
@@ -560,7 +562,7 @@ useEffect(() => {
                         </div>
                         <div className="session-button-container">
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                                {userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
+                                {userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && userInfo.status === 'ACTIVE' && (
                                     <button className="topic-add-button" onClick={saveScrollPosition}>{t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} /></button>
                                 )}
                             </Link>
@@ -670,11 +672,11 @@ useEffect(() => {
                                                             'vote-yes',
                                                             currentVotes[topic.id] === 'YES' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'YES' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-yes-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                     >
                                                         {topic.yes}
@@ -691,11 +693,11 @@ useEffect(() => {
                                                             'vote-no',
                                                             currentVotes[topic.id] === 'NO' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'NO' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-no-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                         >
                                                         {topic.no}
@@ -714,11 +716,11 @@ useEffect(() => {
                                                         'vote-abstained',
                                                         currentVotes[topic.id] === 'ABSTAINED' ? 'active-vote' : '',
                                                         topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'ABSTAINED' &&
-                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
                                                         topic.topicStatus === 'ACTIVE' &&
                                                         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                         topic.topicStatus === 'FINISHED' ? 'vote-abstained-finished' : '',
-                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
                                                     ].join(' ')}
                                                     >
                                                     {topic.abstained}
@@ -735,11 +737,11 @@ useEffect(() => {
                                                             'vote-cantvote',
                                                             currentVotes[topic.id] === 'CANNOT_VOTE' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'CANNOT_VOTE' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-cantvote-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                         >
                                                         {topic.cantVote}
@@ -758,11 +760,11 @@ useEffect(() => {
                                                             'vote-haventvote',
                                                             currentVotes[topic.id] === 'HAVE_NOT_VOTED' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'HAVE_NOT_VOTED' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                         >
                                                         {topic.haveNotVoted}
