@@ -562,7 +562,11 @@ useEffect(() => {
                         </div>
                         <div className="session-button-container">
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                                {userRole === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && userInfo.status === 'ACTIVE' && (
+                                 {((userInfo.role === 'ROLE_PRESIDENT' &&
+                                                userInfo.status === "ACTIVE" &&
+                                                municipalityId === userInfo.municipalityId)
+                                                ||
+                                                userInfo.role === 'ROLE_ADMIN') && (
                                     <button className="topic-add-button" onClick={saveScrollPosition}>{t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} /></button>
                                 )}
                             </Link>
@@ -600,7 +604,11 @@ useEffect(() => {
                                         )}
                                     </h3>
                                     <div className='menu-wrapper'>
-                                    {userInfo.role === "ROLE_PRESIDENT" && userInfo.status === "ACTIVE" && municipalityId === userInfo.municipalityId && (
+                                    {((userInfo.role === 'ROLE_PRESIDENT' &&
+                                                userInfo.status === "ACTIVE" &&
+                                                municipalityId === userInfo.municipalityId)
+                                                ||
+                                                userInfo.role === 'ROLE_ADMIN') && (
                                        <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
                                         <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
                                             <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
@@ -808,7 +816,11 @@ useEffect(() => {
                                                 )}
 
 
-                                            {userInfo.role === 'ROLE_PRESIDENT' && userInfo.status === "ACTIVE" && municipalityId === userInfo.municipalityId && (
+                                            {((userInfo.role === 'ROLE_PRESIDENT' &&
+                                                userInfo.status === "ACTIVE" &&
+                                                municipalityId === userInfo.municipalityId)
+                                                ||
+                                                userInfo.role === 'ROLE_ADMIN') && (
                                                <div className="command-buttons-group">
                                                 {topic.topicStatus === "CREATED" && (
                                                     <div className="command-buttons">

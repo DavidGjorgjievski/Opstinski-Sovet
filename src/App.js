@@ -105,22 +105,22 @@ function App() {
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-form"
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
               />
 
                <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-before/:idt"
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
               />
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-after/:idt"
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
               />
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/edit/:idt" 
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
               />
 
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics" element={<ProtectedRoute element={<Topics />} />} />
