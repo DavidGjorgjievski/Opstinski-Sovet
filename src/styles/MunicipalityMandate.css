@@ -112,6 +112,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    color: black;
 }
 
 .mandate-view-button:hover {
@@ -144,6 +145,7 @@
     padding: 6px 8px;
     font-weight: 500;
     width: 100px;
+    color: black;
 }
 
 .municipality-mandate-button-option-content:hover {
