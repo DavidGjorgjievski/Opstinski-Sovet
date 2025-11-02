@@ -94,13 +94,13 @@ function App() {
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/add-form" 
-                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']}  />} 
               />
 
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/edit/:id?" 
-                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT']} />} 
+                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']}  />} 
               />
 
               <Route 

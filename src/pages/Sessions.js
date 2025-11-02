@@ -262,15 +262,17 @@ return (
             <p>{t('session.subtitle')}</p>
           </div>
           <div className="session-button-container">
-            {userInfo.role === 'ROLE_PRESIDENT' && 
-              userInfo.status === 'ACTIVE' &&
-              municipalityId === userInfo.municipalityId && (
-                <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
-                  <button className="session-add-button">
-                    {t('session.add')} <FontAwesomeIcon icon={faPlus} />
-                  </button>
-                </a>
-            )}
+           {(
+            (userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId) ||
+            userInfo.role === 'ROLE_ADMIN'
+          ) &&
+            userInfo.status === 'ACTIVE' && (
+              <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
+                <button className="session-add-button">
+                  {t('session.add')} <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </a>
+          )}
           </div>
         </div>
 
@@ -348,9 +350,11 @@ return (
                                 <FontAwesomeIcon icon={faFilePdf} /> {t('session.export')}
                               </button>
 
-                             {userInfo.role === 'ROLE_PRESIDENT' &&
-                              municipalityId === userInfo.municipalityId &&
-                              userInfo.status === 'ACTIVE' && (
+                              {(
+                                (userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId) ||
+                                userInfo.role === 'ROLE_ADMIN'
+                              ) &&
+                                userInfo.status === 'ACTIVE' && (
                                   <>
                                     <a
                                       className="dropdown-item"

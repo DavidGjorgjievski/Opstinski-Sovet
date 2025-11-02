@@ -600,7 +600,7 @@ useEffect(() => {
                                         )}
                                     </h3>
                                     <div className='menu-wrapper'>
-                                    {userInfo.role === "ROLE_PRESIDENT" && municipalityId === userInfo.municipalityId && (
+                                    {userInfo.role === "ROLE_PRESIDENT" && userInfo.status === "ACTIVE" && municipalityId === userInfo.municipalityId && (
                                        <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
                                         <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
                                             <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
@@ -808,7 +808,7 @@ useEffect(() => {
                                                 )}
 
 
-                                            {userInfo.role === 'ROLE_PRESIDENT' && municipalityId === userInfo.municipalityId && (
+                                            {userInfo.role === 'ROLE_PRESIDENT' && userInfo.status === "ACTIVE" && municipalityId === userInfo.municipalityId && (
                                                <div className="command-buttons-group">
                                                 {topic.topicStatus === "CREATED" && (
                                                     <div className="command-buttons">
