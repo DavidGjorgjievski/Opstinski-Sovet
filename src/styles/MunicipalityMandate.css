@@ -5,13 +5,10 @@
     width: 100vw;
     min-height: 100vh;
     box-sizing: border-box;
-    overflow-x: hidden;
-    position: relative;
 }
 
 .municipality-mandate-body-container {
     margin-top: 20px;
-    min-width: 50vw;
     max-width: 1200px;
     box-sizing: border-box;
 }
@@ -174,16 +171,31 @@
 }
 @media (max-width: 768px) {
 
+
     .municipality-mandate-header {
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
 
+    .municipality-mandate-header-title {
+        font-size: 2rem;
+    }
+
+    .municipality-mandate-body-container {
+        padding-top: 100px;
+    }
+
     .mandate-card {
         flex-direction: column;
         width: 90%;
         text-align: center;
+    }
+
+    .municipality-mandate-add-button {
+        width: 140px;
+        padding: 8px 16px;
+        font-size: 12px;
     }
 
     .mandate-image {

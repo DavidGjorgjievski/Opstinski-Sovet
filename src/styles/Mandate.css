@@ -198,7 +198,6 @@
 
     .mandate-header {
         flex-direction: column;
-        /* stack title and button */
         align-items: center;
         gap: 10px;
     }
