@@ -54,6 +54,7 @@
     "success": "Mandate added successfully!",
     "updated": "Mandate updated successfully!",
     "error": "An error occurred while processing the mandate.",
+    "errorFetch": "Failed to load mandate.",
     "back": "Back"
   },
 
@@ -65,9 +66,13 @@
   },
 
   "MunicipalityMandate": {
-    "mandateTitle": "Municipal Mandate",
-    "add": "Add",
-    "view": "View"
+    "mandateTitle": "Municipality Mandates",
+    "add": "Add Mandate",
+    "view": "View",
+    "options": "Options",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noMandates": "No mandates available."
   },
 
 "AddMunicipalityMandate": {

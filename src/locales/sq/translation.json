@@ -54,6 +54,7 @@
     "success": "Mandati u shtua me sukses!",
     "updated": "Mandati u përditësua me sukses!",
     "error": "Ndodhi një gabim gjatë shtimit të mandatit.",
+    "errorFetch": "Ndodhi një gabim gjatë marrjes së mandatit.",
     "back": "Kthehu"
   },
 
@@ -65,9 +66,13 @@
   },
 
   "MunicipalityMandate": {
-    "mandateTitle": "Mandati komunal",
-    "add": "Shto",
-    "view": "Shiko"
+    "mandateTitle": "Mandatet e Komunës",
+    "add": "Shto mandat",
+    "view": "Shiko",
+    "options": "Opsione",
+    "edit": "Përpuno",
+    "delete": "Fshi",
+    "noMandates": "Nuk ka mandate të disponueshme."
   },
 
 "AddMunicipalityMandate": {

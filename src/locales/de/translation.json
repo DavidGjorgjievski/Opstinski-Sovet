@@ -54,6 +54,7 @@
     "success": "Das Mandat wurde erfolgreich hinzugefügt!",
     "updated": "Das Mandat wurde erfolgreich aktualisiert!",
     "error": "Beim Verarbeiten des Mandats ist ein Fehler aufgetreten.",
+    "errorFetch": "Fehler beim Laden des Mandats.",
     "back": "Zurück"
   },
 
@@ -65,9 +66,13 @@
   },
   
   "MunicipalityMandate": {
-    "mandateTitle": "Gemeindemandat",
-    "add": "Hinzufügen",
-    "view": "Ansehen"
+   "mandateTitle": "Gemeindemandate",
+    "add": "Mandat hinzufügen",
+    "view": "Ansehen",
+    "options": "Optionen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "noMandates": "Keine Mandate verfügbar."
   },
 
 "AddMunicipalityMandate": {
