@@ -118,7 +118,7 @@
     "nameLabel": "Municipality Name:",
     "namePlaceholder": "Мunicipality name",
     "logoLabel": "Logo:",
-    "sessionImageLabel": "Session Image:",
+    "flagImageLabel": "Flag:",
     "submitAdd": "Add",
     "submitEdit": "Edit",
     "back": "Back",

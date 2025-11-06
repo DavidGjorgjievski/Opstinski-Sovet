@@ -12,7 +12,7 @@ function AddMunicipalityForm() {
     const { id } = useParams(); // Get the ID from the route parameters
     const [name, setName] = useState('');
     const [logo, setLogo] = useState(null);
-    const [sessionImage, setSessionImage] = useState(null); // State for session image
+    const [flag, setFlag] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
@@ -46,7 +46,7 @@ function AddMunicipalityForm() {
 
     const handleNameChange = (e) => setName(e.target.value);
     const handleLogoChange = (e) => setLogo(e.target.files[0]);
-    const handleSessionImageChange = (e) => setSessionImage(e.target.files[0]); // Update session image state
+    const handleFlagChange = (e) => setFlag(e.target.files[0]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -67,8 +67,8 @@ function AddMunicipalityForm() {
         if (logo) {
             formData.append('logo', logo);
         }
-        if (sessionImage) {
-            formData.append('sessionImage', sessionImage); // Append session image
+       if (flag) {
+            formData.append('flag', flag); // Updated
         }
 
         try {
@@ -171,18 +171,18 @@ function AddMunicipalityForm() {
                                 </div>
 
                                 <div className="form-group">
-                                    <label className="label-add">{t("addMunicipality.sessionImageLabel")}</label>
+                                    <label className="label-add">{t("addMunicipality.flagImageLabel")}</label>
                                         <div className="image-upload-wrapper">
-                                            <label className={`image-upload-button-preview ${sessionImage ? 'has-file' : ''}`}>
-                                                {sessionImage ? (
-                                                    <img src={URL.createObjectURL(sessionImage)} alt="Session Preview" />
+                                            <label className={`image-upload-button-preview ${flag ? 'has-file' : ''}`}>
+                                                {flag ? (
+                                                    <img src={URL.createObjectURL(flag)} alt="Flag Preview" />
                                                 ) : (
                                                     <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
                                                 )}
                                                 <input
                                                     type="file"
                                                     accept="image/*"
-                                                    onChange={handleSessionImageChange}
+                                                    onChange={handleFlagChange }
                                                     className="hidden-file-input"
                                                 />
                                             </label>

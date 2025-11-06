@@ -174,7 +174,7 @@ function MunicipalityMandate() {
                               setOpenMenuId(openMenuId === item.id ? null : item.id)
                             }
                           >
-                            {t('Municipality.options')}{' '}
+                            {t('MunicipalityMandate.options')}{' '}
                             <FontAwesomeIcon
                               icon={openMenuId === item.id ? faChevronUp : faChevronDown}
                             />
@@ -188,14 +188,14 @@ function MunicipalityMandate() {
                                   navigate(`/municipalities/${id}/mandates/edit/${item.id}`)
                                 }
                               >
-                                <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
+                                <FontAwesomeIcon icon={faPenToSquare} /> {t('MunicipalityMandate.edit')}
                               </button>
 
                               <button
                                 className="dropdown-item delete"
                                 onClick={() => handleDeleteMandate(item)}
                               >
-                                <FontAwesomeIcon icon={faTrash} /> {t('Municipality.delete')}
+                                <FontAwesomeIcon icon={faTrash} /> {t('MunicipalityMandate.delete')}
                               </button>
                             </div>
                           )}
