@@ -28,6 +28,7 @@ import AddFormMandate from './pages/AddFormMandate';
 import MunicipalityMandate from './pages/MunicipalityMandate';
 import AddMunicipalityMandateForm from './pages/AddMunicipalityMandateForm';
 import HeadLinks from './components/HeadLinks';
+import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
 import "./i18n"; 
 
 function App() {
@@ -77,6 +78,11 @@ function App() {
                <Route
                 path="/municipalities/:id/mandates/edit/:mandateId"
                 element={<ProtectedRoute element={<AddMunicipalityMandateForm />} allowedRoles={['ROLE_ADMIN']} />}
+              />
+
+              <Route
+                path="/municipalities/:id/mandates/users/:mandateId"
+                element={ <ProtectedRoute element={<MunicipalityMandateUsers />} allowedRoles={['ROLE_ADMIN']} />}
               />
 
               <Route path="/municipalities" element={<ProtectedRoute element={<Municipalities />} />} />

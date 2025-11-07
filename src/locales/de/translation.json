@@ -98,6 +98,13 @@
     "cancelButton": "Abbrechen"
 },
 
+"MunicipalityMandateUsers": {
+    "title": "Benutzer des Gemeindemandats",
+    "back": "Zurück",
+    "loading": "Wird geladen...",
+    "noUsers": "Keine Benutzer für dieses Mandat gefunden."
+  },
+
   "Municipality": {
     "municipalitiesTitle": "Gemeinden",
     "addMunicipalityButton": "Gemeinde hinzufügen",

@@ -1,0 +1,95 @@
+.municipality-mandate-users-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.municipality-mandate-users-content {
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 40px;
+}
+
+.municipality-mandate-users-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+.municipality-mandate-users-title {
+    font-size: 3rem;
+    color: black;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ✅ Users displayed in multiple rows */
+.municipality-mandate-users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.municipality-mandate-users-back-button {
+    background-color: white;
+    padding: 5px 15px;
+    width: 100px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, border-color 0.3s;
+}
+
+.municipality-mandate-users-back-button:hover {
+    background-color: #ddd;
+    transform: scale(1.03);
+}
+
+.municipality-mandate-users-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}
+
+.municipality-mandate-users-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    margin-bottom: 10px;
+}
+
+.municipality-mandate-users-avatar.placeholder {
+    background-color: #777;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.municipality-mandate-users-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}

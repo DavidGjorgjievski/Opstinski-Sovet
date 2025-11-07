@@ -98,6 +98,14 @@
     "cancelButton": "Откажи"
 },
 
+"MunicipalityMandateUsers": {
+    "title": "Корисници на општински мандат",
+    "back": "Назад",
+    "loading": "Се вчитува...",
+    "noUsers": "Нема корисници за овој мандат."
+  },
+
+
   "Municipality": {
     "municipalitiesTitle": "Општини",
     "addMunicipalityButton": "Додади Општина",

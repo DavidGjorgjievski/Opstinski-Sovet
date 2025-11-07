@@ -158,7 +158,7 @@ function MunicipalityMandate() {
                     <div className="mandate-actions">
                       <button
                         className="mandate-view-button"
-                        onClick={() => navigate(`/mandates/${item.id}`)}
+                        onClick={() => navigate(`/municipalities/${id}/mandates/users/${item.id}`)}
                       >
                         {t('MunicipalityMandate.view')}
                       </button>

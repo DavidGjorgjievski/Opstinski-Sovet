@@ -98,6 +98,13 @@
     "cancelButton": "Anulo"
 },
 
+"MunicipalityMandateUsers": {
+    "title": "Përdoruesit e mandatit komunal",
+    "back": "Kthehu",
+    "loading": "Duke u ngarkuar...",
+    "noUsers": "Nuk u gjetën përdorues për këtë mandat."
+  },
+
   "Municipality": {
     "municipalitiesTitle": "Komunat",
     "addMunicipalityButton": "Shto Komunë",
