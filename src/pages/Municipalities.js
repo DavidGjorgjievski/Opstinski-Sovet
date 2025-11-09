@@ -17,43 +17,71 @@ function Municipalities() {
     const [selectedMunicipality, setSelectedMunicipality] = useState(null);
     const [openMenuId, setOpenMenuId] = useState(null);
 
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
+    const userInfo = React.useMemo(() => {
+    return JSON.parse(localStorage.getItem('userInfo')) || {};
+}, []);
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
 
-        const fetchMunicipalities = async () => {
-            setLoading(true);
-            try {
-                const cachedMunicipalities = localStorage.getItem('municipalities');
-                if (cachedMunicipalities) {
-                    setMunicipalities(JSON.parse(cachedMunicipalities));
-                    setLoading(false);
-                    return;
-                }
+       const fetchMunicipalities = async () => {
+    setLoading(true);
+    try {
+        const cached = localStorage.getItem('municipalities');
+        // const token = localStorage.getItem('jwtToken');
 
-                const response = await fetch(process.env.REACT_APP_API_URL + '/api/municipalities', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
+        // normalize user municipality id to number if possible
+        const rawUserId = userInfo && userInfo.municipalityId;
+        const userMunicipalityId = rawUserId != null ? Number(rawUserId) : null;
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-
-                localStorage.setItem('municipalities', JSON.stringify(data));
-                setMunicipalities(data);
-            } catch (error) {
-                console.error('Error fetching municipalities:', error);
-            } finally {
-                setLoading(false);
-            }
+        // helper that moves user's municipality to front (if found) and returns a NEW array
+        const moveUserMunicipalityFirst = (arr) => {
+            if (!userMunicipalityId) return arr;
+            const index = arr.findIndex(item => Number(item.id) === userMunicipalityId);
+            if (index === -1) return arr;
+            // create new array: user's item first, then others in original order
+            const item = arr[index];
+            const rest = arr.slice(0, index).concat(arr.slice(index + 1));
+            return [item, ...rest];
         };
+
+        if (cached) {
+            const parsed = JSON.parse(cached);
+            const ordered = moveUserMunicipalityFirst(parsed);
+            setMunicipalities(ordered);
+            setLoading(false);
+            return;
+        }
+
+        // no cache → fetch from API
+        const response = await fetch(process.env.REACT_APP_API_URL + '/api/municipalities', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
+        // save original API result in cache (optional: keep it unchanged)
+        localStorage.setItem('municipalities', JSON.stringify(data));
+
+        // produce display order where user's municipality (if any) is first
+        const orderedData = moveUserMunicipalityFirst(data);
+        setMunicipalities(orderedData);
+
+    } catch (error) {
+        console.error('Error fetching municipalities:', error);
+    } finally {
+        setLoading(false);
+    }
+};
+
 
         fetchMunicipalities();
 
@@ -65,7 +93,7 @@ function Municipalities() {
         return () => {
             cleanupMobileMenu();
         };
-    }, []);
+    }, [userInfo]);
 
     const handleDeleteClick = (municipality) => {
         setSelectedMunicipality(municipality);
