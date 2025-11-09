@@ -537,7 +537,19 @@ useEffect(() => {
   );
 }, [voteMessages]);
 
-// 
+const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
+    .find(s => s.id === parseInt(id));
+
+const hasTopicPermissions  = (
+    (userInfo.role === 'ROLE_PRESIDENT' &&
+     userInfo.status === "ACTIVE" &&
+     Number(municipalityId) === Number(userInfo.municipalityId) &&
+     Array.isArray(userInfo.municipalityTermIds) &&
+     currentSession &&
+     userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    ) || userInfo.role === 'ROLE_ADMIN'
+);
+
     return (
         <div className="topics-container">
             <HelmetProvider>
@@ -561,13 +573,11 @@ useEffect(() => {
                             </div>
                         </div>
                         <div className="session-button-container">
-                            <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                                 {((userInfo.role === 'ROLE_PRESIDENT' &&
-                                                userInfo.status === "ACTIVE" &&
-                                                municipalityId === userInfo.municipalityId)
-                                                ||
-                                                userInfo.role === 'ROLE_ADMIN') && (
-                                    <button className="topic-add-button" onClick={saveScrollPosition}>{t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} /></button>
+                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
+                                {hasTopicPermissions  && (
+                                    <button className="topic-add-button" onClick={saveScrollPosition}>
+                                        {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
+                                    </button>
                                 )}
                             </Link>
                         </div>
@@ -604,56 +614,52 @@ useEffect(() => {
                                         )}
                                     </h3>
                                     <div className='menu-wrapper'>
-                                    {((userInfo.role === 'ROLE_PRESIDENT' &&
-                                                userInfo.status === "ACTIVE" &&
-                                                municipalityId === userInfo.municipalityId)
-                                                ||
-                                                userInfo.role === 'ROLE_ADMIN') && (
-                                       <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
-                                        <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
-                                            <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
+                                    {hasTopicPermissions  && (
+                                        <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
+                                            <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
+                                                <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
+                                            </div>
+                                            {openMenus[topic.id] && (
+                                                <ul className="menu-list">
+                                                    <li>
+                                                        <span onClick={() => { handlePresentClick(topic.id); toggleMenu(topic.id); }}>
+                                                            {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-before/${topic.id}`}
+                                                            onClick={saveScrollPosition}
+                                                        >
+                                                            <span>{t("topicsPage.newTopicBefore")} <FontAwesomeIcon icon={faArrowUp} /></span>
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-after/${topic.id}`}
+                                                            onClick={saveScrollPosition}
+                                                        >
+                                                            <span>{t("topicsPage.newTopicAfter")} <FontAwesomeIcon icon={faArrowDown} /></span>
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/edit/${topic.id}`}
+                                                            onClick={saveScrollPosition}
+                                                        >
+                                                            {t("topicsPage.edit")} <FontAwesomeIcon icon={faPenToSquare} />
+                                                        </Link>
+                                                    </li>
+                                                    <li className="topic-delete-button">
+                                                        <span onClick={() => { openModal(topic.id, topic.title); toggleMenu(topic.id); }}>
+                                                            {t("topicsPage.delete")} <FontAwesomeIcon icon={faTrash} />
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            )}
                                         </div>
-                                        {openMenus[topic.id] && (
-                                            <ul className="menu-list">
-                                                <li>
-                                                    <span onClick={() => { handlePresentClick(topic.id); toggleMenu(topic.id); }}>
-                                                        {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-before/${topic.id}`}
-                                                        onClick={saveScrollPosition}
-                                                    >
-                                                        <span>{t("topicsPage.newTopicBefore")} <FontAwesomeIcon icon={faArrowUp} /></span>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-after/${topic.id}`}
-                                                        onClick={saveScrollPosition}
-                                                    >
-                                                        <span>{t("topicsPage.newTopicAfter")} <FontAwesomeIcon icon={faArrowDown} /></span>
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to={`/municipalities/${municipalityId}/sessions/${id}/topics/edit/${topic.id}`}
-                                                        onClick={saveScrollPosition}
-                                                    >
-                                                        {t("topicsPage.edit")} <FontAwesomeIcon icon={faPenToSquare} />
-                                                    </Link>
-                                                </li>
-                                                <li className="topic-delete-button">
-                                                    <span onClick={() => { openModal(topic.id, topic.title); toggleMenu(topic.id); }}>
-                                                        {t("topicsPage.delete")} <FontAwesomeIcon icon={faTrash} />
-                                                    </span>
-                                                </li>
-                                            </ul>
+                                    )}
 
-                                        )}
-                                        </div>
-                                        )}
                                     </div>                    
                                 </div>
                                       
@@ -816,44 +822,40 @@ useEffect(() => {
                                                 )}
 
 
-                                            {((userInfo.role === 'ROLE_PRESIDENT' &&
-                                                userInfo.status === "ACTIVE" &&
-                                                municipalityId === userInfo.municipalityId)
-                                                ||
-                                                userInfo.role === 'ROLE_ADMIN') && (
-                                               <div className="command-buttons-group">
-                                                {topic.topicStatus === "CREATED" && (
-                                                    <div className="command-buttons">
-                                                        <button
-                                                        onClick={() => startVoting(topic.id, token)}
-                                                        className={`change-topic-status-button ${selectedLang}`}
-                                                        >
-                                                        {t("topicsPage.startVoting")} <FontAwesomeIcon icon={faCirclePlay} />
-                                                        </button>
+                                            {hasTopicPermissions && (
+                                                    <div className="command-buttons-group">
+                                                        {topic.topicStatus === "CREATED" && (
+                                                            <div className="command-buttons">
+                                                                <button
+                                                                    onClick={() => startVoting(topic.id, token)}
+                                                                    className={`change-topic-status-button ${selectedLang}`}
+                                                                >
+                                                                    {t("topicsPage.startVoting")} <FontAwesomeIcon icon={faCirclePlay} />
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                        {topic.topicStatus === "ACTIVE" && (
+                                                            <div className="command-buttons">
+                                                                <button
+                                                                    onClick={() => finishVoting(topic.id, token)}
+                                                                    className={`change-topic-status-button ${selectedLang}`}
+                                                                >
+                                                                    {t("topicsPage.finishVoting")} <FontAwesomeIcon icon={faCircleStop} />
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                        {topic.topicStatus === "FINISHED" && (
+                                                            <div className="command-buttons">
+                                                                <button
+                                                                    onClick={() => openRestartModal(topic.id, topic.title)}
+                                                                    className={`change-topic-status-button ${selectedLang}`}
+                                                                >
+                                                                    {t("topicsPage.restartVoting")} <FontAwesomeIcon icon={faRotateLeft} />
+                                                                </button>
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    )}
-                                                    {topic.topicStatus === "ACTIVE" && (
-                                                    <div className="command-buttons">
-                                                        <button
-                                                        onClick={() => finishVoting(topic.id, token)}
-                                                        className={`change-topic-status-button ${selectedLang}`}
-                                                        >
-                                                        {t("topicsPage.finishVoting")} <FontAwesomeIcon icon={faCircleStop} />
-                                                        </button>
-                                                    </div>
-                                                    )}
-                                                    {topic.topicStatus === "FINISHED" && (
-                                                    <div className="command-buttons">
-                                                        <button
-                                                        onClick={() => openRestartModal(topic.id, topic.title)}
-                                                        className={`change-topic-status-button ${selectedLang}`}
-                                                        >
-                                                        {t("topicsPage.restartVoting")} <FontAwesomeIcon icon={faRotateLeft} />
-                                                        </button>
-                                                    </div>
-                                                    )}
-                                            </div>
-                                            )}
+                                                )}
                                         </div>
                                     </div>
                                 </div>
