@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
 
 function Mandate() {
-    const [userData, setUserData] = useState(() => {
+    const [userData] = useState(() => {
         const storedUserInfo = localStorage.getItem('userInfo');
         return storedUserInfo ? JSON.parse(storedUserInfo) : {};
     });
@@ -24,24 +24,22 @@ function Mandate() {
 
     const { t } = useTranslation();
     const navigate = useNavigate(); 
-    const menuRef = useRef(null);
+    const menuRefs = useRef({});
 
-    useEffect(() => {
-        const imageData = localStorage.getItem('image');
-        if (imageData) {
-            setUserData(prevData => ({ ...prevData, image: imageData }));
-        }
+   useEffect(() => {
+    // const imageData = localStorage.getItem('image');
+    // if (imageData) {
+    //     setUserData(prevData => ({ ...prevData, image: imageData }));
+    // }
 
-        const cleanupMobileMenu = initializeMobileMenu();
+    const cleanupMobileMenu = initializeMobileMenu();
 
-        const fetchMandates = async () => {
-            const storedMandates = localStorage.getItem('mandates');
-            if (storedMandates) {
-                setMandates(JSON.parse(storedMandates));
-                setLoading(false);
-                return;
-            }
-
+    const fetchMandates = async () => {
+        const storedMandates = localStorage.getItem('mandates');
+        let mandatesData = [];
+        if (storedMandates) {
+            mandatesData = JSON.parse(storedMandates);
+        } else {
             try {
                 const token = localStorage.getItem('jwtToken');
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/terms`, {
@@ -52,23 +50,32 @@ function Mandate() {
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    setMandates(data);
-                    localStorage.setItem('mandates', JSON.stringify(data));
+                    mandatesData = await response.json();
+                    localStorage.setItem('mandates', JSON.stringify(mandatesData));
                 } else {
                     console.error('Failed to fetch mandates');
                 }
             } catch (error) {
                 console.error(error);
-            } finally {
-                setLoading(false);
             }
-        };
+        }
 
-        fetchMandates();
+        // Sort mandates by startDate first, then endDate, newest first
+        mandatesData.sort((a, b) => {
+            const startDiff = new Date(b.startDate) - new Date(a.startDate);
+            if (startDiff !== 0) return startDiff;
+            return new Date(b.endDate) - new Date(a.endDate);
+        });
 
-        return () => cleanupMobileMenu();
-    }, []);
+        setMandates(mandatesData);
+        setLoading(false);
+    };
+
+    fetchMandates();
+
+    return () => cleanupMobileMenu();
+}, []);
+
 
     function formatDateByLanguage(dateString, t) {
         const date = new Date(dateString);
@@ -83,15 +90,19 @@ function Mandate() {
         setOpenMenuId(openMenuId === id ? null : id);
     };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (openMenuId) {
+            const currentMenuRef = menuRefs.current[openMenuId];
+            if (currentMenuRef && !currentMenuRef.contains(event.target)) {
                 setOpenMenuId(null);
             }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+}, [openMenuId]);
 
     const handleDeleteConfirm = async () => {
         try {
@@ -152,7 +163,11 @@ function Mandate() {
                                     const end = formatDateByLanguage(mandate.endDate, t);
 
                                     return (
-                                        <li key={mandate.id} className="mandate-item" ref={menuRef}>
+                                        <li 
+                                            key={mandate.id} 
+                                            className="mandate-item" 
+                                            ref={el => menuRefs.current[mandate.id] = el} 
+                                            >
                                             <div className="mandate-dates">
                                                 <div className="mandate-date">
                                                     <span className="mandate-date-label">{t('mandate.startDate')}:</span>
