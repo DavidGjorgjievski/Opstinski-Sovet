@@ -351,9 +351,13 @@ const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setO
                                         <FontAwesomeIcon icon={faFilePdf} /> {t('session.export')}
                                     </button>
 
-                                    {((userInfo.role === 'ROLE_PRESIDENT' &&
+                                    {((
+                                         userInfo.role === 'ROLE_PRESIDENT' &&
                                         userInfo.status === "ACTIVE" &&
-                                        municipalityId === userInfo.municipalityId)
+                                        municipalityId === userInfo.municipalityId &&
+                                        Array.isArray(userInfo.municipalityTermIds) &&
+                                        userInfo.municipalityTermIds.includes(session.municipalityMandateId)
+                                    )
                                         || userInfo.role === 'ROLE_ADMIN') && (
                                         <>
                                             <a
