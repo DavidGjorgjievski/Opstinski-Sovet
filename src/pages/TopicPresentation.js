@@ -6,9 +6,12 @@ import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
+  const [autoRefresh, setAutoRefresh] = useState(false);
   const { id, municipalityId } = useParams();
   const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
@@ -20,18 +23,14 @@ const TopicPresentation = () => {
 
   let municipalityImage = null;
   if (municipalityId) {
-    const municipalities = JSON.parse(
-      localStorage.getItem("municipalities") || "[]"
-    );
-    const municipality = municipalities.find(
-      (m) => m.id === Number(municipalityId)
-    );
+    const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
+    const municipality = municipalities.find((m) => m.id === Number(municipalityId));
     if (municipality) {
       municipalityImage = municipality.logoImage;
     }
   }
 
-  // Fetch currently presented topic
+  // Fetch the current topic
   const fetchPresenterTopic = useCallback(async () => {
     try {
       const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`;
@@ -42,15 +41,12 @@ const TopicPresentation = () => {
           "Content-Type": "application/json",
         },
       });
-
       if (!response.ok) {
         console.error(`Failed to fetch topic. Status: ${response.status}`);
         return;
       }
-
       const text = await response.text();
       if (!text) return;
-
       const data = JSON.parse(text);
       setTopic(data);
     } catch (error) {
@@ -58,44 +54,44 @@ const TopicPresentation = () => {
     }
   }, [id, token]);
 
-  // Initial fetch on mount
   useEffect(() => {
     fetchPresenterTopic();
   }, [fetchPresenterTopic]);
 
-  // Refetch whenever new websocket messages arrive
   useEffect(() => {
+    if (!autoRefresh) return;
+    const interval = setInterval(() => {
+      fetchPresenterTopic();
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [autoRefresh, fetchPresenterTopic]);
+
+  // 🧠 WebSocket updates
+  useEffect(() => {
+    if (autoRefresh) return;
     fetchPresenterTopic();
-  }, [voteMessages, presenterMessages, newTopicMessages, fetchPresenterTopic]);
+  }, [voteMessages, presenterMessages, newTopicMessages, fetchPresenterTopic, autoRefresh]);
 
- useEffect(() => {
-  if (voteMessages.length === 0) return;
-
-  const lastResult = voteMessages.at(-1);
-
-  setTopic((prev) => {
-    // If no topic is currently presented, just set it
-    if (!prev) return lastResult;
-
-    // If the vote is for the currently presented topic, update counts
-    if (prev.id === lastResult.topicId) {
-      return {
-        ...prev,
-        yes: lastResult.yes,
-        no: lastResult.no,
-        abstained: lastResult.abstained,
-        cantVote: lastResult.cantVote,
-        haveNotVoted: lastResult.haveNotVoted,
-        absent: lastResult.absent,
-        topicStatus: lastResult.status,
-      };
-    }
-
-    // If the vote is for another topic, do nothing
-    return prev;
-  });
-}, [voteMessages]);
-
+  useEffect(() => {
+    if (autoRefresh || voteMessages.length === 0) return;
+    const lastResult = voteMessages.at(-1);
+    setTopic((prev) => {
+      if (!prev) return lastResult;
+      if (prev.id === lastResult.topicId) {
+        return {
+          ...prev,
+          yes: lastResult.yes,
+          no: lastResult.no,
+          abstained: lastResult.abstained,
+          cantVote: lastResult.cantVote,
+          haveNotVoted: lastResult.haveNotVoted,
+          absent: lastResult.absent,
+          topicStatus: lastResult.status,
+        };
+      }
+      return prev;
+    });
+  }, [voteMessages, autoRefresh]);
 
   return (
     <div
@@ -125,7 +121,8 @@ const TopicPresentation = () => {
           className="logo-img-presenter"
           alt="Logo"
           onClick={() => window.location.reload()}
-        />
+        />        
+
         <button
           className="back-button-presenter"
           onClick={() =>
@@ -134,6 +131,24 @@ const TopicPresentation = () => {
         >
           {t("topicsPage.backButton")}
         </button>
+
+        <div className="toggle-container">
+          <span
+            className="toggle-label-refresh"
+            onClick={() => setAutoRefresh((prev) => !prev)}
+            title={autoRefresh ? "Switch to WebSocket Mode" : "Switch to Auto-Refresh"}
+          >
+            <FontAwesomeIcon
+              icon={autoRefresh ? faToggleOn : faToggleOff}
+              size="2x"
+              color={autoRefresh ? "#4CAF50" : "#ddd"}
+              className="toggle-refresh"
+            />
+           <span className="toggle-text">
+              {autoRefresh ? t("topicsPage.autoRefreshOn") : t("topicsPage.webSocketMode")}
+            </span>
+          </span>
+        </div>
       </div>
 
       {!topic ? (

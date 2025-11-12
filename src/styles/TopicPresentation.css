@@ -113,6 +113,20 @@
     background-color: #cdcaca;
 }
 
+.toggle-label-refresh {
+    cursor: pointer;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.toggle-refresh {
+    transition: color 0.3s ease;
+}
+
 @media (max-width: 1440px) {
    .presented-number{
     font-size: 90px;

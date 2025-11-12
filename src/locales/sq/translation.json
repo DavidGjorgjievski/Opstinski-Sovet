@@ -351,7 +351,9 @@
     "confirmDeleteMessage": "A jeni i sigurt që dëshironi ta fshini çështjen:",
     "confirmDeleteButton": "Fshi",
     "cancelButton": "Anulo",
-    "noTopicsPresent": "Aucun sujet n'est présenté"
+    "noTopicsPresent": "Aucun sujet n'est présenté",
+    "autoRefreshOn": "Automatike",
+    "webSocketMode": "Mekanike"
   },
 
   "tooltip": {

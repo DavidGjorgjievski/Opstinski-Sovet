@@ -352,7 +352,9 @@
     "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете точката:",
     "confirmDeleteButton": "Избриши",
     "cancelButton": "Откажи",
-    "noTopicsPresent": "Нема презентирачка точка"
+    "noTopicsPresent": "Нема презентирачка точка",
+    "autoRefreshOn": "Автоматско",
+    "webSocketMode": "Механичко"
   },
 
   "tooltip": {

@@ -351,7 +351,9 @@
     "confirmDeleteMessage": "Are you sure you want to delete the topic:",
     "confirmDeleteButton": "Delete",
     "cancelButton": "Cancel",
-    "noTopicsPresent": "No topic is being presented"
+    "noTopicsPresent": "No topic is being presented",
+    "autoRefreshOn": "Automatic",
+    "webSocketMode": "Manual"
   },
 
   "restartTopicModal": {
