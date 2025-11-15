@@ -37,8 +37,6 @@
   "mandate": {
     "title": "Mandate",
     "addButton": "Add",
-    "startDate": "Start Date",
-    "endDate": "End Date",
     "noMandates": "No mandates available",
     "edit": "Edit",
     "delete": "Delete"
@@ -99,7 +97,7 @@
 },
 
 "MunicipalityMandateUsers": {
-    "title": "Municipal Mandate Users",
+    "title": "Council Members",
     "back": "Back",
     "loading": "Loading...",
     "noUsers": "No users found for this mandate."

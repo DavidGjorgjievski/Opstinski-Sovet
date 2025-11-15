@@ -91,12 +91,6 @@
     gap: 4px;
 }
 
-.mandate-date-label {
-    font-weight: 500;
-    color: #000;
-    font-size: 18px;
-}
-
 .mandate-date-value {
     font-weight: normal;
     color: #333;
@@ -226,28 +220,25 @@
 
     .mandate-options {
         position: absolute;
-        top: 10px;
         right: 10px;
         margin-left: 0;
     }
 
     .mandate-dates {
         font-size: 15px;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 4px;
+        gap: 8px;
     }
 
-    .mandate-date-label,
     .mandate-date-value {
         font-size: 15px !important;
     }
 
     .mandate-separator {
-        margin: 5px 0;
-        transform: rotate(90deg);
-        display: inline-block;
+        margin: 0 6px;
+        transform: none;
     }
 
     .options-btn {

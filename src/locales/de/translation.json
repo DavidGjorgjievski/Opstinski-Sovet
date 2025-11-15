@@ -37,8 +37,6 @@
   "mandate": {
     "title": "Mandat",
     "addButton": "hinzufügen",
-    "startDate": "Anfangsdatum",
-    "endDate": "Enddatum",
     "noMandates": "Keine Mandate verfügbar",
     "edit": "Bearbeiten",
     "delete": "Löschen"
@@ -99,7 +97,7 @@
 },
 
 "MunicipalityMandateUsers": {
-    "title": "Benutzer des Gemeindemandats",
+    "title": "Ratsmitglieder",
     "back": "Zurück",
     "loading": "Wird geladen...",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden."

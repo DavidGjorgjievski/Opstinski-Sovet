@@ -37,8 +37,6 @@
   "mandate": {
     "title": "Mandati",
     "addButton": "Shto",
-    "startDate": "Data e fillimit",
-    "endDate": "Data e përfundimit",
     "noMandates": "Nuk ka mandate të disponueshme",
     "edit": "Redakto",
     "delete": "Fshij"
@@ -99,7 +97,7 @@
 },
 
 "MunicipalityMandateUsers": {
-    "title": "Përdoruesit e mandatit komunal",
+    "title": "Këshilltarët",
     "back": "Kthehu",
     "loading": "Duke u ngarkuar...",
     "noUsers": "Nuk u gjetën përdorues për këtë mandat."

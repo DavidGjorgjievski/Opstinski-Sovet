@@ -31,6 +31,13 @@ function MunicipalityMandateUsers() {
 
         if (!response.ok) throw new Error("Failed to fetch users");
         const data = await response.json();
+
+        const locale = navigator.language || "en";
+
+        // Sort by name (Cyrillic + Latin supported)
+        data.sort((a, b) =>
+          a.name.localeCompare(b.name, locale, { sensitivity: "base" })
+        );
         setUsers(data);
       } catch (error) {
         console.error("Error fetching users:", error);

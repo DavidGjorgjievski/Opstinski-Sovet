@@ -170,7 +170,6 @@ function Mandate() {
                                             >
                                             <div className="mandate-dates">
                                                 <div className="mandate-date">
-                                                    <span className="mandate-date-label">{t('mandate.startDate')}:</span>
                                                     <span className="mandate-date-value"> {start}</span>
                                                 </div>
 
@@ -179,7 +178,6 @@ function Mandate() {
                                                 </span>
 
                                                 <div className="mandate-date">
-                                                    <span className="mandate-date-label">{t('mandate.endDate')}:</span>
                                                     <span className="mandate-date-value"> {end}</span>
                                                 </div>
                                             </div>

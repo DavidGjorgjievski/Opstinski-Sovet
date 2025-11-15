@@ -6,7 +6,7 @@ import MunicipalityMandateConfirmModal from '../components/MunicipalityMandateCo
 import '../styles/MunicipalityMandate.css';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faArrowRight, faChevronDown, faChevronUp, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faArrowRight, faChevronDown, faChevronUp, faPenToSquare, faTrash, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function MunicipalityMandate() {
@@ -160,7 +160,7 @@ function MunicipalityMandate() {
                         className="mandate-view-button"
                         onClick={() => navigate(`/municipalities/${id}/mandates/users/${item.id}`)}
                       >
-                        {t('MunicipalityMandate.view')}
+                        {t('MunicipalityMandate.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </button>
 
                       {userData.role === 'ROLE_ADMIN' && (
