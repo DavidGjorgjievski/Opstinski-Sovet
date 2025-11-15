@@ -106,7 +106,10 @@ function Login() {
                         className="login-input-field"
                         placeholder={t('login.username')}
                         value={username}
-                        onChange={(e) => { setUsername(e.target.value); setErrorKey(''); }}
+                          onChange={(e) => {
+                        setUsername(e.target.value.toLowerCase());
+                        setErrorKey('');
+                    }}
                         required
                     />
                     <div className="password-input-wrapper">
