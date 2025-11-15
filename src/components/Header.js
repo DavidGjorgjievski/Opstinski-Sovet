@@ -107,17 +107,33 @@ const languageData = {
                         <FontAwesomeIcon icon={faBars} className="hamburger-icon" />
                     </div>
                     <ul className={`nav-item-mobile ${isMobileNavOpen ? 'open' : ''}`} id="mobile-nav">
-                        <li><Link to="/">{t('nav.home')}</Link></li>
-                        <li><Link to="/municipalities">{t('nav.municipalities')}</Link></li>
+                        <li className={getActiveClass('/')}>
+                            <Link to="/">{t('nav.home')}</Link>
+                        </li>
+
+                        <li className={getActiveClass('/municipalities')}>
+                            <Link to="/municipalities">{t('nav.municipalities')}</Link>
+                        </li>
+
                         {userInfo.municipalityId && userInfo.municipalityId !== "Not Assigned" && (
                             <li className={getActiveClass(`/municipalities/${userInfo.municipalityId}/sessions`)}>
-                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>{t('nav.mySessions')}</Link>
+                                <Link to={`/municipalities/${userInfo.municipalityId}/sessions`}>
+                                    {t('nav.mySessions')}
+                                </Link>
                             </li>
                         )}
-                        <li style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
+
+                        <li
+                            className={getActiveClass('/admin-panel')}
+                            style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}
+                        >
                             <Link to="/admin-panel">{t('nav.adminPanel')}</Link>
                         </li>
-                        <li style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
+                        
+                        <li
+                            className={getActiveClass('/mandate')}
+                            style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}
+                        >
                             <Link to="/mandate">{t('nav.mandate')}</Link>
                         </li>
                     </ul>
