@@ -99,6 +99,8 @@ nav {
 
 .nav-item-mobile li a.active {
     text-decoration: underline;
+    font-weight: bold;
+    color: black;
 }
 
 .nav-item li.active a {
