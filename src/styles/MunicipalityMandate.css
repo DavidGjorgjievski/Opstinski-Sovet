@@ -59,7 +59,7 @@
 .mandate-card {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 5px;
     border: 1px solid #ddd;
     border-radius: 20px;
     padding: 15px;
@@ -192,11 +192,13 @@
     }
 
 
-    .mandate-card {
-        flex-direction: column;
-        width: 90%;
-        text-align: center;
-    }
+   .mandate-card {
+       flex-direction: column;
+       width: 95%;
+       max-width: 400px;
+       margin: 0 auto;
+       text-align: center;
+   }
 
     .municipality-mandate-add-button {
         width: 150px;
@@ -206,6 +208,9 @@
 
     .mandate-image {
         width: 100%;
+        height: auto;
+        border-radius: 20px;
+        object-fit: contain;
     }
 
     .mandate-info {
