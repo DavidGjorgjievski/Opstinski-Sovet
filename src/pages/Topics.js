@@ -31,6 +31,9 @@ function Topics() {
     const [sessionTitle, setSessionTitle] = useState('');
     const { t } = useTranslation();
     const selectedLang = localStorage.getItem("selectedLanguage") || "mk";
+    const [sessionMunicipalityTermId, setSessionMunicipalityTermId] = useState(null);
+    const [showFixDiv, setshowFixDiv] = useState(true); 
+
 
     const [onlineUsersNumber, setOnlineUsersNumber] = useState(0);
 
@@ -44,6 +47,24 @@ function Topics() {
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
     const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
     const { messages: newTopicMessages, sendNewTopic } = useNewTopicWebSocket(id);
+
+    useEffect(() => {
+
+
+    if (!sessionMunicipalityTermId || !municipalityId) return;
+
+
+
+    const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
+
+
+    if (mandates.length === 0) return;
+
+    const newestMandateId = Math.max(...mandates.map(m => m.id));
+
+    setshowFixDiv(sessionMunicipalityTermId === newestMandateId);
+
+}, [sessionMunicipalityTermId, municipalityId]);
 
     const [isOn, setIsOn] = useState(() => {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
@@ -87,6 +108,8 @@ function Topics() {
         setShowNumber(!showNumber); // Toggle the visibility
         fetchOnlineUsers();
     };
+
+
 
 const handleClickOutside = useCallback(
   (event) => {
@@ -170,6 +193,7 @@ const handleClickOutside = useCallback(
             const session = sessions.find(s => s.id === parseInt(id));
             if (session) {
                 setSessionTitle(session.name);
+                setSessionMunicipalityTermId(session.municipalityMandateId);
             }
         }
     }, [municipalityId, id]);
@@ -881,32 +905,34 @@ const hasTopicPermissions  = (
             </main>
             {topics.length > 0 && <Footer />}
 
-            <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}>
-                <div className="arrow" onClick={toggleVisibility}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
+
+            {showFixDiv && (
+                <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}>
+                    <div className="arrow" onClick={toggleVisibility}>
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                    </div>
+
+                    {showNumber && (
+                        <>
+                            <div className="tooltip-container">
+                                <div onClick={handleToggle} className='toggle-topics'>
+                                    <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
+                                </div>
+                                <span className="tooltip-text">{t("tooltip.easyMode")}</span>
+                                </div>
+
+                                <div>
+                                <div className="number" onClick={() => setIsLiveModalOpen(true)}>
+                                    <p className='number-content'>
+                                    <span className='number-content-span'>{onlineUsersNumber}</span>
+                                    <FontAwesomeIcon icon={faUsers} />
+                                    </p>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
-
-                {showNumber && (
-                    <>
-                        <div className="tooltip-container">
-                            <div onClick={handleToggle} className='toggle-topics'>
-                                <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
-                            </div>
-                            <span className="tooltip-text">{t("tooltip.easyMode")}</span>
-                            </div>
-
-                            <div>
-                            <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                                <p className='number-content'>
-                                <span className='number-content-span'>{onlineUsersNumber}</span>
-                                <FontAwesomeIcon icon={faUsers} />
-                                </p>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
-
+            )}
 
           {isModalOpen && (
                 <TopicConfirmModal
