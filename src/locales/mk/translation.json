@@ -36,7 +36,7 @@
 
   "mandate": {
     "title": "Мандати",
-    "addButton": "Додади нов",
+    "addButton": "Додади",
     "startDate": "Почетен датум",
     "endDate": "Краен датум",
     "noMandates": "Нема достапни мандати",
@@ -66,8 +66,8 @@
   },
 
   "MunicipalityMandate": {
-     "mandateTitle": "Мандати на општината",
-    "add": "Додај мандат",
+    "mandateTitle": "Мандати на општината",
+    "add": "Додади",
     "view": "Преглед",
     "options": "Опции",
     "edit": "Уреди",

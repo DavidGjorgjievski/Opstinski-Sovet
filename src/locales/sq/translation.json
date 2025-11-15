@@ -36,7 +36,7 @@
 
   "mandate": {
     "title": "Mandati",
-    "addButton": "Shto të re",
+    "addButton": "Shto",
     "startDate": "Data e fillimit",
     "endDate": "Data e përfundimit",
     "noMandates": "Nuk ka mandate të disponueshme",
@@ -67,7 +67,7 @@
 
   "MunicipalityMandate": {
     "mandateTitle": "Mandatet e Komunës",
-    "add": "Shto mandat",
+    "add": "Shto",
     "view": "Shiko",
     "options": "Opsione",
     "edit": "Përpuno",

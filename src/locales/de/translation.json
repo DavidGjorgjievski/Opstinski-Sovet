@@ -36,7 +36,7 @@
 
   "mandate": {
     "title": "Mandat",
-    "addButton": "Neu hinzufügen",
+    "addButton": "hinzufügen",
     "startDate": "Anfangsdatum",
     "endDate": "Enddatum",
     "noMandates": "Keine Mandate verfügbar",
@@ -67,7 +67,7 @@
   
   "MunicipalityMandate": {
    "mandateTitle": "Gemeindemandate",
-    "add": "Mandat hinzufügen",
+    "add": "hinzufügen",
     "view": "Ansehen",
     "options": "Optionen",
     "edit": "Bearbeiten",
