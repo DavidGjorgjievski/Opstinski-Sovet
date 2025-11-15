@@ -254,40 +254,48 @@ function Municipalities() {
                                                     </a>
                                                 </div>
     
-                                                {userInfo.role === 'ROLE_ADMIN' && (
-                                                    <div className="admin-dropdown-wrapper">
-                                                        <button
-                                                            className="button-option-content municipality-button-size"
-                                                            onClick={() =>
-                                                                setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
-                                                            }
-                                                        >
-                                                            {t('Municipality.options')} <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
-                                                        </button>
-                                                        {openMenuId === municipality.id && (                                                            
-                                                            <div className="admin-dropdown">
-                                                                <a
+                                                <div className="admin-dropdown-wrapper">
+                                                    <button
+                                                        className="button-option-content municipality-button-size"
+                                                        onClick={() =>
+                                                            setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
+                                                        }
+                                                    >
+                                                        {t('Municipality.options')}{" "}
+                                                        <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
+                                                    </button>
+
+                                                    {openMenuId === municipality.id && (
+                                                        <div className="admin-dropdown">
+                                                            {/* Mandates link visible to everyone */}
+                                                            <a
                                                                 className="dropdown-item"
                                                                 href={`/municipalities/${municipality.id}/mandates`}
-                                                                >
+                                                            >
                                                                 <FontAwesomeIcon icon={faCalendar} /> {t('Municipality.mandates')}
-                                                                </a>
-                                                                <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
-                                                                   <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
-                                                                </a>
-                                                                <button
-                                                                    className="dropdown-item delete"
-                                                                    onClick={() => {
-                                                                        handleDeleteClick(municipality);
-                                                                        setOpenMenuId(null);
-                                                                    }}
-                                                                >
-                                                                   <FontAwesomeIcon icon={faTrash} /> {t('Municipality.delete')}
-                                                                </button>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                )}
+                                                            </a>
+
+                                                            {/* Only Admin can see Edit and Delete */}
+                                                            {userInfo.role === 'ROLE_ADMIN' && (
+                                                                <>
+                                                                    <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
+                                                                        <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
+                                                                    </a>
+                                                                    <button
+                                                                        className="dropdown-item delete"
+                                                                        onClick={() => {
+                                                                            handleDeleteClick(municipality);
+                                                                            setOpenMenuId(null);
+                                                                        }}
+                                                                    >
+                                                                        <FontAwesomeIcon icon={faTrash} /> {t('Municipality.delete')}
+                                                                    </button>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

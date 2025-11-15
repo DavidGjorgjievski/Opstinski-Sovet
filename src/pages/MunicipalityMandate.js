@@ -21,6 +21,10 @@ function MunicipalityMandate() {
     return storedUserInfo ? JSON.parse(storedUserInfo) : {};
   });
 
+  const userInfo = React.useMemo(() => {
+      return JSON.parse(localStorage.getItem('userInfo')) || {};
+  }, []);
+
   const menuRefs = useRef({});
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMandate, setSelectedMandate] = useState(null);
@@ -124,12 +128,14 @@ function MunicipalityMandate() {
           <h1 className="municipality-mandate-header-title">
             {t('MunicipalityMandate.mandateTitle')}
           </h1>
-          <button
-            className="municipality-mandate-add-button"
-            onClick={() => navigate(`/municipalities/${id}/mandates/add-form`)}
-          >
-            {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
-          </button>
+          {userInfo.role === 'ROLE_ADMIN' && (
+            <button
+              className="municipality-mandate-add-button"
+              onClick={() => navigate(`/municipalities/${id}/mandates/add-form`)}
+            >
+              {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
+            </button>
+          )}
         </div>
 
         <div className="mandates-list">
