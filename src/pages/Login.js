@@ -63,7 +63,7 @@ function Login() {
             const { token, userInfo } = data;
             const role = userInfo.role;
 
-            if (userInfo.role === "ROLE_PRESENTER") {
+            if (role === "ROLE_PRESENTER") {
                 changeLanguage("mk");
             }
             login(token, JSON.stringify(userInfo), role);
