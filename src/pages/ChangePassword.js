@@ -6,7 +6,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faChevronLeft, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const ChangePassword = () => {
   const { t } = useTranslation();
@@ -150,13 +150,15 @@ const ChangePassword = () => {
 
             <div className='d-flex flex-row mt-2'>
               <button type="submit" className="button-change-password-submit me-2">
-                {t('changePassword.submit')}
+                {t('changePassword.submit')}{" "}
+                <FontAwesomeIcon icon={faLock} />
               </button>
               <button
                 type="button"
                 onClick={() => navigate('/profile')}
                 className="button-change-password-back"
               >
+                <FontAwesomeIcon icon={faChevronLeft} />{" "}
                 {t('changePassword.back')}
               </button>
             </div>

@@ -8,33 +8,45 @@
     box-sizing: border-box;
 }
 
-.image-form {
-
-    width: 600px;
-    max-width: 600px;
-    margin: auto;
+.change-image-body-container {
+    background: #ffffff;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 32px;
+    border-radius: 22px;
+    animation: fadeIn 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+.change-image-body-container h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Modern drop area */
 .file-drop-area-image {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 250px;
-    padding: 25px;
-    border: 2px dashed black;
-    border-radius: 20px;
-    transition: border-color 0.3s;
+    background: #fafafa;
+    border: 2px dashed #d0d0d0;
+    border-radius: 16px;
+    padding: 32px 20px;
+    min-height: 180px;
+    transition: border-color 0.25s, background-color 0.25s;
     cursor: pointer;
     text-align: center;
+    height: 280px;
+    width: 450px;
 }
 
-.file-drop-message-image {
-    margin: 0;
-    font-size: 16px;
-    color: #6c757d;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.file-drop-area-image:hover {
+    border-color: #b1b1b1;
+    background: #f3f3f3;
 }
 
 .file-drop-area-image input[type=file] {
@@ -47,80 +59,92 @@
     cursor: pointer;
 }
 
+.file-drop-message-image {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #6b7280;
+}
+
 .file-drop-message-image span {
-    color: black;
+    color: #000;
     font-weight: 600;
 }
 
-.parent-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80vh;
-    /* Optional: for full-height parent div */
-    margin-top: -50px;
-}
-
-.error-message-image {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(217, 83, 79, 0.4);
-    border-radius: 10px;
+/* Error & success */
+.error-message {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(217, 83, 79, 0.15);
+    color: #b02a37;
+    border-radius: 8px;
     text-align: center;
-    color: #d9534f;
+    font-size: 14px;
 }
 
-.button-change-image-submit {
-    background-color: #fbe64e;
-    border: none;
-    border-radius: 10px;
-    padding: 8px 18px;
-    color: #fff;
-    font-weight: 500;
+.success-message {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(40, 167, 69, 0.15);
+    color: #28a745;
+    border-radius: 8px;
+    text-align: center;
     font-size: 14px;
+}
+
+/* Buttons */
+.button-change-image-submit,
+.button-change-image-back {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    color: black;
     transition: background-color 0.1s, transform 0.1s;
+}
+
+/* Upload button */
+.button-change-image-submit {
+    background-color: #fde047;
+    color: black;
 }
 
 .button-change-image-submit:hover {
-    background-color: #f7db2c;
+    background-color: #facc15;
     transform: scale(1.03);
 }
 
-.button-change-image-back{
-    background-color: white;
-    padding: 8px 18px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    font-weight: 500;
-    text-align: center;
-    border-radius: 10px;
+/* Back button */
+.button-change-image-back {
+    background-color: #ffffff;
+    border: 1px solid #dedede;
     color: black;
-    cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.1s, transform 0.1s;
 }
 
-.button-change-image-back:hover{
-    background-color: #ddd;
+.button-change-image-back:hover {
+    background-color: #f0f0f0;
     transform: scale(1.03);
 }
 
-/* Media Query for Mobile Screens */
-@media (max-width: 620px) {
-    .image-form {
-        width: 90vw;
-        max-width: none;
+/* Fade animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-
-@media (max-width: 500px) {
-    .image-form {
-        width: 95vw;
+/* Mobile */
+@media (max-width: 480px) {
+    .change-image-body-container {
+        padding: 24px;
+        max-width: 90%;
     }
 }
-
-
-

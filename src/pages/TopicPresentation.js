@@ -7,7 +7,7 @@ import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
+import { faToggleOn, faToggleOff, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
@@ -129,6 +129,7 @@ const TopicPresentation = () => {
             navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)
           }
         >
+          <FontAwesomeIcon icon={faChevronLeft} />{" "}
           {t("topicsPage.backButton")}
         </button>
 

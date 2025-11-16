@@ -4,6 +4,8 @@ import '../styles/ChangeImage.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faUpload } from "@fortawesome/free-solid-svg-icons";
 
 const ChangeImage = () => {
     const { t } = useTranslation();
@@ -102,7 +104,7 @@ const ChangeImage = () => {
             <Header userInfo={userInfo} />
 
             <main>
-                <div className='card image-form'>
+                <div className='change-image-body-container'>
                     <div className="card-header text-center">
                         <h2>{t('changeImage.header')}</h2>
                     </div>
@@ -128,10 +130,12 @@ const ChangeImage = () => {
 
                             <div className="d-flex flex-row mt-2">
                                 <button type="submit" className="button-change-image-submit me-2">
-                                    {t('changeImage.uploadButton')}
+                                    {t('changeImage.uploadButton')}{" "}
+                                    <FontAwesomeIcon icon={faUpload} />
                                 </button>
                                 <a type="button" className="button-change-image-back" href="/profile">
-                                    {t('changeImage.backButton')}
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                    {" "}{t('changeImage.backButton')}
                                 </a>
                             </div>
                         </form>

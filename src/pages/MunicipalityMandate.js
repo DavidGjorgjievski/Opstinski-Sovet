@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight, faChevronDown, faChevronUp, faPenToSquare, faTrash, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function MunicipalityMandate() {
   const { t } = useTranslation();
@@ -224,6 +225,8 @@ function MunicipalityMandate() {
         onConfirm={confirmDeleteMandate}
         mandateName={selectedMandate?.termPeriod || ""}
       />
+
+      <Footer />
     </div>
   );
 }
