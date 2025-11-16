@@ -48,7 +48,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .municipality-add-button:hover {
@@ -156,6 +156,7 @@ button {
     color: black;
     border: 2px solid #fbe64e;
     display: inline-block;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .button-see-content:hover {
@@ -171,6 +172,7 @@ button {
     font-size: 14px;
     padding: 6px 8px;
     font-weight: 500;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .button-option-content:hover{

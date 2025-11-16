@@ -59,7 +59,7 @@ html {
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
     white-space: nowrap;
     min-width: 130px;
     max-width: 200px;
@@ -80,7 +80,7 @@ html {
     padding: 6px 10px;
     border-radius: 10px !important;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
@@ -109,7 +109,7 @@ html {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
     width: 210px;
 }
 
@@ -163,7 +163,7 @@ html {
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .back-button-topic:hover{
@@ -445,6 +445,7 @@ html {
     padding: 0;
     margin-left: -120px;
     z-index: 800;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .menu-list li {
@@ -559,6 +560,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .toggle-topics{

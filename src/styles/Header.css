@@ -32,8 +32,18 @@ nav {
     justify-content: center;
 }
 
+#desktop-nav li{
+    transition: transform 0.1s;
+}
+
 #desktop-nav li:hover {
     color: black;
+    transform: scale(1.03);
+}
+
+#desktop-nav li.active:hover {
+    transform: scale(1);
+    /* disable scaling */
 }
 
 .nav-item-mobile {
@@ -87,6 +97,7 @@ nav {
     margin-top: 5px;
     margin-right: 50px;
     cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .header-image:hover {
@@ -167,6 +178,7 @@ nav {
     margin-top: 5px;
     margin-left: 50px;
     margin-bottom: 0px;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .logo-img:hover {
@@ -209,6 +221,7 @@ nav {
     right: 120px;
     top: 50%;
     transform: translateY(-50%);
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .selected-language-header {

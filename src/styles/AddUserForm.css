@@ -61,7 +61,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: background-color 0.1s, transform 0.1s;
     caret-color: black;
     user-select: none;
 }
@@ -139,6 +139,11 @@
     font-size: 1.25rem;
     background-color: white;
     width: 25px;
+    transition: transform 0.1s;
+}
+
+.eye-icon:hover{
+    transform: scale(1.03);
 }
 
 .user-form-submit-button {
@@ -152,7 +157,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .user-form-submit-button:hover {
@@ -171,7 +176,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .user-form-back-button:hover {

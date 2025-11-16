@@ -68,7 +68,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .mandate-form-submit-button:hover {
@@ -87,7 +87,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .mandate-form-back-button:hover {

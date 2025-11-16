@@ -30,6 +30,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-weight: 500;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .back-button-presenter:hover {

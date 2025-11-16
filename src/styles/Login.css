@@ -74,6 +74,7 @@ input {
     border-radius: 10px !important;
     border: none;
     font-weight: bold;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 
@@ -93,6 +94,21 @@ input {
     object-fit: contain;
 }
 
+.login-eye-icon {
+    margin-left: -40px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1.25rem;
+    background-color: white;
+    width: 25px;
+    transition: transform 0.1s;
+}
+
+.login-eye-icon:hover{
+    transform: scale(1.05);
+}
+
+
 .guest-button{
     background-color: white;
     padding: 5px 15px;
@@ -103,7 +119,7 @@ input {
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .guest-button:hover{
@@ -138,6 +154,7 @@ input {
     border: 1px solid #ddd;
     cursor: pointer;
     background-color: white;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .selected-language:hover {

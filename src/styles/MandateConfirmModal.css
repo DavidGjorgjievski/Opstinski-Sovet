@@ -33,7 +33,7 @@
     font-weight: 600;
     cursor: pointer;
     border: none;
-    transition: transform 0.2s ease;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .mandate-btn:hover {

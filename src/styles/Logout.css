@@ -48,6 +48,7 @@ p {
     font-size: 15px;
     border: none;
     text-decoration: none;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .login-button:hover {

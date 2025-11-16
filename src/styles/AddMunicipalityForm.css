@@ -73,7 +73,7 @@
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .image-upload-button-preview:hover {
@@ -118,7 +118,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .municipality-form-add-button:hover {
@@ -137,7 +137,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .municipality-form-back-button-topic:hover {
@@ -176,8 +176,8 @@
     cursor: pointer;
     text-align: center;
     font-size: 14px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     margin-bottom: 12px;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 /* Hover effect */

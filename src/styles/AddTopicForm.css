@@ -151,13 +151,14 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    transition: all 0.3s ease;
     justify-content: center;
     user-select: none;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .custom-select-box:hover {
     background-color: #f9f9f9;
+    transform: scale(1.03);
 }
 
 .custom-select-box:focus {
@@ -267,7 +268,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .topic-form-submit-button:hover {
@@ -286,7 +287,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .topic-form-back-button:hover {

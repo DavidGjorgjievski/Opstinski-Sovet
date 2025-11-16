@@ -58,7 +58,7 @@
     cursor: pointer;
     font-size: 18px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .camera-button:hover {
@@ -135,9 +135,9 @@
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     width: 100%;
     color: black;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .modern-button:hover {

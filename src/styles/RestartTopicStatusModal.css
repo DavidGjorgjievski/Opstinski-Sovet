@@ -35,9 +35,9 @@
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
     text-align: center;
     color: black;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .top-confirm-button {

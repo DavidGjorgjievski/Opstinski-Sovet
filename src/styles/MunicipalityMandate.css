@@ -39,7 +39,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .municipality-mandate-add-button:hover {
@@ -112,7 +112,7 @@
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
     color: black;
 }
 
@@ -147,7 +147,7 @@
     font-weight: 500;
     width: 125px;
     color: black;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .municipality-mandate-button-option-content:hover {

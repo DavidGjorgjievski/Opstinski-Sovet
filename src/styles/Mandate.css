@@ -42,7 +42,7 @@
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .mandate-add-button:hover {
@@ -113,16 +113,16 @@
 .options-btn {
     background: none;
     border: none;
-    color: #555;
+    color: black;
     cursor: pointer;
     font-size: 24px;
     padding: 4px;
     border-radius: 6px;
-    transition: background-color 0.2s;
+    transition: transform 0.1s;
 }
 
 .options-btn:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
 }
 
 .options-menu {

@@ -76,7 +76,7 @@ html{
     border-radius: 10px;
     color: black;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: background-color 0.1s, transform 0.1s;
     margin-top: 10px;
 }
 
@@ -212,6 +212,7 @@ html{
     padding: 8px 10px;
     font-weight: 500;
     color: black;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .button-option-content:hover{
@@ -230,6 +231,7 @@ html{
     color: black;
     border: 2px solid #fbe64e;
     display: inline-block;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .button-see-content:hover {
