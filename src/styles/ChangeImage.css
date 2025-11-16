@@ -142,9 +142,39 @@
 }
 
 /* Mobile */
+/* Mobile */
 @media (max-width: 480px) {
+
+    .change-image-container {
+        padding: 5px;
+        height: auto;
+    }
+
     .change-image-body-container {
-        padding: 24px;
-        max-width: 90%;
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .change-image-body-container h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    /* Drop area responsive */
+    .file-drop-area-image {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+    }
+
+    .file-drop-message-image {
+        font-size: 14px;
+    }
+
+    .button-change-image-submit,
+    .button-change-image-back {
+        font-size: 13px;
+        padding: 12px;
+        text-align: center;
     }
 }
