@@ -99,7 +99,6 @@
 "MunicipalityMandateUsers": {
     "title": "Council Members",
     "back": "Back",
-    "loading": "Loading...",
     "noUsers": "No users found for this mandate."
   },
 

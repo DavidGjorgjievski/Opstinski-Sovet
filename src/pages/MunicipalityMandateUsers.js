@@ -61,41 +61,63 @@ function MunicipalityMandateUsers() {
 
       <main className="municipality-mandate-users-content">
 
+        {/* Header */}
         <div className="municipality-mandate-users-header">
-          <button className="back-button" onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faArrowLeft} /> {t("MunicipalityMandateUsers.back")}
-          </button>
+          <div className="header-section">
+            <button className="municipality-mandate-users-back-button" onClick={() => navigate(-1)}>
+              <FontAwesomeIcon icon={faArrowLeft} /> {t("MunicipalityMandateUsers.back")}
+            </button>
+          </div>
 
-          <h1 className="municipality-mandate-users-title">
-            {t("MunicipalityMandateUsers.title")}
-          </h1>
+          <div className="header-section title-section">
+            <h1 className="municipality-mandate-users-title">
+              {t("MunicipalityMandateUsers.title")}
+            </h1>
+          </div>
+
+          <div className="header-section">
+            {/* empty for spacing */}
+          </div>
         </div>
 
-        {loading ? (
-          <p>{t("MunicipalityMandateUsers.loading")}</p>
-        ) : users.length === 0 ? (
-          <p>{t("MunicipalityMandateUsers.noUsers")}</p>
-        ) : (
-          <div className="municipality-mandate-users-grid">
-            {users.map((user) => (
-              <div key={user.username} className="municipality-mandate-users-card">
-                {user.image ? (
-                  <img
-                    src={`data:image/jpeg;base64,${user.image}`}
-                    alt="User"
-                    className="municipality-mandate-users-avatar"
-                  />
-                ) : (
-                  <div className="municipality-mandate-users-avatar placeholder">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                <p className="municipality-mandate-users-name">
-                  {user.name} {user.surname}
-                </p>
-              </div>
-            ))}
+        {/* Spinner */}
+        {loading && (
+          <div className="municipalaty-mandate-user-spinner">
+            <img
+              src={`${process.env.PUBLIC_URL}/images/loading.svg`}
+              alt={t("MunicipalityMandateUsers.loading")}
+            />
           </div>
+        )}
+
+        {/* Users grid */}
+        {!loading && (
+          <>
+            {users.length === 0 ? (
+              <p>{t("MunicipalityMandateUsers.noUsers")}</p>
+            ) : (
+              <div className="municipality-mandate-users-grid">
+                {users.map((user) => (
+                  <div key={user.username} className="municipality-mandate-users-card">
+                    {user.image ? (
+                      <img
+                        src={`data:image/jpeg;base64,${user.image}`}
+                        alt="User"
+                        className="municipality-mandate-users-avatar"
+                      />
+                    ) : (
+                      <div className="municipality-mandate-users-avatar placeholder">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <p className="municipality-mandate-users-name">
+                      {user.name} {user.surname}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </main>
     </div>

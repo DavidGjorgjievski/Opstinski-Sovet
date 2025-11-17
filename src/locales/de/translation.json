@@ -99,7 +99,6 @@
 "MunicipalityMandateUsers": {
     "title": "Ratsmitglieder",
     "back": "Zurück",
-    "loading": "Wird geladen...",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden."
   },
 

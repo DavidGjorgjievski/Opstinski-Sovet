@@ -99,7 +99,6 @@
 "MunicipalityMandateUsers": {
     "title": "Советници",
     "back": "Назад",
-    "loading": "Се вчитува...",
     "noUsers": "Нема корисници за овој мандат."
   },
 

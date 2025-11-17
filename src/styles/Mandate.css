@@ -185,11 +185,6 @@
         width: 90vw;
     }
 
-    .mandate-spinner img {
-        width: 80px;
-        height: 80px;
-    }
-
     .mandate-header {
         flex-direction: column;
         align-items: center;
