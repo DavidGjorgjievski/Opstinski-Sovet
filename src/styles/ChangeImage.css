@@ -12,6 +12,7 @@
     background: #ffffff;
     width: 100%;
     max-width: 500px;
+    box-sizing: border-box;
     margin: 0 auto;
     padding: 32px;
     border-radius: 22px;
@@ -21,12 +22,11 @@
 
 .change-image-body-container h2 {
     margin-bottom: 20px;
-    font-size: 22px;
+    font-size: 2rem;
     font-weight: 600;
     text-align: center;
 }
 
-/* Modern drop area */
 .file-drop-area-image {
     position: relative;
     display: flex;
@@ -42,6 +42,7 @@
     text-align: center;
     height: 280px;
     width: 450px;
+    max-width: 100%;
 }
 
 .file-drop-area-image:hover {
@@ -64,6 +65,8 @@
     font-size: 15px;
     line-height: 1.4;
     color: #6b7280;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .file-drop-message-image span {
@@ -71,7 +74,7 @@
     font-weight: 600;
 }
 
-/* Error & success */
+
 .error-message {
     margin-top: 10px;
     padding: 10px;
@@ -92,7 +95,6 @@
     font-size: 14px;
 }
 
-/* Buttons */
 .button-change-image-submit,
 .button-change-image-back {
     padding: 10px 20px;
@@ -104,7 +106,6 @@
     transition: background-color 0.1s, transform 0.1s;
 }
 
-/* Upload button */
 .button-change-image-submit {
     background-color: #fde047;
     color: black;
@@ -115,7 +116,6 @@
     transform: scale(1.03);
 }
 
-/* Back button */
 .button-change-image-back {
     background-color: #ffffff;
     border: 1px solid #dedede;
@@ -128,21 +128,14 @@
     transform: scale(1.03);
 }
 
-/* Fade animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+@media (max-width: 600px) {
+    .change-image-body-container h2 {
+        font-size: 1.5rem !important;
     }
 }
 
-/* Mobile */
-/* Mobile */
 @media (max-width: 480px) {
 
     .change-image-container {
@@ -153,14 +146,14 @@
     .change-image-body-container {
         padding: 20px;
         max-width: 100%;
+        width: 95vw !important;
     }
 
     .change-image-body-container h2 {
-        font-size: 18px;
         margin-bottom: 15px;
     }
 
-    /* Drop area responsive */
+
     .file-drop-area-image {
         width: 100%;
         height: 200px;
@@ -178,3 +171,139 @@
         text-align: center;
     }
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+ .change-image-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100dvh;
+     width: 100vw;
+     background: linear-gradient(135deg, #f0f4ff, #fbffd9);
+     box-sizing: border-box;
+ }
+
+ .change-image-body {
+     padding: 20px;
+     border-radius: 20px;
+     width: 100%;
+     max-width: 500px;
+     background-color: #fff;
+     margin: 0;
+     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+ }
+
+ .change-image-title {
+     font-size: 2rem;
+ }
+
+ .change-image-header {
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     padding: 0 15px;
+ }
+
+ .change-image-input-field {
+     border-radius: 12px;
+     border: 2px solid #ddd;
+     padding: 12px 15px;
+     font-size: 16px;
+     transition: all 0.3s ease;
+     width: 100%;
+     margin-bottom: 10px;
+     caret-color: black;
+ }
+
+ .change-image-input-field:focus {
+     border-color: black;
+     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+     outline: none;
+ }
+
+ .success-message {
+     color: #28a745;
+     background-color: #d4edda;
+     border: 1px solid #c3e6cb;
+     padding: 10px;
+     border-radius: 10px;
+     margin-top: 15px;
+     font-weight: bold;
+ }
+
+ .error-message {
+     color: #dc3545;
+     background-color: #f8d7da;
+     border: 1px solid #f5c6cb;
+     padding: 10px;
+     border-radius: 10px;
+     margin-top: 15px;
+     font-weight: bold;
+ }
+
+ .button-change-image-submit {
+     background-color: #fbe64e;
+     border: none;
+     border-radius: 10px;
+     padding: 10px 20px;
+     color: black;
+     font-weight: 500;
+     font-size: 14px;
+     cursor: pointer;
+     transition: background-color 0.1s, transform 0.1s;
+ }
+
+ .button-change-image-submit:hover {
+     background-color: #f7db2c;
+     transform: scale(1.03);
+ }
+
+ .button-change-image-back {
+     background-color: white;
+     padding: 8px 18px;
+     font-size: 14px;
+     border: 1px solid #ddd;
+     font-weight: 500;
+     text-align: center;
+     border-radius: 10px;
+     color: black;
+     cursor: pointer;
+     transition: background-color 0.1s, transform 0.1s;
+ }
+
+ .button-change-image-back:hover {
+     background-color: #ddd;
+     transform: scale(1.03);
+ }
+
+ /* 📱 MOBILE RESPONSIVE — SAME LOGIC AS CHANGE PASSWORD */
+ @media (max-width: 600px) {
+     .change-image-title {
+         font-size: 1.5rem !important;
+     }
+ }
+
+ @media (max-width: 500px) {
+     .change-image-body {
+         width: 95vw;
+     }
+
+     .button-change-image-submit,
+     .button-change-image-back {
+         font-size: 13px;
+     }
+ }

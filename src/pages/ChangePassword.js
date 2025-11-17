@@ -80,7 +80,7 @@ const ChangePassword = () => {
 
       <main className="change-password-body">
         <div className="password-change-header">
-          <h1 className="password-change-title">{t('changePassword.header')}</h1>
+          <h2 className="password-change-title">{t('changePassword.header')}</h2>
         </div>
         <div>
           <form onSubmit={handleSubmit} className="change-password-form">
