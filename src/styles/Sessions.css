@@ -6,6 +6,12 @@
     height: 100vh;
 }
 
+html{
+    overflow-x: hidden;
+    /* overscroll-behavior-x: none;
+    touch-action: pan-y; */
+}
+
 .session-body-container{
     margin-top: 80px;
 }
