@@ -5,10 +5,12 @@
     width: 100vw;
     min-height: 100vh;
     box-sizing: border-box;
+    position: relative;
 }
 
 .municipality-mandate-body-container {
     margin-top: 20px;
+    min-width: 50vw;
     max-width: 1200px;
     box-sizing: border-box;
 }
@@ -178,8 +180,15 @@
     color: #d9534f;
 }
 
+
+
 @media (max-width: 768px) {
 
+    .municipality-mandate-body-container 
+    {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
 
     .municipality-mandate-header {
         flex-direction: column;
@@ -188,9 +197,8 @@
     }
 
     .municipality-mandate-header-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
-
 
    .mandate-card {
        flex-direction: column;
@@ -222,10 +230,6 @@
     }
 
     .municipality-mandate-body-container {
-        padding-top: 35px;
-        margin-top: 100px;
-        /* space under sticky header */
-        padding-bottom: 100px;
-        /* extra scroll space */
+        margin-top: 120px;
     }
 }
