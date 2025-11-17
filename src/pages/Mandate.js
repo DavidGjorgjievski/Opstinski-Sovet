@@ -27,11 +27,6 @@ function Mandate() {
     const menuRefs = useRef({});
 
    useEffect(() => {
-    // const imageData = localStorage.getItem('image');
-    // if (imageData) {
-    //     setUserData(prevData => ({ ...prevData, image: imageData }));
-    // }
-
     const cleanupMobileMenu = initializeMobileMenu();
 
     const fetchMandates = async () => {

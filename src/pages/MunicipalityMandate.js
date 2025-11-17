@@ -130,111 +130,114 @@ function MunicipalityMandate() {
 
       <Header userInfo={userData} isSticky={true} />
 
-      <main className="municipality-mandate-body-container">
-  {loading ? (
-    <div className="mandate-spinner">
+      <main className={`municipality-mandate-body-container ${municipalityTerms.length === 2 ? 'two-mandates' : ''}`}>
+  <div className="municipality-mandate-header">
+    <h1 className="municipality-mandate-header-title">
+      {t('MunicipalityMandate.mandateTitle')}
+    </h1>
+    {userInfo.role === 'ROLE_ADMIN' && (
+      <button
+        className="municipality-mandate-add-button"
+        onClick={() => navigate(`/municipalities/${id}/mandates/add-form`)}
+      >
+        {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
+      </button>
+    )}
+  </div>
+
+  {/* Spinner under header */}
+  {loading && (
+    <div className="municipalaty-mandate-spinner">
       <img
         src={`${process.env.PUBLIC_URL}/images/loading.svg`}
         alt="Loading..."
       />
     </div>
-  ) : (
-    <>
-      <div className="municipality-mandate-header">
-        <h1 className="municipality-mandate-header-title">
-          {t('MunicipalityMandate.mandateTitle')}
-        </h1>
-        {userInfo.role === 'ROLE_ADMIN' && (
-          <button
-            className="municipality-mandate-add-button"
-            onClick={() => navigate(`/municipalities/${id}/mandates/add-form`)}
-          >
-            {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
-          </button>
-        )}
-      </div>
+  )}
 
-      <div className="mandates-list">
-        {municipalityTerms.length > 0 ? (
-          [...municipalityTerms].reverse().map((item) => {
-            const [startDate, endDate] = item.termPeriod.split(' - ');
-            const formattedStart = formatDateByLanguage(startDate);
-            const formattedEnd = formatDateByLanguage(endDate);
+  {/* Mandates list */}
+  {!loading && (
+    <div className="mandates-list">
+      {municipalityTerms.length > 0 ? (
+        [...municipalityTerms].reverse().map((item) => {
+          const [startDate, endDate] = item.termPeriod.split(' - ');
+          const formattedStart = formatDateByLanguage(startDate);
+          const formattedEnd = formatDateByLanguage(endDate);
 
-            return (
-              <div key={item.id} className="mandate-card">
-                {item.termImage && (
-                  <img
-                    src={`data:image/jpeg;base64,${item.termImage}`}
-                    alt="Mandate"
-                    className="mandate-image"
-                  />
-                )}
-                <div className="mandate-info">
-                  <p className="mandate-date">
-                    {formattedStart} <FontAwesomeIcon icon={faArrowRight} /> {formattedEnd}
-                  </p>
+          return (
+            <div key={item.id} className="mandate-card">
+              {item.termImage && (
+                <img
+                  src={`data:image/jpeg;base64,${item.termImage}`}
+                  alt="Mandate"
+                  className="mandate-image"
+                />
+              )}
+              <div className="mandate-info">
+                <p className="mandate-date">
+                  {formattedStart} <FontAwesomeIcon icon={faArrowRight} /> {formattedEnd}
+                </p>
 
-                  <div className="mandate-actions">
-                    <button
-                      className="mandate-view-button"
-                      onClick={() =>
-                        navigate(`/municipalities/${id}/mandates/users/${item.id}`)
-                      }
+                <div className="mandate-actions">
+                  <button
+                    className="mandate-view-button"
+                    onClick={() =>
+                      navigate(`/municipalities/${id}/mandates/users/${item.id}`)
+                    }
+                  >
+                    {t('MunicipalityMandate.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
+                  </button>
+
+                  {userData.role === 'ROLE_ADMIN' && (
+                    <div
+                      className="municipality-mandate-option-wrapper"
+                      ref={(el) => (menuRefs.current[item.id] = el)}
                     >
-                      {t('MunicipalityMandate.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-
-                    {userData.role === 'ROLE_ADMIN' && (
-                      <div
-                        className="municipality-mandate-option-wrapper"
-                        ref={(el) => (menuRefs.current[item.id] = el)}
+                      <button
+                        className="municipality-mandate-button-option-content"
+                        onClick={() =>
+                          setOpenMenuId(openMenuId === item.id ? null : item.id)
+                        }
                       >
-                        <button
-                          className="municipality-mandate-button-option-content"
-                          onClick={() =>
-                            setOpenMenuId(openMenuId === item.id ? null : item.id)
-                          }
-                        >
-                          {t('MunicipalityMandate.options')}{' '}
-                          <FontAwesomeIcon
-                            icon={openMenuId === item.id ? faChevronUp : faChevronDown}
-                          />
-                        </button>
+                        {t('MunicipalityMandate.options')}{' '}
+                        <FontAwesomeIcon
+                          icon={openMenuId === item.id ? faChevronUp : faChevronDown}
+                        />
+                      </button>
 
-                        {openMenuId === item.id && (
-                          <div className="municipality-mandate-option-menu">
-                            <button
-                              className="dropdown-item"
-                              onClick={() =>
-                                navigate(`/municipalities/${id}/mandates/edit/${item.id}`)
-                              }
-                            >
-                              <FontAwesomeIcon icon={faPenToSquare} /> {t('MunicipalityMandate.edit')}
-                            </button>
+                      {openMenuId === item.id && (
+                        <div className="municipality-mandate-option-menu">
+                          <button
+                            className="dropdown-item"
+                            onClick={() =>
+                              navigate(`/municipalities/${id}/mandates/edit/${item.id}`)
+                            }
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} /> {t('MunicipalityMandate.edit')}
+                          </button>
 
-                            <button
-                              className="dropdown-item delete"
-                              onClick={() => handleDeleteMandate(item)}
-                            >
-                              <FontAwesomeIcon icon={faTrash} /> {t('MunicipalityMandate.delete')}
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
+                          <button
+                            className="dropdown-item delete"
+                            onClick={() => handleDeleteMandate(item)}
+                          >
+                            <FontAwesomeIcon icon={faTrash} /> {t('MunicipalityMandate.delete')}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
-            );
-          })
-        ) : (
-          <p>{t('MunicipalityMandate.noMandates')}</p>
-        )}
-      </div>
-    </>
+            </div>
+          );
+        })
+      ) : (
+        <p>{t('MunicipalityMandate.noMandates')}</p>
+      )}
+    </div>
   )}
 </main>
+
 
 
       <MunicipalityMandateConfirmModal
