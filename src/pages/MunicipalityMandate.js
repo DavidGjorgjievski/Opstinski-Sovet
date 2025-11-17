@@ -16,6 +16,7 @@ function MunicipalityMandate() {
   const { id } = useParams();
   const [municipalityTerms, setMunicipalityTerms] = useState([]);
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [userData] = useState(() => {
     const storedUserInfo = localStorage.getItem('userInfo');
@@ -37,34 +38,39 @@ function MunicipalityMandate() {
   }, []);
 
   // Fetch municipality terms or use cache
-  useEffect(() => {
-    const fetchMunicipalityTerms = async () => {
-      const cacheKey = `municipalityMandates_${id}`;
-      const cachedData = localStorage.getItem(cacheKey);
+ useEffect(() => {
+  const fetchMunicipalityTerms = async () => {
+    setLoading(true); // start loading
+    const cacheKey = `municipalityMandates_${id}`;
+    const cachedData = localStorage.getItem(cacheKey);
 
-      if (cachedData) {
-        setMunicipalityTerms(JSON.parse(cachedData));
-        return;
-      }
+    if (cachedData) {
+      setMunicipalityTerms(JSON.parse(cachedData));
+      setLoading(false); // stop loading
+      return;
+    }
 
-      try {
-        const token = localStorage.getItem('jwtToken');
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/${id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        if (!response.ok) throw new Error('Failed to fetch terms');
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/${id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (!response.ok) throw new Error('Failed to fetch terms');
 
-        const data = await response.json();
-        setMunicipalityTerms(data);
-        localStorage.setItem(cacheKey, JSON.stringify(data));
-      } catch (error) {
-        console.error('Error fetching Municipality Terms:', error);
-      }
-    };
+      const data = await response.json();
+      setMunicipalityTerms(data);
+      localStorage.setItem(cacheKey, JSON.stringify(data));
+    } catch (error) {
+      console.error('Error fetching Municipality Terms:', error);
+    } finally {
+      setLoading(false); // stop loading
+    }
+  };
 
-    fetchMunicipalityTerms();
-  }, [id]);
+  fetchMunicipalityTerms();
+}, [id]);
+
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -140,7 +146,14 @@ function MunicipalityMandate() {
         </div>
 
         <div className="mandates-list">
-          {municipalityTerms.length > 0 ? (
+           {loading ? (
+        <div className="mandate-spinner">
+          <img
+            src={`${process.env.PUBLIC_URL}/images/loading.svg`}
+            alt="Loading..."
+          />
+        </div>
+      ) : municipalityTerms.length > 0 ? (
             // Newest first
             [...municipalityTerms].reverse().map((item) => {
               const [startDate, endDate] = item.termPeriod.split(' - ');
