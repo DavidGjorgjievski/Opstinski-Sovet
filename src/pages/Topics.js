@@ -32,17 +32,19 @@ function Topics() {
     const { t } = useTranslation();
     const selectedLang = localStorage.getItem("selectedLanguage") || "mk";
     const [sessionMunicipalityTermId, setSessionMunicipalityTermId] = useState(null);
-    const [showFixDiv, setshowFixDiv] = useState(true); 
-
-
+    const [showFixDiv, setshowFixDiv] = useState(false); 
+    const userInfo = useMemo(() => JSON.parse(localStorage.getItem('userInfo')), []);
+    const token = localStorage.getItem('jwtToken');
+    const navigate = useNavigate();
+    const [currentVotes, setCurrentVotes] = useState({});
     const [onlineUsersNumber, setOnlineUsersNumber] = useState(0);
-
     const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
-
     const [topicsLoaded, setTopicsLoaded] = useState(false);
-
+    const [showNumber, setShowNumber] = useState(false);
+    const [isVoteAction, setIsVoteAction] = useState(false);
+    const isVoteActionRef = useRef(isVoteAction);
     // WEB SOCKETS
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
     const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
@@ -102,14 +104,11 @@ function Topics() {
     }));
   };
 
-   const [showNumber, setShowNumber] = useState(false); // State to control visibility of number
 
     const toggleVisibility = () => {
         setShowNumber(!showNumber); // Toggle the visibility
         fetchOnlineUsers();
     };
-
-
 
 const handleClickOutside = useCallback(
   (event) => {
@@ -137,8 +136,7 @@ const handleClickOutside = useCallback(
   };
 }, [handleClickOutside]);
 
-    const [isVoteAction, setIsVoteAction] = useState(false);
-    const isVoteActionRef = useRef(isVoteAction);
+  
 
     const openModal = (topicId, topicTitle) => {
         setSelectedTopicId(topicId);
@@ -152,14 +150,7 @@ const handleClickOutside = useCallback(
         setSelectedTopicTitle(null); // Clear the title as well
     };
 
-    const userInfo = useMemo(() => JSON.parse(localStorage.getItem('userInfo')), []);
-    const token = localStorage.getItem('jwtToken');
-    const navigate = useNavigate();
-
-
-    // new IMPL
-      const [currentVotes, setCurrentVotes] = useState({});
-
+ 
       const fetchTopics = useCallback(async () => {
         try {
           const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
@@ -215,7 +206,6 @@ const handleClickOutside = useCallback(
 
             const userVotes = await response.json();
 
-            // Map the fetched votes to currentVotes state
             const votesMap = {};
             userVotes.forEach(([topicId, voteStatus]) => {
                 votesMap[topicId] = voteStatus;
@@ -226,6 +216,8 @@ const handleClickOutside = useCallback(
             console.error('Error fetching user votes:', error);
         }
     }, [id, token]);
+
+
 
    const fetchOnlineUsers = useCallback(async () => {
     if (!municipalityId || !token) return;
@@ -249,9 +241,12 @@ const handleClickOutside = useCallback(
         console.error("Error fetching online users:", error);
     }
 }, [municipalityId, token]);  // Ensure token is included as a dependency
+
 useEffect(() => {
-    fetchOnlineUsers();
-}, [fetchOnlineUsers]);
+    if (showFixDiv) {
+        fetchOnlineUsers();
+    }
+}, [fetchOnlineUsers, showFixDiv]);
 
 
     useEffect(() => {
@@ -259,12 +254,15 @@ useEffect(() => {
             setUserRole(userInfo.role);
         }
         fetchTopics();
-        if (userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_PRESIDENT') {
+        if (
+        showFixDiv &&
+        (userInfo.role === "ROLE_USER" || userInfo.role === "ROLE_PRESIDENT")
+        ) {
             fetchUserVotes();
         }
         const cleanupMobileMenu = initializeMobileMenu();
         return () => cleanupMobileMenu();
-    }, [token, userInfo, fetchTopics, id, fetchUserVotes]);
+    }, [token, userInfo, fetchTopics, id, fetchUserVotes, showFixDiv]);
 
 
     const handleDelete = async () => {
@@ -307,7 +305,6 @@ useEffect(() => {
         }
     }, [topics]);
 
-    // Determine if the user can vote
    const canVote = 
     (userRole === 'ROLE_PRESIDENT' || userRole === 'ROLE_USER') &&
     userInfo.municipalityId === municipalityId 
@@ -453,9 +450,6 @@ const handleVote = async (topicId, voteType) => {
     }
 };
 
-    
-    // for scrool
-
 useEffect(() => {
     // Save scroll position on refresh
     const handleBeforeUnload = () => {
@@ -474,11 +468,9 @@ const saveScrollPosition = () => {
     sessionStorage.setItem('scrollPosition', scrollPosition);
 };
 
-
 useEffect(() => {
     isVoteActionRef.current = isVoteAction;
 }, [isVoteAction]);
-
 
 useEffect(() => {
   if (!topicsLoaded) return; // Wait until first load is complete
@@ -528,7 +520,6 @@ const handlePresentClick = async (topicId) => {
 
         if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
-        // Notify all presenters via WebSocket — only the topic ID
         sendPresenterUpdate(topicId);
 
     } catch (error) {
