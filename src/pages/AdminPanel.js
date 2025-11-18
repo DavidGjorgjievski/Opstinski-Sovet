@@ -101,7 +101,7 @@ function AdminPanel() {
             <Header userInfo={userData} />
 
             <div className="admin-body d-flex flex-column">
-                <div className="d-flex flex-row justify-content-between mb-4">
+                <div className="admin-header-div">
                     <a href="/" className='a-tag-user-back-button'>
                         <button className="user-back-button"><FontAwesomeIcon icon={faChevronLeft} /> {t("adminPanel.backButton")}</button>
                     </a>
@@ -121,10 +121,10 @@ function AdminPanel() {
                     <div className="admin-user-lists">
                         {users.length > 0 ? (
                             <>
-                                <UserTable
+                              <UserTable
                                     users={users.filter(user => user.role === 'ROLE_ADMIN')}
                                     title={t("adminPanel.admins")}
-                                    bgColor="primary"
+                                    bgColor="user-role-admin"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
@@ -132,7 +132,7 @@ function AdminPanel() {
                                 <UserTable
                                     users={users.filter(user => user.role === 'ROLE_PRESIDENT')}
                                     title={t("adminPanel.presidents")}
-                                    bgColor="danger"
+                                    bgColor="user-role-president"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
@@ -140,7 +140,7 @@ function AdminPanel() {
                                 <UserTable
                                     users={users.filter(user => user.role === 'ROLE_USER')}
                                     title={t("adminPanel.councilors")}
-                                    bgColor="warning"
+                                    bgColor="user-role-councilor"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
@@ -148,7 +148,7 @@ function AdminPanel() {
                                 <UserTable
                                     users={users.filter(user => user.role === 'ROLE_SPECTATOR')}
                                     title={t("adminPanel.spectators")}
-                                    bgColor="secondary"
+                                    bgColor="user-role-spectator"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
@@ -156,7 +156,7 @@ function AdminPanel() {
                                 <UserTable
                                     users={users.filter(user => user.role === 'ROLE_PRESENTER')}
                                     title={t("adminPanel.presenters")}
-                                    bgColor="info"
+                                    bgColor="user-role-presenter"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
@@ -164,10 +164,11 @@ function AdminPanel() {
                                 <UserTable
                                     users={users.filter(user => user.role === 'ROLE_GUEST')}
                                     title={t("adminPanel.guests")}
-                                    bgColor="light"
+                                    bgColor="user-role-guest"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+
                             </>
                         ) : (
                             <p className="text-center mt-4">{t("adminPanel.noUsersAvailable")}</p>

@@ -5,7 +5,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     const { t } = useTranslation();
 
     const renderUserRow = (user) => (
-        <tr key={user.username}>
+        <tr className={bgColor} key={user.username}>
             <td>
                 {user.image && (
                     <img
@@ -22,18 +22,14 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>{user.status}</td>
             <td>{user.municipalityName || t("adminpanel.notAvailable")}</td>
             <td>
-                <button
-                    className="btn btn-sm btn-danger me-2"
-                    onClick={() => onDeleteClick(user)}
-                >
-                    {t("adminpanel.delete")}
-                </button>
-                <button
-                    className="btn btn-sm btn-warning"
-                    onClick={() => onEditClick(user)}
-                >
-                    {t("adminpanel.edit")}
-                </button>
+                <div className="action-buttons-vertical">
+                    <button className="btn-edit" onClick={() => onEditClick(user)}>
+                        {t("adminpanel.edit")}
+                    </button>
+                     <button className="btn-delete" onClick={() => onDeleteClick(user)}>
+                        {t("adminpanel.delete")}
+                    </button>
+                </div>
             </td>
         </tr>
     );
@@ -41,18 +37,19 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     return (
         <>
             <h2 className="text-center mt-4">{title}</h2>
+            <hr className="fancy-hr" />
             <div className="custom-table-responsive">
-                <table className="table table-bordered table-striped text-center">
-                    <thead className="thead-light">
-                        <tr>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.image")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.username")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.name")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.surname")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.role")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.status")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.municipality")}</th>
-                            <th className={`bg-${bgColor}`}>{t("adminpanel.actions")}</th>
+                <table className="table table-bordered text-center">
+                    <thead>
+                        <tr className={bgColor}>
+                            <th>{t("adminpanel.image")}</th>
+                            <th>{t("adminpanel.username")}</th>
+                            <th>{t("adminpanel.name")}</th>
+                            <th>{t("adminpanel.surname")}</th>
+                            <th>{t("adminpanel.role")}</th>
+                            <th>{t("adminpanel.status")}</th>
+                            <th>{t("adminpanel.municipality")}</th>
+                            <th>{t("adminpanel.actions")}</th>
                         </tr>
                     </thead>
                     <tbody>
