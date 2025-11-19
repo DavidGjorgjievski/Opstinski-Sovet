@@ -13,23 +13,29 @@
     margin-bottom: 24px;
 }
 
-.user-back-button {
+.back-button-admin-panel-div{
     width: 200px;
-    background-color: #fbe64e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-back-button {
+    background-color: white;
     padding: 10px 20px;
+    width: 120px;
     font-size: 14px;
-    border: 0 solid white;
+    border: 1px solid #ddd;
     font-weight: bold;
     text-align: center;
     border-radius: 10px;
     color: black;
     cursor: pointer;
     transition: background-color 0.1s, transform 0.1s;
-    margin-top: 10px;
 }
 
 .user-back-button:hover{
-    background-color: #f7db2c;
+    background-color: #ddd;
     transform: scale(1.03);
 }
 
@@ -76,6 +82,16 @@
     width: 100%;
     table-layout: auto;
 }
+
+.custom-table-responsive table td,
+.custom-table-responsive table th {
+    border-radius: 5px;
+}
+
+.custom-table-responsive table th{
+    border: none;
+}
+
 
 .user-admin-img {
     width: 50px;
@@ -125,54 +141,54 @@
 }
 
 
-/* Buttons */
+
+.btn-edit,
 .btn-delete {
-    background-color: #dc3545;
-    color: black;
-    border: none;
-    padding: 5px 12px;
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 6px 8px;
     border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    font-weight: 500;
     font-size: 13px;
+    transition: all 0.15s ease;
+    font-weight: 500;
 }
 
+.btn-edit:hover,
 .btn-delete:hover {
-    background-color: #c82333;
     transform: scale(1.03);
 }
 
-.btn-edit {
-    background-color: #fbe64e;
-    color: black;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    font-weight: 500;
-    font-size: 13px;
+.btn-delete:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
 }
 
 .btn-edit:hover {
     background-color: #f7db2c;
-    transform: scale(1.03);
+    border-color: #f7db2c;
+}
+
+.admin-panel-status-active {
+    color: #19712d !important;
+    font-weight: 600;
+}
+
+.admin-panel-status-inactive {
+    color: #761821 !important;
+    font-weight: 600;
 }
 
 .action-buttons-vertical {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    /* space between buttons */
     align-items: center;
-    /* center buttons horizontally */
 }
 
 .action-buttons-vertical .btn-delete,
 .action-buttons-vertical .btn-edit {
     width: 100%;
-    /* optional: make buttons full width of cell */
 }
 
 
@@ -253,6 +269,11 @@
         font-size: 11px;
         margin-left: 0px;
     }
+
+        .custom-table-responsive table td,
+        .custom-table-responsive table th {
+            border-radius: 7px;
+        }
 }
 
 @media (max-width: 500px) {

@@ -1,5 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     const { t } = useTranslation();
@@ -19,15 +21,17 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>{user.name}</td>
             <td>{user.surname}</td>
             <td>{user.role}</td>
-            <td>{user.status}</td>
+            <td className={user.status === "ACTIVE" ? "admin-panel-status-active" : "admin-panel-status-inactive"}>
+                {user.status}
+            </td>
             <td>{user.municipalityName || t("adminpanel.notAvailable")}</td>
             <td>
                 <div className="action-buttons-vertical">
                     <button className="btn-edit" onClick={() => onEditClick(user)}>
-                        {t("adminpanel.edit")}
+                        {t("adminpanel.edit")} <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                      <button className="btn-delete" onClick={() => onDeleteClick(user)}>
-                        {t("adminpanel.delete")}
+                        {t("adminpanel.delete")} <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>
             </td>

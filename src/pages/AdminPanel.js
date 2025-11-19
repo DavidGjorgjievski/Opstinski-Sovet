@@ -9,7 +9,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPlus,faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import { faPlus,faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 function AdminPanel() {
@@ -102,9 +102,11 @@ function AdminPanel() {
 
             <div className="admin-body d-flex flex-column">
                 <div className="admin-header-div">
-                    <a href="/" className='a-tag-user-back-button'>
-                        <button className="user-back-button"><FontAwesomeIcon icon={faChevronLeft} /> {t("adminPanel.backButton")}</button>
-                    </a>
+                    <div className='back-button-admin-panel-div'>
+                         <a href="/" className='a-tag-user-back-button'>
+                            <button className="user-back-button"><FontAwesomeIcon icon={faChevronLeft} /> {t("adminPanel.backButton")}</button>
+                        </a>
+                    </div>
                     <h1 className="admin-title">{t("adminPanel.allUsers")}</h1>
                     <a href="/admin-panel/add-form">
                         <button className="user-add-button">{t("adminPanel.addUserButton")} <FontAwesomeIcon icon={faPlus} /></button>
