@@ -701,11 +701,11 @@ const hasTopicPermissions  = (
                                                             'vote-yes',
                                                             currentVotes[topic.id] === 'YES' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'YES' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-yes-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                     >
                                                         {topic.yes}
@@ -722,11 +722,11 @@ const hasTopicPermissions  = (
                                                             'vote-no',
                                                             currentVotes[topic.id] === 'NO' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'NO' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-no-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                         >
                                                         {topic.no}
@@ -745,11 +745,11 @@ const hasTopicPermissions  = (
                                                         'vote-abstained',
                                                         currentVotes[topic.id] === 'ABSTAINED' ? 'active-vote' : '',
                                                         topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'ABSTAINED' &&
-                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                         topic.topicStatus === 'ACTIVE' &&
                                                         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                         topic.topicStatus === 'FINISHED' ? 'vote-abstained-finished' : '',
-                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
+                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                     ].join(' ')}
                                                     >
                                                     {topic.abstained}
@@ -766,11 +766,11 @@ const hasTopicPermissions  = (
                                                             'vote-cantvote',
                                                             currentVotes[topic.id] === 'CANNOT_VOTE' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'CANNOT_VOTE' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-cantvote-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                         >
                                                         {topic.cantVote}
@@ -789,11 +789,11 @@ const hasTopicPermissions  = (
                                                             'vote-haventvote',
                                                             currentVotes[topic.id] === 'HAVE_NOT_VOTED' ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'HAVE_NOT_VOTED' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-scale' : '',
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : '',
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" ? 'vote-hover-enabled' : ''
+                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
                                                         >
                                                         {topic.haveNotVoted}
