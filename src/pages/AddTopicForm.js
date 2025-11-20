@@ -39,6 +39,9 @@ const AddTopicForm = () => {
     const { sendNewTopic } = useNewTopicWebSocket(id);
 
     const [topicStatus, setTopicStatus] = useState('');
+
+    const isEditing = !!idt && !isAddAfter && !isAddBefore;
+
     const topicStatusOptions = [
         { value: 'CREATED', label: t("addTopicForm.statusOptions.created") },
         { value: 'ACTIVE', label: t("addTopicForm.statusOptions.active") },
@@ -46,6 +49,16 @@ const AddTopicForm = () => {
         { value: 'INFORMATION', label: t("addTopicForm.statusOptions.information") },
         { value: 'WITHDRAWN', label: t("addTopicForm.statusOptions.withdrawn") },
     ];
+
+    const createStatusOptions = [
+    { value: 'CREATED', label: t("addTopicForm.statusOptions.created") },
+    { value: 'INFORMATION', label: t("addTopicForm.statusOptions.information") },
+    { value: 'WITHDRAWN', label: t("addTopicForm.statusOptions.withdrawn") },
+    ];
+
+    const statusOptions = isEditing ? topicStatusOptions : createStatusOptions;
+
+
 
     // fetch topic if editing
     useEffect(() => {
@@ -367,12 +380,12 @@ const toggleDropdown = () => {
                                             onClick={toggleDropdown}
                                             tabIndex={0}
                                         >
-                                            {topicStatusOptions.find((o) => o.value === topicStatus)?.label || "Select Status"}
+                                            {statusOptions.find((o) => o.value === topicStatus)?.label || "Select Status"}
                                         </div>
 
                                         {open && (
                                             <div className={`custom-options ${dropUp ? 'drop-up' : ''}`}>
-                                                {topicStatusOptions.map((option) => (
+                                                {statusOptions.map((option) => (
                                                     <div
                                                         key={option.value}
                                                         className={`custom-option ${topicStatus === option.value ? "selected" : ""}`}
