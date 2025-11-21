@@ -232,7 +232,14 @@ function Municipalities() {
                     }`}>
                         {municipalities.length > 0 ? (
                             municipalities.map((municipality) => (
-                                <div key={municipality.id} className="municipality-item">
+                                <div
+                                    key={municipality.id}
+                                    className={
+                                        String(userInfo?.municipalityId) === String(municipality.id)
+                                            ? "municipality-item your-municipality-item"
+                                            : "municipality-item"
+                                    }
+                                >
                                     <span
                                         id={`municipality-${municipality.id}`}
                                         className="id-selector-municipality"

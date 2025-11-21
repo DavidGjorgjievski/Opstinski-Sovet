@@ -129,7 +129,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 320px;
     border: 2px solid #ddd;
+    /* default border */
     padding: 5px;
+}
+
+/* Only border changes */
+.your-municipality-item {
+    border-color: rgb(174, 159, 159);
 }
 
 .municipality-info {
