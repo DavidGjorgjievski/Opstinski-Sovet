@@ -238,6 +238,7 @@
     "councilors": "Ratsmitglieder",
     "spectators": "Beobachter",
     "presenters": "Präsentatoren",
+    "editors": "Redakteure",
     "guests": "Gäste",
     "noUsersAvailable": "Keine Benutzer verfügbar.",
     "deleteError": "Der Benutzer kann nicht gelöscht werden, da er mit anderen Daten verknüpft ist."

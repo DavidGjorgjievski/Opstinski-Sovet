@@ -112,7 +112,7 @@
 
 /* Header colors */
 .user-role-admin th {
-    background-color: #6f42c1 !important;
+    background-color: #4b90ff !important;
     color: white;
 }
 
@@ -132,6 +132,11 @@
 }
 .user-role-presenter th {
     background-color: #0dcaf0 !important;
+    color: white;
+}
+
+.user-role-editor th {
+    background-color: #6f42c1 !important;
     color: white;
 }
 

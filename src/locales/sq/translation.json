@@ -238,6 +238,7 @@
     "councilors": "Këshilltarë",
     "spectators": "Vëzhgues",
     "presenters": "Prezantues",
+    "editors": "Redaktorë",
     "guests": "Mysafirë",
     "noUsersAvailable": "Nuk ka përdorues të disponueshëm.",
     "deleteError": "Nuk mund të fshihet ky përdorues sepse është i lidhur me të dhëna të tjera."

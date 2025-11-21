@@ -45,6 +45,7 @@ function EditUserForm() {
     "ROLE_PRESIDENT",
     "ROLE_USER",
     "ROLE_SPECTATOR",
+    "ROLE_EDITOR",
     "ROLE_PRESENTER",
   ];
   const statuses = ["ACTIVE", "INACTIVE"];

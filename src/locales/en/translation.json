@@ -238,6 +238,7 @@
     "councilors": "Councilors",
     "spectators": "Spectators",
     "presenters": "Presenters",
+    "editors": "Editors",
     "guests": "Guests",
     "noUsersAvailable": "No users available.",
     "deleteError": "Cannot delete this user because they are linked to other data."
