@@ -89,7 +89,7 @@ function App() {
 
                <Route
                 path="/municipalities/:id/mandates/users/:mandateId/add-list"
-                element={ <ProtectedRoute element={<MunicipalityMandateUsersAddList />} />}
+                element={ <ProtectedRoute element={<MunicipalityMandateUsersAddList />} allowedRoles={['ROLE_ADMIN']} />}
               />
 
               <Route path="/municipalities" element={<ProtectedRoute element={<Municipalities />} />} />
