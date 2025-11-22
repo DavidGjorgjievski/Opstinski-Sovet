@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
+import { initializeMobileMenu } from '../components/mobileMenu';
 import "../styles/MunicipalityMandateUsersAddList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +18,11 @@ function MunicipalityMandateUsersAddList() {
   const [termLoading, setTermLoading] = useState(true);
 
   const userData = JSON.parse(localStorage.getItem("userInfo")) || {};
+
+  useEffect(() => {
+    const cleanupMobileMenu = initializeMobileMenu();
+    return () => cleanupMobileMenu();
+  }, []);
 
   // Fetch all users without terms
   useEffect(() => {

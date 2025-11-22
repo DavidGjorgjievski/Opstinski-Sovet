@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Header from "../components/Header";
 import "../styles/MunicipalityMandateUsers.css";
+import { initializeMobileMenu } from '../components/mobileMenu';
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +20,11 @@ function MunicipalityMandateUsers() {
     const storedUserInfo = localStorage.getItem("userInfo");
     return storedUserInfo ? JSON.parse(storedUserInfo) : {};
   });
+
+    useEffect(() => {
+      const cleanupMobileMenu = initializeMobileMenu();
+      return () => cleanupMobileMenu();
+    }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {
