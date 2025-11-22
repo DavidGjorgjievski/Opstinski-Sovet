@@ -99,9 +99,19 @@
 "MunicipalityMandateUsers": {
     "title": "Советници",
     "back": "Назад",
-    "noUsers": "Нема корисници за овој мандат."
+    "noUsers": "Нема корисници за овој мандат.",
+    "edit": "Уреди"
   },
 
+  "MunicipalityMandateUsersList": {
+    "title": "Уреди Советници",
+    "back": "Назад",
+    "loading": "Се вчитува...",
+    "noUsers": "Не се пронајдени корисници.",
+    "add": "Додади",
+    "noTermUsers": "Не се пронајдени корисници за овој мандат.",
+    "remove": "Отстрани"
+  },
 
   "Municipality": {
     "municipalitiesTitle": "Општини",

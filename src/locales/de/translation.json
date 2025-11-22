@@ -99,7 +99,18 @@
 "MunicipalityMandateUsers": {
     "title": "Ratsmitglieder",
     "back": "Zurück",
-    "noUsers": "Keine Benutzer für dieses Mandat gefunden."
+    "noUsers": "Keine Benutzer für dieses Mandat gefunden.",
+    "edit": "Bearbeiten"
+  },
+
+   "MunicipalityMandateUsersList": {
+    "title": "Ratsmitglied Bearbeiten",
+    "back": "Zurück",
+    "loading": "Lädt...",
+    "noUsers": "Keine Benutzer gefunden.",
+    "add": "Hinzufügen",
+    "noTermUsers": "Keine Benutzer für diese Amtsperiode gefunden.",
+    "remove": "Entfernen"
   },
 
   "Municipality": {

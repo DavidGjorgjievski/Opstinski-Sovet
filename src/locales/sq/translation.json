@@ -99,7 +99,18 @@
 "MunicipalityMandateUsers": {
     "title": "Këshilltarët",
     "back": "Kthehu",
-    "noUsers": "Nuk u gjetën përdorues për këtë mandat."
+    "noUsers": "Nuk u gjetën përdorues për këtë mandat.",
+    "edit": "Ndrysho"
+  },
+
+   "MunicipalityMandateUsersList": {
+    "title":"Ndrysho Këshilltarin",
+    "back": "Kthehu",
+    "loading": "Duke u ngarkuar...",
+    "noUsers": "Nuk u gjetën përdorues.",
+    "add": "Shto",
+    "noTermUsers": "Nuk u gjetën përdorues për këtë mandat.",
+    "remove": "Hiq"
   },
 
   "Municipality": {

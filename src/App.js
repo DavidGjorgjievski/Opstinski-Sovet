@@ -29,6 +29,8 @@ import MunicipalityMandate from './pages/MunicipalityMandate';
 import AddMunicipalityMandateForm from './pages/AddMunicipalityMandateForm';
 import HeadLinks from './components/HeadLinks';
 import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
+import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAddList'
+
 import "./i18n"; 
 
 function App() {
@@ -83,6 +85,11 @@ function App() {
               <Route
                 path="/municipalities/:id/mandates/users/:mandateId"
                 element={ <ProtectedRoute element={<MunicipalityMandateUsers />} />}
+              />
+
+               <Route
+                path="/municipalities/:id/mandates/users/:mandateId/add-list"
+                element={ <ProtectedRoute element={<MunicipalityMandateUsersAddList />} />}
               />
 
               <Route path="/municipalities" element={<ProtectedRoute element={<Municipalities />} />} />

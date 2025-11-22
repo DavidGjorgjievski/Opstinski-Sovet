@@ -97,9 +97,20 @@
 },
 
 "MunicipalityMandateUsers": {
-    "title": "Council Members",
+    "title": "Councillors",
     "back": "Back",
-    "noUsers": "No users found for this mandate."
+    "noUsers": "No users found for this mandate.",
+    "edit": "Edit"
+  },
+
+  "MunicipalityMandateUsersList": {
+    "title": "Edit Councillors",
+    "back": "Back",
+    "loading": "Loading...",
+    "noUsers": "No users found.",
+    "add": "Add",
+    "noTermUsers": "No users found for this term.",
+    "remove": "Remove"
   },
 
   "Municipality": {

@@ -26,9 +26,29 @@
 }
 
 .header-section {
-    flex: 1;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 125px;
+}
+
+.municipalaty-mandate-users-view-button {
+    width: 125px;
+    background-color: #fbe64e;
+    border: none;
+    height: 36.2px;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
+    color: black;
+}
+
+.municipalaty-mandate-users-view-button:hover {
+    background-color: #f7db2c;
+    transform: scale(1.05);
 }
 
 .municipality-mandate-users-title {
@@ -122,8 +142,10 @@
         font-size: 2rem;
     }
 
-    .municipality-mandate-users-header{
-        margin-top: 20px;
+    .municipality-mandate-users-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 
     .municipality-mandate-users-grid {

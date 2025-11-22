@@ -5,13 +5,13 @@ import "../styles/MunicipalityMandateUsers.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faUserPen } from "@fortawesome/free-solid-svg-icons";
+
 
 function MunicipalityMandateUsers() {
   const { t } = useTranslation();
-  const { mandateId } = useParams();
+  const { id, mandateId } = useParams();
   const navigate = useNavigate();
-
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +25,7 @@ function MunicipalityMandateUsers() {
       try {
         const token = localStorage.getItem("jwtToken");
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/municipality-terms/${mandateId}/users`,
+          `${process.env.REACT_APP_API_URL}/api/municipality-terms/${mandateId}/votable-users`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -76,7 +76,14 @@ function MunicipalityMandateUsers() {
           </div>
 
           <div className="header-section">
-            {/* empty for spacing */}
+             {userData.role === 'ROLE_ADMIN' && (
+                  <button
+                    className="municipalaty-mandate-users-view-button"
+                    onClick={() => navigate(`/municipalities/${id}/mandates/users/${mandateId}/add-list`)}
+                  >
+                    {t('MunicipalityMandateUsers.edit')} <FontAwesomeIcon icon={faUserPen} />
+                  </button> 
+                )}
           </div>
         </div>
 
