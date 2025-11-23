@@ -166,6 +166,7 @@
     "presenter": "Presenter",
     "admin": "Admin",
     "editor": "Editor",
+    "mayor": "Mayor",
     "guest": "Guest",
     "unknown": "Unknown Role"
   },
@@ -251,6 +252,7 @@
     "spectators": "Spectators",
     "presenters": "Presenters",
     "editors": "Editors",
+    "mayors": "Mayors",
     "guests": "Guests",
     "noUsersAvailable": "No users available.",
     "deleteError": "Cannot delete this user because they are linked to other data."

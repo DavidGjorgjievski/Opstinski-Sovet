@@ -166,6 +166,7 @@
     "presenter": "Präsentator",
     "admin": "Administrator",
     "editor": "Redakteur",
+    "mayor": "Bürgermeister",
     "guest": "Gast",
     "unknown": "Unbekannte Rolle"
   },
@@ -251,6 +252,7 @@
     "spectators": "Beobachter",
     "presenters": "Präsentatoren",
     "editors": "Redakteure",
+    "mayors": "Bürgermeister",
     "guests": "Gäste",
     "noUsersAvailable": "Keine Benutzer verfügbar.",
     "deleteError": "Der Benutzer kann nicht gelöscht werden, da er mit anderen Daten verknüpft ist."

@@ -49,6 +49,7 @@ function AddUserForm() {
     "ROLE_USER",
     "ROLE_SPECTATOR",
     "ROLE_PRESENTER",
+    "ROLE_MAYOR",
     "ROLE_EDITOR",
     "ROLE_GUEST",
   ];

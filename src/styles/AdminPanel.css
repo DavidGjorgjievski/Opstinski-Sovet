@@ -135,6 +135,11 @@
     color: white;
 }
 
+.user-role-mayor th {
+    background-color: #23716c !important;
+    color: white;
+}
+
 .user-role-editor th {
     background-color: #6f42c1 !important;
     color: white;

@@ -49,6 +49,8 @@ function Profile() {
             return t("roles.guest");
         case "ROLE_EDITOR":
             return t("roles.editor");
+        case "ROLE_MAYOR":               
+            return t("roles.mayor");
         default:
             return t("roles.unknown");
     }

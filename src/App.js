@@ -48,9 +48,9 @@ function App() {
 
               {/* Protected routes */}
               <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-              <Route path="/profile" element={<ProtectedRoute element={<Profile />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_EDITOR']} />}/>
-              <Route path="/profile/change-password-form" element={<ProtectedRoute element={<ChangePassword />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_EDITOR']}/>}/>
-              <Route path="/profile/change-image-form" element={<ProtectedRoute element={<ChangeImage />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_EDITOR']}/>}/>
+              <Route path="/profile" element={<ProtectedRoute element={<Profile />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']} />}/>
+              <Route path="/profile/change-password-form" element={<ProtectedRoute element={<ChangePassword />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']}/>}/>
+              <Route path="/profile/change-image-form" element={<ProtectedRoute element={<ChangeImage />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']}/>}/>
 
               <Route 
               path="/mandate" 

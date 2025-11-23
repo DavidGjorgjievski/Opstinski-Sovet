@@ -164,6 +164,14 @@ function AdminPanel() {
                                 />
 
                                 <UserTable
+                                    users={users.filter(user => user.role === 'ROLE_MAYOR')}
+                                    title={t("adminPanel.mayors")}
+                                    bgColor="user-role-mayor"
+                                    onDeleteClick={handleDeleteClick}
+                                    onEditClick={handleEditClick}
+                                />
+
+                                <UserTable
                                     users={users.filter(user => user.role === 'ROLE_EDITOR')}
                                     title={t("adminPanel.editors")}
                                     bgColor="user-role-editor"
