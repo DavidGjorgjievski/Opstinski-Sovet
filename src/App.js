@@ -48,9 +48,9 @@ function App() {
 
               {/* Protected routes */}
               <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-              <Route path="/profile" element={<ProtectedRoute element={<Profile />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT']} />}/>
-              <Route path="/profile/change-password-form" element={<ProtectedRoute element={<ChangePassword />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT']}/>}/>
-              <Route path="/profile/change-image-form" element={<ProtectedRoute element={<ChangeImage />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT']}/>}/>
+              <Route path="/profile" element={<ProtectedRoute element={<Profile />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_EDITOR']} />}/>
+              <Route path="/profile/change-password-form" element={<ProtectedRoute element={<ChangePassword />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_EDITOR']}/>}/>
+              <Route path="/profile/change-image-form" element={<ProtectedRoute element={<ChangeImage />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_EDITOR']}/>}/>
 
               <Route 
               path="/mandate" 
@@ -107,43 +107,39 @@ function App() {
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/add-form" 
-                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']}  />} 
+                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']}  />} 
               />
 
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/edit/:id?" 
-                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']}  />} 
+                element={<ProtectedRoute element={<AddSessionForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']}  />} 
               />
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-form"
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']} />} 
               />
 
                <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-before/:idt"
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']} />} 
               />
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/add-after/:idt"
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']} />} 
               />
 
               <Route 
                 path="/municipalities/:municipalityId/sessions/:id?/topics/edit/:idt" 
-                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />} 
+                element={<ProtectedRoute element={<AddTopicForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']} />} 
               />
 
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics" element={<ProtectedRoute element={<Topics />} />} />
 
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics-presentation" element={<ProtectedRoute element={<TopicPresentation />} />} />
 
-              {/* Other protected routes */}
-
-
-                {/* Admin-only routes */}
               <Route
                 path="/admin-panel"
                 element={<ProtectedRoute element={<AdminPanel />} allowedRoles={['ROLE_ADMIN']} />}

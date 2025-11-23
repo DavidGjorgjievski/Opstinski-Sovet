@@ -33,24 +33,26 @@ function Profile() {
 
     const { username, name, surname, image, role } = userData;
 
-    const getRoleDisplay = (role) => {
-        switch (role) {
-            case "ROLE_USER":
-                return t("roles.user");
-            case "ROLE_PRESIDENT":
-                return t("roles.president");
-            case "ROLE_SPECTATOR":
-                return t("roles.spectator");
-            case "ROLE_PRESENTER":
-                return t("roles.presenter");
-            case "ROLE_ADMIN":
-                return t("roles.admin");
-            case "ROLE_GUEST":
-                return t("roles.guest");
-            default:
-                return t("roles.unknown");
-        }
-    };
+   const getRoleDisplay = (role) => {
+    switch (role) {
+        case "ROLE_USER":
+            return t("roles.user");
+        case "ROLE_PRESIDENT":
+            return t("roles.president");
+        case "ROLE_SPECTATOR":
+            return t("roles.spectator");
+        case "ROLE_PRESENTER":
+            return t("roles.presenter");
+        case "ROLE_ADMIN":
+            return t("roles.admin");
+        case "ROLE_GUEST":
+            return t("roles.guest");
+        case "ROLE_EDITOR":
+            return t("roles.editor");
+        default:
+            return t("roles.unknown");
+    }
+};
 
     return (
         <div className="profile-container">
@@ -68,11 +70,13 @@ function Profile() {
                             className="profile-image"
                             alt="Profile"
                         />
-                        <a href="/profile/change-image-form" className="change-image-link">
-                            <button className="camera-button">
-                                <FontAwesomeIcon icon={faCamera} />
-                            </button>
-                        </a>
+                        {!["ROLE_EDITOR", "ROLE_GUEST", "ROLE_PRESENTER"].includes(userData.role) && (
+                            <a href="/profile/change-image-form" className="change-image-link">
+                                <button className="camera-button">
+                                    <FontAwesomeIcon icon={faCamera} />
+                                </button>
+                            </a>
+                        )}
                     </div>
 
                     <div className="profile-details modern-card">

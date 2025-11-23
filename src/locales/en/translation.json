@@ -165,6 +165,7 @@
     "spectator": "Spectator",
     "presenter": "Presenter",
     "admin": "Admin",
+    "editor": "Editor",
     "guest": "Guest",
     "unknown": "Unknown Role"
   },

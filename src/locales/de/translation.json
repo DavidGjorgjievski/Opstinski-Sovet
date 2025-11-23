@@ -165,6 +165,7 @@
     "spectator": "Beobachter",
     "presenter": "Präsentator",
     "admin": "Administrator",
+    "editor": "Redakteur",
     "guest": "Gast",
     "unknown": "Unbekannte Rolle"
   },

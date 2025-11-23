@@ -193,7 +193,7 @@ function Sessions() {
                         <h1 className="session-header-title">{t('session.title')}</h1>
                         <p>{t('session.subtitle')}</p>
                     </div>
-                    {((userInfo.role === 'ROLE_PRESIDENT' &&
+                    {(((userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
                         userInfo.status === "ACTIVE" &&
                         municipalityId === userInfo.municipalityId)
                         || userInfo.role === 'ROLE_ADMIN') && (
@@ -352,7 +352,7 @@ const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setO
                                     </button>
 
                                     {((
-                                         userInfo.role === 'ROLE_PRESIDENT' &&
+                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
                                         userInfo.status === "ACTIVE" &&
                                         municipalityId === userInfo.municipalityId &&
                                         Array.isArray(userInfo.municipalityTermIds) &&
