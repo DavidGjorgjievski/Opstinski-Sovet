@@ -556,7 +556,7 @@ const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipality
     .find(s => s.id === parseInt(id));
 
 const hasTopicPermissions  = (
-    (userInfo.role === 'ROLE_PRESIDENT' &&
+    ((userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
      userInfo.status === "ACTIVE" &&
      Number(municipalityId) === Number(userInfo.municipalityId) &&
      Array.isArray(userInfo.municipalityTermIds) &&
@@ -565,6 +565,15 @@ const hasTopicPermissions  = (
     ) || userInfo.role === 'ROLE_ADMIN'
 );
 
+const hasTopicPermissionsStatus  = (
+    (userInfo.role === 'ROLE_PRESIDENT' &&
+     userInfo.status === "ACTIVE" &&
+     Number(municipalityId) === Number(userInfo.municipalityId) &&
+     Array.isArray(userInfo.municipalityTermIds) &&
+     currentSession &&
+     userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    ) || userInfo.role === 'ROLE_ADMIN'
+);
     return (
         <div className="topics-container">
             <HelmetProvider>
@@ -636,11 +645,18 @@ const hasTopicPermissions  = (
                                             </div>
                                             {openMenus[topic.id] && (
                                                 <ul className="menu-list">
-                                                    <li>
-                                                        <span onClick={() => { handlePresentClick(topic.id); toggleMenu(topic.id); }}>
-                                                            {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
-                                                        </span>
-                                                    </li>
+                                                    {userInfo.role !== 'ROLE_EDITOR' && (
+                                                        <li>
+                                                            <span
+                                                                onClick={() => {
+                                                                    handlePresentClick(topic.id);
+                                                                    toggleMenu(topic.id);
+                                                                }}
+                                                            >
+                                                                {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
+                                                            </span>
+                                                        </li>
+                                                    )}
                                                     <li>
                                                         <Link
                                                             to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-before/${topic.id}`}
@@ -837,7 +853,7 @@ const hasTopicPermissions  = (
                                                 )}
 
 
-                                            {hasTopicPermissions && (
+                                            {hasTopicPermissionsStatus && (
                                                     <div className="command-buttons-group">
                                                         {topic.topicStatus === "CREATED" && (
                                                             <div className="command-buttons">
