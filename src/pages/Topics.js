@@ -894,15 +894,7 @@ const hasTopicPermissionsStatus  = (
                         </div>
                     )) }
                     <div className="mt-4">
-                        {topics.length > 2 && (
-                            (
-                                (userInfo.role === 'ROLE_PRESIDENT' &&
-                                userInfo.status === "ACTIVE" &&
-                                municipalityId === userInfo.municipalityId
-                                ) ||
-                                userInfo.role === 'ROLE_ADMIN'
-                            )
-                            ) && (
+                        {topics.length > 2 && hasTopicPermissions && (
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
                                 <button className="topic-add-button" onClick={saveScrollPosition}>{t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} /></button>
                             </Link>
