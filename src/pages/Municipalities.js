@@ -244,11 +244,13 @@ function Municipalities() {
                                         id={`municipality-${municipality.id}`}
                                         className="id-selector-municipality"
                                     ></span>
-                                    <img
+                                    <div>
+                                        <img
                                         src={`data:image/jpeg;base64,${municipality.logoImage}`}
                                         alt="municipality"
                                         className="municipality-image"
-                                    />
+                                        />
+                                    </div>
                                     <div className="municipality-info">
                                         <div className="municipality-text">
                                             <h3>{municipality.name}</h3>

@@ -124,13 +124,16 @@
 }
 
 .municipality-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-bottom: 20px;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 320px;
     border: 2px solid #ddd;
-    /* default border */
     padding: 5px;
+    height: 100%;
 }
 
 /* Only border changes */
@@ -140,6 +143,19 @@
 
 .municipality-info {
     padding: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.municipality-text h3 {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    margin-bottom: 5px;
 }
 
 .first-municipality-button {
@@ -187,7 +203,6 @@ button {
 
 .municipality-buttons>div {
     flex: 1;
-    /* Makes each child div take 50% (equal space) */
 }
 
 .municipality-buttons>div {
