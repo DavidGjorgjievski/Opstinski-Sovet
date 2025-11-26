@@ -177,6 +177,14 @@ function Sessions() {
             return { term, sessions: termSessions };
         });
 
+    const canAddSession =
+    (
+        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
+        userInfo.status === "ACTIVE" &&
+        municipalityId === userInfo.municipalityId
+    ) ||
+    userInfo.role === 'ROLE_ADMIN';
+
     return (
         <div className="sessions-container">
             <HelmetProvider>
@@ -188,15 +196,15 @@ function Sessions() {
             <Header userInfo={userInfo} />
 
             <main className="session-body-container">
-                <div className={`session-header ${sessions.length === 1 ? 'session-header-size1' : ''}`}>
+                <div className={`session-header 
+                    ${sessions.length === 1 ? 'session-header-size1' : ''} 
+                    ${sessions.length === 0 ? 'session-header-empty' : ''}
+                `}>
                     <div className='session-header-div'>
                         <h1 className="session-header-title">{t('session.title')}</h1>
                         <p>{t('session.subtitle')}</p>
                     </div>
-                    {(((userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
-                        userInfo.status === "ACTIVE" &&
-                        municipalityId === userInfo.municipalityId)
-                        || userInfo.role === 'ROLE_ADMIN') && (
+                    {canAddSession && (
                         <div className="session-button-container">
                             <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
                                 <button className="session-add-button">
@@ -260,6 +268,13 @@ function Sessions() {
                                 </div>
                             </div>
                         ))}
+
+                         {(sessionsByMandate.length === 0 ||
+                            sessionsByMandate.every(m => m.sessions.length === 0)) && (
+                            <div className="no-sessions-message">
+                                {t('session.noSessions')}
+                            </div>
+                        )}
                     </>
                 )}
 

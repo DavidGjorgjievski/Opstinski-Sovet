@@ -8,8 +8,6 @@
 
 html{
     overflow-x: hidden;
-    /* overscroll-behavior-x: none;
-    touch-action: pan-y; */
 }
 
 .session-body-container{
@@ -39,6 +37,31 @@ html{
     box-sizing: border-box;
     gap: 10px;
     margin: 0 auto;
+}
+
+.session-header-empty {
+    justify-content: center !important;
+    position: relative;
+}
+
+
+.no-sessions-message {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.4rem;
+    color: black;
+    font-weight: 500;
+}
+
+.session-header-empty .session-button-container {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.session-header-empty .session-header-div {
+    text-align: center;
+    align-items: center;
 }
 
 .id-selector-session{
