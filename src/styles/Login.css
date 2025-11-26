@@ -24,6 +24,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    width: 440px;
     max-width: 440px;
     box-sizing: border-box;
 }
@@ -213,7 +214,7 @@ input {
 
 @media (max-width: 440px) {
     .login-container{
-        width: 95%;
+        width: 95vw;
     }
 }
 
