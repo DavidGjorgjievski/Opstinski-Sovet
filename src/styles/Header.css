@@ -187,6 +187,7 @@ nav {
 
 .profile-dropdown {
     position: absolute;
+    width: 180px;
     top: 100%;
     right: 0;
     background-color: white;
