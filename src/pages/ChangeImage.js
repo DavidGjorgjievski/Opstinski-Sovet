@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangeImage.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -133,10 +134,9 @@ const ChangeImage = () => {
                                     {t('changeImage.uploadButton')}{" "}
                                     <FontAwesomeIcon icon={faUpload} />
                                 </button>
-                                <a type="button" className="button-change-image-back" href="/profile">
-                                    <FontAwesomeIcon icon={faChevronLeft} />
-                                    {" "}{t('changeImage.backButton')}
-                                </a>
+                                <Link to="/profile" className="button-change-image-back">
+                                    <FontAwesomeIcon icon={faChevronLeft} /> {t('changeImage.backButton')}
+                                </Link>
                             </div>
                         </form>
                     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Link } from "react-router-dom";
 import '../styles/Municipalities.css'; 
 import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
@@ -245,11 +246,13 @@ function Municipalities() {
                                         className="id-selector-municipality"
                                     ></span>
                                     <div>
-                                        <img
-                                        src={`data:image/jpeg;base64,${municipality.logoImage}`}
-                                        alt="municipality"
-                                        className="municipality-image"
-                                        />
+                                        <Link to={`/municipalities/${municipality.id}/sessions`}>
+                                            <img
+                                                src={`data:image/jpeg;base64,${municipality.logoImage}`}
+                                                alt="municipality"
+                                                className="municipality-image"
+                                            />
+                                        </Link>
                                     </div>
                                     <div className="municipality-info">
                                         <div className="municipality-text">
@@ -258,11 +261,13 @@ function Municipalities() {
                                         <div>
                                             <div className="d-flex align-items-center municipality-buttons">
                                                 <div className='me-2'>
-                                                    <a href={`/municipalities/${municipality.id}/sessions`} className='button-see-content municipality-button-size'>
+                                                    <Link
+                                                        to={`/municipalities/${municipality.id}/sessions`}
+                                                        className="button-see-content municipality-button-size"
+                                                        >
                                                         {t('Municipality.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                                    </a>
+                                                    </Link>
                                                 </div>
-    
                                                 <div className="admin-dropdown-wrapper">
                                                     <button
                                                         className="button-option-content municipality-button-size"
@@ -276,20 +281,25 @@ function Municipalities() {
 
                                                     {openMenuId === municipality.id && (
                                                         <div className="admin-dropdown">
+
                                                             {/* Mandates link visible to everyone */}
-                                                            <a
+                                                            <Link
                                                                 className="dropdown-item"
-                                                                href={`/municipalities/${municipality.id}/mandates`}
+                                                                to={`/municipalities/${municipality.id}/mandates`}
                                                             >
                                                                 <FontAwesomeIcon icon={faCalendar} /> {t('Municipality.mandates')}
-                                                            </a>
+                                                            </Link>
 
                                                             {/* Only Admin can see Edit and Delete */}
                                                             {userInfo.role === 'ROLE_ADMIN' && (
                                                                 <>
-                                                                    <a className="dropdown-item" href={`/municipalities/edit/${municipality.id}`}>
+                                                                    <Link
+                                                                        className="dropdown-item"
+                                                                        to={`/municipalities/edit/${municipality.id}`}
+                                                                    >
                                                                         <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
-                                                                    </a>
+                                                                    </Link>
+
                                                                     <button
                                                                         className="dropdown-item delete"
                                                                         onClick={() => {
@@ -304,7 +314,6 @@ function Municipalities() {
                                                         </div>
                                                     )}
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

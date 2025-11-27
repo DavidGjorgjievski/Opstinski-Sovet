@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangePassword.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { initializeMobileMenu } from '../components/mobileMenu';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faChevronLeft, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +23,6 @@ const ChangePassword = () => {
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
   const [token] = useState(localStorage.getItem('jwtToken'));
-  const navigate = useNavigate();
 
   useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
@@ -153,14 +152,9 @@ const ChangePassword = () => {
                 {t('changePassword.submit')}{" "}
                 <FontAwesomeIcon icon={faLock} />
               </button>
-              <button
-                type="button"
-                onClick={() => navigate('/profile')}
-                className="button-change-password-back"
-              >
-                <FontAwesomeIcon icon={faChevronLeft} />{" "}
-                {t('changePassword.back')}
-              </button>
+              <Link to="/profile" className="button-change-password-back">
+                  <FontAwesomeIcon icon={faChevronLeft} /> {t('changePassword.back')}
+              </Link>
             </div>
           </form>
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Link } from "react-router-dom";
 import '../styles/Profile.css';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -73,11 +74,11 @@ function Profile() {
                             alt="Profile"
                         />
                         {!["ROLE_EDITOR", "ROLE_GUEST", "ROLE_PRESENTER"].includes(userData.role) && (
-                            <a href="/profile/change-image-form" className="change-image-link">
+                            <Link to="/profile/change-image-form" className="change-image-link">
                                 <button className="camera-button">
                                     <FontAwesomeIcon icon={faCamera} />
                                 </button>
-                            </a>
+                            </Link>
                         )}
                     </div>
 
@@ -104,11 +105,11 @@ function Profile() {
                             </span>
                         </div>
                         <div className="change-password">
-                            <a href="/profile/change-password-form">
+                            <Link to="/profile/change-password-form">
                                 <button className="modern-button">
                                     {t("profile.changePassword")} <FontAwesomeIcon icon={faLock} />
                                 </button>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

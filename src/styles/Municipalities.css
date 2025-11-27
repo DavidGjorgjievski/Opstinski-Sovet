@@ -28,6 +28,12 @@
     object-fit: contain;
     padding: 5px;
     border-radius: 10px;
+    transition: transform 0.1s;
+    cursor: pointer;
+}
+
+.municipality-image:hover{
+    transform: scale(1.03);
 }
 
 .municipality-header-title {
