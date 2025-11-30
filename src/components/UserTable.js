@@ -20,7 +20,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>{user.username}</td>
             <td>{user.name}</td>
             <td>{user.surname}</td>
-            <td>{user.role}</td>
+            <td>{user.email}</td>
             <td className={user.status === "ACTIVE" ? "admin-panel-status-active" : "admin-panel-status-inactive"}>
                 {user.status}
             </td>
@@ -50,7 +50,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
                             <th>{t("adminpanel.username")}</th>
                             <th>{t("adminpanel.name")}</th>
                             <th>{t("adminpanel.surname")}</th>
-                            <th>{t("adminpanel.role")}</th>
+                            <th>{t("adminpanel.email")}</th>
                             <th>{t("adminpanel.status")}</th>
                             <th>{t("adminpanel.municipality")}</th>
                             <th>{t("adminpanel.actions")}</th>

@@ -26,13 +26,10 @@ function AddUserForm() {
     file: null,
   });
 
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [fileError, setFileError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
   const [fileName, setFileName] = useState(t("addUserForm.noFileSelected"));
   const [fileSizeError, setFileSizeError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
   // Dropdown control
   const [openRole, setOpenRole] = useState(false);
@@ -95,11 +92,7 @@ function AddUserForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "confirmPassword") {
-      setConfirmPassword(value);
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e) => {
@@ -133,12 +126,7 @@ function AddUserForm() {
     const trimmedUsername = formData.username.trim().toLowerCase();
     const trimmedPassword = formData.password.trim();
 
-    if (formData.password !== confirmPassword) {
-      setPasswordError(true);
-      return;
-    }
     if (fileError || fileSizeError) return;
-    setPasswordError(false);
 
     const submissionData = new FormData();
     submissionData.append("username", trimmedUsername);
@@ -225,24 +213,6 @@ function AddUserForm() {
                   icon={showPassword ? faEyeSlash : faEye}
                   className="eye-icon"
                   onClick={() => setShowPassword(!showPassword)}
-                />
-              </div>
-
-              <label htmlFor="confirmPassword" className="label-add">{t("addUserForm.confirmPassword")}</label>
-              <div className="d-flex flex-row">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  className="add-user-input-field mb-2"
-                  placeholder={t("addUserForm.confirmPasswordPlaceholder")}
-                  value={confirmPassword}
-                  onChange={handleInputChange}
-                  required
-                />
-                <FontAwesomeIcon
-                  icon={showConfirmPassword ? faEyeSlash : faEye}
-                  className="eye-icon"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 />
               </div>
 
@@ -343,7 +313,6 @@ function AddUserForm() {
 
               {fileError && <div className="error-message">{t("addUserForm.invalidFileType")}</div>}
               {fileSizeError && <div className="error-message">{t("addUserForm.fileTooLarge")}</div>}
-              {passwordError && <div className="error-message">{t("addUserForm.passwordMismatch")}</div>}
 
               {/* Buttons */}
               <div className="mt-4 d-flex">
