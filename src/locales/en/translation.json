@@ -254,6 +254,9 @@
     "editors": "Editors",
     "mayors": "Mayors",
     "guests": "Guests",
+    "filters": "Filters",
+    "statusLabel": "Status:",
+    "filterAll":  "All",
     "noUsersAvailable": "No users available.",
     "deleteError": "Cannot delete this user because they are linked to other data."
   },

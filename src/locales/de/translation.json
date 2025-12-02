@@ -254,6 +254,9 @@
     "editors": "Redakteure",
     "mayors": "Bürgermeister",
     "guests": "Gäste",
+    "Filters": "Filter",
+    "statusLabel": "Status:",
+    "filterAll":  "Alle",
     "noUsersAvailable": "Keine Benutzer verfügbar.",
     "deleteError": "Der Benutzer kann nicht gelöscht werden, da er mit anderen Daten verknüpft ist."
   },

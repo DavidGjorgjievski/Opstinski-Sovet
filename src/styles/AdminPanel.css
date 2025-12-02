@@ -86,6 +86,7 @@
 .custom-table-responsive table td,
 .custom-table-responsive table th {
     border-radius: 5px;
+    color: black;
 }
 
 .custom-table-responsive table th{
@@ -201,6 +202,80 @@
 .action-buttons-vertical .btn-edit {
     width: 100%;
 }
+
+/* CONTAINER */
+.filters-title {
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #f7f7f7;
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.filter-select-container {
+    position: relative;
+    width: 140px;
+}
+
+.filter-select-box {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    transition: 0.1s;
+}
+
+.filter-select-box:hover {
+    background-color: #f7f7f7;
+    transform: scale(1.03);
+}
+
+.filter-select-options {
+    position: absolute;
+    top: 101%;
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.filter-select-option {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.1s;
+}
+
+.filter-select-option:hover {
+    background: #f1f1f1;
+}
+
+.filter-select-option.selected {
+    background: #e8e8e8;
+    font-weight: 600;
+}
+
 
 
 

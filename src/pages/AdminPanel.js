@@ -22,6 +22,37 @@ function AdminPanel() {
     const [userToDelete, setUserToDelete] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [statusFilter, setStatusFilter] = useState("ALL");
+    const [openStatus, setOpenStatus] = useState(false);
+    const statusRef = React.useRef(null);
+
+    const filteredByStatus =
+    statusFilter === "ALL"
+        ? users
+        : users.filter(u => u.status === statusFilter);
+
+    const admins = filteredByStatus.filter(u => u.role === "ROLE_ADMIN");
+    const presidents = filteredByStatus.filter(u => u.role === "ROLE_PRESIDENT");
+    const councilors = filteredByStatus.filter(u => u.role === "ROLE_USER");
+    const spectators = filteredByStatus.filter(u => u.role === "ROLE_SPECTATOR");
+    const presenters = filteredByStatus.filter(u => u.role === "ROLE_PRESENTER");
+    const mayors = filteredByStatus.filter(u => u.role === "ROLE_MAYOR");
+    const editors = filteredByStatus.filter(u => u.role === "ROLE_EDITOR");
+    const guests = filteredByStatus.filter(u => u.role === "ROLE_GUEST");
+
+    useEffect(() => {
+    function handleClickOutside(event) {
+        if (statusRef.current && !statusRef.current.contains(event.target)) {
+            setOpenStatus(false);
+        }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, []);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -120,72 +151,153 @@ function AdminPanel() {
                 )}
 
                 {!loading && (
+
+
                     <div className="admin-user-lists">
+
+    {/* Status Filter */}
+    <div className="filter-section">
+        <h3 className="filters-title">{t("adminPanel.filters")}</h3>
+
+        <label className="filter-label">{t("adminPanel.statusLabel")}</label>
+
+        <div className="filter-select-container" ref={statusRef}>
+            <div
+                className="filter-select-box"
+                onClick={() => setOpenStatus(!openStatus)}
+            >
+                {statusFilter === "ALL"
+                    ? t("adminPanel.filterAll")
+                    : statusFilter === "ACTIVE"
+                    ? "ACTIVE"
+                    : "INACTIVE"}
+            </div>
+
+            {openStatus && (
+                <div className="filter-select-options">
+                    <div
+                        className={`filter-select-option ${
+                            statusFilter === "ALL" ? "selected" : ""
+                        }`}
+                        onClick={() => {
+                            setStatusFilter("ALL");
+                            setOpenStatus(false);
+                        }}
+                    >
+                        {t("adminPanel.filterAll")}
+                    </div>
+
+                    <div
+                        className={`filter-select-option ${
+                            statusFilter === "ACTIVE" ? "selected" : ""
+                        }`}
+                        onClick={() => {
+                            setStatusFilter("ACTIVE");
+                            setOpenStatus(false);
+                        }}
+                    >
+                        ACTIVE
+                    </div>
+
+                    <div
+                        className={`filter-select-option ${
+                            statusFilter === "INACTIVE" ? "selected" : ""
+                        }`}
+                        onClick={() => {
+                            setStatusFilter("INACTIVE");
+                            setOpenStatus(false);
+                        }}
+                    >
+                        INACTIVE
+                    </div>
+                </div>
+            )}
+        </div>
+    </div>
+
+                        
                         {users.length > 0 ? (
                             <>
-                              <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_ADMIN')}
+                              {admins.length > 0 && (
+                                <UserTable
+                                    users={admins}
                                     title={t("adminPanel.admins")}
                                     bgColor="user-role-admin"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {presidents.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_PRESIDENT')}
+                                    users={presidents}
                                     title={t("adminPanel.presidents")}
                                     bgColor="user-role-president"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {councilors.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_USER')}
+                                    users={councilors}
                                     title={t("adminPanel.councilors")}
                                     bgColor="user-role-councilor"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {spectators.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_SPECTATOR')}
+                                    users={spectators}
                                     title={t("adminPanel.spectators")}
                                     bgColor="user-role-spectator"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {presenters.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_PRESENTER')}
+                                    users={presenters}
                                     title={t("adminPanel.presenters")}
                                     bgColor="user-role-presenter"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {mayors.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_MAYOR')}
+                                    users={mayors}
                                     title={t("adminPanel.mayors")}
                                     bgColor="user-role-mayor"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {editors.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_EDITOR')}
+                                    users={editors}
                                     title={t("adminPanel.editors")}
                                     bgColor="user-role-editor"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
 
+                            {guests.length > 0 && (
                                 <UserTable
-                                    users={users.filter(user => user.role === 'ROLE_GUEST')}
+                                    users={guests}
                                     title={t("adminPanel.guests")}
                                     bgColor="user-role-guest"
                                     onDeleteClick={handleDeleteClick}
                                     onEditClick={handleEditClick}
                                 />
+                            )}
+
 
                             </>
                         ) : (
