@@ -19,6 +19,7 @@ function AddUserForm() {
     username: "",
     name: "",
     surname: "",
+    email: "",
     password: "",
     role: "ROLE_USER",
     status: "ACTIVE",
@@ -132,6 +133,7 @@ function AddUserForm() {
     submissionData.append("username", trimmedUsername);
     submissionData.append("name", formData.name);
     submissionData.append("surname", formData.surname);
+    submissionData.append("email", formData.email);
     submissionData.append("password", trimmedPassword);
     submissionData.append("role", formData.role);
     submissionData.append("status", formData.status);
@@ -197,7 +199,17 @@ function AddUserForm() {
                 required
               />
 
-              {/* Passwords */}
+              <label htmlFor="email" className="label-add">{t("addUserForm.email")}</label>
+              <input
+                type="email"
+                name="email"
+                className="add-user-input-field mb-2"
+                placeholder={t("addUserForm.enterEmail")}
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+
               <label htmlFor="password" className="label-add">{t("addUserForm.password")}</label>
               <div className="d-flex flex-row">
                 <input

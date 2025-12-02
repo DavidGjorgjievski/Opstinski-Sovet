@@ -291,6 +291,8 @@
     "enterName": "Внеси име",
     "surname": "Презиме:",
     "enterSurname": "Внеси презиме",
+    "email": "Е-пошта",
+    "enterEmail": "Внеси е-пошта",
     "password": "Лозинка:",
     "enterPassword": "Внеси лозинка",
     "role": "Роља:",

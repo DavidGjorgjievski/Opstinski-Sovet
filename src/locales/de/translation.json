@@ -291,6 +291,8 @@
     "enterName": "Vornamen eingeben",
     "surname": "Nachname:",
     "enterSurname": "Nachnamen eingeben",
+    "email":"E-Mail",
+    "enterEmail": "E-Mail eingeben",
     "password": "Passwort:",
     "enterPassword": "Passwort eingeben",
     "role": "Rolle:",

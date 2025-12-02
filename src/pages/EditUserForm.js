@@ -24,6 +24,7 @@ function EditUserForm() {
     username: "",
     name: "",
     surname: "",
+    email: "",
     role: "ROLE_USER",
     status: "ACTIVE",
     municipalityId: "",
@@ -91,6 +92,7 @@ function EditUserForm() {
             username: user.username || "",
             name: user.name || "",
             surname: user.surname || "",
+            email: user.email || "",
             role: user.role || "ROLE_USER",
             status: user.status || "ACTIVE",
             municipalityId: user.municipalityId || "",
@@ -154,6 +156,7 @@ function EditUserForm() {
     const submissionData = new FormData();
     submissionData.append("name", formData.name);
     submissionData.append("surname", formData.surname);
+    submissionData.append("email", formData.email);
     submissionData.append("role", formData.role);
     submissionData.append("status", formData.status);
     if (formData.municipalityId)
@@ -221,6 +224,27 @@ function EditUserForm() {
                 value={formData.surname}
                 onChange={handleInputChange}
                 required
+              />
+
+              <label htmlFor="email" className="label-add">{t("addUserForm.email")}</label>
+              <input
+                type="email"
+                name="email"
+                className="add-user-input-field mb-2"
+                placeholder={t("addUserForm.enterEmail")}
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+
+              <label className="label-add">{t("editUserForm.password")}</label>
+              <input
+                type="text"
+                className="add-user-input-field mb-2"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder={t("editUserForm.enterNewPassword")}
               />
 
               {/* Role dropdown */}
@@ -306,17 +330,6 @@ function EditUserForm() {
                   </div>
                 )}
               </div>
-
-              {/* Password */}
-              <label className="label-add mt-3">{t("editUserForm.password")}</label>
-              <input
-                type="text"
-                className="add-user-input-field mb-2"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                placeholder={t("editUserForm.enterNewPassword")}
-              />
 
               {/* File upload */}
               <div className="form-group d-flex justify-content-center mt-4">

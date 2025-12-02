@@ -291,6 +291,8 @@
     "enterName": "Shkruaj emrin",
     "surname": "Mbiemri:",
     "enterSurname": "Shkruaj mbiemrin",
+    "email": "Email",
+    "enterEmail": "Shkruaj email",
     "password": "Fjalëkalimi:",
     "enterPassword": "Shkruaj fjalëkalimin",
     "role": "Roli:",
