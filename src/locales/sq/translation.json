@@ -255,7 +255,7 @@
     "mayors": "Kryetarë komune",
     "guests": "Mysafirë",
     "filters": "Filtra",
-    "statusLabel": "Statusi",
+    "statusLabel": "Statusi:",
     "filterAll":  "Të gjitha",
     "noUsersAvailable": "Nuk ka përdorues të disponueshëm.",
     "deleteError": "Nuk mund të fshihet ky përdorues sepse është i lidhur me të dhëna të tjera."

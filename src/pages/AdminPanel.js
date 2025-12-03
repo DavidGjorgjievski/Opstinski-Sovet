@@ -26,24 +26,42 @@ function AdminPanel() {
     const [openStatus, setOpenStatus] = useState(false);
     const statusRef = React.useRef(null);
 
+    const [municipalityFilter, setMunicipalityFilter] = useState("ALL");
+    const [openMunicipality, setOpenMunicipality] = useState(false);
+    const municipalityRef = React.useRef(null);
+    const [municipalities, setMunicipalities] = useState(
+        JSON.parse(localStorage.getItem("municipalities")) || []
+    );
+
     const filteredByStatus =
-    statusFilter === "ALL"
-        ? users
-        : users.filter(u => u.status === statusFilter);
+        statusFilter === "ALL"
+            ? users
+            : users.filter(u => u.status === statusFilter);
 
-    const admins = filteredByStatus.filter(u => u.role === "ROLE_ADMIN");
-    const presidents = filteredByStatus.filter(u => u.role === "ROLE_PRESIDENT");
-    const councilors = filteredByStatus.filter(u => u.role === "ROLE_USER");
-    const spectators = filteredByStatus.filter(u => u.role === "ROLE_SPECTATOR");
-    const presenters = filteredByStatus.filter(u => u.role === "ROLE_PRESENTER");
-    const mayors = filteredByStatus.filter(u => u.role === "ROLE_MAYOR");
-    const editors = filteredByStatus.filter(u => u.role === "ROLE_EDITOR");
-    const guests = filteredByStatus.filter(u => u.role === "ROLE_GUEST");
+    const filteredByMunicipality =
+    municipalityFilter === "ALL"
+        ? filteredByStatus
+        : filteredByStatus.filter(
+            u => u.municipalityName === municipalityFilter
+        );
 
-    useEffect(() => {
+    const admins = filteredByMunicipality.filter(u => u.role === "ROLE_ADMIN");
+    const presidents = filteredByMunicipality.filter(u => u.role === "ROLE_PRESIDENT");
+    const councilors = filteredByMunicipality.filter(u => u.role === "ROLE_USER");
+    const spectators = filteredByMunicipality.filter(u => u.role === "ROLE_SPECTATOR");
+    const presenters = filteredByMunicipality.filter(u => u.role === "ROLE_PRESENTER");
+    const mayors = filteredByMunicipality.filter(u => u.role === "ROLE_MAYOR");
+    const editors = filteredByMunicipality.filter(u => u.role === "ROLE_EDITOR");
+    const guests = filteredByMunicipality.filter(u => u.role === "ROLE_GUEST");
+
+
+useEffect(() => {
     function handleClickOutside(event) {
         if (statusRef.current && !statusRef.current.contains(event.target)) {
             setOpenStatus(false);
+        }
+        if (municipalityRef.current && !municipalityRef.current.contains(event.target)) {
+            setOpenMunicipality(false);
         }
     }
 
@@ -53,6 +71,7 @@ function AdminPanel() {
         document.removeEventListener("mousedown", handleClickOutside);
     };
 }, []);
+
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -71,6 +90,8 @@ function AdminPanel() {
                     });
 
                     setUsers(sortedUsers);
+
+                    console.log(sortedUsers);
 
                 } catch (error) {
                     console.error("Error fetching users:", error);
@@ -121,6 +142,64 @@ function AdminPanel() {
         navigate(`/admin-panel/edit/${user.username}`);
     };
 
+    const fetchMunicipalities = async () => {
+    try {
+        const cached = localStorage.getItem("municipalities");
+
+        const rawUserId = userData && userData.municipalityId;
+        const userMunicipalityId = rawUserId != null ? Number(rawUserId) : null;
+
+        const moveUserMunicipalityFirst = (arr) => {
+            if (!userMunicipalityId) return arr;
+            const index = arr.findIndex(item => Number(item.id) === userMunicipalityId);
+            if (index === -1) return arr;
+            const item = arr[index];
+            const rest = arr.slice(0, index).concat(arr.slice(index + 1));
+            return [item, ...rest];
+        };
+
+        // If already in localStorage → use it
+        if (cached) {
+            const parsed = JSON.parse(cached);
+            setMunicipalities(moveUserMunicipalityFirst(parsed));
+            return;
+        }
+
+        // Otherwise → Fetch from backend
+        const response = await fetch(
+            process.env.REACT_APP_API_URL + "/api/municipalities",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch municipalities");
+        }
+
+        const data = await response.json();
+
+        localStorage.setItem("municipalities", JSON.stringify(data));
+        setMunicipalities(moveUserMunicipalityFirst(data));
+
+    } catch (err) {
+        console.error("Error fetching municipalities:", err);
+    }
+};
+
+    useEffect(() => {
+        if (!municipalities || municipalities.length === 0) {
+            fetchMunicipalities();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+
+
     return (
         <div className="admin-panel-container">
             <HelmetProvider>
@@ -155,67 +234,113 @@ function AdminPanel() {
 
                     <div className="admin-user-lists">
 
-    {/* Status Filter */}
-    <div className="filter-section">
-        <h3 className="filters-title">{t("adminPanel.filters")}</h3>
+                {/* Status Filter */}
+                <div className="filter-section">
+                    <h3 className="filters-title">{t("adminPanel.filters")}</h3>
 
-        <label className="filter-label">{t("adminPanel.statusLabel")}</label>
+                    <div className='filter-section-body'>
+                            <div className="filter-subsection">
+                                <label className="filter-label">{t("adminPanel.statusLabel")}</label>
 
-        <div className="filter-select-container" ref={statusRef}>
-            <div
-                className="filter-select-box"
-                onClick={() => setOpenStatus(!openStatus)}
-            >
-                {statusFilter === "ALL"
-                    ? t("adminPanel.filterAll")
-                    : statusFilter === "ACTIVE"
-                    ? "ACTIVE"
-                    : "INACTIVE"}
-            </div>
+                                <div className="filter-select-container" ref={statusRef}>
+                                    <div
+                                        className="filter-select-box"
+                                        onClick={() => setOpenStatus(!openStatus)}
+                                    >
+                                        {statusFilter === "ALL"
+                                            ? t("adminPanel.filterAll")
+                                            : statusFilter === "ACTIVE"
+                                            ? "ACTIVE"
+                                            : "INACTIVE"}
+                                    </div>
 
-            {openStatus && (
-                <div className="filter-select-options">
-                    <div
-                        className={`filter-select-option ${
-                            statusFilter === "ALL" ? "selected" : ""
-                        }`}
-                        onClick={() => {
-                            setStatusFilter("ALL");
-                            setOpenStatus(false);
-                        }}
-                    >
-                        {t("adminPanel.filterAll")}
+                                    {openStatus && (
+                                        <div className="filter-select-options">
+                                            <div
+                                                className={`filter-select-option ${
+                                                    statusFilter === "ALL" ? "selected" : ""
+                                                }`}
+                                                onClick={() => {
+                                                    setStatusFilter("ALL");
+                                                    setOpenStatus(false);
+                                                }}
+                                            >
+                                                {t("adminPanel.filterAll")}
+                                            </div>
+
+                                            <div
+                                                className={`filter-select-option ${
+                                                    statusFilter === "ACTIVE" ? "selected" : ""
+                                                }`}
+                                                onClick={() => {
+                                                    setStatusFilter("ACTIVE");
+                                                    setOpenStatus(false);
+                                                }}
+                                            >
+                                                ACTIVE
+                                            </div>
+
+                                            <div
+                                                className={`filter-select-option ${
+                                                    statusFilter === "INACTIVE" ? "selected" : ""
+                                                }`}
+                                                onClick={() => {
+                                                    setStatusFilter("INACTIVE");
+                                                    setOpenStatus(false);
+                                                }}
+                                            >
+                                                INACTIVE
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="filter-subsection">
+                                <label className="filter-label">{t("adminpanel.municipality")}:</label>
+
+                                <div className="filter-select-container" ref={municipalityRef}>
+                                    <div
+                                        className="filter-select-box"
+                                        onClick={() => setOpenMunicipality(!openMunicipality)}
+                                    >
+                                        {municipalityFilter === "ALL"
+                                            ? t("adminPanel.filterAll")
+                                            : municipalities.find(m => m.name === municipalityFilter)?.name || ""}
+                                    </div>
+
+                                    {openMunicipality && (
+                                        <div className="filter-select-options">
+                                            <div
+                                                className={`filter-select-option ${municipalityFilter === "ALL" ? "selected" : ""}`}
+                                                onClick={() => {
+                                                    setMunicipalityFilter("ALL");
+                                                    setOpenMunicipality(false);
+                                                }}
+                                            >
+                                                {t("adminPanel.filterAll")}
+                                            </div>
+
+                                          {municipalities.map(m => (
+                                                <div
+                                                    key={m.id}
+                                                   className={`filter-select-option ${
+                                                        municipalityFilter === m.name ? "selected" : ""
+                                                    }`}
+                                                    onClick={() => {
+                                                        setMunicipalityFilter(m.name);
+                                                        setOpenMunicipality(false);
+                                                    }}
+                                                >
+                                                    {m.name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div
-                        className={`filter-select-option ${
-                            statusFilter === "ACTIVE" ? "selected" : ""
-                        }`}
-                        onClick={() => {
-                            setStatusFilter("ACTIVE");
-                            setOpenStatus(false);
-                        }}
-                    >
-                        ACTIVE
-                    </div>
-
-                    <div
-                        className={`filter-select-option ${
-                            statusFilter === "INACTIVE" ? "selected" : ""
-                        }`}
-                        onClick={() => {
-                            setStatusFilter("INACTIVE");
-                            setOpenStatus(false);
-                        }}
-                    >
-                        INACTIVE
-                    </div>
-                </div>
-            )}
-        </div>
-    </div>
-
-                        
                         {users.length > 0 ? (
                             <>
                               {admins.length > 0 && (
