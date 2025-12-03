@@ -20,11 +20,21 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>{user.username}</td>
             <td>{user.name}</td>
             <td>{user.surname}</td>
-            <td>{user.email}</td>
-            <td className={user.status === "ACTIVE" ? "admin-panel-status-active" : "admin-panel-status-inactive"}>
-                {user.status}
+            <td>
+                {user.email && user.email.trim() !== "" 
+                    ? user.email 
+                    : <span className="not-available-text">{t("adminpanel.notAvailable")}</span>
+                }
             </td>
-            <td>{user.municipalityName || t("adminpanel.notAvailable")}</td>
+            <td>
+               <span className={user.status === "ACTIVE" ? "admin-panel-status-active" : "admin-panel-status-inactive"}>{user.status}</span> 
+            </td>
+            <td>
+                {user.municipalityName && user.municipalityName.trim() !== ""
+                    ? user.municipalityName
+                    : <span className="not-available-text">{t("adminpanel.notAvailable")}</span>
+                }
+            </td>
             <td>
                 <div className="action-buttons-vertical">
                     <button className="btn-edit" onClick={() => onEditClick(user)}>

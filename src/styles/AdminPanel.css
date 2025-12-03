@@ -182,13 +182,18 @@
 }
 
 .admin-panel-status-active {
-    color: #19712d !important;
-    font-weight: 600;
+    font-weight: 500;
+    background-color: #22dc4d;
+    border-radius: 10px;
+    color: #000;
+    padding: 5px;
 }
 
 .admin-panel-status-inactive {
-    color: #761821 !important;
-    font-weight: 600;
+    font-weight: 500;
+    background-color: #ff4d4d;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .action-buttons-vertical {
@@ -313,6 +318,20 @@
 .filter-select-options::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 10px;
+}
+
+.not-available-text {
+    background-color: #ff4d4d;
+    color: #000;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.table td,
+.table th {
+    vertical-align: middle !important;
 }
 
 @media (max-width: 1240px) {
