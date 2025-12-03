@@ -156,6 +156,7 @@
     "fullName": "Full Name",
     "role": "Role",
     "municipality": "Municipality",
+    "email": "Email",
     "changePassword": "Change Password"
   },
 

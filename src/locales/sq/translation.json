@@ -156,6 +156,7 @@
     "fullName": "Emri dhe mbiemri",
     "role": "Roli",
     "municipality": "Komuna",
+    "email":  "Email",
     "changePassword": "Ndrysho fjalëkalimin"
   },
 

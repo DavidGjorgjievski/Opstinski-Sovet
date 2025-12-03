@@ -104,6 +104,14 @@ function Profile() {
                                     : '/'}
                             </span>
                         </div>
+                       <div className="detail-row">
+                            <span className="label">{t("profile.email")}: </span>
+                            <span className="value">
+                                {userData.email
+                                    ? userData.email
+                                    : '/'}
+                            </span>
+                        </div>
                         <div className="change-password">
                             <Link to="/profile/change-password-form">
                                 <button className="modern-button">

@@ -156,6 +156,7 @@
     "fullName": "Име и презиме",
     "role": "Улога",
     "municipality": "Општина",
+    "email":"Е-пошта",
     "changePassword": "Промени лозинка"
   },
 
