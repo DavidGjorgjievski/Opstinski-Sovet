@@ -157,6 +157,9 @@
     "role": "Rolle",
     "municipality": "Gemeinde",
     "email": "E-Mail",
+    "notAvailable": "Nicht verfügbar",
+    "edit": "Bearbeiten",
+    "add": "Hinzufügen",
     "changePassword": "Passwort ändern"
   },
   
@@ -200,6 +203,19 @@
     "success": "Passwort erfolgreich geändert.",
     "submit": "Passwort ändern",
     "back": "Zurück"
+  },
+
+  "changeEmail": {
+    "title": "E-Mail ändern",
+    "header": "Ändern Sie Ihre E-Mail-Adresse",
+    "new": "Neue E-Mail",
+    "confirm": "E-Mail bestätigen",
+    "submit": "Bestätigen",
+    "back": "Zurück",
+    "emailMismatch": "Die E-Mails stimmen nicht überein",
+    "emailExists": "Diese E-Mail wird bereits verwendet",
+    "generalError": "Ein Fehler ist aufgetreten",
+    "success": "E-Mail erfolgreich aktualisiert"
   },
 
   "session": {

@@ -157,6 +157,9 @@
     "role": "Role",
     "municipality": "Municipality",
     "email": "Email",
+    "notAvailable": "Not available",
+    "edit": "Edit",
+    "add": "Add",
     "changePassword": "Change Password"
   },
 
@@ -200,6 +203,19 @@
     "success": "Password changed successfully.",
     "submit": "Change Password",
     "back": "Back"
+  },
+
+  "changeEmail": {
+    "title": "Change Email",
+    "header": "Change Your Email",
+    "new": "New Email",
+    "confirm": "Confirm Email",
+    "submit": "Submit",
+    "back": "Back",
+    "emailMismatch": "Emails do not match",
+    "emailExists": "This email is already in use",
+    "generalError": "An error occurred",
+    "success": "Email successfully updated"
   },
 
   "session": {

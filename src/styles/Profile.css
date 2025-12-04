@@ -145,6 +145,41 @@
     transform: scale(1.03);
 }
 
+.not-available{
+    background-color: #ff4d4d;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 3px;
+    color: black;
+}
+
+.email-row {
+    gap: 6px;
+}
+
+.email-value-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-email-btn {
+    background-color: #fbe64e;
+    border: 1px solid #fbe64e;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.1s transform 0.1s;
+}
+
+.edit-email-btn:hover {
+    background-color: #fbe64e;
+    transform: scale(1.03);
+}
+
 @media (max-width: 768px) {
     .modern-card {
         padding: 20px;
@@ -176,4 +211,7 @@
         font-size: 0.95rem;
     }
 }
+
+
+
 

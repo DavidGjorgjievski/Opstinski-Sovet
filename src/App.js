@@ -25,6 +25,7 @@ import TopicPresentation from './pages/TopicPresentation'
 import NotFound from './pages/NotFound'
 import Mandate from './pages/Mandate';
 import AddFormMandate from './pages/AddFormMandate';
+import ChangeEmail from './pages/ChangeEmail';
 import MunicipalityMandate from './pages/MunicipalityMandate';
 import AddMunicipalityMandateForm from './pages/AddMunicipalityMandateForm';
 import HeadLinks from './components/HeadLinks';
@@ -51,6 +52,7 @@ function App() {
               <Route path="/profile" element={<ProtectedRoute element={<Profile />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']} />}/>
               <Route path="/profile/change-password-form" element={<ProtectedRoute element={<ChangePassword />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']}/>}/>
               <Route path="/profile/change-image-form" element={<ProtectedRoute element={<ChangeImage />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']}/>}/>
+              <Route path="/profile/change-email-form" element={<ProtectedRoute element={<ChangeEmail />} allowedRoles={['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SPECTATOR', 'ROLE_PRESENTER', 'ROLE_PRESIDENT', 'ROLE_MAYOR', 'ROLE_EDITOR']} />} />
 
               <Route 
               path="/mandate" 

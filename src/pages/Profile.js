@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faLock, faPlus, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 
@@ -97,20 +97,37 @@ function Profile() {
                         </div>
                         <div className="detail-row">
                             <span className="label">{t("profile.municipality")}: </span>
-                            <span className="value">
+                             <span
+                                className={`value ${
+                                    !userData.municipalityName ||
+                                    userData.municipalityName === "Not Assigned"
+                                        ? "not-available"
+                                        : ""
+                                }`}
+                            >
                                 {userData.municipalityName &&
                                 userData.municipalityName !== "Not Assigned"
-                                    ? userData.municipalityName.replace(/^Општина\s+/i, '')
-                                    : '/'}
+                                    ? userData.municipalityName
+                                    : t("profile.notAvailable")}
                             </span>
                         </div>
-                       <div className="detail-row">
+                       <div className="detail-row email-row">
                             <span className="label">{t("profile.email")}: </span>
-                            <span className="value">
-                                {userData.email
-                                    ? userData.email
-                                    : '/'}
-                            </span>
+
+                            <div className="email-value-wrapper">
+                                <span
+                                    className={`value ${!userData.email ? "not-available" : ""}`}
+                                >
+                                    {userData.email ? userData.email : t("profile.notAvailable")}
+                                </span>
+
+                                <Link to="/profile/change-email-form" className="edit-email-link">
+                                    <button className="edit-email-btn">
+                                        {userData.email ? t("profile.edit") : t("profile.add")}{" "}
+                                        <FontAwesomeIcon icon={userData.email ? faPenToSquare : faPlus} />
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                         <div className="change-password">
                             <Link to="/profile/change-password-form">

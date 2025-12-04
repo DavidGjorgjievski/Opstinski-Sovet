@@ -157,6 +157,9 @@
     "role": "Roli",
     "municipality": "Komuna",
     "email":  "Email",
+    "notAvailable": "Nuk ka",
+    "edit": "Ndrysho",
+    "add": "Shto",
     "changePassword": "Ndrysho fjalëkalimin"
   },
 
@@ -200,6 +203,19 @@
     "success": "Fjalëkalimi u ndryshua me sukses.",
     "submit": "Ndrysho fjalëkalimin", 
     "back": "Kthehu"
+  },
+
+  "changeEmail": {
+    "title": "Ndrysho Email",
+    "header": "Ndrysho email-in tuaj",
+    "new": "Email i ri",
+    "confirm": "Konfirmo email-in",
+    "submit": "Dërgo",
+    "back": "Kthehu",
+    "emailMismatch": "Email-et nuk përputhen",
+    "emailExists": "Ky email është tashmë në përdorim",
+    "generalError": "Ndodhi një gabim",
+    "success": "Email-i u ndryshua me sukses"
   },
 
   "session": {
