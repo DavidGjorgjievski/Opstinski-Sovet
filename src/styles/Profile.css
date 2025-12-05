@@ -194,24 +194,36 @@
 }
 
 @media (max-width: 550px) {
+    .email-value-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .edit-email-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .value {
+        word-break: break-word;
+        max-width: 100%;
+        margin-top: 5px;
+    }
+
     .modern-card {
         width: 90vw;
         padding: 20px;
     }
 
-    .content-container {       
-        width: 95vw;   
-    }
-
-    .value {
-        margin-top: 5px;
+    .content-container {
+        width: 95vw;
     }
 
     .modern-button {
         font-size: 0.95rem;
     }
 }
-
 
 
 
