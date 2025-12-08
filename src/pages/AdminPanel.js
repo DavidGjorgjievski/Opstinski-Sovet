@@ -90,9 +90,6 @@ useEffect(() => {
                     });
 
                     setUsers(sortedUsers);
-
-                    console.log(sortedUsers);
-
                 } catch (error) {
                     console.error("Error fetching users:", error);
                 } finally {

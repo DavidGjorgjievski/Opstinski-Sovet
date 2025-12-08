@@ -234,7 +234,6 @@ function EditUserForm() {
                 placeholder={t("addUserForm.enterEmail")}
                 value={formData.email}
                 onChange={handleInputChange}
-                required
               />
 
               <label className="label-add">{t("editUserForm.password")}</label>
