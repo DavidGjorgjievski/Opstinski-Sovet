@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Login.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import i18n from '../i18n';
@@ -131,6 +131,11 @@ function Login() {
                             className="login-eye-icon"
                             onClick={() => setShowPassword(!showPassword)}
                         />
+                    </div>
+                    <div className="forgot-password-container">
+                        <Link to="/forgot-password" className="forgot-password-link">
+                            {t("login.forgotPassword")}
+                        </Link>
                     </div>
                     <input
                         type="submit"

@@ -7,6 +7,7 @@
     "guestButton": "Continue as Guest",
     "selectLanguage": "Select Language:",
     "pleaseWait": "Please wait...",
+    "forgotPassword": "Forgot password?",
     "invalidCredentials": "Invalid username or password."
   },
 
@@ -15,6 +16,28 @@
     "message": "You have successfully logged out!",
     "thanks": "Thank you for using our application.",
     "loginAgain": "Log in again"
+  },
+
+  "forgot": {
+    "title": "Forgot Password",
+    "emailPlaceholder": "Email address",
+    "sendButton": "Send Reset Link",
+    "sending": "Sending...",
+    "success": "Reset link has been sent.",
+    "error": "Failed to send the reset link. Try again.",
+    "backToLogin": "Back to Login"
+  },
+
+  "reset": {
+    "title": "Reset Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "submitButton": "Reset Password",
+    "sending": "Processing...",
+    "success": "Password has been reset successfully!",
+    "error": "An error occurred. Please try again.",
+    "passwordsDoNotMatch": "Passwords do not match.",
+    "backToLogin": "Back to Login"
   },
 
   "nav": {

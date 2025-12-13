@@ -7,6 +7,7 @@
     "guestButton": "Als Gast fortfahren",
     "selectLanguage": "Sprache auswählen:",
     "pleaseWait": "Bitte warten...",
+    "forgotPassword": "Passwort vergessen?",
     "invalidCredentials": "Ungültiger Benutzername oder Passwort."
   },
 
@@ -15,6 +16,28 @@
     "message": "Sie haben sich erfolgreich abgemeldet!",
     "thanks": "Vielen Dank, dass Sie unsere Anwendung genutzt haben.",
     "loginAgain": "Erneut anmelden"
+  },
+
+  "forgot": {
+    "title": "Passwort vergessen",
+    "emailPlaceholder": "E-Mail-Adresse",
+    "sendButton": "Link zum Zurücksetzen senden",
+    "sending": "Senden...",
+    "success": "Der Link zum Zurücksetzen wurde gesendet.",
+    "error": "Fehler beim Senden des Links. Bitte erneut versuchen.",
+    "backToLogin": "Zurück zum Login"
+  },
+
+  "reset": {
+    "title": "Passwort zurücksetzen",
+    "newPassword": "Neues Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "submitButton": "Passwort zurücksetzen",
+    "sending": "Wird verarbeitet...",
+    "success": "Das Passwort wurde erfolgreich zurückgesetzt!",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
+    "backToLogin": "Zurück zum Login"
   },
 
   "nav": {

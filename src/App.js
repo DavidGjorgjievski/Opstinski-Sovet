@@ -31,6 +31,8 @@ import AddMunicipalityMandateForm from './pages/AddMunicipalityMandateForm';
 import HeadLinks from './components/HeadLinks';
 import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
 import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAddList'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 import "./i18n"; 
 
@@ -46,6 +48,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
 
               {/* Protected routes */}
               <Route path="/" element={<ProtectedRoute element={<Home />} />} />
