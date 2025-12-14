@@ -37,9 +37,6 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import "./i18n"; 
 
 function App() {
-
-  console.log("Current API URL:", process.env.REACT_APP_API_URL);
-
   return (
     <AuthProvider> 
       <HelmetProvider>
