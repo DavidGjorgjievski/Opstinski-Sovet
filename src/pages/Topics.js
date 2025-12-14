@@ -906,31 +906,35 @@ const hasTopicPermissionsStatus  = (
 
 
             {showFixDiv && (
-                <div className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}>
-                    <div className="arrow" onClick={toggleVisibility}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </div>
+                <div
+    className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}
+    onClick={toggleVisibility}
+>
+    <div className="arrow">
+        <FontAwesomeIcon icon={faChevronLeft} />
+    </div>
 
-                    {showNumber && (
-                        <>
-                            <div className="tooltip-container">
-                                <div onClick={handleToggle} className='toggle-topics'>
-                                    <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
-                                </div>
-                                <span className="tooltip-text">{t("tooltip.easyMode")}</span>
-                                </div>
-
-                                <div>
-                                <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                                    <p className='number-content'>
-                                    <span className='number-content-span'>{onlineUsersNumber}</span>
-                                    <FontAwesomeIcon icon={faUsers} />
-                                    </p>
-                                </div>
-                            </div>
-                        </>
-                    )}
+    {showNumber && (
+        <>
+            <div className="tooltip-container" onClick={(e) => e.stopPropagation()}>
+                <div onClick={handleToggle} className="toggle-topics">
+                    <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
                 </div>
+                <span className="tooltip-text">{t("tooltip.easyMode")}</span>
+            </div>
+
+            <div onClick={(e) => e.stopPropagation()}>
+                <div className="number" onClick={() => setIsLiveModalOpen(true)}>
+                    <p className="number-content">
+                        <span className="number-content-span">{onlineUsersNumber}</span>
+                        <FontAwesomeIcon icon={faUsers} />
+                    </p>
+                </div>
+            </div>
+        </>
+    )}
+</div>
+
             )}
 
           {isModalOpen && (

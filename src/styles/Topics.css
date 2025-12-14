@@ -545,24 +545,6 @@ html {
     /* Align this element to the top in a flex container */
 }
 
-
-.fixed-position-div {
-    position: fixed;
-    top: 90px;
-    right: 0px;
-    background-color: #fbe64e;
-    color: black;
-    padding: 3px;
-    border-radius: 10px;
-    font-size: 24px;
-    z-index: 900;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
 .toggle-topics{
     font-size: 2rem;
     cursor: pointer;
@@ -571,12 +553,6 @@ html {
 
 .toggle-topics:hover{
     transform: scale(1.03);
-}
-
-.arrow {
-    font-size: 28px;
-    cursor: pointer;
-    transition: transform 0.5s ease;
 }
 
 .number {
@@ -644,6 +620,44 @@ html {
     visibility: visible;
     opacity: 1;
 }
+
+.fixed-position-div {
+    position: fixed;
+    top: 90px;
+    right: 0px;
+    background-color: #fbe64e;
+    color: black;
+    padding: 3px;
+    border-radius: 10px;
+    font-size: 24px;
+    z-index: 900;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+}
+
+.arrow {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+/* Elements that must still be clickable */
+.toggle-topics,
+.number {
+    pointer-events: auto;
+}
+
+/* Rotate arrow */
+.show-number .arrow {
+    transform: rotate(180deg);
+}
+
 
 @media (max-width: 1100px) {
     .topic-item-body {
