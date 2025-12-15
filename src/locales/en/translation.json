@@ -123,7 +123,8 @@
     "title": "Councillors",
     "back": "Back",
     "noUsers": "No users found for this mandate.",
-    "edit": "Edit"
+    "edit": "Edit",
+    "president": "President"
   },
 
   "MunicipalityMandateUsersList": {

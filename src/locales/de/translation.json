@@ -123,7 +123,8 @@
     "title": "Ratsmitglieder",
     "back": "Zurück",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden.",
-    "edit": "Bearbeiten"
+    "edit": "Bearbeiten",
+    "president": "Präsident"
   },
 
    "MunicipalityMandateUsersList": {

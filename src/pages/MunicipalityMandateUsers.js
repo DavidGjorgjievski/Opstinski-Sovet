@@ -16,6 +16,9 @@ function MunicipalityMandateUsers() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const president = users.find(u => u.role === "ROLE_PRESIDENT");
+  const regularUsers = users.filter(u => u.role !== "ROLE_PRESIDENT");
+
   const [userData] = useState(() => {
     const storedUserInfo = localStorage.getItem("userInfo");
     return storedUserInfo ? JSON.parse(storedUserInfo) : {};
@@ -40,7 +43,6 @@ function MunicipalityMandateUsers() {
 
         const locale = navigator.language || "en";
 
-        // Sort by name (Cyrillic + Latin supported)
         data.sort((a, b) =>
           a.name.localeCompare(b.name, locale, { sensitivity: "base" })
         );
@@ -103,35 +105,55 @@ function MunicipalityMandateUsers() {
           </div>
         )}
 
+        {!loading && president && (
+  <div className="municipality-mandate-president-section">
+    <div className="municipality-mandate-president-card">
+      {president.image ? (
+        <img
+          src={`data:image/jpeg;base64,${president.image}`}
+          alt="President"
+          className="municipality-mandate-users-avatar"
+        />
+      ) : (
+        <div className="municipality-mandate-users-avatar placeholder">
+          {president.name.charAt(0).toUpperCase()}
+        </div>
+      )}
+
+      <p className="municipality-mandate-users-name">
+        {president.name} {president.surname}
+      </p>
+      <span className="municipality-mandate-president-label">
+        {t("MunicipalityMandateUsers.president")}
+      </span>
+    </div>
+  </div>
+)}
+
         {/* Users grid */}
-        {!loading && (
-          <>
-            {users.length === 0 ? (
-              <p>{t("MunicipalityMandateUsers.noUsers")}</p>
-            ) : (
-              <div className="municipality-mandate-users-grid">
-                {users.map((user) => (
-                  <div key={user.username} className="municipality-mandate-users-card">
-                    {user.image ? (
-                      <img
-                        src={`data:image/jpeg;base64,${user.image}`}
-                        alt="User"
-                        className="municipality-mandate-users-avatar"
-                      />
-                    ) : (
-                      <div className="municipality-mandate-users-avatar placeholder">
-                        {user.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <p className="municipality-mandate-users-name">
-                      {user.name} {user.surname}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </>
+       {!loading && regularUsers.length > 0 && (
+  <div className="municipality-mandate-users-grid">
+    {regularUsers.map((user) => (
+      <div key={user.username} className="municipality-mandate-users-card">
+        {user.image ? (
+          <img
+            src={`data:image/jpeg;base64,${user.image}`}
+            alt="User"
+            className="municipality-mandate-users-avatar"
+          />
+        ) : (
+          <div className="municipality-mandate-users-avatar placeholder">
+            {user.name.charAt(0).toUpperCase()}
+          </div>
         )}
+        <p className="municipality-mandate-users-name">
+          {user.name} {user.surname}
+        </p>
+      </div>
+    ))}
+  </div>
+)}
+
       </main>
     </div>
   );

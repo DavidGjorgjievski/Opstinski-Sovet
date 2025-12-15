@@ -132,6 +132,38 @@
     height: 150px;
 }
 
+.municipality-mandate-president-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.municipality-mandate-president-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #fff7cc;
+    border: 2px solid #fbe64e;
+    border-radius: 20px;
+    text-align: center;
+
+    padding: 20px 30px;
+    max-width: 320px;
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+.municipality-mandate-president-label {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #9c8700;
+    text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
 
     .municipality-mandate-users-back-button {
@@ -151,4 +183,9 @@
     .municipality-mandate-users-grid {
         padding: 0 15px;
     }
+
+    .municipality-mandate-president-section{
+        padding: 0 15px;
+    }
 }
+
