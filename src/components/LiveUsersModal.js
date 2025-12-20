@@ -3,6 +3,7 @@ import "../styles/LiveUsersModal.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
+import api from '../api/axios';
 
 const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role, status }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -10,50 +11,28 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role, status }
   const { t } = useTranslation();
 
   const fetchOnlineUsers = useCallback(async () => {
-    try {
-      const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/online-users-list`;
+      try {
+        const response = await api.get(
+          `/api/municipalities/${municipalityId}/online-users-list`
+        );
 
-      const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        setOnlineUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching online users:", error);
       }
-
-      const data = await response.json();
-      setOnlineUsers(data);
-    } catch (error) {
-      console.error("Error fetching online users:", error);
-    }
-  }, [municipalityId, token]);
+  }, [municipalityId]);
 
   const fetchOfflineUsers = useCallback(async () => {
-    try {
-      const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/offline-users-list`;
+      try {
+        const response = await api.get(
+          `/api/municipalities/${municipalityId}/offline-users-list`
+        );
 
-      const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        setOfflineUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching offline users:", error);
       }
-
-      const data = await response.json();
-      setOfflineUsers(data);
-    } catch (error) {
-      console.error("Error fetching offline users:", error);
-    }
-  }, [municipalityId, token]);
+  }, [municipalityId]);
 
   useEffect(() => {
     if (isOpen && municipalityId) {
@@ -64,51 +43,32 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role, status }
 
   if (!isOpen) return null;
 
-
   const makeUserOffline = async (username) => {
-  try {
-    const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/offline/${username}`;
-    const response = await fetch(endpoint, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+      try {
+        await api.get(
+          `/api/municipalities/${municipalityId}/offline/${username}`
+        );
+        // Refresh data after success
+        fetchOnlineUsers();
+        fetchOfflineUsers();
+      } catch (error) {
+        console.error("Error making user offline:", error);
+      }
+  };
 
-    if (response.ok) {
-      fetchOnlineUsers(); // Refresh data
-      fetchOfflineUsers();
-    } else {
-      console.error("Failed to make user offline");
-    }
-  } catch (error) {
-    console.error("Error making user offline:", error);
-  }
-};
+  const makeUserOnline = async (username) => {
+      try {
+        await api.get(
+          `/api/municipalities/${municipalityId}/online/${username}`
+        );
 
-const makeUserOnline = async (username) => {
-  try {
-    const endpoint = `${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/online/${username}`;
-    const response = await fetch(endpoint, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      fetchOnlineUsers(); // Refresh data
-      fetchOfflineUsers();
-    } else {
-      console.error("Failed to make user online");
-    }
-  } catch (error) {
-    console.error("Error making user online:", error);
-  }
-};
-
+        // Refresh data after success
+        fetchOnlineUsers();
+        fetchOfflineUsers();
+      } catch (error) {
+        console.error("Error making user online:", error);
+      }
+  };
 
   return (
       <div className="liv-modal-overlay" onClick={onClose}>

@@ -14,7 +14,7 @@ import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
-
+import api from '../api/axios'; 
 
 function Topics() {
     const [topics, setTopics] = useState([]);
@@ -52,21 +52,17 @@ function Topics() {
 
     useEffect(() => {
 
+        if (!sessionMunicipalityTermId || !municipalityId) return;
 
-    if (!sessionMunicipalityTermId || !municipalityId) return;
+        const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
 
+        if (mandates.length === 0) return;
 
+        const newestMandateId = Math.max(...mandates.map(m => m.id));
 
-    const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
+        setshowFixDiv(sessionMunicipalityTermId === newestMandateId);
 
-
-    if (mandates.length === 0) return;
-
-    const newestMandateId = Math.max(...mandates.map(m => m.id));
-
-    setshowFixDiv(sessionMunicipalityTermId === newestMandateId);
-
-}, [sessionMunicipalityTermId, municipalityId]);
+    }, [sessionMunicipalityTermId, municipalityId]);
 
     const [isOn, setIsOn] = useState(() => {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
@@ -80,10 +76,10 @@ function Topics() {
     };
 
    const openRestartModal = (topicId, topicTitle) => {
-    setRestartTopicId(topicId);
-    setRestartTopicTitle(topicTitle);
-    setIsRestartModalOpen(true);
-};
+        setRestartTopicId(topicId);
+        setRestartTopicTitle(topicTitle);
+        setIsRestartModalOpen(true);
+    };
 
     const closeRestartModal = () => {
         setIsRestartModalOpen(false);
@@ -97,46 +93,42 @@ function Topics() {
     closeRestartModal();
     };
 
-  const toggleMenu = (id) => {
-    setOpenMenus((prevMenus) => ({
-      ...prevMenus,
-      [id]: !prevMenus[id], // Toggle the specific menu's visibility
-    }));
-  };
-
+    const toggleMenu = (id) => {
+        setOpenMenus((prevMenus) => ({
+        ...prevMenus,
+        [id]: !prevMenus[id], // Toggle the specific menu's visibility
+        }));
+    };
 
     const toggleVisibility = () => {
         setShowNumber(!showNumber); // Toggle the visibility
         fetchOnlineUsers();
     };
 
-const handleClickOutside = useCallback(
-  (event) => {
-    Object.keys(menuRefs.current).forEach((id) => {
-      if (
-        openMenus[id] &&
-        menuRefs.current[id] &&
-        !menuRefs.current[id].contains(event.target)
-      ) {
-        setOpenMenus((prevMenus) => ({
-          ...prevMenus,
-          [id]: false,
-        }));
-      }
-    });
-  },
-  [openMenus] // Dependencies
-);
+    const handleClickOutside = useCallback(
+        (event) => {
+            Object.keys(menuRefs.current).forEach((id) => {
+            if (
+                openMenus[id] &&
+                menuRefs.current[id] &&
+                !menuRefs.current[id].contains(event.target)
+            ) {
+                setOpenMenus((prevMenus) => ({
+                ...prevMenus,
+                [id]: false,
+                }));
+            }
+            });
+        },
+        [openMenus]
+    );
 
-
-   useEffect(() => {
-  document.addEventListener("click", handleClickOutside);
-  return () => {
-    document.removeEventListener("click", handleClickOutside);
-  };
-}, [handleClickOutside]);
-
-  
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, [handleClickOutside]);
 
     const openModal = (topicId, topicTitle) => {
         setSelectedTopicId(topicId);
@@ -150,34 +142,21 @@ const handleClickOutside = useCallback(
         setSelectedTopicTitle(null); // Clear the title as well
     };
 
- 
-      const fetchTopics = useCallback(async () => {
+    const fetchTopics = useCallback(async () => {
         try {
-          const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics`;
-      
-          const response = await fetch(endpoint, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
-      
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          
-          const data = await response.json();
-      
-          setTopics(data.topics); 
-          setPresentedTopicId(data.presentedTopicId);
-          setTopicsLoaded(true);
-        } catch (error) {
-          console.error('Error fetching topics:', error);
-        }
-    }, [id, token]);
+            const response = await api.get(
+            `/api/sessions/${id}/topics`
+            );
 
- useEffect(() => {
+            setTopics(response.data.topics);
+            setPresentedTopicId(response.data.presentedTopicId);
+            setTopicsLoaded(true);
+        } catch (error) {
+            console.error("Error fetching topics:", error);
+        }
+    }, [id]);
+
+    useEffect(() => {
         const cachedSessions = localStorage.getItem(`sessions_${municipalityId}`);
         if (cachedSessions) {
             const sessions = JSON.parse(cachedSessions);
@@ -189,65 +168,42 @@ const handleClickOutside = useCallback(
         }
     }, [municipalityId, id]);
 
-
     const fetchUserVotes = useCallback(async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics-user-votes`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch user votes');
-            }
-
-            const userVotes = await response.json();
+            const response = await api.get(
+            `/api/sessions/${id}/topics-user-votes`
+            );
 
             const votesMap = {};
-            userVotes.forEach(([topicId, voteStatus]) => {
-                votesMap[topicId] = voteStatus;
+            response.data.forEach(([topicId, voteStatus]) => {
+            votesMap[topicId] = voteStatus;
             });
 
             setCurrentVotes(votesMap);
         } catch (error) {
-            console.error('Error fetching user votes:', error);
+            console.error("Error fetching user votes:", error);
         }
-    }, [id, token]);
+    }, [id]);
 
+    const fetchOnlineUsers = useCallback(async () => {
+        if (!municipalityId) return;
 
+        try {
+            const response = await api.get(
+            `/api/municipalities/${municipalityId}/online-users`
+            );
 
-   const fetchOnlineUsers = useCallback(async () => {
-    if (!municipalityId || !token) return;
-
-    try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/online-users`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            setOnlineUsersNumber(data);
-        } else {
-            console.error("Failed to fetch online users:", response.status);
+            setOnlineUsersNumber(response.data);
+        } catch (error) {
+            console.error("Error fetching online users:", error);
         }
-    } catch (error) {
-        console.error("Error fetching online users:", error);
-    }
-}, [municipalityId, token]);  // Ensure token is included as a dependency
+    }, [municipalityId]);
 
-useEffect(() => {
-    if (showFixDiv) {
-        fetchOnlineUsers();
-    }
-}, [fetchOnlineUsers, showFixDiv]);
-
+    useEffect(() => {
+        if (showFixDiv) {
+            fetchOnlineUsers();
+        }
+    }, [fetchOnlineUsers, showFixDiv]);
 
     useEffect(() => {
         if (userInfo && userInfo.role) {
@@ -264,27 +220,18 @@ useEffect(() => {
         return () => cleanupMobileMenu();
     }, [token, userInfo, fetchTopics, id, fetchUserVotes, showFixDiv]);
 
-
     const handleDelete = async () => {
-        const jwtToken = localStorage.getItem('jwtToken');
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/${selectedTopicId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json'
-                },
-            });
+            await api.delete(`/api/topics/${selectedTopicId}`);
 
-            if (response.ok) {
-                closeModal();
-                await fetchTopics(); // Re-fetch topics immediately after deletion
-                sendNewTopic("NEW_TOPIC");
-            } else {
-                console.error('Failed to delete the topic');
-            }
+            // Close modal and refresh topics
+            closeModal();
+            await fetchTopics();
+
+            // Send WebSocket update
+            sendNewTopic("NEW_TOPIC");
         } catch (error) {
-            console.error('Error:', error);
+            console.error("Error deleting the topic:", error);
         }
     };
 
@@ -313,267 +260,230 @@ useEffect(() => {
 
     const handlePdfFetch = async (pdfId) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/pdf/${pdfId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/pdf',
-                },
+            const response = await api.get(`/api/topics/pdf/${pdfId}`, {
+                responseType: "blob", 
+                headers: { Accept: "application/pdf" },
             });
 
-            if (response.ok) {
-                // Create a blob from the response
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                // Open the PDF in a new tab
-                window.open(url, '_blank');
-            } else {
-                console.error('PDF not found or could not be retrieved.');
-            }
+            const url = URL.createObjectURL(response.data); 
+            window.open(url, "_blank"); 
+
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
         } catch (error) {
-            console.error('Error fetching PDF:', error);
+            console.error("Error fetching PDF:", error);
         }
     };
 
-    const startVoting = async (topicId, token) => {
+    const startVoting = async (topicId) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/active/${topicId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to start voting.');
-            }
+            await api.get(`/api/sessions/${id}/topics/active/${topicId}`);
+
+            // Update local state
             setIsVoteAction(true);
             console.log('Voting started successfully');
-            // You can refresh data or trigger other effects here if needed
+
+            // Refresh topics
             await fetchTopics();
+
+            // Update current votes state
             setCurrentVotes((prevVotes) => ({
             ...prevVotes,
-            [String(topicId)]: 'HAVE_NOT_VOTED' // Ensure topicId is treated as string
-        }));
+            [String(topicId)]: 'HAVE_NOT_VOTED', // Ensure topicId is treated as string
+            }));
 
-        sendVote(topicId);
-        sendPresenterUpdate(topicId);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
-    const finishVoting = async (topicId, token) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/finish/${topicId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to finish voting.');
-            }
-             setIsVoteAction(true);
-
-            await fetchTopics();
-            console.log('Voting finished successfully');
-            // Trigger additional effects here if needed
+            // Send WebSocket updates
             sendVote(topicId);
             sendPresenterUpdate(topicId);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error starting voting:', error);
         }
     };
 
-    const restartVoting = async (topicId, token) => {
+    const finishVoting = async (topicId) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/create/${topicId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to restart voting.');
-            }
+            await api.get(`/api/sessions/${id}/topics/finish/${topicId}`);
+
+            // Update local state
+            setIsVoteAction(true);
+
+            // Refresh topics
+            await fetchTopics();
+
+            console.log('Voting finished successfully');
+
+            // Send WebSocket updates
+            sendVote(topicId);
+            sendPresenterUpdate(topicId);
+        } catch (error) {
+            console.error('Error finishing voting:', error);
+        }
+    };
+
+    const restartVoting = async (topicId) => {
+        try {
+            // Axios GET request using your api instance
+            await api.get(`/api/topics/create/${topicId}`);
+
+            // Update local state
             setIsVoteAction(true);
 
             setCurrentVotes((prevVotes) => {
             const updatedVotes = { ...prevVotes };
-            delete updatedVotes[topicId];
+            delete updatedVotes[topicId]; // Remove votes for this topic
             return updatedVotes;
-        });
+            });
 
             console.log('Voting restarted successfully');
 
-            // Trigger additional effects here if needed
+            // Refresh topics
             await fetchTopics();
+
+            // Send WebSocket updates
             sendVote(topicId);
             sendPresenterUpdate(topicId);
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error restarting voting:', error);
         }
     };
 
-const handleVote = async (topicId, voteType) => {
-    try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/vote/${topicId}/${voteType}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
+    const handleVote = async (topicId, voteType) => {
+        try {
+            // Axios GET request using your api instance
+            await api.get(`/api/topics/vote/${topicId}/${voteType}`);
 
-        if (!response.ok) {
-            throw new Error(`Failed to vote: ${voteType}`);
-        }
-        console.log(`${voteType} vote submitted successfully`);
+            console.log(`${voteType} vote submitted successfully`);
 
-        // Set vote action flag to true to skip scroll restoration
-        setIsVoteAction(true);
+            // Set vote action flag to true to skip scroll restoration
+            setIsVoteAction(true);
 
-        // Update the current vote for the topic
-        setCurrentVotes((prevVotes) => ({
+            // Update the current vote for the topic
+            setCurrentVotes((prevVotes) => ({
             ...prevVotes,
             [topicId]: voteType,
-        }));
+            }));
 
-        // await fetchTopics();
-
-        sendVote(topicId);
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-useEffect(() => {
-    // Save scroll position on refresh
-    const handleBeforeUnload = () => {
-        sessionStorage.setItem('scrollPosition', window.scrollY);
+            // Trigger WebSocket update
+            sendVote(topicId);
+        } catch (error) {
+            console.error('Error submitting vote:', error);
+        }
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    useEffect(() => {
+        // Save scroll position on refresh
+        const handleBeforeUnload = () => {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        };
 
-    return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    const saveScrollPosition = () => {
+        const scrollPosition = window.scrollY;
+        sessionStorage.setItem('scrollPosition', scrollPosition);
     };
-}, []);
 
-const saveScrollPosition = () => {
-    const scrollPosition = window.scrollY;
-    sessionStorage.setItem('scrollPosition', scrollPosition);
-};
+    useEffect(() => {
+        isVoteActionRef.current = isVoteAction;
+    }, [isVoteAction]);
 
-useEffect(() => {
-    isVoteActionRef.current = isVoteAction;
-}, [isVoteAction]);
+    useEffect(() => {
+        if (!topicsLoaded) return; // Wait until first load is complete
 
-useEffect(() => {
-  if (!topicsLoaded) return; // Wait until first load is complete
+        // Skip if action was from logo or from a voting WebSocket update
+        if (isVoteActionRef.current) {
+            isVoteActionRef.current = false;
+            return;
+        }
 
-  // Skip if action was from logo or from a voting WebSocket update
-  if (isVoteActionRef.current) {
-    isVoteActionRef.current = false;
-    return;
-  }
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            const timeoutId = setTimeout(() => {
+            window.scrollTo({ top: parseInt(scrollPosition, 10), behavior: 'smooth' });
+            }, 200); // small delay to ensure layout is rendered
 
-  const scrollPosition = sessionStorage.getItem('scrollPosition');
-  if (scrollPosition) {
-    const timeoutId = setTimeout(() => {
-      window.scrollTo({ top: parseInt(scrollPosition, 10), behavior: 'smooth' });
-    }, 200); // small delay to ensure layout is rendered
+            return () => clearTimeout(timeoutId);
+        }
+    }, [topicsLoaded]);
 
-    return () => clearTimeout(timeoutId);
-  }
-}, [topicsLoaded]);
+    useEffect(() => {
+        if (!presenterMessages.length) return;
 
+        const lastTopicId = Number(presenterMessages[presenterMessages.length - 1]);
 
-useEffect(() => {
-    if (!presenterMessages.length) return;
-
-    const lastTopicId = Number(presenterMessages[presenterMessages.length - 1]);
-
-    // Optionally update local state if needed
-    setPresentedTopicId(lastTopicId); // just update locally
-}, [presenterMessages]);
+        // Optionally update local state if needed
+        setPresentedTopicId(lastTopicId); // just update locally
+    }, [presenterMessages]);
 
 
-useEffect(() => {
-    if (newTopicMessages.length > 0) {
-        fetchTopics();
-    }
-}, [newTopicMessages, fetchTopics]);
+    useEffect(() => {
+        if (newTopicMessages.length > 0) {
+            fetchTopics();
+        }
+    }, [newTopicMessages, fetchTopics]);
 
-const handlePresentClick = async (topicId) => {
-    try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/present/${topicId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
+    const handlePresentClick = async (topicId) => {
+        try {
+            // Using Axios GET
+            await api.get(`/api/topics/present/${topicId}`);
 
-        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+            // Send WebSocket update
+            sendPresenterUpdate(topicId);
+        } catch (error) {
+            console.error("Failed to present topic:", error);
+        }
+    };
 
-        sendPresenterUpdate(topicId);
+    useEffect(() => {
+    if (voteMessages.length === 0) return;
 
-    } catch (error) {
-        console.error("Failed to present topic:", error);
-        alert("Failed to present topic.");
-    }
-};
+    const lastResult = voteMessages.at(-1);
+    const updatedTopicId = lastResult.topicId;
 
-useEffect(() => {
-  if (voteMessages.length === 0) return;
+    setTopics((prevTopics) =>
+        prevTopics.map((topic) =>
+        topic.id === updatedTopicId
+            ? {
+                ...topic,
+                yes: lastResult.yes,
+                no: lastResult.no,
+                abstained: lastResult.abstained,
+                cantVote: lastResult.cantVote,
+                haveNotVoted: lastResult.haveNotVoted,
+                absent: lastResult.absent,
+                topicStatus: lastResult.status,
+            }
+            : topic
+        )
+    );
+    }, [voteMessages]);
 
-  const lastResult = voteMessages.at(-1);
-  const updatedTopicId = lastResult.topicId;
+    const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
+        .find(s => s.id === parseInt(id));
 
-  setTopics((prevTopics) =>
-    prevTopics.map((topic) =>
-      topic.id === updatedTopicId
-        ? {
-            ...topic,
-            yes: lastResult.yes,
-            no: lastResult.no,
-            abstained: lastResult.abstained,
-            cantVote: lastResult.cantVote,
-            haveNotVoted: lastResult.haveNotVoted,
-            absent: lastResult.absent,
-            topicStatus: lastResult.status,
-          }
-        : topic
-    )
-  );
-}, [voteMessages]);
+    const hasTopicPermissions  = (
+        ((userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+        ) || userInfo.role === 'ROLE_ADMIN'
+    );
 
-const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
-    .find(s => s.id === parseInt(id));
-
-const hasTopicPermissions  = (
-    ((userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
-     userInfo.status === "ACTIVE" &&
-     Number(municipalityId) === Number(userInfo.municipalityId) &&
-     Array.isArray(userInfo.municipalityTermIds) &&
-     currentSession &&
-     userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
-    ) || userInfo.role === 'ROLE_ADMIN'
-);
-
-const hasTopicPermissionsStatus  = (
-    (userInfo.role === 'ROLE_PRESIDENT' &&
-     userInfo.status === "ACTIVE" &&
-     Number(municipalityId) === Number(userInfo.municipalityId) &&
-     Array.isArray(userInfo.municipalityTermIds) &&
-     currentSession &&
-     userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
-    ) || userInfo.role === 'ROLE_ADMIN'
-);
+    const hasTopicPermissionsStatus  = (
+        (userInfo.role === 'ROLE_PRESIDENT' &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+        ) || userInfo.role === 'ROLE_ADMIN'
+    );
     return (
         <div className="topics-container">
             <HelmetProvider>

@@ -9,61 +9,51 @@ import MandateConfirmModal from '../components/MandateConfirmModal';
 import '../styles/Mandate.css'; 
 import { useTranslation } from 'react-i18next';
 import Footer from '../components/Footer';
+import api from '../api/axios';
 
 function Mandate() {
     const [userData] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
-        return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-    });
+    const storedUserInfo = localStorage.getItem('userInfo');
+    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
+});
 
-    const [mandates, setMandates] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [openMenuId, setOpenMenuId] = useState(null);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedMandate, setSelectedMandate] = useState(null);
+const [mandates, setMandates] = useState([]);
+const [loading, setLoading] = useState(true);
+const [openMenuId, setOpenMenuId] = useState(null);
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [selectedMandate, setSelectedMandate] = useState(null);
 
-    const { t } = useTranslation();
-    const navigate = useNavigate(); 
-    const menuRefs = useRef({});
+const { t } = useTranslation();
+const navigate = useNavigate();
+const menuRefs = useRef({});
 
-   useEffect(() => {
+// Fetch mandates using Axios
+useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
 
     const fetchMandates = async () => {
-        const storedMandates = localStorage.getItem('mandates');
-        let mandatesData = [];
-        if (storedMandates) {
-            mandatesData = JSON.parse(storedMandates);
-        } else {
-            try {
-                const token = localStorage.getItem('jwtToken');
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/terms`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
+        try {
+            const token = localStorage.getItem('jwtToken');
+            const response = await api.get('/api/terms', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
-                if (response.ok) {
-                    mandatesData = await response.json();
-                    localStorage.setItem('mandates', JSON.stringify(mandatesData));
-                } else {
-                    console.error('Failed to fetch mandates');
-                }
-            } catch (error) {
-                console.error(error);
-            }
+            let mandatesData = response.data || [];
+
+            // Sort mandates by startDate first, then endDate, newest first
+            mandatesData.sort((a, b) => {
+                const startDiff = new Date(b.startDate) - new Date(a.startDate);
+                if (startDiff !== 0) return startDiff;
+                return new Date(b.endDate) - new Date(a.endDate);
+            });
+
+            setMandates(mandatesData);
+            localStorage.setItem('mandates', JSON.stringify(mandatesData));
+        } catch (error) {
+            console.error('Failed to fetch mandates:', error);
+        } finally {
+            setLoading(false);
         }
-
-        // Sort mandates by startDate first, then endDate, newest first
-        mandatesData.sort((a, b) => {
-            const startDiff = new Date(b.startDate) - new Date(a.startDate);
-            if (startDiff !== 0) return startDiff;
-            return new Date(b.endDate) - new Date(a.endDate);
-        });
-
-        setMandates(mandatesData);
-        setLoading(false);
     };
 
     fetchMandates();
@@ -71,21 +61,20 @@ function Mandate() {
     return () => cleanupMobileMenu();
 }, []);
 
+function formatDateByLanguage(dateString, t) {
+    const date = new Date(dateString);
+    if (isNaN(date)) return '';
+    const months = t('months', { returnObjects: true });
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+}
 
-    function formatDateByLanguage(dateString, t) {
-        const date = new Date(dateString);
-        if (isNaN(date)) return '';
-        const months = t('months', { returnObjects: true });
-        const month = months[date.getMonth()];
-        const year = date.getFullYear();
-        return `${month} ${year}`;
-    }
+const toggleMenu = (id) => {
+    setOpenMenuId(openMenuId === id ? null : id);
+};
 
-    const toggleMenu = (id) => {
-        setOpenMenuId(openMenuId === id ? null : id);
-    };
-
-   useEffect(() => {
+useEffect(() => {
     const handleClickOutside = (event) => {
         if (openMenuId) {
             const currentMenuRef = menuRefs.current[openMenuId];
@@ -99,28 +88,23 @@ function Mandate() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
 }, [openMenuId]);
 
-    const handleDeleteConfirm = async () => {
-        try {
-            const token = localStorage.getItem('jwtToken');
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/terms/delete/${selectedMandate.id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+const handleDeleteConfirm = async () => {
+    try {
+        const token = localStorage.getItem('jwtToken');
+        await api.delete(`/api/terms/delete/${selectedMandate.id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
 
-            if (response.ok) {
-                const updatedMandates = mandates.filter(m => m.id !== selectedMandate.id);
-                setMandates(updatedMandates);
-                localStorage.setItem('mandates', JSON.stringify(updatedMandates)); // ажурирај localStorage
-            } else {
-                console.error('Failed to delete mandate');
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setShowDeleteModal(false);
-            setSelectedMandate(null);
-        }
-    };
+        const updatedMandates = mandates.filter(m => m.id !== selectedMandate.id);
+        setMandates(updatedMandates);
+        localStorage.setItem('mandates', JSON.stringify(updatedMandates));
+    } catch (error) {
+        console.error('Failed to delete mandate:', error);
+    } finally {
+        setShowDeleteModal(false);
+        setSelectedMandate(null);
+    }
+};
 
     return (
         <div className="mandate-container">

@@ -7,6 +7,7 @@ import '../styles/AddFormMandate.css';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import api from '../api/axios'; 
 
 function AddFormMandate() {
     const [userData, setUserData] = useState(() => {
@@ -31,7 +32,6 @@ function AddFormMandate() {
             setUserData(prevData => ({ ...prevData, image: imageData }));
         }
 
-        // Initialize mobile menu only if elements exist
         let cleanupMobileMenu = () => {};
         if (document.getElementById('mobile-menu-toggle') && document.getElementById('mobile-nav')) {
             cleanupMobileMenu = initializeMobileMenu();
@@ -42,16 +42,10 @@ function AddFormMandate() {
                 setLoading(true);
                 try {
                     const token = localStorage.getItem('jwtToken');
-                    const response = await fetch(
-                        `${process.env.REACT_APP_API_URL}/api/terms/${id}`,
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        }
-                    );
-                    if (!response.ok) throw new Error('Failed to fetch mandate');
-                    const mandate = await response.json();
+                    const response = await api.get(`/api/terms/${id}`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    const mandate = response.data;
                     setStartDate(mandate.startDate);
                     setEndDate(mandate.endDate);
                 } catch (err) {
@@ -63,11 +57,9 @@ function AddFormMandate() {
             };
             fetchMandate();
         } else {
-            // Default dates for new term
             const today = new Date();
             const fourYearsLater = new Date();
             fourYearsLater.setFullYear(today.getFullYear() + 4);
-
             setStartDate(today.toISOString().split('T')[0]);
             setEndDate(fourYearsLater.toISOString().split('T')[0]);
         }
@@ -78,29 +70,24 @@ function AddFormMandate() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('jwtToken');
-        const url = isEditMode
-            ? `${process.env.REACT_APP_API_URL}/api/terms/edit/${id}`
-            : `${process.env.REACT_APP_API_URL}/api/terms/create`;
-        const method = isEditMode ? 'PUT' : 'POST';
+
+        const payload = { startDate, endDate };
 
         try {
-            const response = await fetch(url, {
+            const url = isEditMode ? `/api/terms/edit/${id}` : `/api/terms/create`;
+            const method = isEditMode ? 'put' : 'post';
+
+            await api({
                 method,
+                url,
+                data: payload,
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ startDate, endDate }),
             });
 
-            if (response.ok) {
-                // Redirect immediately to /mandate on success
-                navigate('/mandate');
-            } else {
-                // Keep error message visible
-                const errorText = await response.text();
-                setMessage(errorText || t('addMandate.error'));
-            }
+            navigate('/mandate');
         } catch (error) {
             console.error(error);
             setMessage(t('addMandate.error'));
@@ -164,7 +151,7 @@ function AddFormMandate() {
                             </div>
 
                             <div className="mt-3 d-flex">
-                                 <button 
+                                <button 
                                     type="submit" 
                                     className="me-2 mandate-form-submit-button"
                                 >

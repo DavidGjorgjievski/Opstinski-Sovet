@@ -10,6 +10,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPlus,faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import api from '../api/axios';
 
 
 function AdminPanel() {
@@ -22,16 +23,30 @@ function AdminPanel() {
     const [userToDelete, setUserToDelete] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [statusFilter, setStatusFilter] = useState("ALL");
     const [openStatus, setOpenStatus] = useState(false);
     const statusRef = React.useRef(null);
 
-    const [municipalityFilter, setMunicipalityFilter] = useState("ALL");
     const [openMunicipality, setOpenMunicipality] = useState(false);
     const municipalityRef = React.useRef(null);
     const [municipalities, setMunicipalities] = useState(
         JSON.parse(localStorage.getItem("municipalities")) || []
     );
+
+    const [statusFilter, setStatusFilter] = useState(
+        localStorage.getItem("statusFilter") || "ALL"
+    );
+
+    const [municipalityFilter, setMunicipalityFilter] = useState(
+        localStorage.getItem("municipalityFilter") || "ALL"
+    );
+
+    useEffect(() => {
+        localStorage.setItem("statusFilter", statusFilter);
+    }, [statusFilter]);
+
+    useEffect(() => {
+        localStorage.setItem("municipalityFilter", municipalityFilter);
+    }, [municipalityFilter]);
 
     const filteredByStatus =
         statusFilter === "ALL"
@@ -54,57 +69,56 @@ function AdminPanel() {
     const editors = filteredByMunicipality.filter(u => u.role === "ROLE_EDITOR");
     const guests = filteredByMunicipality.filter(u => u.role === "ROLE_GUEST");
 
-
-useEffect(() => {
-    function handleClickOutside(event) {
-        if (statusRef.current && !statusRef.current.contains(event.target)) {
-            setOpenStatus(false);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (statusRef.current && !statusRef.current.contains(event.target)) {
+                setOpenStatus(false);
+            }
+            if (municipalityRef.current && !municipalityRef.current.contains(event.target)) {
+                setOpenMunicipality(false);
+            }
         }
-        if (municipalityRef.current && !municipalityRef.current.contains(event.target)) {
-            setOpenMunicipality(false);
-        }
-    }
 
-    document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
 
-    return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-    };
-}, []);
-
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     useEffect(() => {
         const fetchUsers = async () => {
-            if (token) {
-                try {
-                    const response = await axios.get(process.env.REACT_APP_API_URL + '/api/admin/users', {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
-                    // Sort so that ACTIVE users come first
-                    const sortedUsers = response.data.sort((a, b) => {
-                        if (a.status === "ACTIVE" && b.status !== "ACTIVE") return -1;
-                        if (a.status !== "ACTIVE" && b.status === "ACTIVE") return 1;
-                        return 0;
-                    });
+            if (!token) {
+                // Don't navigate anywhere, just exit the fetch
+                setLoading(false);
+                return;
+            }
 
-                    setUsers(sortedUsers);
-                } catch (error) {
-                    console.error("Error fetching users:", error);
-                } finally {
-                    setLoading(false);
-                }
-            } else {
-                navigate('/login');
+            try {
+                const response = await api.get('/api/admin/users'); // using your api instance
+
+                // Sort so that ACTIVE users come first
+                const sortedUsers = response.data.sort((a, b) => {
+                    if (a.status === "ACTIVE" && b.status !== "ACTIVE") return -1;
+                    if (a.status !== "ACTIVE" && b.status === "ACTIVE") return 1;
+                    return 0;
+                });
+
+                setUsers(sortedUsers);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchUsers();
+
         const cleanupMobileMenu = initializeMobileMenu();
         sessionStorage.removeItem('scrollPosition');
+
         return () => cleanupMobileMenu();
-    }, [navigate, token]);
+    }, [token]);
 
     const handleDeleteClick = (user) => {
         setUserToDelete(user);

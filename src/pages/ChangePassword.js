@@ -7,22 +7,21 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faChevronLeft, faLock } from "@fortawesome/free-solid-svg-icons";
+import api from '../api/axios';
 
 const ChangePassword = () => {
   const { t } = useTranslation();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  // Store KEYS, not translated strings
   const [passwordErrorKey, setPasswordErrorKey] = useState(null); // string | null
-  const [successKey, setSuccessKey] = useState(null);             // string | null
+  const [successMessage, setSuccessMessage] = useState(null);     // string | null
 
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
-  const [token] = useState(localStorage.getItem('jwtToken'));
 
   useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
@@ -32,7 +31,7 @@ const ChangePassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setPasswordErrorKey(null);
-    setSuccessKey(null);
+    setSuccessMessage(null);
 
     if (newPassword !== confirmPassword) {
       setPasswordErrorKey('changePassword.passwordMismatch');
@@ -40,31 +39,33 @@ const ChangePassword = () => {
     }
 
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL + "/api/change-password", {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`, 
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ currentPassword, newPassword })
+      const { data } = await api.post("/api/change-password", {
+        currentPassword,
+        newPassword
       });
 
-      if (response.status === 400) {
-        const errorMessage = await response.text();
+      // Use backend message if available
+      setSuccessMessage(data?.message || t('changePassword.success'));
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+
+    } catch (error) {
+      console.error('Error changing password:', error.message);
+
+      if (error.response?.status === 401) {
+        setPasswordErrorKey('changePassword.sessionExpired');
+        // optional: redirect to login
+      } else if (error.response?.status === 400) {
+        const errorMessage = error.response.data?.message || '';
         if (errorMessage.includes("Incorrect current password")) {
           setPasswordErrorKey('changePassword.incorrectCurrent');
         } else {
           setPasswordErrorKey('changePassword.generalError');
         }
-        return;
+      } else {
+        setPasswordErrorKey('changePassword.generalError');
       }
-
-      if (!response.ok) throw new Error('Network response was not ok');
-
-      setSuccessKey('changePassword.success');
-    } catch (error) {
-      console.error('Error changing password:', error.message);
-      setPasswordErrorKey('changePassword.generalError');
     }
   };
 
@@ -84,68 +85,67 @@ const ChangePassword = () => {
         <div>
           <form onSubmit={handleSubmit} className="change-password-form">
             {/* Current Password */}
-      <div className="form-group password-wrapper">
-        <label htmlFor="currentPassword">{t('changePassword.current')}</label>
-        <div className="input-with-icon">
-          <input
-            type={showCurrent ? "text" : "password"}
-            id="currentPassword"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            required
-            className="change-password-input-field"
-          />
-          <FontAwesomeIcon
-            icon={showCurrent ? faEyeSlash : faEye}
-            className="eye-icon"
-            onClick={() => setShowCurrent(!showCurrent)}
-          />
-        </div>
-      </div>
+            <div className="form-group password-wrapper">
+              <label htmlFor="currentPassword">{t('changePassword.current')}</label>
+              <div className="input-with-icon">
+                <input
+                  type={showCurrent ? "text" : "password"}
+                  id="currentPassword"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  required
+                  className="change-password-input-field"
+                />
+                <FontAwesomeIcon
+                  icon={showCurrent ? faEyeSlash : faEye}
+                  className="eye-icon"
+                  onClick={() => setShowCurrent(!showCurrent)}
+                />
+              </div>
+            </div>
 
-      {/* New Password */}
-      <div className="form-group password-wrapper">
-        <label htmlFor="newPassword">{t('changePassword.new')}</label>
-        <div className="input-with-icon">
-          <input
-            type={showNew ? "text" : "password"}
-            id="newPassword"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-            className="change-password-input-field"
-          />
-          <FontAwesomeIcon
-            icon={showNew ? faEyeSlash : faEye}
-            className="eye-icon"
-            onClick={() => setShowNew(!showNew)}
-          />
-        </div>
-      </div>
+            {/* New Password */}
+            <div className="form-group password-wrapper">
+              <label htmlFor="newPassword">{t('changePassword.new')}</label>
+              <div className="input-with-icon">
+                <input
+                  type={showNew ? "text" : "password"}
+                  id="newPassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  className="change-password-input-field"
+                />
+                <FontAwesomeIcon
+                  icon={showNew ? faEyeSlash : faEye}
+                  className="eye-icon"
+                  onClick={() => setShowNew(!showNew)}
+                />
+              </div>
+            </div>
 
-      {/* Confirm Password */}
-      <div className="form-group password-wrapper">
-        <label htmlFor="confirmPassword">{t('changePassword.confirm')}</label>
-        <div className="input-with-icon">
-          <input
-            type={showConfirm ? "text" : "password"}
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            className="change-password-input-field"
-          />
-          <FontAwesomeIcon
-            icon={showConfirm ? faEyeSlash : faEye}
-            className="eye-icon"
-            onClick={() => setShowConfirm(!showConfirm)}
-          />
-        </div>
-      </div>
-
+            {/* Confirm Password */}
+            <div className="form-group password-wrapper">
+              <label htmlFor="confirmPassword">{t('changePassword.confirm')}</label>
+              <div className="input-with-icon">
+                <input
+                  type={showConfirm ? "text" : "password"}
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className="change-password-input-field"
+                />
+                <FontAwesomeIcon
+                  icon={showConfirm ? faEyeSlash : faEye}
+                  className="eye-icon"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                />
+              </div>
+            </div>
 
             {passwordErrorKey && <p className="error-message">{t(passwordErrorKey)}</p>}
-            {successKey && <p className="success-message">{t(successKey)}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
 
             <div className='d-flex flex-row mt-2'>
               <button type="submit" className="button-change-password-submit me-2">
@@ -153,7 +153,7 @@ const ChangePassword = () => {
                 <FontAwesomeIcon icon={faLock} />
               </button>
               <Link to="/profile" className="button-change-password-back">
-                  <FontAwesomeIcon icon={faChevronLeft} /> {t('changePassword.back')}
+                <FontAwesomeIcon icon={faChevronLeft} /> {t('changePassword.back')}
               </Link>
             </div>
           </form>

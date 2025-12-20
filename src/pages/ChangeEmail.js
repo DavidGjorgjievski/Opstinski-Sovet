@@ -7,6 +7,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import api from '../api/axios'; // Axios instance with JWT handling
 
 const ChangeEmail = () => {
   const { t } = useTranslation();
@@ -16,59 +17,43 @@ const ChangeEmail = () => {
   const [successKey, setSuccessKey] = useState(null);
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
-  const [token] = useState(localStorage.getItem('jwtToken'));
 
   useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
     return () => cleanupMobileMenu();
   }, []);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setErrorKey(null);
-  setSuccessKey(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorKey(null);
+    setSuccessKey(null);
 
-  if (email !== confirmEmail) {
-    setErrorKey('changeEmail.emailMismatch');
-    return;
-  }
-
-  try {
-    const response = await fetch(process.env.REACT_APP_API_URL + "/api/change-email", {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'text/plain'   // ✅ IMPORTANT: since backend expects String
-      },
-      body: email
-    });
-
-    if (response.status === 400) {
-      const errorMessage = await response.text();
-      if (errorMessage.includes("Email already in use")) {
-        setErrorKey('changeEmail.emailExists');
-      } else {
-        setErrorKey('changeEmail.generalError');
-      }
+    if (email !== confirmEmail) {
+      setErrorKey('changeEmail.emailMismatch');
       return;
     }
 
-    if (!response.ok) throw new Error('Network response was not ok');
+    try {
+      // Send plain string without quotes
+      await api.post("/api/change-email", new Blob([email], { type: 'text/plain' }));
 
-    // ✅ ✅ ✅ UPDATE LOCAL STORAGE AFTER SUCCESS
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    if (userInfo) {
-      userInfo.email = email;
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      // Update local storage after success
+      const storedUser = JSON.parse(localStorage.getItem("userInfo"));
+      if (storedUser) {
+        storedUser.email = email;
+        localStorage.setItem("userInfo", JSON.stringify(storedUser));
+      }
+
+      setSuccessKey('changeEmail.success');
+      setEmail('');
+      setConfirmEmail('');
+
+    } catch (error) {
+      console.error('Error changing email:', error);
+      // All errors, including 400, 401, 403, etc., show general error
+      setErrorKey('changeEmail.generalError');
     }
-
-    setSuccessKey('changeEmail.success');
-  } catch (error) {
-    console.error('Error changing email:', error.message);
-    setErrorKey('changeEmail.generalError');
-  }
-};
-
+  };
 
   return (
     <div className="change-email-container">

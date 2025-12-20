@@ -7,23 +7,23 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faUpload } from "@fortawesome/free-solid-svg-icons";
+import api from '../api/axios'; // Axios instance with JWT handling
 
 const ChangeImage = () => {
     const { t } = useTranslation();
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('');
-    const [errorKey, setErrorKey] = useState(null);   // ✅ Store translation keys, not messages
-    const [successKey, setSuccessKey] = useState(null); // ✅ Same here
+    const [errorKey, setErrorKey] = useState(null);
+    const [successKey, setSuccessKey] = useState(null);
     const [fileSizeError, setFileSizeError] = useState(false);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
-    const token = localStorage.getItem('jwtToken');
 
     useEffect(() => {
         setFileName(t('changeImage.noFileSelected'));
         const cleanupMobileMenu = initializeMobileMenu();
         return () => cleanupMobileMenu();
-    }, [t]); // ✅ Update fileName on language change
+    }, [t]);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -65,22 +65,12 @@ const ChangeImage = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/change-image`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: formData,
+            // Send file using Axios
+            await api.post("/api/change-image", formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            if (response.status === 400) {
-                const errorMsg = await response.text();
-                setErrorKey(errorMsg ? null : 'changeImage.uploadError');
-                return;
-            }
-
-            if (!response.ok) throw new Error('Network response was not ok');
-
+            // Convert file to base64 and store in localStorage
             const reader = new FileReader();
             reader.onloadend = () => {
                 const base64String = reader.result.split(',')[1];
@@ -89,8 +79,9 @@ const ChangeImage = () => {
                 setSuccessKey('changeImage.uploadSuccess');
             };
             reader.readAsDataURL(file);
+
         } catch (error) {
-            console.error('Error uploading image:', error.message);
+            console.error('Error uploading image:', error);
             setErrorKey('changeImage.uploadError');
         }
     };
@@ -131,8 +122,7 @@ const ChangeImage = () => {
 
                             <div className="d-flex flex-row mt-2">
                                 <button type="submit" className="button-change-image-submit me-2">
-                                    {t('changeImage.uploadButton')}{" "}
-                                    <FontAwesomeIcon icon={faUpload} />
+                                    {t('changeImage.uploadButton')} <FontAwesomeIcon icon={faUpload} />
                                 </button>
                                 <Link to="/profile" className="button-change-image-back">
                                     <FontAwesomeIcon icon={faChevronLeft} /> {t('changeImage.backButton')}

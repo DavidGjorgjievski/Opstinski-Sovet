@@ -15,11 +15,12 @@ import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
+import api from '../api/axios';
 
 const AddTopicForm = () => {
     const { id, idt, municipalityId } = useParams();
     const [title, setTitle] = useState('');
-    const [files, setFiles] = useState([]);   // multiple files
+    const [files, setFiles] = useState([]);   
     const [pdfId, setPdfId] = useState(null);
     const [fileError, setFileError] = useState(false);
     const [fileTypeError, setFileTypeError] = useState(false);
@@ -58,88 +59,80 @@ const AddTopicForm = () => {
 
     const statusOptions = isEditing ? topicStatusOptions : createStatusOptions;
 
-
-
     // fetch topic if editing
-    useEffect(() => {
-        if (isAddAfter || isAddBefore) {
-            setTopicStatus('CREATED');
-            return;
+   useEffect(() => {
+    if (isAddAfter || isAddBefore) {
+        setTopicStatus("CREATED");
+        return;
+    }
+
+    if (!idt) {
+        setTopicStatus("CREATED");
+        return;
+    }
+
+    const fetchTopic = async () => {
+        try {
+        const { data: topicData } = await api.get(
+            `/api/sessions/${id}/topics/${idt}`
+        );
+
+        setTitle(topicData.title);
+        setCurrentPdfFileName(topicData.pdfFileName);
+        setPdfId(topicData.pdfFileId);
+        setTopicStatus(topicData.topicStatus || "CREATED");
+        } catch (error) {
+        console.error("Error fetching the topic:", error);
         }
+    };
 
-        if (idt) {
-            const fetchTopic = async () => {
-                try {
-                    const jwtToken = localStorage.getItem('jwtToken');
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/${idt}`, {
-                        method: 'GET',
-                        headers: { 'Authorization': `Bearer ${jwtToken}` },
-                    });
-
-                    if (response.ok) {
-                        const topicData = await response.json();
-                        setTitle(topicData.title);
-                        setCurrentPdfFileName(topicData.pdfFileName);
-                        setPdfId(topicData.pdfFileId);
-                        setTopicStatus(topicData.topicStatus || 'CREATED');
-                    } else {
-                        console.error("Failed to fetch topic.");
-                    }
-                } catch (error) {
-                    console.error("Error fetching the topic:", error);
-                }
-            };
-
-            fetchTopic();
-        } else {
-            setTopicStatus('CREATED');
-        }
+    fetchTopic();
     }, [idt, id, isAddAfter, isAddBefore]);
 
     // handle submit
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setExportLoading(true);
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setExportLoading(true);
 
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('topicStatus', topicStatus);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("topicStatus", topicStatus);
 
-        files.forEach(f => formData.append('files', f));
+    files.forEach(file => formData.append("files", file));
 
-        const jwtToken = localStorage.getItem('jwtToken');
+    try {
+        let endpoint;
 
-        try {
-            let endpoint;
-            if (isAddAfter) endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/add-after/${idt}`;
-            else if (isAddBefore) endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/add-before/${idt}`;
-            else if (idt) endpoint = `${process.env.REACT_APP_API_URL}/api/topics/edit/${idt}`;
-            else endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topic/add`;
-
-            if (!idt || isAddAfter || isAddBefore) {
-                formData.append('municipalityId', municipalityId);
-            }
-
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${jwtToken}` },
-                body: formData,
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const topicId = data.topicId;
-                sendNewTopic("NEW_TOPIC");
-                sessionStorage.removeItem('scrollPosition');
-                navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${topicId}`);
-            } else {
-                console.error("Failed to submit topic.");
-            }
-        } catch (error) {
-            console.error("Error submitting the form:", error);
-        } finally {
-            setExportLoading(false);
+        if (isAddAfter) {
+        endpoint = `/api/sessions/${id}/topics/add-after/${idt}`;
+        } else if (isAddBefore) {
+        endpoint = `/api/sessions/${id}/topics/add-before/${idt}`;
+        } else if (idt) {
+        endpoint = `/api/topics/edit/${idt}`;
+        } else {
+        endpoint = `/api/sessions/${id}/topic/add`;
         }
+
+        // Municipality is needed only in these cases
+        if (!idt || isAddAfter || isAddBefore) {
+        formData.append("municipalityId", municipalityId);
+        }
+
+        const { data } = await api.post(endpoint, formData);
+
+        const topicId = data.topicId;
+
+        sendNewTopic("NEW_TOPIC");
+        sessionStorage.removeItem("scrollPosition");
+
+        navigate(
+        `/municipalities/${municipalityId}/sessions/${id}/topics#topic-${topicId}`
+        );
+    } catch (error) {
+        console.error("Error submitting the form:", error);
+    } finally {
+        setExportLoading(false);
+    }
     };
 
     // init mobile menu
@@ -211,23 +204,24 @@ const AddTopicForm = () => {
     };
 
     const handlePdfFetch = async (pdfId) => {
-        const token = localStorage.getItem('jwtToken');
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/pdf/${pdfId}`, {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/pdf' },
+            const response = await api.get(`/api/topics/pdf/${pdfId}`, {
+            responseType: "blob", 
+            headers: {
+                Accept: "application/pdf",
+            },
             });
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                window.open(url, '_blank');
-            } else {
-                console.error('PDF not found or could not be retrieved.');
-            }
+
+            const url = URL.createObjectURL(response.data);
+            window.open(url, "_blank");
+
+            // Free memory after some time
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
         } catch (error) {
-            console.error('Error fetching PDF:', error);
+            console.error("Error fetching PDF:", error);
         }
     };
+
 
     useEffect(() => {
         const total = files.reduce((acc, f) => acc + f.size, 0);

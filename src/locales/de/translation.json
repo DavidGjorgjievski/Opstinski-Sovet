@@ -492,5 +492,12 @@
     "image": "Bild",
     "fullName": "Vor- und Nachname",
     "vote": "Stimme"
+  },
+  
+  "sessionExpired": {
+    "title": "Sitzung abgelaufen",
+    "message": "Ihre Sitzung ist abgelaufen.",
+    "redirect": "Weiterleitung zur Anmeldung in {{count}} Sekunden…",
+    "logoutNow": "Jetzt abmelden"
   }
 }

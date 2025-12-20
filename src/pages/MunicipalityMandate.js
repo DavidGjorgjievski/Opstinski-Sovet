@@ -9,116 +9,109 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight, faChevronDown, faChevronUp, faPenToSquare, faTrash, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
+import api from '../api/axios';
 
 function MunicipalityMandate() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const [municipalityTerms, setMunicipalityTerms] = useState([]);
-  const [openMenuId, setOpenMenuId] = useState(null);
-  const [loading, setLoading] = useState(true);
+ const { t } = useTranslation();
+const navigate = useNavigate();
+const { id } = useParams();
+const [municipalityTerms, setMunicipalityTerms] = useState([]);
+const [openMenuId, setOpenMenuId] = useState(null);
+const [loading, setLoading] = useState(true);
 
-  const [userData] = useState(() => {
-    const storedUserInfo = localStorage.getItem('userInfo');
-    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-  });
+const [userData] = useState(() => {
+  const storedUserInfo = localStorage.getItem('userInfo');
+  return storedUserInfo ? JSON.parse(storedUserInfo) : {};
+});
 
-  const userInfo = React.useMemo(() => {
-      return JSON.parse(localStorage.getItem('userInfo')) || {};
-  }, []);
+const userInfo = React.useMemo(() => {
+  return JSON.parse(localStorage.getItem('userInfo')) || {};
+}, []);
 
-  const menuRefs = useRef({});
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMandate, setSelectedMandate] = useState(null);
+const menuRefs = useRef({});
+const [modalVisible, setModalVisible] = useState(false);
+const [selectedMandate, setSelectedMandate] = useState(null);
 
-  // Initialize mobile menu
-  useEffect(() => {
-    const cleanupMobileMenu = initializeMobileMenu();
-    return () => cleanupMobileMenu();
-  }, []);
+// Initialize mobile menu
+useEffect(() => {
+  const cleanupMobileMenu = initializeMobileMenu();
+  return () => cleanupMobileMenu();
+}, []);
 
-  // Fetch municipality terms or use cache
- useEffect(() => {
+// Fetch municipality terms using Axios
+useEffect(() => {
   const fetchMunicipalityTerms = async () => {
-    setLoading(true); // start loading
+    setLoading(true);
     const cacheKey = `municipalityMandates_${id}`;
     const cachedData = localStorage.getItem(cacheKey);
 
     if (cachedData) {
       setMunicipalityTerms(JSON.parse(cachedData));
-      setLoading(false); // stop loading
+      setLoading(false);
       return;
     }
 
     try {
-      const token = localStorage.getItem('jwtToken');
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/${id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (!response.ok) throw new Error('Failed to fetch terms');
-
-      const data = await response.json();
+      const response = await api.get(`/api/municipality-terms/municipality/${id}`);
+      const data = response.data || [];
       setMunicipalityTerms(data);
       localStorage.setItem(cacheKey, JSON.stringify(data));
     } catch (error) {
       console.error('Error fetching Municipality Terms:', error);
     } finally {
-      setLoading(false); // stop loading
+      setLoading(false);
     }
   };
 
   fetchMunicipalityTerms();
 }, [id]);
 
+// Close dropdown when clicking outside
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    const isOutside = Object.values(menuRefs.current).every(
+      (ref) => ref && !ref.contains(event.target)
+    );
+    if (isOutside) setOpenMenuId(null);
+  };
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+}, []);
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const isOutside = Object.values(menuRefs.current).every(
-        (ref) => ref && !ref.contains(event.target)
-      );
-      if (isOutside) setOpenMenuId(null);
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+// Format date by language
+function formatDateByLanguage(dateString) {
+  const date = new Date(dateString);
+  if (isNaN(date)) return '';
+  const months = t('months', { returnObjects: true });
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+}
 
-  function formatDateByLanguage(dateString) {
-    const date = new Date(dateString);
-    if (isNaN(date)) return '';
-    const months = t('months', { returnObjects: true });
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    return `${month} ${year}`;
+// Handle delete modal
+const handleDeleteMandate = (mandate) => {
+  setSelectedMandate(mandate);
+  setModalVisible(true);
+  setOpenMenuId(null);
+};
+
+// Confirm delete using Axios
+const confirmDeleteMandate = async () => {
+  try {
+    await api.delete(`/api/municipality-terms/delete/${selectedMandate.id}`);
+    const updatedTerms = municipalityTerms.filter((m) => m.id !== selectedMandate.id);
+    setMunicipalityTerms(updatedTerms);
+
+    // Update cache
+    localStorage.setItem(`municipalityMandates_${id}`, JSON.stringify(updatedTerms));
+  } catch (error) {
+    console.error('Error deleting mandate:', error);
+  } finally {
+    setModalVisible(false);
+    setSelectedMandate(null);
   }
+};
 
-  const handleDeleteMandate = (mandate) => {
-    setSelectedMandate(mandate);
-    setModalVisible(true);
-    setOpenMenuId(null);
-  };
-
-  const confirmDeleteMandate = async () => {
-    try {
-      const token = localStorage.getItem('jwtToken');
-      await fetch(`${process.env.REACT_APP_API_URL}/api/municipality-terms/delete/${selectedMandate.id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const updatedTerms = municipalityTerms.filter((m) => m.id !== selectedMandate.id);
-      setMunicipalityTerms(updatedTerms);
-
-      // Update cache
-      localStorage.setItem(`municipalityMandates_${id}`, JSON.stringify(updatedTerms));
-    } catch (error) {
-      console.error('Error deleting mandate:', error);
-    } finally {
-      setModalVisible(false);
-      setSelectedMandate(null);
-    }
-  };
 
   return (
     <div className="municipality-mandate-container">

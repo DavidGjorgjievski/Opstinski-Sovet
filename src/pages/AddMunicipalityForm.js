@@ -1,43 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'; // Import useParams for route parameters
-import { Helmet, HelmetProvider } from 'react-helmet-async'; // Helmet for metadata
+import { useNavigate, useParams } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityForm.css';
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft, faImage } from '@fortawesome/free-solid-svg-icons';
+import api from '../api/axios'; // Axios instance
 
 function AddMunicipalityForm() {
-    const { id } = useParams(); // Get the ID from the route parameters
+    const { id } = useParams(); // For edit mode
     const [name, setName] = useState('');
     const [logo, setLogo] = useState(null);
     const [flag, setFlag] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
-    const isEditMode = !!id; // Check if in edit mode
+    const isEditMode = !!id;
     const { t } = useTranslation();
 
     useEffect(() => {
         if (isEditMode) {
-            // Fetch existing municipality data to populate the form for editing
             const fetchMunicipality = async () => {
                 try {
-                    const token = localStorage.getItem('jwtToken');
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipalities/${id}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch municipality data');
-                    }
-                    const data = await response.json();
+                    const response = await api.get(`/api/municipalities/${id}`);
+                    const data = response.data;
                     setName(data.name || '');
-                    // Optionally, handle existing logo display if needed
-                } catch (error) {
-                    console.error('Error fetching municipality data:', error);
+                    // Optionally, handle existing logo/flag preview if needed
+                } catch (err) {
+                    console.error('Error fetching municipality:', err);
+                    setError('Имаше грешка при вчитување на општината.');
                 }
             };
             fetchMunicipality();
@@ -64,50 +57,36 @@ function AddMunicipalityForm() {
 
         const formData = new FormData();
         formData.append('name', name);
-        if (logo) {
-            formData.append('logo', logo);
-        }
-       if (flag) {
-            formData.append('flag', flag); // Updated
-        }
+        if (logo) formData.append('logo', logo);
+        if (flag) formData.append('flag', flag);
 
         try {
-            const token = localStorage.getItem('jwtToken');
-            const url = isEditMode
-                ? `${process.env.REACT_APP_API_URL}/api/municipalities/${id}`
-                : `${process.env.REACT_APP_API_URL}/api/municipalities`;
-            const method = isEditMode ? 'PUT' : 'POST';
-            const response = await fetch(url, {
+            const url = isEditMode ? `/api/municipalities/${id}` : '/api/municipalities';
+            const method = isEditMode ? 'put' : 'post';
+            const response = await api({
                 method,
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: formData,
+                url,
+                data: formData,
+                headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            if (!response.ok) {
-                throw new Error(isEditMode ? 'Failed to edit municipality' : 'Failed to add municipality');
-            }
+            const updatedMunicipality = response.data;
 
-            // After success, update the cache
-            const updatedMunicipality = await response.json();
+            // Update local cache
             const cachedMunicipalities = JSON.parse(localStorage.getItem('municipalities')) || [];
-            
             if (isEditMode) {
-                // If editing, update the specific municipality in cache
-                const updatedMunicipalities = cachedMunicipalities.map((municipality) =>
-                    municipality.id === updatedMunicipality.id ? updatedMunicipality : municipality
+                const updatedList = cachedMunicipalities.map(m =>
+                    m.id === updatedMunicipality.id ? updatedMunicipality : m
                 );
-                localStorage.setItem('municipalities', JSON.stringify(updatedMunicipalities));
+                localStorage.setItem('municipalities', JSON.stringify(updatedList));
             } else {
-                // If adding, add the new municipality to cache
                 cachedMunicipalities.push(updatedMunicipality);
                 localStorage.setItem('municipalities', JSON.stringify(cachedMunicipalities));
             }
 
             navigate('/municipalities');
-        } catch (error) {
-            console.error('Error submitting municipality form:', error);
+        } catch (err) {
+            console.error('Error submitting municipality form:', err);
             setError('Имаше грешка при обработка на општината.');
         }
     };
@@ -121,15 +100,13 @@ function AddMunicipalityForm() {
         <HelmetProvider>
             <div className="add-municipality-container">
                 <Helmet>
-                    {isEditMode ? t("addMunicipality.pageTitleEdit") : t("addMunicipality.pageTitleAdd")}
+                    <title>{isEditMode ? t("addMunicipality.pageTitleEdit") : t("addMunicipality.pageTitleAdd")}</title>
                 </Helmet>
                 <Header userInfo={userInfo} />
 
                 <div className="add-municipality-body-container">
                     <div className="add-municipality-header-div mt-2">
-                        <h1>
-                            {isEditMode ? t("addMunicipality.headerEdit") : t("addMunicipality.headerAdd")}
-                        </h1>
+                        <h1>{isEditMode ? t("addMunicipality.headerEdit") : t("addMunicipality.headerAdd")}</h1>
                     </div>
 
                     {error && <div className="error-message alert alert-danger">{error}</div>}
@@ -139,11 +116,10 @@ function AddMunicipalityForm() {
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="name" className="label-add">{t("addMunicipality.nameLabel")}</label>
-                                   <input
+                                    <input
                                         type="text"
                                         className="mb-2 municipality-input-name"
                                         id="name"
-                                        name="name"
                                         value={name}
                                         onChange={handleNameChange}
                                         required
@@ -153,62 +129,54 @@ function AddMunicipalityForm() {
 
                                 <div className="form-group">
                                     <label className="label-add">{t("addMunicipality.logoLabel")}</label>
-                                        <div className="image-upload-wrapper">
-                                            <label className={`image-upload-button-preview ${logo ? 'has-file' : ''}`}>
-                                                {logo ? (
-                                                    <img src={URL.createObjectURL(logo)} alt="Logo Preview" />
-                                                ) : (
-                                                    <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-                                                )}
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={handleLogoChange}
-                                                    className="hidden-file-input"
-                                                />
-                                            </label>
-                                        </div>
+                                    <div className="image-upload-wrapper">
+                                        <label className={`image-upload-button-preview ${logo ? 'has-file' : ''}`}>
+                                            {logo ? (
+                                                <img src={URL.createObjectURL(logo)} alt="Logo Preview" />
+                                            ) : (
+                                                <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleLogoChange}
+                                                className="hidden-file-input"
+                                            />
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
                                     <label className="label-add">{t("addMunicipality.flagImageLabel")}</label>
-                                        <div className="image-upload-wrapper">
-                                            <label className={`image-upload-button-preview ${flag ? 'has-file' : ''}`}>
-                                                {flag ? (
-                                                    <img src={URL.createObjectURL(flag)} alt="Flag Preview" />
-                                                ) : (
-                                                    <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-                                                )}
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={handleFlagChange }
-                                                    className="hidden-file-input"
-                                                />
-                                            </label>
-                                        </div>
+                                    <div className="image-upload-wrapper">
+                                        <label className={`image-upload-button-preview ${flag ? 'has-file' : ''}`}>
+                                            {flag ? (
+                                                <img src={URL.createObjectURL(flag)} alt="Flag Preview" />
+                                            ) : (
+                                                <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleFlagChange}
+                                                className="hidden-file-input"
+                                            />
+                                        </label>
+                                    </div>
                                 </div>
+
                                 <div className="mt-3 d-flex">
-                                   <button
-                                        type="submit"
-                                        className="me-2 municipality-form-add-button"
-                                    >
+                                    <button type="submit" className="me-2 municipality-form-add-button">
                                         {isEditMode ? t("addMunicipality.submitEdit") : t("addMunicipality.submitAdd")}
-                                       <FontAwesomeIcon 
-                                            icon={isEditMode ? faPenToSquare : faPlus} 
-                                            className="ms-2"
-                                        />
+                                        <FontAwesomeIcon icon={isEditMode ? faPenToSquare : faPlus} className="ms-2" />
                                     </button>
                                     <button
                                         type="button"
                                         className="municipality-form-back-button-topic"
                                         onClick={() => navigate('/municipalities')}
                                     >
-                                        <FontAwesomeIcon 
-                                            icon={faChevronLeft} 
-                                            className="me-2"
-                                        />
-                                        {t("addMunicipality.back")} 
+                                        <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+                                        {t("addMunicipality.back")}
                                     </button>
                                 </div>
                             </form>

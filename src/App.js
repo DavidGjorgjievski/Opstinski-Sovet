@@ -12,7 +12,6 @@ import ChangePassword from './pages/ChangePassword';
 import ChangeImage from './pages/ChangeImage';
 import AdminPanel from './pages/AdminPanel';
 import AddUserForm from './pages/AddUserForm';
-import EditUserForm from './pages/EditUserForm';
 import Sessions from './pages/Sessions';
 import AddSessionForm from './pages/AddSessionForm';
 import Topics from './pages/Topics';
@@ -33,12 +32,16 @@ import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
 import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAddList'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import { SessionModalProvider } from './context/SessionModalContext';
+import SessionExpiredModal from './components/SessionExpiredModal';
+
 
 import "./i18n"; 
 
 function App() {
   return (
     <AuthProvider> 
+      <SessionModalProvider>
       <HelmetProvider>
         <Router>
           <HeadLinks />
@@ -155,17 +158,19 @@ function App() {
                 element={<ProtectedRoute element={<AddUserForm />} allowedRoles={['ROLE_ADMIN']} />}
               />
               <Route
-                path="/admin-panel/edit/:username?"
-                element={<ProtectedRoute element={<EditUserForm />} allowedRoles={['ROLE_ADMIN']} />}
+                path="/admin-panel/edit/:username"
+                element={<ProtectedRoute element={<AddUserForm />} allowedRoles={['ROLE_ADMIN']} />}
               />
              
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics/details/:idt" element={<ProtectedRoute element={<TopicDetails />} />} />
 
               <Route path="*" element={<NotFound />} /> 
             </Routes>
+            <SessionExpiredModal />
           </div>
         </Router>
       </HelmetProvider>
+      </SessionModalProvider>
     </AuthProvider>
   );
 }

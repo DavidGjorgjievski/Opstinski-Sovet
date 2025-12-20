@@ -8,8 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faFilter, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
-
-
+import api from '../api/axios';
 
 function TopicDetails() {
     const navigate = useNavigate();
@@ -21,84 +20,72 @@ function TopicDetails() {
     });
     const [topicDetails, setTopicDetails] = useState(null);
     const [loading, setLoading] = useState(true); // Add loading state
-    const jwtToken = localStorage.getItem('jwtToken') || '';
     const [showVotes, setShowVotes] = useState(null);
     const { t } = useTranslation();
 
- useEffect(() => {
+    useEffect(() => {
         const fetchTopicDetails = async () => {
-            setLoading(true); // Show loading before fetching data
+            setLoading(true);
+
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/details/${idt}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${jwtToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch topic details');
-                }
-                const data = await response.json();
+                const { data } = await api.get(`/api/topics/details/${idt}`);
+
                 setTopicDetails(data);
-                const shouldShowVotes = data.status === 'ACTIVE' || data.status === 'FINISHED';
+
+                const shouldShowVotes =
+                    data.status === "ACTIVE" || data.status === "FINISHED";
                 setShowVotes(shouldShowVotes);
+
             } catch (error) {
-                console.error(error);
+                console.error("Failed to fetch topic details:", error);
             } finally {
-                setLoading(false); // Hide loading after data is fetched
+                setLoading(false);
             }
         };
 
-        fetchTopicDetails();
-    }, [navigate, id, idt, jwtToken]);
-
+        if (idt) {
+            fetchTopicDetails();
+        }
+    }, [idt]);
 
     useEffect(() => {
-    // Initialize mobile menu
-    const cleanupMobileMenu = initializeMobileMenu();
+        // Initialize mobile menu
+        const cleanupMobileMenu = initializeMobileMenu();
 
-    // Cleanup function to remove event listeners or any other cleanup actions
-    return () => {
-      cleanupMobileMenu();
-    };
-  }, []);
+        // Cleanup function to remove event listeners or any other cleanup actions
+        return () => {
+        cleanupMobileMenu();
+        };
+    }, []);
 
 
-  const handlePdfFetch = async (pdfId) => {
-    try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/topics/pdf/${pdfId}`, {
-            method: 'GET',
+    const handlePdfFetch = async (pdfId) => {
+        try {
+            const response = await api.get(`/api/topics/pdf/${pdfId}`, {
+            responseType: "blob",
             headers: {
-                'Authorization': `Bearer ${jwtToken}`,
-                'Accept': 'application/pdf',
+                Accept: "application/pdf",
             },
-        });
+            });
 
-        if (response.ok) {
-            // Create a blob from the response
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            // Open the PDF in a new tab
-            window.open(url, '_blank');
-        } else {
-            console.error('PDF not found or could not be retrieved.');
+            const url = URL.createObjectURL(response.data);
+            window.open(url, "_blank");
+
+            // Prevent memory leaks
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+        } catch (error) {
+            console.error("Error fetching PDF:", error);
         }
-    } catch (error) {
-        console.error('Error fetching PDF:', error);
-    }
-};
+    };
 
-  
+    const handleBackButtonClick = () => {
+        // Remove the scroll position from sessionStorage
+        sessionStorage.removeItem('scrollPosition');
+        console.log("Scroll position removed");
 
-  const handleBackButtonClick = () => {
-    // Remove the scroll position from sessionStorage
-    sessionStorage.removeItem('scrollPosition');
-    console.log("Scroll position removed");
-
-    // Navigate to the desired URL
-    navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`);
-};
+        // Navigate to the desired URL
+        navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`);
+    };
 
 
     return (

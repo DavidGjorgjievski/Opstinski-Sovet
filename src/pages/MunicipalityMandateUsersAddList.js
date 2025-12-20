@@ -7,110 +7,90 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import "../styles/MunicipalityMandateUsersAddList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
+import api from '../api/axios';
 
 function MunicipalityMandateUsersAddList() {
   const { t } = useTranslation();
-  const { id, mandateId } = useParams();
-  const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
-  const [termUsers, setTermUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [termLoading, setTermLoading] = useState(true);
+const { id, mandateId } = useParams();
+const navigate = useNavigate();
+const [users, setUsers] = useState([]);
+const [termUsers, setTermUsers] = useState([]);
+const [loading, setLoading] = useState(true);
+const [termLoading, setTermLoading] = useState(true);
 
-  const userData = JSON.parse(localStorage.getItem("userInfo")) || {};
+const userData = JSON.parse(localStorage.getItem("userInfo")) || {};
 
-  useEffect(() => {
-    const cleanupMobileMenu = initializeMobileMenu();
-    return () => cleanupMobileMenu();
-  }, []);
+// Initialize mobile menu
+useEffect(() => {
+  const cleanupMobileMenu = initializeMobileMenu();
+  return () => cleanupMobileMenu();
+}, []);
 
-  const fetchMunicipalityUsers = useCallback(async () => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("jwtToken");
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/municipalities/${id}/users`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (!response.ok) throw new Error("Failed to fetch users");
-      const data = await response.json();
-      const locale = navigator.language || "en";
-      data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
-      setUsers(data);
-    } catch (err) {
-      console.error("Error fetching users:", err);
-    } finally {
-      setLoading(false);
+// Fetch municipality users using Axios
+const fetchMunicipalityUsers = useCallback(async () => {
+  setLoading(true);
+  try {
+    const response = await api.get(`/api/municipalities/${id}/users`);
+    let data = response.data || [];
+    const locale = navigator.language || "en";
+    data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
+    setUsers(data);
+  } catch (err) {
+    console.error("Error fetching users:", err);
+  } finally {
+    setLoading(false);
+  }
+}, [id]);
+
+// Fetch term users using Axios
+const fetchTermUsers = useCallback(async () => {
+  setTermLoading(true);
+  try {
+    const response = await api.get(`/api/municipality-terms/${mandateId}/all-users`);
+    let data = response.data || [];
+    const locale = navigator.language || "en";
+    data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
+    setTermUsers(data);
+  } catch (err) {
+    console.error("Error fetching term users:", err);
+  } finally {
+    setTermLoading(false);
+  }
+}, [mandateId]);
+
+// Initial fetch
+useEffect(() => {
+  fetchMunicipalityUsers();
+  fetchTermUsers();
+}, [fetchMunicipalityUsers, fetchTermUsers]);
+
+// Add user
+const handleAddUser = async (username) => {
+  try {
+    await api.post(`/api/municipality-terms/${mandateId}/add-user/${username}`);
+    const addedUser = users.find(u => u.username === username);
+    if (addedUser) {
+      setUsers(prev => prev.filter(u => u.username !== username));
+      setTermUsers(prev => [...prev, addedUser]);
     }
-  }, [id]);
+  } catch (err) {
+    console.error("Add user error:", err);
+  }
+};
 
-  const fetchTermUsers = useCallback(async () => {
-    setTermLoading(true);
-    try {
-      const token = localStorage.getItem("jwtToken");
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/municipality-terms/${mandateId}/all-users`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (!response.ok) throw new Error("Failed to fetch term users");
-      const data = await response.json();
-      const locale = navigator.language || "en";
-      data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
-      setTermUsers(data);
-    } catch (err) {
-      console.error("Error fetching term users:", err);
-    } finally {
-      setTermLoading(false);
+// Remove user
+const handleRemoveUser = async (username) => {
+  try {
+    await api.post(`/api/municipality-terms/${mandateId}/remove-user/${username}`);
+    const removedUser = termUsers.find(u => u.username === username);
+    if (removedUser) {
+      setTermUsers(prev => prev.filter(u => u.username !== username));
+      setUsers(prev => [...prev, removedUser]);
     }
-  }, [mandateId]);
-
-  // Initial fetch
-  useEffect(() => {
-    fetchMunicipalityUsers();
-    fetchTermUsers();
-  }, [fetchMunicipalityUsers, fetchTermUsers]);
-
-  // Add user
-  const handleAddUser = async (username) => {
-    try {
-      const token = localStorage.getItem("jwtToken");
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/municipality-terms/${mandateId}/add-user/${username}`,
-        { method: "POST", headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (!response.ok) throw new Error("Failed to add user");
-
-      // Move user from users -> termUsers locally
-      const addedUser = users.find(u => u.username === username);
-      if (addedUser) {
-        setUsers(prev => prev.filter(u => u.username !== username));
-        setTermUsers(prev => [...prev, addedUser]);
-      }
-    } catch (err) {
-      console.error("Add user error:", err);
-    }
-  };
-
-  // Remove user
-  const handleRemoveUser = async (username) => {
-    try {
-      const token = localStorage.getItem("jwtToken");
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/municipality-terms/${mandateId}/remove-user/${username}`,
-        { method: "POST", headers: { Authorization: `Bearer ${token}` } }
-      );
-      if (!response.ok) throw new Error("Failed to remove user");
-
-      // Move user from termUsers -> users locally
-      const removedUser = termUsers.find(u => u.username === username);
-      if (removedUser) {
-        setTermUsers(prev => prev.filter(u => u.username !== username));
-        setUsers(prev => [...prev, removedUser]);
-      }
-    } catch (err) {
-      console.error("Remove user error:", err);
-    }
-  };
+  } catch (err) {
+    console.error("Remove user error:", err);
+  }
+};
 
   return (
     <div className="municipality-mandate-users-list-container">

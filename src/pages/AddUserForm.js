@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { initializeMobileMenu } from "../components/mobileMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faUserPlus, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import "../styles/AddUserForm.css";
+import api from '../api/axios';
 
 function AddUserForm() {
   const { t } = useTranslation();
@@ -14,6 +15,8 @@ function AddUserForm() {
   const userData = JSON.parse(localStorage.getItem("userInfo")) || {};
   const [token, setToken] = useState("");
   const [municipalities, setMunicipalities] = useState([]);
+  const { username } = useParams();
+  const isEditMode = Boolean(username);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -26,6 +29,7 @@ function AddUserForm() {
     municipalityId: "",
     file: null,
   });
+
 
   const [fileError, setFileError] = useState(false);
   const [fileName, setFileName] = useState(t("addUserForm.noFileSelected"));
@@ -41,16 +45,20 @@ function AddUserForm() {
   const statusRef = useRef(null);
   const municipalityRef = useRef(null);
 
-  const roles = [
-    "ROLE_ADMIN",
-    "ROLE_PRESIDENT",
-    "ROLE_USER",
-    "ROLE_SPECTATOR",
-    "ROLE_PRESENTER",
-    "ROLE_MAYOR",
-    "ROLE_EDITOR",
-    "ROLE_GUEST",
-  ];
+  const roles = React.useMemo(() => {
+    const baseRoles = [
+      "ROLE_ADMIN",
+      "ROLE_PRESIDENT",
+      "ROLE_USER",
+      "ROLE_SPECTATOR",
+      "ROLE_PRESENTER",
+      "ROLE_MAYOR",
+      "ROLE_EDITOR",
+    ];
+    return isEditMode ? baseRoles : [...baseRoles, "ROLE_GUEST"];
+  }, [isEditMode]);
+
+
   const statuses = ["ACTIVE", "INACTIVE"];
 
   useEffect(() => {
@@ -58,21 +66,48 @@ function AddUserForm() {
     setToken(retrievedToken);
   }, []);
 
-  useEffect(() => {
-    const fetchMunicipalities = async () => {
+
+    useEffect(() => {
+    if (!isEditMode || !token) return;
+
+    const fetchUserData = async () => {
       try {
-        const response = await fetch(process.env.REACT_APP_API_URL + "/api/municipalities/simple", {
-          headers: { Authorization: `Bearer ${token}` },
+        const { data: user } = await api.get(`/api/admin/user/${username}`);
+        
+        setFormData({
+          username: user.username || "",
+          name: user.name || "",
+          surname: user.surname || "",
+          email: user.email || "",
+          role: user.role || "ROLE_USER",
+          status: user.status || "ACTIVE",
+          municipalityId: user.municipalityId || "",
+          password: "", // always empty
+          file: null,
         });
-        if (response.ok) {
-          const data = await response.json();
-          setMunicipalities(data);
-        }
-      } catch (error) {
-        console.error("Error fetching municipalities:", error);
+
+        setFileName(t("editUserForm.noFileSelected"));
+      } catch (err) {
+        console.error("Error fetching user data:", err);
       }
     };
-    if (token) fetchMunicipalities();
+
+    fetchUserData();
+  }, [isEditMode, username, token, t]);
+
+    useEffect(() => {
+      if (!token) return;
+
+      const fetchMunicipalities = async () => {
+        try {
+          const { data } = await api.get("/api/municipalities/simple");
+          setMunicipalities(data);
+        } catch (error) {
+          console.error("Error fetching municipalities:", error);
+        }
+      };
+
+      fetchMunicipalities();
   }, [token]);
 
   useEffect(() => {
@@ -124,33 +159,33 @@ function AddUserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const trimmedUsername = formData.username.trim().toLowerCase();
-    const trimmedPassword = formData.password.trim();
-
     if (fileError || fileSizeError) return;
 
     const submissionData = new FormData();
-    submissionData.append("username", trimmedUsername);
+    if (!isEditMode) submissionData.append("username", formData.username.trim().toLowerCase());
     submissionData.append("name", formData.name);
     submissionData.append("surname", formData.surname);
     submissionData.append("email", formData.email);
-    submissionData.append("password", trimmedPassword);
+    if (formData.password) submissionData.append("password", formData.password.trim());
     submissionData.append("role", formData.role);
     submissionData.append("status", formData.status);
-    if (formData.file) submissionData.append("file", formData.file);
     if (formData.municipalityId) submissionData.append("municipalityId", formData.municipalityId);
+    if (formData.file) submissionData.append("file", formData.file);
 
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL + "/api/admin/add", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: submissionData,
+      const url = isEditMode
+        ? `/api/admin/update/${username}`
+        : "/api/admin/add";
+
+      await api({
+        method: isEditMode ? "put" : "post",
+        url,
+        data: submissionData,
       });
 
-      if (response.ok) navigate("/admin-panel");
-      else alert(await response.text());
-    } catch (error) {
-      console.error("Error submitting form:", error);
+      navigate("/admin-panel");
+    } catch (err) {
+      console.error("Error submitting form:", err);
     }
   };
 
@@ -158,25 +193,30 @@ function AddUserForm() {
     <HelmetProvider>
       <div className="add-user-form-container">
         <Helmet>
-          <title>{t("addUserForm.pageTitle")}</title>
+          <title>{isEditMode ? t("editUserForm.pageTitle") : t("addUserForm.pageTitle")}</title>
         </Helmet>
 
         <Header userInfo={userData} isSticky={true} />
 
         <div className="add-user-form-body-container container">
           <div className="add-user-header-div container">
-            <h1 className="text-center">{t("addUserForm.formTitle")}</h1>
+            <h1 className="text-center">
+              {isEditMode ? t("editUserForm.formTitle") : t("addUserForm.formTitle")}
+            </h1>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
               {/* Username, Name, Surname */}
-              <label htmlFor="username" className="label-add">{t("addUserForm.username")}</label>
+              <label htmlFor="username" className="label-add">
+                {t(isEditMode ? "editUserForm.username" : "addUserForm.username")}
+              </label>
               <input
                 type="text"
                 name="username"
                 className="add-user-input-field mb-2"
-                placeholder={t("addUserForm.enterUsername")}
+                placeholder={t(isEditMode ? "editUserForm.enterUsername" : "addUserForm.enterUsername")}
                 value={formData.username}
                 onChange={handleInputChange}
-                required
+                required={!isEditMode} // optional: maybe disable editing username in edit mode
+                disabled={isEditMode} // commonly usernames are not editable
               />
               <label htmlFor="name" className="label-add">{t("addUserForm.name")}</label>
               <input
@@ -207,9 +247,12 @@ function AddUserForm() {
                 placeholder={t("addUserForm.enterEmail")}
                 value={formData.email}
                 onChange={handleInputChange}
+                required={false} 
               />
 
-              <label htmlFor="password" className="label-add">{t("addUserForm.password")}</label>
+              <label htmlFor="password" className="label-add">
+                {t("addUserForm.password")}
+              </label>
               <div className="d-flex flex-row">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -218,7 +261,7 @@ function AddUserForm() {
                   placeholder={t("addUserForm.enterPassword")}
                   value={formData.password}
                   onChange={handleInputChange}
-                  required
+                  required={!isEditMode} // required only if adding a new user
                 />
                 <FontAwesomeIcon
                   icon={showPassword ? faEyeSlash : faEye}
@@ -312,15 +355,21 @@ function AddUserForm() {
 
               {/* File Upload */}
               <div className="form-group d-flex justify-content-center mt-4">
-                <div className={`file-drop-area image-add-input ${fileError ? "is-active" : ""}`}>
-                  <p className="file-drop-message text-info-image-input">
-                    {formData.file
-                      ? `${t("addUserForm.selectedFile")}: ${fileName}`
-                      : `${t("addUserForm.dragOrClick")} ${t("addUserForm.chooseFile")}`}
-                  </p>
-                  <input type="file" id="file" name="file" onChange={handleFileChange} required />
-                </div>
+              <div className={`file-drop-area image-add-input ${fileError ? "is-active" : ""}`}>
+                <p className="file-drop-message text-info-image-input">
+                  {formData.file
+                    ? `${t(isEditMode ? "editUserForm.selectedFile" : "addUserForm.selectedFile")}: ${fileName}`
+                    : `${t(isEditMode ? "editUserForm.dragOrClick" : "addUserForm.dragOrClick")} ${t(isEditMode ? "editUserForm.chooseFile" : "addUserForm.chooseFile")}`}
+                </p>
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  onChange={handleFileChange}
+                  required={!isEditMode} 
+                />
               </div>
+            </div>
 
               {fileError && <div className="error-message">{t("addUserForm.invalidFileType")}</div>}
               {fileSizeError && <div className="error-message">{t("addUserForm.fileTooLarge")}</div>}
@@ -328,7 +377,8 @@ function AddUserForm() {
               {/* Buttons */}
               <div className="mt-4 d-flex">
                 <button type="submit" className="me-2 user-form-submit-button">
-                  {t("addUserForm.addUser")} <FontAwesomeIcon icon={faUserPlus} className="ms-2" />
+                  {isEditMode ? t("editUserForm.editUser") : t("addUserForm.addUser")} 
+                  <FontAwesomeIcon icon={faUserPlus} className="ms-2" />
                 </button>
                 <button
                   type="button"

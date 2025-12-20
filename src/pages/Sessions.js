@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
+import api from '../api/axios';
+
 
 function Sessions() {
     const { t } = useTranslation();
@@ -26,66 +28,72 @@ function Sessions() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
     // Fetch Municipality Terms
-    useEffect(() => {
-        const fetchMunicipalityTerms = async () => {
-            const cacheKey = `municipalityMandates_${municipalityId}`;
-            const cachedData = localStorage.getItem(cacheKey);
-            if (cachedData) {
-                setMunicipalityTerms(JSON.parse(cachedData));
-                return;
-            }
+   useEffect(() => {
+    const fetchMunicipalityTerms = async () => {
+        const cacheKey = `municipalityMandates_${municipalityId}`;
+        const cachedData = localStorage.getItem(cacheKey);
 
-            try {
-                const token = localStorage.getItem('jwtToken');
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/${municipalityId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                if (!response.ok) throw new Error('Failed to fetch terms');
-                const data = await response.json();
-                setMunicipalityTerms(data);
-                localStorage.setItem(cacheKey, JSON.stringify(data));
-            } catch (error) {
-                console.error('Error fetching Municipality Terms:', error);
-            }
-        };
+        if (cachedData) {
+            setMunicipalityTerms(JSON.parse(cachedData));
+            return;
+        }
 
+        try {
+            const { data } = await api.get(
+                `/api/municipality-terms/municipality/${municipalityId}`
+            );
+
+            setMunicipalityTerms(data);
+            localStorage.setItem(cacheKey, JSON.stringify(data));
+
+        } catch (error) {
+            console.error('Error fetching Municipality Terms:', error);
+        }
+    };
+
+    if (municipalityId) {
         fetchMunicipalityTerms();
-    }, [municipalityId]);
+    }
+}, [municipalityId]);
+
 
     // Fetch Sessions
     useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        const cachedSessions = localStorage.getItem(`sessions_${municipalityId}`);
-        if (cachedSessions) {
-            setSessions(JSON.parse(cachedSessions));
+    const cacheKey = `sessions_${municipalityId}`;
+    const cachedSessions = localStorage.getItem(cacheKey);
+
+    if (cachedSessions) {
+        setSessions(JSON.parse(cachedSessions));
+        setLoading(false);
+    }
+
+    const fetchSessions = async () => {
+        try {
+            const { data } = await api.get(
+                `/api/municipalities/${municipalityId}/sessions`
+            );
+
+            setSessions(data);
+            localStorage.setItem(cacheKey, JSON.stringify(data));
+
+        } catch (error) {
+            console.error('Error fetching sessions:', error);
+            // 401 / 403 handled globally by interceptor → modal
+        } finally {
             setLoading(false);
         }
+    };
 
-        const fetchSessions = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/municipalities/${municipalityId}/sessions`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                });
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
-                setSessions(data);
-                localStorage.setItem(`sessions_${municipalityId}`, JSON.stringify(data));
-            } catch (error) {
-                console.error('Error fetching sessions:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
+    if (municipalityId) {
         fetchSessions();
+    }
 
-        const cleanupMobileMenu = initializeMobileMenu();
-        sessionStorage.removeItem('scrollPosition');
-        return () => cleanupMobileMenu();
-    }, [municipalityId]);
+    const cleanupMobileMenu = initializeMobileMenu();
+    sessionStorage.removeItem('scrollPosition');
+
+    return () => cleanupMobileMenu();
+}, [municipalityId]);
+
 
     // Scroll to hash if exists
     useEffect(() => {
@@ -121,51 +129,62 @@ function Sessions() {
     };
 
     const handleConfirmDelete = async () => {
-        if (!selectedSession) return;
-        try {
-            const token = localStorage.getItem('jwtToken');
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/delete/${selectedSession.id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!response.ok) throw new Error('Failed to delete session');
-            setSessions(sessions.filter(s => s.id !== selectedSession.id));
-            handleCloseModal();
-        } catch (error) {
-            console.error('Error deleting session:', error);
-        }
-    };
+    if (!selectedSession) return;
 
-    const handleExportClick = async (sessionId, sessionName) => {
-        setExportLoading(true);
-        try {
-            const token = localStorage.getItem('jwtToken');
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/export/${sessionId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (!response.ok) throw new Error('Failed to export session');
+    try {
+        await api.delete(`/api/sessions/delete/${selectedSession.id}`);
 
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const cleanFilename = sessionName
-                ? sessionName.replace(/[<>:"/\\|?*]+/g, '').replace(/\s+/g, '_') + '.pdf'
-                : `session_${sessionId}.pdf`;
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = cleanFilename;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Error exporting session:', error);
-        } finally {
-            setExportLoading(false);
-        }
-    };
+        // Update local state
+        setSessions(prev =>
+            prev.filter(s => s.id !== selectedSession.id)
+        );
+
+        handleCloseModal();
+
+    } catch (error) {
+        console.error('Error deleting session:', error);
+        // 401 / 403 handled globally by Axios interceptor
+    }
+};
+
+
+   const handleExportClick = async (sessionId, sessionName) => {
+    setExportLoading(true);
+
+    try {
+        const response = await api.get(
+            `/api/sessions/export/${sessionId}`,
+            {
+                responseType: 'blob', // IMPORTANT for PDF
+            }
+        );
+
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+
+        const cleanFilename = sessionName
+            ? sessionName
+                .replace(/[<>:"/\\|?*]+/g, '')
+                .replace(/\s+/g, '_') + '.pdf'
+            : `session_${sessionId}.pdf`;
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = cleanFilename;
+        document.body.appendChild(a);
+        a.click();
+
+        a.remove();
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error('Error exporting session:', error);
+        // 401 / 403 → handled automatically by Axios interceptor
+    } finally {
+        setExportLoading(false);
+    }
+};
+
 
     // Group sessions by municipalityMandateId
     const sessionsByMandate = [...municipalityTerms]

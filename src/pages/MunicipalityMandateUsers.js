@@ -7,55 +7,51 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPen } from "@fortawesome/free-solid-svg-icons";
-
+import api from '../api/axios';
 
 function MunicipalityMandateUsers() {
-  const { t } = useTranslation();
-  const { id, mandateId } = useParams();
-  const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+const { t } = useTranslation();
+const { id, mandateId } = useParams();
+const navigate = useNavigate();
+const [users, setUsers] = useState([]);
+const [loading, setLoading] = useState(true);
 
-  const president = users.find(u => u.role === "ROLE_PRESIDENT");
-  const regularUsers = users.filter(u => u.role !== "ROLE_PRESIDENT");
+const president = users.find(u => u.role === "ROLE_PRESIDENT");
+const regularUsers = users.filter(u => u.role !== "ROLE_PRESIDENT");
 
-  const [userData] = useState(() => {
-    const storedUserInfo = localStorage.getItem("userInfo");
-    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-  });
+const [userData] = useState(() => {
+  const storedUserInfo = localStorage.getItem("userInfo");
+  return storedUserInfo ? JSON.parse(storedUserInfo) : {};
+});
 
-    useEffect(() => {
-      const cleanupMobileMenu = initializeMobileMenu();
-      return () => cleanupMobileMenu();
-    }, []);
+// Initialize mobile menu
+useEffect(() => {
+  const cleanupMobileMenu = initializeMobileMenu();
+  return () => cleanupMobileMenu();
+}, []);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const token = localStorage.getItem("jwtToken");
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/municipality-terms/${mandateId}/votable-users`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+// Fetch votable users using Axios
+useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const response = await api.get(`/api/municipality-terms/${mandateId}/votable-users`);
+      let data = response.data || [];
 
-        if (!response.ok) throw new Error("Failed to fetch users");
-        const data = await response.json();
+      // Sort users alphabetically by name using locale
+      const locale = navigator.language || "en";
+      data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
 
-        const locale = navigator.language || "en";
+      setUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        data.sort((a, b) =>
-          a.name.localeCompare(b.name, locale, { sensitivity: "base" })
-        );
-        setUsers(data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  fetchUsers();
+}, [mandateId]);
 
-    fetchUsers();
-  }, [mandateId]);
 
   return (
     <div className="municipality-mandate-users-container">

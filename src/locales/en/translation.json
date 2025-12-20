@@ -492,5 +492,12 @@
     "image": "Image",
     "fullName": "Full Name",
     "vote": "Vote"
+  },
+  
+  "sessionExpired": {
+    "title": "Session Expired",
+    "message": "Your session has expired.",
+    "redirect": "Redirecting to login in {{count}} seconds…",
+    "logoutNow": "Logout now"
   }
 }

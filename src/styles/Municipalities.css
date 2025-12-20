@@ -124,6 +124,7 @@
     grid-template-columns: 1fr;
 }
 
+
 .municipality-item {
     display: flex;
     flex-direction: column;
@@ -252,6 +253,21 @@
 
 .admin-dropdown .dropdown-item.delete {
     color: #d9534f;
+}
+
+.no-municipalities-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 200px;
+    /* optional: adjusts vertical spacing */
+}
+
+.no-municipalities-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
 }
 
 @media (max-width: 768px) {

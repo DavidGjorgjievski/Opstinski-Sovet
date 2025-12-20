@@ -492,5 +492,12 @@
     "image": "Foto",
     "fullName": "Emri dhe mbiemri",
     "vote": "Vota"
+  },
+
+  "sessionExpired": {
+    "title": "Sesioni ka skaduar",
+    "message": "Sesioni juaj ka skaduar.",
+    "redirect": "Ridrejtim te hyrja për {{count}} sekonda…",
+    "logoutNow": "Dil tani"
   }
 }

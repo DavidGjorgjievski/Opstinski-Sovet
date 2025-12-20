@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faPlus, faImage, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
+import api from '../api/axios';
 
 function AddMunicipalityMandateForm() {
     const { t } = useTranslation();
@@ -32,7 +33,7 @@ function AddMunicipalityMandateForm() {
         return `${months[date.getMonth()]} ${date.getFullYear()}`;
     }, [t]);
 
-    // ✅ Load municipality
+    // Load municipality
     useEffect(() => {
         const municipalities = JSON.parse(localStorage.getItem('municipalities')) || [];
         const current = municipalities.find(m => m.id === Number(id));
@@ -40,7 +41,7 @@ function AddMunicipalityMandateForm() {
         else setError(t('AddMunicipalityMandate.errorFetchingMunicipality'));
     }, [id, t]);
 
-    // ✅ Load term info + image if edit mode
+    // Load term info + image if edit mode
     useEffect(() => {
         const mandatesData = JSON.parse(localStorage.getItem('mandates')) || [];
         if (mandatesData.length > 0) {
@@ -63,7 +64,7 @@ function AddMunicipalityMandateForm() {
         }
     }, [formatDateByLanguage, isEditMode, mandateId, t]);
 
-    // ✅ Mobile Menu Init
+    // Mobile Menu Init
     useEffect(() => {
         const cleanupMobileMenu = initializeMobileMenu();
         return () => cleanupMobileMenu();
@@ -83,6 +84,7 @@ function AddMunicipalityMandateForm() {
         }
 
         try {
+            setError('');
             const token = localStorage.getItem('jwtToken');
             const formData = new FormData();
 
@@ -101,30 +103,26 @@ function AddMunicipalityMandateForm() {
             }
 
             const url = isEditMode
-                ? `${process.env.REACT_APP_API_URL}/api/municipality-terms/update/${mandateId}`
-                : `${process.env.REACT_APP_API_URL}/api/municipality-terms/create`;
+                ? `/api/municipality-terms/update/${mandateId}`
+                : `/api/municipality-terms/create`;
 
-            const response = await fetch(url, {
-                method: isEditMode ? "PUT" : "POST",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-                body: formData
+            await api({
+                method: isEditMode ? "put" : "post",
+                url,
+                data: formData,
+                headers: { Authorization: `Bearer ${token}` },
             });
 
-            if (!response.ok) throw new Error("Failed to save");
+            // Refresh from backend after saving
+            const updatedTermsResponse = await api.get(`/api/municipality-terms/municipality/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
-            // ✅ Refresh from backend after saving to avoid duplicates
-            const newTermsResponse = await fetch(
-                `${process.env.REACT_APP_API_URL}/api/municipality-terms/municipality/${id}`,
-                { headers: { "Authorization": `Bearer ${token}` } }
-            );
-            const updatedTerms = await newTermsResponse.json();
-            localStorage.setItem('municipalityTerms', JSON.stringify(updatedTerms));
+            localStorage.setItem('municipalityTerms', JSON.stringify(updatedTermsResponse.data));
 
             navigate(`/municipalities/${id}/mandates`);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
             setError(t('AddMunicipalityMandate.errorSubmit'));
         }
     };

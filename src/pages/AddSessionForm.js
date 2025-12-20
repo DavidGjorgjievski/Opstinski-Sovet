@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import '../styles/AddSessionForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import api from '../api/axios';
+
 
 function AddSessionForm() {
     const { t } = useTranslation();
@@ -21,64 +23,43 @@ function AddSessionForm() {
     const navigate = useNavigate();
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
-    useEffect(() => {
+   useEffect(() => {
         const fetchSession = async () => {
-            if (id) {
-                const jwtToken = localStorage.getItem('jwtToken');
-                try {
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${jwtToken}`,
-                        },
-                    });
+            if (!id) return;
 
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch session');
-                    }
+            try {
+                const { data } = await api.get(`/api/sessions/${id}`);
 
-                    const sessionData = await response.json();
-                    setName(sessionData.name);
-                    setDate(sessionData.date);
-                } catch (error) {
-                    console.error('Error fetching session:', error);
-                }
+                setName(data.name);
+                setDate(data.date);
+
+            } catch (error) {
+                console.error('Error fetching session:', error);
             }
         };
 
         fetchSession();
     }, [id]);
 
-    const handleSubmit = async (event) => {
+
+   const handleSubmit = async (event) => {
         event.preventDefault();
 
         const sessionData = !id
             ? { name, date, municipalityId: Number(municipalityId) }
             : { name, date };
 
-        const jwtToken = localStorage.getItem('jwtToken');
-
         try {
-            const url = id
-                ? `${process.env.REACT_APP_API_URL}/api/sessions/edit/${id}`
-                : `${process.env.REACT_APP_API_URL}/api/sessions/add`;
-
-            const method = id ? 'PUT' : 'POST';
-
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken}`,
-                },
-                body: JSON.stringify(sessionData),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to ${id ? 'edit' : 'add'} session`);
+            if (id) {
+                // EDIT session
+                await api.put(`/api/sessions/edit/${id}`, sessionData);
+            } else {
+                // ADD session
+                await api.post(`/api/sessions/add`, sessionData);
             }
 
             navigate(`/municipalities/${municipalityId}/sessions`);
+
         } catch (error) {
             console.error(`Error ${id ? 'editing' : 'adding'} session:`, error);
         }

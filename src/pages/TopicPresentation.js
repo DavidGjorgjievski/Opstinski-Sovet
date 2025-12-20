@@ -8,12 +8,12 @@ import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import api from '../api/axios'; 
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
   const [autoRefresh, setAutoRefresh] = useState(false);
   const { id, municipalityId } = useParams();
-  const token = localStorage.getItem("jwtToken");
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -32,27 +32,24 @@ const TopicPresentation = () => {
 
   // Fetch the current topic
   const fetchPresenterTopic = useCallback(async () => {
+    if (fetchPresenterTopic.isFetching) return; // skip if already fetching
+    fetchPresenterTopic.isFetching = true;
+
     try {
-      const endpoint = `${process.env.REACT_APP_API_URL}/api/sessions/${id}/topics/presenter`;
-      const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        console.error(`Failed to fetch topic. Status: ${response.status}`);
-        return;
-      }
-      const text = await response.text();
-      if (!text) return;
-      const data = JSON.parse(text);
-      setTopic(data);
+      const response = await api.get(`/api/sessions/${id}/topics/presenter`);
+      setTopic(response.data);
     } catch (error) {
-      console.error("Error fetching topic:", error);
+      if (error.response) {
+        console.error(`Failed to fetch topic. Status: ${error.response.status}`);
+      } else {
+        console.error("Error fetching topic:", error);
+      }
+    } finally {
+      fetchPresenterTopic.isFetching = false;
     }
-  }, [id, token]);
+  }, [id]);
+
+  fetchPresenterTopic.isFetching = false;
 
   useEffect(() => {
     fetchPresenterTopic();
