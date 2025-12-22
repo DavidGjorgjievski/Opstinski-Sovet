@@ -499,5 +499,11 @@
     "message": "Ihre Sitzung ist abgelaufen.",
     "redirect": "Weiterleitung zur Anmeldung in {{count}} Sekunden…",
     "logoutNow": "Jetzt abmelden"
+  },
+
+  "NoTopicsExportModal": {
+    "noTopicsTitle": "Keine Themen verfügbar",
+    "noTopicsMessage": "Diese Sitzung hat keine Themen zum Exportieren.",
+    "closeButton": "Schließen"
   }
 }

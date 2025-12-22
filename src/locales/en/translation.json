@@ -499,5 +499,11 @@
     "message": "Your session has expired.",
     "redirect": "Redirecting to login in {{count}} seconds…",
     "logoutNow": "Logout now"
+  },
+
+  "NoTopicsExportModal": {
+    "noTopicsTitle": "No Topics Available",
+    "noTopicsMessage": "This session has no topics to export.",
+    "closeButton": "Close"
   }
 }

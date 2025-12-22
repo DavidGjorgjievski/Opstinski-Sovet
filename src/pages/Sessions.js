@@ -5,6 +5,7 @@ import '../styles/Sessions.css';
 import Header from '../components/Header';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import SessionConfirmModal from '../components/SessionConfirmModal';
+import NoTopicsExportModal from '../components/NoTopicsExportModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -24,6 +25,7 @@ function Sessions() {
     const [selectedSession, setSelectedSession] = useState(null);
     const [openMenuId, setOpenMenuId] = useState(null);
     const dropdownRefs = useRef({});
+    const [showNoTopicsModal, setShowNoTopicsModal] = useState(false);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -155,10 +157,18 @@ function Sessions() {
         const response = await api.get(
             `/api/sessions/export/${sessionId}`,
             {
-                responseType: 'blob', // IMPORTANT for PDF
+                responseType: 'blob',
+                validateStatus: status =>
+                    status === 200 || status === 204
             }
         );
 
+        if (response.status === 204) {
+            setShowNoTopicsModal(true);
+            return;
+        }
+
+        // ✅ Normal PDF download
         const blob = new Blob([response.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
 
@@ -179,11 +189,11 @@ function Sessions() {
 
     } catch (error) {
         console.error('Error exporting session:', error);
-        // 401 / 403 → handled automatically by Axios interceptor
     } finally {
         setExportLoading(false);
     }
 };
+
 
 
     // Group sessions by municipalityMandateId
@@ -310,6 +320,11 @@ function Sessions() {
                     onClose={handleCloseModal}
                     onConfirm={handleConfirmDelete}
                     sessionName={selectedSession ? selectedSession.name : ''}
+                />
+
+                <NoTopicsExportModal
+                    show={showNoTopicsModal}
+                    onClose={() => setShowNoTopicsModal(false)}
                 />
             </main>
 

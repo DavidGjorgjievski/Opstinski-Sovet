@@ -499,5 +499,11 @@
     "message": "Вашата сесија истече.",
     "redirect": "Пренасочување кон најава за {{count}} секунди…",
     "logoutNow": "Одјави се веднаш"
+  },
+
+ "NoTopicsExportModal": {
+    "noTopicsTitle": "Нема Точки",
+    "noTopicsMessage": "Оваа седница нема точки за експортирање.",
+    "closeButton": "Затвори"
   }
 }

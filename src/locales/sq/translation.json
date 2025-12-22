@@ -499,5 +499,11 @@
     "message": "Sesioni juaj ka skaduar.",
     "redirect": "Ridrejtim te hyrja për {{count}} sekonda…",
     "logoutNow": "Dil tani"
+  },
+
+  "NoTopicsExportModal": {
+    "noTopicsTitle": "Asnjë Temë e Disponueshme",
+    "noTopicsMessage": "Kjo seancë nuk ka tema për të eksportuar.",
+    "closeButton": "Mbyll"
   }
 }
