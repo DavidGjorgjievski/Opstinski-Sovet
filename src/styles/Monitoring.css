@@ -6,14 +6,10 @@
     height: 100vh;
     min-height: 100vh;
     box-sizing: border-box;
-    overflow-x: hidden;
     position: relative;
-
-        width: 100vw;
-        min-height: 100vh;
+    width: 100vw;
+    min-height: 100vh;
 }
-
-
 
 .monitoring-container-body {
     width: 100%;
@@ -22,7 +18,6 @@
     box-sizing: border-box;
     padding-bottom: 40px;
 }
-
 
 /* ===== Header ===== */
 .monitoring-header {
