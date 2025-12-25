@@ -7,7 +7,7 @@ import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import api from '../api/axios'; // Axios instance with JWT handling
+import api from '../api/axios'; 
 
 const ChangeEmail = () => {
   const { t } = useTranslation();

@@ -47,7 +47,12 @@
     "adminPanel": "Admin Panel",
     "mandate": "Mandate",
     "settings": "Settings",
+    "monitoring": "Monitoring",
     "logout": "Logout"
+  },
+
+  "monitoring": {
+    "title":"Monitoring"
   },
 
   "home": {

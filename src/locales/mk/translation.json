@@ -47,7 +47,12 @@
     "adminPanel": "Админ панел",
     "mandate": "Мандат",
     "settings": "Поставки",
+    "monitoring": "Надзор",
     "logout": "Одјави се"
+  },
+
+  "monitoring": {
+    "title":"Надзор"
   },
 
   "home": {

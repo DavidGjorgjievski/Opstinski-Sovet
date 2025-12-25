@@ -86,7 +86,11 @@ const languageData = {
     };
 
     return (
-        <header className={isSticky ? 'sticky-header' : 'fixed-header'}>
+        <header
+            className={`${isSticky ? 'sticky-header' : 'fixed-header'} ${
+                userInfo.role === 'ROLE_ADMIN' ? 'admin-header' : ''
+            }`}
+            >
             <nav>
                 <div className="d-flex flex-row">
                     <div>
@@ -136,6 +140,12 @@ const languageData = {
                         >
                             <Link to="/mandate">{t('nav.mandate')}</Link>
                         </li>
+                        <li
+                            className={getActiveClass('/monitoring')}
+                            style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}
+                        >
+                            <Link to="/monitoring">{t('nav.monitoring')}</Link>
+                        </li>
                     </ul>
                 </div>
 
@@ -153,6 +163,9 @@ const languageData = {
                     </li>
                     <li className={getActiveClass('/mandate')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
                         <Link to="/mandate">{t('nav.mandate')}</Link>
+                    </li>
+                     <li className={getActiveClass('/monitoring')} style={{ display: userInfo.role === 'ROLE_ADMIN' ? 'block' : 'none' }}>
+                        <Link to="/monitoring">{t('nav.monitoring')}</Link>
                     </li>
                 </ul>
 

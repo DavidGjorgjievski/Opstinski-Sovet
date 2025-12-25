@@ -47,7 +47,12 @@
     "adminPanel": "Paneli i Adminit",
     "mandate": "Mandati",
     "settings": "Cilësimet",
+    "monitoring": "Monitorim",
     "logout": "Shkyçu"
+  },
+
+  "monitoring": {
+    "title":"Monitorim"
   },
 
   "home": {

@@ -47,7 +47,12 @@
     "adminPanel": "Admin-Panel",
     "mandate": "Mandat",
     "settings": "Einstellungen",
+    "monitoring": "Überwachung",
     "logout": "Abmelden"
+  },
+
+  "monitoring": {
+    "title":"Überwachung"
   },
 
   "home": {

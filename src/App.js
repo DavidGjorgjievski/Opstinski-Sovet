@@ -32,6 +32,7 @@ import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
 import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAddList'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import Monitoring from './pages/Monitoring';
 import { SessionModalProvider } from './context/SessionModalContext';
 import SessionExpiredModal from './components/SessionExpiredModal';
 
@@ -148,6 +149,8 @@ function App() {
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics" element={<ProtectedRoute element={<Topics />} />} />
 
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics-presentation" element={<ProtectedRoute element={<TopicPresentation />} />} />
+
+              <Route path="/monitoring" element={<ProtectedRoute element={<Monitoring />} allowedRoles={['ROLE_ADMIN']} />} />
 
               <Route
                 path="/admin-panel"
