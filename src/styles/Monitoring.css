@@ -124,7 +124,7 @@
     }
 
     .monitoring-user-lastseen {
-        align-self: flex-end;
+        align-self: center;
         font-size: 13px;
     }
 }
