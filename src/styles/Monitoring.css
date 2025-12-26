@@ -110,6 +110,10 @@
     margin-top: 40px;
 }
 
+.monitoring-loading-spinner img{
+    width: 150px;
+    height: 150px;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
@@ -126,5 +130,10 @@
     .monitoring-user-lastseen {
         align-self: center;
         font-size: 13px;
+    }
+
+    .monitoring-loading-spinner img {
+        width: 125px;
+        height: 125px;
     }
 }

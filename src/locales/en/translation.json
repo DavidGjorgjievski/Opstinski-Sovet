@@ -52,7 +52,9 @@
   },
 
   "monitoring": {
-    "title":"Monitoring"
+    "title": "Monitoring",
+    "noUsers": "No users found",
+    "never": "Never"
   },
 
   "home": {
@@ -477,6 +479,7 @@
       "information": "Information",
       "withdrawn": "Withdrawn"
     },
+    "removePdf": "Remove",
     "addButton": "Add",
     "editButton": "Edit",
     "back": "Back"
@@ -497,6 +500,13 @@
     "image": "Image",
     "fullName": "Full Name",
     "vote": "Vote"
+  },
+
+  "pdfConfirmModal": {
+    "title": "Confirm PDF Removal",
+    "message": "Are you sure you want to remove this PDF",
+    "removeButton": "Remove",
+    "cancelButton": "Cancel"
   },
   
   "sessionExpired": {

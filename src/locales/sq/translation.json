@@ -52,7 +52,9 @@
   },
 
   "monitoring": {
-    "title":"Monitorim"
+    "title": "Monitorim",
+    "noUsers": "Nuk ka përdorues",
+    "never": "Asnjëherë"
   },
 
   "home": {
@@ -470,6 +472,7 @@
       "information": "Informacion",
       "withdrawn": "Tërhequr"
     },
+    "removePdf": "Fshi",
     "addButton": "Shto",
     "editButton": "Redakto",
     "back": "Kthehu"
@@ -497,6 +500,13 @@
     "image": "Foto",
     "fullName": "Emri dhe mbiemri",
     "vote": "Vota"
+  },
+
+  "pdfConfirmModal": {
+    "title": "Konfirmo heqjen e PDF-së",
+    "message": "A jeni i sigurt që doni të hiqni këtë PDF",
+    "removeButton": "Hiq",
+    "cancelButton": "Anulo"
   },
 
   "sessionExpired": {

@@ -52,7 +52,9 @@
   },
 
   "monitoring": {
-    "title":"Überwachung"
+    "title": "Überwachung",
+    "noUsers": "Keine Benutzer vorhanden",
+    "never": "Nie"
   },
 
   "home": {
@@ -470,6 +472,7 @@
       "information": "Information",
       "withdrawn": "Zurückgezogen"
     },
+    "removePdf": "Löschen",
     "addButton": "Hinzufügen",
     "editButton": "Bearbeiten",
     "back": "Zurück"
@@ -497,6 +500,13 @@
     "image": "Bild",
     "fullName": "Vor- und Nachname",
     "vote": "Stimme"
+  },
+
+  "pdfConfirmModal": {
+    "title": "PDF-Entfernung bestätigen",
+    "message": "Sind Sie sicher, dass Sie dieses PDF entfernen möchten",
+    "removeButton": "Entfernen",
+    "cancelButton": "Abbrechen"
   },
   
   "sessionExpired": {

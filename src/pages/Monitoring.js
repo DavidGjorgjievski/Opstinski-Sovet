@@ -75,9 +75,12 @@ const formatLastSeen = (date) => {
 
                     <div className="monitoring-list">
                         {loading ? (
-                            <p className="monitoring-loading">
-                                {t('common.loading')}
-                            </p>
+                             <div className="monitoring-loading-spinner">
+                                <img
+                                    src={`${process.env.PUBLIC_URL}/images/loading.svg`}
+                                    alt="Loading..."
+                                />
+                            </div>
                         ) : users.length === 0 ? (
                             <p className="monitoring-empty">
                                 {t('monitoring.noUsers')}

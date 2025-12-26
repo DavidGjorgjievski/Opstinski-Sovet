@@ -12,10 +12,12 @@ import {
 } from '../util/fileUpload';
 import '../styles/AddTopicForm.css';
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
+import PDFConfirmModal from "../components/PDFConfirmModal";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+
 
 const AddTopicForm = () => {
     const { id, idt, municipalityId } = useParams();
@@ -32,6 +34,7 @@ const AddTopicForm = () => {
     const [exportLoading, setExportLoading] = useState(false);
     const [totalSize, setTotalSize] = useState(0);
     const { t } = useTranslation();
+    const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const [dropUp, setDropUp] = useState(false);
@@ -258,6 +261,17 @@ const toggleDropdown = () => {
   setOpen(prev => !prev);
 };
 
+const handleRemovePdf = async () => {
+    try {
+        await api.delete(`/api/topics/${idt}/pdf`);
+        setCurrentPdfFileName("");
+        setPdfId(null);
+        setFiles([]); 
+    } catch (error) {
+        console.error("Error removing PDF:", error);
+    }
+};
+
     return (
         <HelmetProvider>
             <div className="add-topic-container">
@@ -351,20 +365,28 @@ const toggleDropdown = () => {
                                     </div>
                                 )}
 
-
-                                    {currentPdfFileName && (
-                                        <div className="current-pdf-div mt-2">
-                                            <span className="current-pdf-label">
+                                {currentPdfFileName && (
+                                    <div className="current-pdf-div mt-2 d-flex align-items-center">
+                                        <span className="current-pdf-label me-2">
                                             {t("addTopicForm.currentPdf")}:
-                                            </span>
-                                            <span
-                                            className="pdf-link"
+                                        </span>
+                                        <span
+                                            className="pdf-link me-2"
                                             onClick={() => handlePdfFetch(pdfId)}
-                                            >
+                                            style={{ cursor: "pointer" }}
+                                        >
                                             {currentPdfFileName}
-                                            </span>
-                                        </div>
-                                    )}
+                                        </span>
+                                        <button
+                                            type="button"
+                                            className="remove-pdf-button"
+                                            onClick={() => setIsPdfModalOpen(true)}
+                                        >
+                                            {t("addTopicForm.removePdf")} {" "}
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </div>
+                                )}
 
                                    <div className="topic-status-select-wrapper mt-3" ref={dropdownRef}>
                                         <label htmlFor="topicStatus" className="label-add">{t("addTopicForm.selectStatus")}</label>
@@ -440,6 +462,16 @@ const toggleDropdown = () => {
                         </div>
                     </div>
                 )}
+
+                <PDFConfirmModal
+                    isOpen={isPdfModalOpen}
+                    pdfName={currentPdfFileName}
+                    onClose={() => setIsPdfModalOpen(false)}
+                    onConfirm={async () => {
+                        await handleRemovePdf();
+                        setIsPdfModalOpen(false);
+                    }}
+                />
             </div>
         </HelmetProvider>
     );

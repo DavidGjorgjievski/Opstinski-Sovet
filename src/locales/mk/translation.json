@@ -52,7 +52,9 @@
   },
 
   "monitoring": {
-    "title":"Надзор"
+    "title": "Надзор",
+    "noUsers": "Нема корисници",
+    "never": "Никогаш"
   },
 
   "home": {
@@ -470,6 +472,7 @@
       "information": "Информација",
       "withdrawn": "Повлечена"
     },
+    "removePdf": "Избриши",
     "addButton": "Додади",
     "editButton": "Уреди",
     "back": "Назад"
@@ -497,6 +500,13 @@
     "image": "Слика",
     "fullName": "Име и презиме",
     "vote": "Глас"
+  },
+
+  "pdfConfirmModal": {
+    "title": "Потврда за отстранување на PDF",
+    "message": "Дали сте сигурни дека сакате да го отстраните овој PDF",
+    "removeButton": "Отстрани",
+    "cancelButton": "Откажи"
   },
 
   "sessionExpired": {
