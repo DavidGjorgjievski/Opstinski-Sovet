@@ -54,7 +54,8 @@
   "monitoring": {
     "title": "Überwachung",
     "noUsers": "Keine Benutzer vorhanden",
-    "never": "Nie"
+    "never": "Nie",
+    "onlineUsers": "{{count}} Online"
   },
 
   "home": {

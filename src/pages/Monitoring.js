@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios'; 
 import '../styles/Monitoring.css';
 
@@ -86,39 +88,48 @@ const formatLastSeen = (date) => {
                                 {t('monitoring.noUsers')}
                             </p>
                         ) : (
-                            <ul className="monitoring-list-ul">
-                                {users.map(user => (
-                                    <li key={user.username} className="monitoring-item">
-                                        <div className="monitoring-content">
+                            <div>
+                                <div className="monitoring-online-count">
+                                    {t('monitoring.onlineUsers', { count: users.filter(u => u.onlineSessions > 0).length })}
+                                </div>  
+                                <ul className="monitoring-list-ul">
+                                    {users.map(user => (
+                                        <li key={user.username} className="monitoring-item">
+                                            <div className="monitoring-content">
 
-                                            <div className="monitoring-user-image">
-                                                {user.image ? (
-                                                    <img
-                                                        src={`data:image/jpeg;base64,${user.image}`}
-                                                        alt={user.username}
+                                                <div className="monitoring-user-image">
+                                                    {user.image ? (
+                                                        <img
+                                                            src={`data:image/jpeg;base64,${user.image}`}
+                                                            alt={user.username}
+                                                        />
+                                                    ) : (
+                                                        <div className="monitoring-image-placeholder" />
+                                                    )}
+                                                </div>
+
+                                                <div className="monitoring-user-info">
+                                                    <div className="monitoring-user-name">
+                                                        {user.name} {user.surname}
+                                                    </div>
+                                                    <div className="monitoring-user-username">
+                                                        @{user.username}
+                                                    </div>
+                                                </div>
+
+                                                <div className="monitoring-user-lastseen">
+                                                    {formatLastSeen(user.lastSeen)} {"  "}
+                                                    <FontAwesomeIcon
+                                                        icon={faCircle}
+                                                        className={user.onlineSessions > 0 ? 'status-icon online' : 'status-icon offline'}
+                                                        title={user.onlineSessions > 0 ? 'Online' : 'Offline'}
                                                     />
-                                                ) : (
-                                                    <div className="monitoring-image-placeholder" />
-                                                )}
+                                                </div>  
                                             </div>
-
-                                            <div className="monitoring-user-info">
-                                                <div className="monitoring-user-name">
-                                                    {user.name} {user.surname}
-                                                </div>
-                                                <div className="monitoring-user-username">
-                                                    @{user.username}
-                                                </div>
-                                            </div>
-
-                                            <div className="monitoring-user-lastseen">
-                                                {formatLastSeen(user.lastSeen)}
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         )}
                     </div>
                 </div>

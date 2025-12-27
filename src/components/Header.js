@@ -10,7 +10,7 @@ import mkFlag from '../assets/flags/mk.png';
 import enFlag from '../assets/flags/en.png';
 import deFlag from '../assets/flags/de.png';
 import sqFlag from '../assets/flags/sq.png';
-
+import api from '../api/axios';
 
 function Header({ userInfo, isSticky = false }) {
     const { t } = useTranslation();
@@ -84,6 +84,20 @@ const languageData = {
         localStorage.setItem('selectedLanguage', lang);
         setOpenLang(false);
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('jwtToken');
+        if (!token) return;
+        
+        // Only run heartbeat if user is not a guest
+        if (!userInfo || userInfo.role === 'ROLE_GUEST') return;
+
+        const interval = setInterval(() => {
+        api.post('/api/heartbeat').catch(() => {});
+        }, 60000); // every 1 minute
+
+        return () => clearInterval(interval);
+    }, [userInfo]);
 
     return (
         <header

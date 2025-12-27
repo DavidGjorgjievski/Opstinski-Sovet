@@ -54,7 +54,8 @@
   "monitoring": {
     "title": "Monitorim",
     "noUsers": "Nuk ka përdorues",
-    "never": "Asnjëherë"
+    "never": "Asnjëherë",
+    "onlineUsers": "{{count}} Online"
   },
 
   "home": {

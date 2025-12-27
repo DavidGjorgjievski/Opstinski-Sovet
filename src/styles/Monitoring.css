@@ -44,6 +44,16 @@
     gap: 14px;
 }
 
+.monitoring-online-count {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 12px;
+    text-align: right;
+}
+
 /* ===== Row ===== */
 .monitoring-item {
     border: 1px solid #ddd;
@@ -113,6 +123,23 @@
 .monitoring-loading-spinner img{
     width: 150px;
     height: 150px;
+}
+
+/* Base style for the circle */
+.status-icon {
+    font-size: 0.8rem;
+    /* adjust size */
+    transition: color 0.3s ease;
+}
+
+/* Online - soft green with blinking animation */
+.status-icon.online {
+    color: #4ade80;
+}
+
+/* Offline - muted red */
+.status-icon.offline {
+    color: #f87171;
 }
 
 /* ===== Responsive ===== */

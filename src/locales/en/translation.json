@@ -54,7 +54,8 @@
   "monitoring": {
     "title": "Monitoring",
     "noUsers": "No users found",
-    "never": "Never"
+    "never": "Never",
+    "onlineUsers": "{{count}} Online"
   },
 
   "home": {

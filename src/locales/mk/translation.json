@@ -54,7 +54,8 @@
   "monitoring": {
     "title": "Надзор",
     "noUsers": "Нема корисници",
-    "never": "Никогаш"
+    "never": "Никогаш",
+    "onlineUsers": "{{count}} Онлајн"
   },
 
   "home": {
