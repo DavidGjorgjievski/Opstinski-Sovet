@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faComputer } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios'; 
 import '../styles/Monitoring.css';
 
@@ -118,13 +118,26 @@ const formatLastSeen = (date) => {
                                                 </div>
 
                                                 <div className="monitoring-user-lastseen">
-                                                    {formatLastSeen(user.lastSeen)} {"  "}
+                                                    {formatLastSeen(user.lastSeen)}{" "}
                                                     <FontAwesomeIcon
                                                         icon={faCircle}
                                                         className={user.onlineSessions > 0 ? 'status-icon online' : 'status-icon offline'}
                                                         title={user.onlineSessions > 0 ? 'Online' : 'Offline'}
                                                     />
-                                                </div>  
+
+                                                    {user.onlineSessions > 1 && (
+                                                        <span className="monitoring-multi-device">
+                                                            <FontAwesomeIcon
+                                                                icon={faComputer}
+                                                                className="device-icon"
+                                                                title={`${user.onlineSessions} devices online`}
+                                                            />
+                                                            <span className="device-count">
+                                                                {user.onlineSessions}
+                                                            </span>
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </li>
                                     ))}
