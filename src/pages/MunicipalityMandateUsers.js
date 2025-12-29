@@ -103,7 +103,8 @@ useEffect(() => {
 
         {!loading && president && (
   <div className="municipality-mandate-president-section">
-    <div className="municipality-mandate-president-card">
+    <div className="municipality-mandate-president-card"
+    onClick={() => navigate(`/profile-view/${president.username}`)}>
       {president.image ? (
         <img
           src={`data:image/jpeg;base64,${president.image}`}
@@ -130,7 +131,11 @@ useEffect(() => {
        {!loading && regularUsers.length > 0 && (
   <div className="municipality-mandate-users-grid">
     {regularUsers.map((user) => (
-      <div key={user.username} className="municipality-mandate-users-card">
+      <div 
+          key={user.username} 
+          className="municipality-mandate-users-card" 
+          onClick={() => navigate(`/profile-view/${user.username}`)}
+      >
         {user.image ? (
           <img
             src={`data:image/jpeg;base64,${user.image}`}

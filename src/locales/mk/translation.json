@@ -55,7 +55,12 @@
     "title": "Надзор",
     "noUsers": "Нема корисници",
     "never": "Никогаш",
-    "onlineUsers": "{{count}} Онлајн"
+    "onlineUsers": "Вкупно {{count}} Онлајн",
+    "filters": {
+      "all": "Сите",
+      "online": "Онлајн",
+      "offline": "Офлајн"
+    }
   },
 
   "home": {

@@ -55,7 +55,12 @@
     "title": "Überwachung",
     "noUsers": "Keine Benutzer vorhanden",
     "never": "Nie",
-    "onlineUsers": "{{count}} Online"
+    "onlineUsers": "Insgesamt {{count}} Online",
+    "filters": {
+      "all": "Alle",
+      "online": "Online",
+      "offline": "Offline"
+    }
   },
 
   "home": {

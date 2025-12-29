@@ -33,6 +33,7 @@ import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAdd
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Monitoring from './pages/Monitoring';
+import ProfileView from './pages/ProfileView'
 import { SessionModalProvider } from './context/SessionModalContext';
 import SessionExpiredModal from './components/SessionExpiredModal';
 
@@ -95,6 +96,11 @@ function App() {
               <Route
                 path="/municipalities/:id/mandates/users/:mandateId"
                 element={ <ProtectedRoute element={<MunicipalityMandateUsers />} />}
+              />
+
+              <Route
+                path="/profile-view/:username"
+                element={<ProfileView />}
               />
 
                <Route

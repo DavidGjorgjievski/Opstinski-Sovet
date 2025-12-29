@@ -55,7 +55,12 @@
     "title": "Monitorim",
     "noUsers": "Nuk ka përdorues",
     "never": "Asnjëherë",
-    "onlineUsers": "{{count}} Online"
+    "onlineUsers": "Gjithsej {{count}} Online",
+    "filters": {
+      "all": "Të gjithë",
+      "online": "Online",
+      "offline": "Offline"
+    }
   },
 
   "home": {

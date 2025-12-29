@@ -93,10 +93,16 @@
     align-items: center;
     background: #f5f5f5;
     padding: 15px;
-    border-radius: 12px;
-    text-align: center;
     border-radius: 20px;
     border: 1px solid #ddd;
+    text-align: center;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    cursor: pointer;
+}
+
+.municipality-mandate-users-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .municipality-mandate-users-avatar {
@@ -154,6 +160,15 @@
     width: 100%;
 
     box-sizing: border-box;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    /* added transition */
+    cursor: pointer;
+    /* added pointer on hover */
+}
+
+.municipality-mandate-president-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .municipality-mandate-president-label {
@@ -163,6 +178,7 @@
     color: #9c8700;
     text-transform: uppercase;
 }
+
 
 @media (max-width: 768px) {
 

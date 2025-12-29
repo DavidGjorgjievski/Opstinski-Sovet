@@ -55,7 +55,12 @@
     "title": "Monitoring",
     "noUsers": "No users found",
     "never": "Never",
-    "onlineUsers": "{{count}} Online"
+    "onlineUsers": "Total {{count}} Online",
+    "filters": {
+      "all": "All",
+      "online": "Online",
+      "offline": "Offline"
+    }
   },
 
   "home": {
