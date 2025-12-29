@@ -15,6 +15,7 @@ function ProfileView() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState(null);
     const [municipalities, setMunicipalities] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const storedUserInfo = localStorage.getItem('userInfo');
@@ -34,6 +35,8 @@ function ProfileView() {
                 } else {
                     setError(t("profile.fetchError"));
                 }
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -84,62 +87,65 @@ function ProfileView() {
         );
     }
 
-    if (!userData) {
-        return (
-            <div className="profile-view-loading">
-                <p>{t("profile.loading")}</p>
-            </div>
-        );
-    }
-
     return (
         <div className="profile-view-container">
             <HelmetProvider>
                 <Helmet>
-                    <title>{`${userData.name} ${userData.surname} - ${t("profile.title")}`}</title>
+                    <title>{`${userData?.name || ''} ${userData?.surname || ''} - ${t("profile.title")}`}</title>
                 </Helmet>
             </HelmetProvider>
 
             <Header userInfo={localUserData} isSticky={true} />
 
             <main>
-                <div className="profile-view-card">
-                    {/* Back button inside card */}
-                    <button
-                        className="profile-view-card-back-button"
-                        onClick={() => navigate(-1)}
-                    >
-                        <FontAwesomeIcon icon={faChevronLeft} /> 
-                    </button>
+                {loading && (
+                    <div className="municipalaty-mandate-user-spinner">
+                        <img
+                            src={`${process.env.PUBLIC_URL}/images/loading.svg`}
+                            alt={t("profile.loading")}
+                        />
+                    </div>
+                )}
 
-                    <div className="profile-view-image-wrapper">
-                        {userData.image && userData.image.trim() !== "" ? (
-                            <img
-                                src={`data:image/jpeg;base64,${userData.image}`}
-                                alt="Profile"
-                                className="profile-view-image"
-                            />
-                        ) : (
-                            <div className="profile-view-image placeholder">
-                                {userData.name?.charAt(0).toUpperCase() || "U"}
+                {!loading && userData && (
+                    <div className="profile-view-card">
+                        {/* Back button inside card */}
+                        <button
+                            className="profile-view-card-back-button"
+                            onClick={() => navigate(-1)}
+                        >
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </button>
+
+                        <div className="profile-view-image-wrapper">
+                            {userData.image && userData.image.trim() !== "" ? (
+                                <img
+                                    src={`data:image/jpeg;base64,${userData.image}`}
+                                    alt="Profile"
+                                    className="profile-view-image"
+                                />
+                            ) : (
+                                <div className="profile-view-image placeholder">
+                                    {userData.name?.charAt(0).toUpperCase() || "U"}
+                                </div>
+                            )}
+                        </div>
+
+                        <h2 className="profile-view-name">{userData.name} {userData.surname}</h2>
+                        <p className="profile-view-username">@{userData.username}</p>
+
+                        <div className="profile-view-details">
+                            <div className="detail-row">
+                                <span className="label">{t("profile.role")}: </span>
+                                <span className="value">{getRoleDisplay(userData.role)}</span>
                             </div>
-                        )}
-                    </div>
-
-                    <h2 className="profile-view-name">{userData.name} {userData.surname}</h2>
-                    <p className="profile-view-username">@{userData.username}</p>
-
-                    <div className="profile-view-details">
-                        <div className="detail-row">
-                            <span className="label">{t("profile.role")}: </span>
-                            <span className="value">{getRoleDisplay(userData.role)}</span>
-                        </div>
-                        <div className="detail-row">
-                            <span className="label">{t("profile.municipality")}: </span>
-                            <span className="value">{getMunicipalityName(userData.municipalityId)}</span>
+                            <div className="detail-row">
+                                <span className="label">{t("profile.municipality")}: </span>
+                                <span className="value">{getMunicipalityName(userData.municipalityId)}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
             </main>
 
             <Footer />
