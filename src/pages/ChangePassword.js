@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangePassword.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faChevronLeft, faLock } from "@fortawesome/free-solid-svg-icons";
@@ -20,11 +19,6 @@ const ChangePassword = () => {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-
-  useEffect(() => {
-    const cleanupMobileMenu = initializeMobileMenu();
-    return () => cleanupMobileMenu();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserTable from '../components/UserTable';
 import ConfirmModal from '../components/ConfirmModal';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPlus,faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -114,10 +113,8 @@ function AdminPanel() {
 
         fetchUsers();
 
-        const cleanupMobileMenu = initializeMobileMenu();
         sessionStorage.removeItem('scrollPosition');
 
-        return () => cleanupMobileMenu();
     }, [token]);
 
     const handleDeleteClick = (user) => {

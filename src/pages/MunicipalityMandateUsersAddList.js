@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
-import { initializeMobileMenu } from '../components/mobileMenu';
 import "../styles/MunicipalityMandateUsersAddList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
@@ -17,11 +16,6 @@ function MunicipalityMandateUsersAddList() {
   const [termUsers, setTermUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [termLoading, setTermLoading] = useState(true);
-
-  useEffect(() => {
-    const cleanupMobileMenu = initializeMobileMenu();
-    return () => cleanupMobileMenu();
-  }, []);
 
   const fetchMunicipalityUsers = useCallback(async () => {
     setLoading(true);

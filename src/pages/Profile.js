@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import '../styles/Profile.css';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faLock, faPlus, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -23,13 +22,7 @@ function Profile() {
         if (imageData) {
             setUserData(prevData => ({ ...prevData, image: imageData }));
         }
-
         sessionStorage.removeItem('scrollPosition');
-        const cleanupMobileMenu = initializeMobileMenu();
-
-        return () => {
-            cleanupMobileMenu();
-        };
     }, [navigate]);
 
     const { username, name, surname, image, role } = userData;

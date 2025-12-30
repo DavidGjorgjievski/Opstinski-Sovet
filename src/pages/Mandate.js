@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faArrowRight, faEllipsisV, faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import MandateConfirmModal from '../components/MandateConfirmModal'; 
@@ -24,8 +23,6 @@ const menuRefs = useRef({});
 
 // Fetch mandates using Axios
 useEffect(() => {
-    const cleanupMobileMenu = initializeMobileMenu();
-
     const fetchMandates = async () => {
         try {
             const token = localStorage.getItem('jwtToken');
@@ -53,7 +50,6 @@ useEffect(() => {
 
     fetchMandates();
 
-    return () => cleanupMobileMenu();
 }, []);
 
 function formatDateByLanguage(dateString, t) {

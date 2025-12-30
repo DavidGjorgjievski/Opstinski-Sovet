@@ -4,7 +4,6 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import '../styles/Topics.css';
 import Header from '../components/Header';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
-import { initializeMobileMenu } from '../components/mobileMenu';
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
@@ -216,8 +215,6 @@ function Topics() {
         ) {
             fetchUserVotes();
         }
-        const cleanupMobileMenu = initializeMobileMenu();
-        return () => cleanupMobileMenu();
     }, [token, userInfo, fetchTopics, id, fetchUserVotes, showFixDiv]);
 
     const handleDelete = async () => {

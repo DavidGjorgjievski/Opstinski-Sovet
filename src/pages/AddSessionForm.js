@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import '../styles/AddSessionForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -70,13 +69,6 @@ function AddSessionForm() {
             navigate(`/municipalities/${municipalityId}/sessions`);
         }
     };
-
-    useEffect(() => {
-        const cleanupMobileMenu = initializeMobileMenu();
-        return () => {
-            cleanupMobileMenu();
-        };
-    }, []);
 
     return (
         <HelmetProvider>

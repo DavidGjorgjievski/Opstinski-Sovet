@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityMandateConfirmModal from '../components/MunicipalityMandateConfirmModal';
 import '../styles/MunicipalityMandate.css';
 import { useTranslation } from 'react-i18next';
@@ -31,12 +30,6 @@ const userInfo = React.useMemo(() => {
 const menuRefs = useRef({});
 const [modalVisible, setModalVisible] = useState(false);
 const [selectedMandate, setSelectedMandate] = useState(null);
-
-// Initialize mobile menu
-useEffect(() => {
-  const cleanupMobileMenu = initializeMobileMenu();
-  return () => cleanupMobileMenu();
-}, []);
 
 // Fetch municipality terms using Axios
 useEffect(() => {

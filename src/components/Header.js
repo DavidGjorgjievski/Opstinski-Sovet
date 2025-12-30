@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
+import { initializeMobileMenu } from './mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faRightFromBracket, faBars, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from "react-router-dom";
@@ -32,6 +33,12 @@ function Header({ isSticky = false }) {
         if (imageData) {
             setUserInfo(prev => ({ ...prev, image: imageData }));
         }
+
+        const cleanupMobileMenu = initializeMobileMenu();
+        
+        return () => {
+            cleanupMobileMenu();
+        };
     }, []);
 
 

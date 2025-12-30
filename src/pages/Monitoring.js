@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faComputer, faChevronDown, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -24,8 +23,6 @@ function Monitoring() {
     }, [monitoringFilter]);
 
     useEffect(() => {
-        const cleanupMobileMenu = initializeMobileMenu();
-
         const fetchUsers = async (selectedFilter = monitoringFilter) => {
             setLoading(true);
             try {
@@ -41,7 +38,6 @@ function Monitoring() {
         };
 
         fetchUsers();
-        return () => cleanupMobileMenu();
     }, [monitoringFilter]);
 
     const formatLastSeen = (date) => {

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Header from "../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
-import { initializeMobileMenu } from "../components/mobileMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faUserPlus, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
@@ -108,11 +107,6 @@ function AddUserForm() {
 
       fetchMunicipalities();
   }, [token]);
-
-  useEffect(() => {
-    const cleanupMobileMenu = initializeMobileMenu();
-    return () => cleanupMobileMenu();
-  }, [navigate]);
 
   // Close dropdowns on outside click
   useEffect(() => {

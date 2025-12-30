@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityForm.css';
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -89,11 +88,6 @@ function AddMunicipalityForm() {
             setError('Имаше грешка при обработка на општината.');
         }
     };
-
-    useEffect(() => {
-        const cleanupMobileMenu = initializeMobileMenu();
-        return () => cleanupMobileMenu();
-    }, []);
 
     return (
         <HelmetProvider>

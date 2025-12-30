@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faChevronLeft, faFilter, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -44,17 +43,6 @@ function TopicDetails() {
         }
     }, [idt]);
 
-    useEffect(() => {
-        // Initialize mobile menu
-        const cleanupMobileMenu = initializeMobileMenu();
-
-        // Cleanup function to remove event listeners or any other cleanup actions
-        return () => {
-        cleanupMobileMenu();
-        };
-    }, []);
-
-
     const handlePdfFetch = async (pdfId) => {
         try {
             const response = await api.get(`/api/topics/pdf/${pdfId}`, {
@@ -82,7 +70,6 @@ function TopicDetails() {
         // Navigate to the desired URL
         navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`);
     };
-
 
     return (
         <div className="topic-details-container">

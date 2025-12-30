@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddMunicipalityMandateForm.css';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,12 +56,6 @@ function AddMunicipalityMandateForm() {
             }
         }
     }, [formatDateByLanguage, isEditMode, mandateId, t]);
-
-    // Mobile Menu Init
-    useEffect(() => {
-        const cleanupMobileMenu = initializeMobileMenu();
-        return () => cleanupMobileMenu();
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

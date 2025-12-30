@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link } from "react-router-dom";
 import '../styles/Municipalities.css'; 
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar } from '@fortawesome/free-solid-svg-icons';
@@ -70,12 +69,7 @@ function Municipalities() {
 
         fetchMunicipalities();
         fetchMandates();
-
-        const cleanupMobileMenu = initializeMobileMenu();
         sessionStorage.removeItem('scrollPosition');
-
-        return () => cleanupMobileMenu();
-
     }, [userInfo]);
 
     const handleDeleteClick = (municipality) => {

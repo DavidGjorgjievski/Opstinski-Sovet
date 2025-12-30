@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import '../styles/AddFormMandate.css';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,11 +22,6 @@ function AddFormMandate() {
     const isEditMode = Boolean(id);
 
     useEffect(() => {
-        let cleanupMobileMenu = () => {};
-        if (document.getElementById('mobile-menu-toggle') && document.getElementById('mobile-nav')) {
-            cleanupMobileMenu = initializeMobileMenu();
-        }
-
         if (isEditMode) {
             const fetchMandate = async () => {
                 setLoading(true);
@@ -55,7 +49,6 @@ function AddFormMandate() {
             setEndDate(fourYearsLater.toISOString().split('T')[0]);
         }
 
-        return () => cleanupMobileMenu();
     }, [id, isEditMode, t]);
 
     const handleSubmit = async (e) => {

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import '../styles/Sessions.css'; 
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import NoTopicsExportModal from '../components/NoTopicsExportModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -90,10 +89,7 @@ function Sessions() {
         fetchSessions();
     }
 
-    const cleanupMobileMenu = initializeMobileMenu();
     sessionStorage.removeItem('scrollPosition');
-
-    return () => cleanupMobileMenu();
 }, [municipalityId]);
 
 

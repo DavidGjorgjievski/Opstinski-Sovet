@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import {
     handleDragOver,
     handleDragLeave,
@@ -137,10 +136,7 @@ const AddTopicForm = () => {
     }
     };
 
-    // init mobile menu
-    useEffect(() => initializeMobileMenu(), []);
 
-    // drag + paste listeners
     useEffect(() => {
         const fileDropArea = document.querySelector('.file-drop-area');
         if (!fileDropArea) return;

@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import Header from '../components/Header';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import Footer from '../components/Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons';
@@ -12,15 +11,8 @@ import { useTranslation } from 'react-i18next';
 function Home() {
     const { t } = useTranslation();
 
-
     useEffect(() => {
-        const cleanupMobileMenu = initializeMobileMenu();
-
         sessionStorage.removeItem('scrollPosition');
-
-        return () => {
-            cleanupMobileMenu();
-        };
     }, []);
 
     return (

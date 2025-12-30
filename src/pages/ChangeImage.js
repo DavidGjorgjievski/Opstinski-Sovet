@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangeImage.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { initializeMobileMenu } from '../components/mobileMenu';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faUpload } from "@fortawesome/free-solid-svg-icons";
@@ -21,8 +20,6 @@ const ChangeImage = () => {
 
     useEffect(() => {
         setFileName(t('changeImage.noFileSelected'));
-        const cleanupMobileMenu = initializeMobileMenu();
-        return () => cleanupMobileMenu();
     }, [t]);
 
     const handleFileChange = (e) => {
