@@ -12,7 +12,7 @@ import deFlag from '../assets/flags/de.png';
 import sqFlag from '../assets/flags/sq.png';
 import api from '../api/axios';
 
-function Header({ userInfo, isSticky = false }) {
+function Header({ isSticky = false }) {
     const { t } = useTranslation();
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -22,13 +22,25 @@ function Header({ userInfo, isSticky = false }) {
 
     const [selectedLang, setSelectedLang] = useState(localStorage.getItem('selectedLanguage') || 'en');
 
+     const [userInfo, setUserInfo] = useState(() => {
+        const stored = localStorage.getItem('userInfo');
+        return stored ? JSON.parse(stored) : {};
+    });
 
-const languageData = {
-    mk: { flag: mkFlag, label: 'Македонски' },
-    en: { flag: enFlag, label: 'English' },
-    de: { flag: deFlag, label: 'Deutsch' },
-    sq: { flag: sqFlag, label: 'Shqip' }
-};
+    useEffect(() => {
+        const imageData = localStorage.getItem('image');
+        if (imageData) {
+            setUserInfo(prev => ({ ...prev, image: imageData }));
+        }
+    }, []);
+
+
+    const languageData = {
+        mk: { flag: mkFlag, label: 'Македонски' },
+        en: { flag: enFlag, label: 'English' },
+        de: { flag: deFlag, label: 'Deutsch' },
+        sq: { flag: sqFlag, label: 'Shqip' }
+    };
 
     let municipalityImage = null;
     if (municipalityId) {

@@ -93,7 +93,7 @@ const ChangeImage = () => {
                     <title>{t('changeImage.title')}</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userInfo} />
+            <Header />
 
             <main>
                 <div className='change-image-body-container'>

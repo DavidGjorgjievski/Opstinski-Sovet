@@ -11,36 +11,32 @@ import api from '../api/axios';
 
 function MunicipalityMandateUsersAddList() {
   const { t } = useTranslation();
-const { id, mandateId } = useParams();
-const navigate = useNavigate();
-const [users, setUsers] = useState([]);
-const [termUsers, setTermUsers] = useState([]);
-const [loading, setLoading] = useState(true);
-const [termLoading, setTermLoading] = useState(true);
+  const { id, mandateId } = useParams();
+  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [termUsers, setTermUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [termLoading, setTermLoading] = useState(true);
 
-const userData = JSON.parse(localStorage.getItem("userInfo")) || {};
+  useEffect(() => {
+    const cleanupMobileMenu = initializeMobileMenu();
+    return () => cleanupMobileMenu();
+  }, []);
 
-// Initialize mobile menu
-useEffect(() => {
-  const cleanupMobileMenu = initializeMobileMenu();
-  return () => cleanupMobileMenu();
-}, []);
-
-// Fetch municipality users using Axios
-const fetchMunicipalityUsers = useCallback(async () => {
-  setLoading(true);
-  try {
-    const response = await api.get(`/api/municipalities/${id}/users`);
-    let data = response.data || [];
-    const locale = navigator.language || "en";
-    data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
-    setUsers(data);
-  } catch (err) {
-    console.error("Error fetching users:", err);
-  } finally {
-    setLoading(false);
-  }
-}, [id]);
+  const fetchMunicipalityUsers = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await api.get(`/api/municipalities/${id}/users`);
+      let data = response.data || [];
+      const locale = navigator.language || "en";
+      data.sort((a, b) => a.name.localeCompare(b.name, locale, { sensitivity: "base" }));
+      setUsers(data);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
 
 // Fetch term users using Axios
 const fetchTermUsers = useCallback(async () => {
@@ -100,7 +96,7 @@ const handleRemoveUser = async (username) => {
         </Helmet>
       </HelmetProvider>
 
-      <Header userInfo={userData} isSticky={true} />
+      <Header isSticky={true} />
 
       <main className="municipality-mandate-users-list-content">
         {/* Header */}

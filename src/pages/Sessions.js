@@ -222,7 +222,7 @@ function Sessions() {
                 </Helmet>
             </HelmetProvider>
 
-            <Header userInfo={userInfo} />
+            <Header />
 
             <main className="session-body-container">
                 <div className={`session-header 

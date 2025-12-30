@@ -28,7 +28,6 @@ const AddTopicForm = () => {
     const [fileTypeError, setFileTypeError] = useState(false);
     const [currentPdfFileName, setCurrentPdfFileName] = useState('');
     const navigate = useNavigate();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
     const isAddAfter = !!idt && window.location.pathname.includes('add-after');
     const isAddBefore = !!idt && window.location.pathname.includes('add-before');
     const [exportLoading, setExportLoading] = useState(false);
@@ -287,7 +286,7 @@ const handleRemovePdf = async () => {
                     </title>
                 </Helmet>
 
-                <Header userInfo={userInfo} isSticky={true} />
+                <Header isSticky={true} />
 
                 <div className="add-topic-body-container">
                     <div>

@@ -61,7 +61,7 @@ useEffect(() => {
         </Helmet>
       </HelmetProvider>
 
-      <Header userInfo={userData} isSticky={true} />
+      <Header isSticky={true} />
 
       <main className="municipality-mandate-users-content">
 

@@ -14,12 +14,6 @@ function AddMunicipalityMandateForm() {
     const navigate = useNavigate();
     const { id, mandateId } = useParams(); 
     const isEditMode = Boolean(mandateId);
-
-    const [userData] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
-        return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-    });
-
     const [mandate, setMandate] = useState('');
     const [municipality, setMunicipality] = useState('');
     const [termImage, setTermImage] = useState(null);
@@ -142,7 +136,7 @@ function AddMunicipalityMandateForm() {
                     </title>
                 </Helmet>
 
-                <Header userInfo={userData} />
+                <Header />
 
                 <div className="add-municipality-mandate-body-container">
                     <div className="add-municipality-mandate-header-div mt-2">

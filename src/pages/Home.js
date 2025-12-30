@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
@@ -12,17 +12,8 @@ import { useTranslation } from 'react-i18next';
 function Home() {
     const { t } = useTranslation();
 
-    const [userData, setUserData] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
-        return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-    });
 
     useEffect(() => {
-        const imageData = localStorage.getItem('image');
-        if (imageData) {
-            setUserData(prevData => ({ ...prevData, image: imageData }));
-        }
-
         const cleanupMobileMenu = initializeMobileMenu();
 
         sessionStorage.removeItem('scrollPosition');
@@ -39,7 +30,7 @@ function Home() {
                     <title>{t('home.title')}</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userData} />
+            <Header/>
             <div className="main-content">
                 <main>
                     <div className="introduction">

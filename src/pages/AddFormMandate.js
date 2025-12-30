@@ -10,11 +10,7 @@ import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-sv
 import api from '../api/axios'; 
 
 function AddFormMandate() {
-    const [userData, setUserData] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
-        return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-    });
-
+   
     const { t } = useTranslation();
     const { id } = useParams(); // edit mode
     const navigate = useNavigate();
@@ -27,11 +23,6 @@ function AddFormMandate() {
     const isEditMode = Boolean(id);
 
     useEffect(() => {
-        const imageData = localStorage.getItem('image');
-        if (imageData) {
-            setUserData(prevData => ({ ...prevData, image: imageData }));
-        }
-
         let cleanupMobileMenu = () => {};
         if (document.getElementById('mobile-menu-toggle') && document.getElementById('mobile-nav')) {
             cleanupMobileMenu = initializeMobileMenu();
@@ -111,7 +102,7 @@ function AddFormMandate() {
                     </title>
                 </Helmet>
 
-                <Header userInfo={userData} isSticky={true} />
+                <Header isSticky={true} />
 
                 <div className="add-mandate-container">
                     <div className="add-mandate-body-container">

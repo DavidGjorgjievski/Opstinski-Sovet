@@ -12,11 +12,6 @@ import Footer from '../components/Footer';
 import api from '../api/axios';
 
 function Mandate() {
-    const [userData] = useState(() => {
-    const storedUserInfo = localStorage.getItem('userInfo');
-    return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-});
-
 const [mandates, setMandates] = useState([]);
 const [loading, setLoading] = useState(true);
 const [openMenuId, setOpenMenuId] = useState(null);
@@ -114,7 +109,7 @@ const handleDeleteConfirm = async () => {
                 </Helmet>
             </HelmetProvider>
 
-            <Header userInfo={userData} isSticky={true} />
+            <Header isSticky={true} />
 
             <main>
                 <div className="mandate-container-body">

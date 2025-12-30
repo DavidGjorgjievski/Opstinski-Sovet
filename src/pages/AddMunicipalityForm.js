@@ -16,7 +16,6 @@ function AddMunicipalityForm() {
     const [flag, setFlag] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
     const isEditMode = !!id;
     const { t } = useTranslation();
 
@@ -102,7 +101,7 @@ function AddMunicipalityForm() {
                 <Helmet>
                     <title>{isEditMode ? t("addMunicipality.pageTitleEdit") : t("addMunicipality.pageTitleAdd")}</title>
                 </Helmet>
-                <Header userInfo={userInfo} />
+                <Header />
 
                 <div className="add-municipality-body-container">
                     <div className="add-municipality-header-div mt-2">

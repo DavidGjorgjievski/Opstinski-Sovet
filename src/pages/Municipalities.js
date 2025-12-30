@@ -126,7 +126,7 @@ function Municipalities() {
                     <title>{t('Municipality.municipalitiesTitle')}</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userInfo} />
+            <Header />
            <main className="municipality-body-container">
     <div className="municipality-header">
         <p className="municipality-header-title">{t('Municipality.municipalitiesTitle')}</p>

@@ -14,10 +14,6 @@ function TopicDetails() {
     const navigate = useNavigate();
     const { id, idt } = useParams();
     const { municipalityId } = useParams();
-    const [userData] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
-        return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-    });
     const [topicDetails, setTopicDetails] = useState(null);
     const [loading, setLoading] = useState(true); // Add loading state
     const [showVotes, setShowVotes] = useState(null);
@@ -99,7 +95,7 @@ function TopicDetails() {
                     </title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userData} />
+            <Header />
             <main className='topic-details-body-container'>
                 {loading ? ( 
                     <div className="loading-spinner">

@@ -121,7 +121,7 @@ const confirmDeleteMandate = async () => {
         </Helmet>
       </HelmetProvider>
 
-      <Header userInfo={userData} isSticky={true} />
+      <Header isSticky={true} />
 
       <main className={`municipality-mandate-body-container ${municipalityTerms.length === 2 ? 'two-mandates' : ''}`}>
   <div className="municipality-mandate-header">

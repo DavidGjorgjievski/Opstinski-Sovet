@@ -18,9 +18,6 @@ function ProfileView() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const storedUserInfo = localStorage.getItem('userInfo');
-    const localUserData = storedUserInfo ? JSON.parse(storedUserInfo) : {};
-
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -95,7 +92,7 @@ function ProfileView() {
                 </Helmet>
             </HelmetProvider>
 
-            <Header userInfo={localUserData} isSticky={true} />
+            <Header isSticky={true} />
 
             <main>
                 {loading && (

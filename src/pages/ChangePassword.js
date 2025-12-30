@@ -21,8 +21,6 @@ const ChangePassword = () => {
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {}; 
-
   useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
     return () => cleanupMobileMenu();
@@ -76,7 +74,7 @@ const ChangePassword = () => {
           <title>{t('changePassword.title')}</title>
         </Helmet>
       </HelmetProvider>
-      <Header userInfo={userInfo} />
+      <Header />
 
       <main className="change-password-body">
         <div className="password-change-header">

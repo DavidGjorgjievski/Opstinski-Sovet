@@ -10,10 +10,6 @@ import api from '../api/axios';
 import '../styles/Monitoring.css';
 
 function Monitoring() {
-    const [userData] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
-        return storedUserInfo ? JSON.parse(storedUserInfo) : {};
-    });
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [monitoringFilter, setMonitoringFilter] = useState(() => {
@@ -92,7 +88,7 @@ function Monitoring() {
                 </Helmet>
             </HelmetProvider>
 
-            <Header userInfo={userData} />
+            <Header />
 
             <main>
                 <div className="monitoring-container-body">

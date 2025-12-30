@@ -491,7 +491,7 @@ function Topics() {
                     <title>{t("topicsPage.pageTitle")}</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userInfo} />
+            <Header />
             <main className="topcis-container-body">
                 <div className='d-flex justify-content-center'>
                      <div className="topic-header">

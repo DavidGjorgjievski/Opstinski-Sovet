@@ -12,7 +12,6 @@ import api from '../api/axios';
 function AddUserForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const userData = JSON.parse(localStorage.getItem("userInfo")) || {};
   const [token, setToken] = useState("");
   const [municipalities, setMunicipalities] = useState([]);
   const { username } = useParams();
@@ -196,7 +195,7 @@ function AddUserForm() {
           <title>{isEditMode ? t("editUserForm.pageTitle") : t("addUserForm.pageTitle")}</title>
         </Helmet>
 
-        <Header userInfo={userData} isSticky={true} />
+        <Header isSticky={true} />
 
         <div className="add-user-form-body-container container">
           <div className="add-user-header-div container">

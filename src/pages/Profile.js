@@ -64,7 +64,7 @@ function Profile() {
                     <title>{t("profile.title")}</title>
                 </Helmet>
             </HelmetProvider>
-            <Header userInfo={userData} isSticky={true} />
+            <Header isSticky={true} />
             <main>
                 <div className="content-container">
                     <div className="profile-image-wrapper">

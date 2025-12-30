@@ -219,7 +219,7 @@ function AdminPanel() {
                 </Helmet>
             </HelmetProvider>
 
-            <Header userInfo={userData} />
+            <Header />
 
             <div className="admin-body d-flex flex-column">
                 <div className="admin-header-div">

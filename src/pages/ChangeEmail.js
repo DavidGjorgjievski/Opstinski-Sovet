@@ -16,8 +16,6 @@ const ChangeEmail = () => {
   const [errorKey, setErrorKey] = useState(null);
   const [successKey, setSuccessKey] = useState(null);
 
-  const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
-
   useEffect(() => {
     const cleanupMobileMenu = initializeMobileMenu();
     return () => cleanupMobileMenu();
@@ -62,7 +60,7 @@ const ChangeEmail = () => {
           <title>{t('changeEmail.title')}</title>
         </Helmet>
       </HelmetProvider>
-      <Header userInfo={userInfo} />
+      <Header />
 
       <main className="change-email-body">
         <div className="email-change-header">

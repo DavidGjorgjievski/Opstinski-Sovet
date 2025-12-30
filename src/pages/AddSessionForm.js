@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 
-
 function AddSessionForm() {
     const { t } = useTranslation();
     const [name, setName] = useState('');
@@ -21,7 +20,6 @@ function AddSessionForm() {
     const { id } = useParams();
     const { municipalityId } = useParams();
     const navigate = useNavigate();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
    useEffect(() => {
         const fetchSession = async () => {
@@ -86,7 +84,7 @@ function AddSessionForm() {
                 <Helmet>
                     <title>{id ? t("addSessionForm.editTitle") : t("addSessionForm.addTitle")}</title>
                 </Helmet>
-                <Header userInfo={userInfo} />
+                <Header />
 
                 <div className="add-session-body-container container">
                     <div className="container">
