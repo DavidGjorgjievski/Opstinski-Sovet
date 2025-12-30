@@ -68,22 +68,6 @@ function Header({ isSticky = false }) {
         return window.location.pathname === path ? 'active' : '';
     };
 
-    // ✅ Reload page on logo click
-    useEffect(() => {
-        const logoImg = document.getElementById('logo-img');
-        const handleClick = () => {
-            window.location.reload();
-        };
-        if (logoImg) {
-            logoImg.addEventListener('click', handleClick);
-        }
-        return () => {
-            if (logoImg) {
-                logoImg.removeEventListener('click', handleClick);
-            }
-        };
-    }, []);
-
     // ✅ Close dropdowns when clicking outside
     useEffect(() => {
         function handleClickOutside(event) {
@@ -136,6 +120,7 @@ function Header({ isSticky = false }) {
                             }
                             className="logo-img"
                             alt="Logo"
+                            onClick={() => window.location.reload()} // simple page reload
                         />
                     </div>
 
