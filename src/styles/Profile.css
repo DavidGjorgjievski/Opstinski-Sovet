@@ -173,6 +173,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.1s transform 0.1s;
+    color: black;
 }
 
 .edit-email-btn:hover {

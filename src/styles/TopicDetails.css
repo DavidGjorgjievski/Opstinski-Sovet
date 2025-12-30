@@ -39,7 +39,7 @@
     table-layout: auto;
     width: 600px;
     border-spacing: 0;
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
 }
 
@@ -86,7 +86,7 @@
     justify-content: center;
     min-height: 60px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 8px;
     box-sizing: border-box;
 }
@@ -121,7 +121,7 @@
 }
 
 .table-wrapper {
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid #ccc;
 }
@@ -235,7 +235,7 @@
     background-color: #fbe64e;
     color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.1s, transform 0.1s;
