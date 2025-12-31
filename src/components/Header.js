@@ -68,7 +68,6 @@ function Header({ isSticky = false }) {
         return window.location.pathname === path ? 'active' : '';
     };
 
-    // ✅ Close dropdowns when clicking outside
     useEffect(() => {
         function handleClickOutside(event) {
             if (profileLangRef.current && !profileLangRef.current.contains(event.target)) {
@@ -80,7 +79,6 @@ function Header({ isSticky = false }) {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // ✅ Language change
     const changeLanguage = (lang) => {
         setSelectedLang(lang);
         i18n.changeLanguage(lang);
@@ -89,15 +87,12 @@ function Header({ isSticky = false }) {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        if (!token) return;
-        
-        // Only run heartbeat if user is not a guest
-        if (!userInfo || userInfo.role === 'ROLE_GUEST') return;
+       const token = localStorage.getItem('jwtToken');
+        if (!token || userInfo?.role === 'ROLE_GUEST') return;
 
         const interval = setInterval(() => {
-        api.post('/api/heartbeat').catch(() => {});
-        }, 60000); // every 1 minute
+            api.post('/api/heartbeat').catch(() => {});
+        }, 60000);
 
         return () => clearInterval(interval);
     }, [userInfo]);
