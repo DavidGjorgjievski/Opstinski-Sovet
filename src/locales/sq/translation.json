@@ -542,6 +542,21 @@
     "cancelButton": "Anulo"
   },
 
+"addBiographyForm": {
+    "add": {
+      "title": "Shto Biografi",
+      "biographyPlaceholder": "Shkruaj diçka për veten...",
+      "saveButton": "Ruaj",
+      "backButton": "Kthehu"
+    },
+    "edit": {
+      "title": "Ndrysho Biografi",
+      "biographyPlaceholder": "Përditëso biografinë...",
+      "saveButton": "Ruaj",
+      "backButton": "Kthehu"
+    }
+  },
+
   "sessionExpired": {
     "title": "Sesioni ka skaduar",
     "message": "Sesioni juaj ka skaduar.",

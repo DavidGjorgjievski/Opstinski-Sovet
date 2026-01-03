@@ -541,6 +541,23 @@
     "removeButton": "Remove",
     "cancelButton": "Cancel"
   },
+
+"addBiographyForm": {
+    "add": {
+      "title": "Add Biography",
+      "header": "Add Biography",
+      "biographyPlaceholder": "Write something about yourself...",
+      "saveButton": "Save",
+      "backButton": "Back"
+    },
+    "edit": {
+      "title": "Edit Biography",
+      "header": "Edit Biography",
+      "biographyPlaceholder": "Update your biography...",
+      "saveButton": "Save",
+      "backButton": "Back"
+    }
+  },
   
   "sessionExpired": {
     "title": "Session Expired",

@@ -173,15 +173,18 @@ function Profile() {
                                     {t("profile.biography")}
                                 </h3>
 
-                                <Link className="bio-action-btn" to="/profile/edit-bio">
+                               <Link
+                                    className="bio-action-btn"
+                                    to={userData.biography ? "/profile/edit-biography" : "/profile/add-biography"}
+                                >
                                     <FontAwesomeIcon
-                                        icon={userData.bio ? faPenToSquare : faPlus}
+                                        icon={userData.biography ? faPenToSquare : faPlus}
                                     />
                                 </Link>
                             </div>
 
                             <p className="bio-text">
-                                {userData.bio || t("profile.noBiography")}
+                                {userData.biography || t("profile.noBiography")}
                             </p>
                         </div>
                 </div>

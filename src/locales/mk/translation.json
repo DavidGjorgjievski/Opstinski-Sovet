@@ -542,6 +542,23 @@
     "cancelButton": "Откажи"
   },
 
+"addBiographyForm": {
+    "add": {
+      "title": "Додади биографија",
+      "header": "Додади биографијата",
+      "biographyPlaceholder": "Напиши нешто за себе...",
+      "saveButton": "Зачувај",
+      "backButton": "Назад"
+    },
+    "edit": {
+      "title": "Уреди биографија",
+      "header": "Уреди биографијата",
+      "biographyPlaceholder": "Ажурирај ја биографијата...",
+      "saveButton": "Зачувај",
+      "backButton": "Назад"
+    }
+  },
+
   "sessionExpired": {
     "title": "Сесијата истече",
     "message": "Вашата сесија истече.",

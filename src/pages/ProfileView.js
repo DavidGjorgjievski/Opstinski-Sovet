@@ -251,7 +251,7 @@ function ProfileView() {
                                 {t("profileView.biography")}
                             </h3>
                             <p className="profile-view-bio">
-                                {userData.bio || t("profileView.noBiography")}
+                                {userData.biography || t("profileView.noBiography")}
                             </p>
                         </div>
 
