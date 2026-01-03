@@ -1,51 +1,98 @@
-.profile-container {
+.profile-modern-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #f0f4ff, #fbffd9);
     min-height: 100vh;
     box-sizing: border-box;
-    overflow-x: hidden;
-    position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
-.content-container {
+.profile-modern-container main {
+    flex: 1;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-modern-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 380px);
+    gap: 25px;
+    max-width: 1300px;
+    width: 100%;
+    justify-content: center;
+}
+
+.profile-modern-card-back-button {
+    position: absolute;
+    background-color: #ddd;
+    border: none;
+    color: black;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.1s, transform 0.1s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.profile-modern-card-back-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.03);
+}
+
+.profile-modern-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
-    border: 2px solid #ddd;
-    padding: 20px;
-    border-radius: 20px;
-    margin-top: 20px;   
-    margin-bottom: 50px;
-    width: 500px;
-    background-color: #fff;
+    width: 380px;
 }
 
-.profile-image-wrapper {
+.profile-modern-title {
+    font-size: 1.7rem;
+    margin-bottom: 15px;
+}
+
+.profile-modern-title-bio {
+    font-size: 1.7rem;
+}
+
+.profile-modern-image-wrapper {
     position: relative;
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 15px;
 }
 
-.profile-image {
+.profile-modern-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: top;
-    border: 5px solid #ddd;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 4px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.camera-button {
+.profile-modern-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ddd;
+}
+
+.image-edit-btn {
     position: absolute;
     bottom: 5px;
-    right: 25px;
+    right: 5px;
     width: 40px;
     height: 40px;
     background-color: #ddd;
@@ -54,51 +101,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     cursor: pointer;
     font-size: 18px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     transition: background-color 0.1s, transform 0.1s;
 }
 
-.camera-button:hover {
+.image-edit-btn:hover {
     background-color: #f7db2c;
     transform: scale(1.03);
 }
 
 .change-image-link {
     text-decoration: none;
-}
-
-.profile-details {
-    display: flex;
-    flex-direction: column;
-}
-
-.profile-text {
-    font-size: 1.3rem;
-}
-
-.custom-mr-10 {
-    margin-right: 10px;
-}
-
-.password-change-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 0 15px;
-}
-
-.modern-card {
-    background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-    width: 450px;
 }
 
 .detail-row {
@@ -113,6 +129,16 @@
     align-items: flex-start;
 }
 
+.detail-row .label,
+.detail-row .value {
+    font-size: 17px;
+}
+
+.profile-modern-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
 .label {
     font-weight: 600;
     color: #555;
@@ -125,32 +151,9 @@
     color: #222;
 }
 
-.modern-button {
-    margin-top: 20px;
-    background-color: #fbe64e;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 20px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-    color: black;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
 .modern-button:hover {
     background-color: #f7db2c;
     transform: scale(1.03);
-}
-
-.not-available{
-    background-color: #ff4d4d;
-    font-weight: 500;
-    border-radius: 10px;
-    padding: 3px;
-    color: black;
 }
 
 .email-row {
@@ -165,26 +168,197 @@
 }
 
 .edit-email-btn {
-    background-color: #fbe64e;
+background-color: #fbe64e;
     border: 1px solid #fbe64e;
     border-radius: 10px;
-    padding: 5px 10px;
-    font-size: 0.85rem;
+    padding: 6px;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.1s transform 0.1s;
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .edit-email-btn:hover {
-    background-color: #fbe64e;
+    background-color: #f7db2c;
+    transform: scale(1.05);
+}
+
+.profile-action-btn {
+    text-decoration: none;
+    color: black;
+    transition: transform 0.1s;
+}
+
+.profile-action-btn:hover {
     transform: scale(1.03);
 }
 
-@media (max-width: 768px) {
-    .modern-card {
-        padding: 20px;
+.email-row {
+    align-items: flex-start;
+}
+
+.email-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+}
+
+.edit-email-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.email-value {
+    max-width: 280px;
+    word-break: break-word;
+    white-space: normal;
+    flex: 0 1 auto;
+}
+
+.profile-modern-card.secondary {
+    text-align: left;
+}
+
+.profile-modern-image.placeholder {
+    background: #777;
+    color: #fff;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.profile-modern-username {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.label {
+    font-weight: 600;
+    color: #555;
+}
+
+.value {
+    color: #222;
+}
+
+.profile-action-btn {
+    background: #fbe64e;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profile-modern-bio {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+
+
+
+
+.password-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.edit-password-btn {
+    background-color: #fbe64e;
+    border: 1px solid #fbe64e;
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.edit-password-btn:hover {
+    background-color: #f7db2c;
+    transform: scale(1.03);
+}
+
+.bio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.bio-action-btn {
+    background-color: #fbe64e;
+    border: 1px solid #fbe64e;
+    border-radius: 10px;
+    padding: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.1s, transform 0.1s;
+}
+
+.bio-action-btn:hover {
+    background-color: #f7db2c;
+    transform: scale(1.05);
+}
+
+.bio-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+@media (max-width: 1200px) {
+    .profile-modern-grid {
+        grid-template-columns: repeat(2, 380px);
     }
+
+    .profile-modern-name{
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .profile-modern-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
     .value {
         margin-top: 5px;
     }
@@ -201,20 +375,10 @@
         gap: 8px;
     }
 
-    .edit-email-btn {
-        width: 100%;
-        text-align: center;
-    }
-
     .value {
         word-break: break-word;
         max-width: 100%;
         margin-top: 5px;
-    }
-
-    .modern-card {
-        width: 90vw;
-        padding: 20px;
     }
 
     .content-container {
@@ -226,5 +390,11 @@
     }
 }
 
+
+@media (max-width: 400px) {
+    .profile-modern-card{
+        width: 95vw;
+    }
+}
 
 

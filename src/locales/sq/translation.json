@@ -193,11 +193,21 @@
     "fullName": "Emri dhe mbiemri",
     "role": "Roli",
     "municipality": "Komuna",
-    "email":  "Email",
+    "municipalityTerm": "Mandati",
+    "status": "Statusi",
+    "statusActive": "Aktiv",
+    "statusInactive": "Joaktiv",
+    "email": "Email",
     "notAvailable": "Nuk ka",
     "edit": "Ndrysho",
     "add": "Shto",
-    "changePassword": "Ndrysho fjalëkalimin"
+    "changePassword": "Ndrysho fjalëkalimin",
+    "details": "Detaje",
+    "password": "Fjalëkalimi",
+    "change": "Ndrysho",
+    "biography": "Biografia",
+    "noBiography": "Nuk ka biografi të vendosur",
+    "editBiography": "Ndrysho biografinë"
   },
 
   "roles": {
@@ -210,6 +220,23 @@
     "mayor": "Kryetar komune",
     "guest": "Vizitor",
     "unknown": "Roli i panjohur"
+  },
+
+   "profileView": {
+    "title": "Profili",
+    "loading": "Duke u ngarkuar...",
+    "fetchError": "Gabim gjatë marrjes së përdoruesit",
+    "role": "Roli",
+    "municipality": "Komuna",
+    "details": "Detaje",
+    "email": "Email",
+    "municipalityTerm": "Mandati",
+    "status": "Statusi",
+    "statusActive": "Aktiv",
+    "statusInactive": "Joaktiv",
+    "biography": "Biografia",
+    "noBiography": "Nuk ka biografi të vendosur",
+    "notAvailable": "Nuk është e disponueshme"
   },
 
    "changeImage": {

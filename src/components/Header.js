@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
 import mkFlag from '../assets/flags/mk.png';
-import enFlag from '../assets/flags/en.png';
+import enFlag from '../assets/flags/en.png'; 
 import deFlag from '../assets/flags/de.png';
 import sqFlag from '../assets/flags/sq.png';
 import api from '../api/axios';

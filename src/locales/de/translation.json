@@ -190,14 +190,24 @@
   "profile": {
     "title": "Profil",
     "username": "Benutzername",
-    "fullName": "Name",
+    "fullName": "Name und Nachname",
     "role": "Rolle",
     "municipality": "Gemeinde",
+    "municipalityTerm": "Amtszeit",
+    "status": "Status",
+    "statusActive": "Aktiv",
+    "statusInactive": "Inaktiv",
     "email": "E-Mail",
     "notAvailable": "Nicht verfügbar",
     "edit": "Bearbeiten",
     "add": "Hinzufügen",
-    "changePassword": "Passwort ändern"
+    "changePassword": "Passwort ändern",
+    "details": "Details",
+    "password": "Passwort",
+    "change": "Ändern",
+    "biography": "Biografie",
+    "noBiography": "Keine Biografie vorhanden",
+    "editBiography": "Biografie bearbeiten"
   },
   
   "roles": {
@@ -210,6 +220,23 @@
     "mayor": "Bürgermeister",
     "guest": "Gast",
     "unknown": "Unbekannte Rolle"
+  },
+
+   "profileView": {
+    "title": "Profil",
+    "loading": "Wird geladen...",
+    "fetchError": "Fehler beim Laden des Benutzers",
+    "role": "Rolle",
+    "municipality": "Gemeinde",
+    "details": "Details",
+    "email": "E-Mail",
+    "municipalityTerm": "Mandat",
+    "status": "Status",
+    "statusActive": "Aktiv",
+    "statusInactive": "Inaktiv",
+    "biography": "Biografie",
+    "noBiography": "Keine Biografie vorhanden",
+    "notAvailable": "Nicht verfügbar"
   },
 
   "changeImage": {

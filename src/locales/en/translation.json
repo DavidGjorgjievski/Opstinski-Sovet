@@ -193,11 +193,21 @@
     "fullName": "Full Name",
     "role": "Role",
     "municipality": "Municipality",
+    "municipalityTerm": "Term",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
     "email": "Email",
     "notAvailable": "Not available",
     "edit": "Edit",
     "add": "Add",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "details": "Details",
+    "password": "Password",
+    "change": "Change",
+    "biography": "Biography",
+    "noBiography": "No biography provided",
+    "editBiography": "Edit biography"
   },
 
   "roles": {
@@ -210,6 +220,23 @@
     "mayor": "Mayor",
     "guest": "Guest",
     "unknown": "Unknown Role"
+  },
+
+  "profileView": {
+    "title": "Profile",
+    "loading": "Loading...",
+    "fetchError": "Error fetching user",
+    "role": "Role",
+    "municipality": "Municipality",
+    "details": "Details",
+    "email": "Email",
+    "municipalityTerm": "Mandate",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "biography": "Biography",
+    "noBiography": "No biography provided",
+    "notAvailable": "Not available"
   },
 
   "changeImage": {

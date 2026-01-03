@@ -193,11 +193,21 @@
     "fullName": "Име и презиме",
     "role": "Улога",
     "municipality": "Општина",
-    "email":"Е-пошта",
+    "municipalityTerm": "Мандат",
+    "status": "Статус",
+    "statusActive": "Активен",
+    "statusInactive": "Неактивен",
+    "email": "Е-пошта",
     "notAvailable": "Нема",
-     "edit": "Измени",
+    "edit": "Измени",
     "add": "Додај",
-    "changePassword": "Промени лозинка"
+    "changePassword": "Промени лозинка",
+    "details": "Детали",
+    "password": "Лозинка",
+    "change": "Промени",
+    "biography": "Биографија",
+    "noBiography": "Нема внесена биографија",
+    "editBiography": "Измени биографија"
   },
 
   "roles": {
@@ -210,6 +220,23 @@
     "mayor": "Градоначалник",
     "guest": "Гостин",
     "unknown": "Непозната улога"
+  },
+
+  "profileView": {
+    "title": "Профил",
+    "loading": "Се вчитува...",
+    "fetchError": "Грешка при вчитување на корисникот",
+    "role": "Улога",
+    "municipality": "Општина",
+    "details": "Детали",
+    "email": "Е-пошта",
+    "municipalityTerm": "Мандат",
+     "status": "Статус",
+    "statusActive": "Активен",
+    "statusInactive": "Неактивен",
+    "biography": "Биографија",
+    "noBiography": "Нема внесена биографија",
+    "notAvailable": "Нема"
   },
 
   "changeImage": {
