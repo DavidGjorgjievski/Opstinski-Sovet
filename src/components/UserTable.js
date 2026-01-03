@@ -23,7 +23,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>
                 {user.email && user.email.trim() !== "" 
                     ? user.email 
-                    : <span className="not-available-text">{t("adminpanel.notAvailable")}</span>
+                    : <span>/</span>
                 }
             </td>
             <td>
@@ -32,7 +32,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             <td>
                 {user.municipalityName && user.municipalityName.trim() !== ""
                     ? user.municipalityName
-                    : <span className="not-available-text">{t("adminpanel.notAvailable")}</span>
+                    : <span>/</span>
                 }
             </td>
             <td>
