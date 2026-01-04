@@ -558,6 +558,11 @@ html {
     width: 85%;
 }
 
+.topic-header-text.guest-width,
+.topic-header-pdf.guest-width {
+    width: 95%;
+}
+
 .topic-header-pdf::after {
     content: '';
     position: absolute;
@@ -816,6 +821,11 @@ html {
     .topic-header-text,
     .topic-header-pdf {
         width: 70%;
+    }
+
+    .topic-header-text.guest-width,
+    .topic-header-pdf.guest-width {
+        width: 95%;
     }
 
     .topic-item-body-detail {

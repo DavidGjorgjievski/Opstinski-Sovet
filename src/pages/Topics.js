@@ -524,14 +524,13 @@ function Topics() {
                     .sort((a, b) => a.order_id - b.order_id)
                     .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
-                            {topic.id === presentedTopicId && (
+                           {topic.id === presentedTopicId && userInfo?.role !== "ROLE_GUEST" && (
                                 <FontAwesomeIcon 
                                     icon={faBookmark} 
                                     className="topic-bookmark-icon" 
                                     title={t("topicsPage.presentBadge")} 
                                 />
                             )}
-
                             <span id={`topic-${topic.id}`} className="topic-span-id"></span>
                           <div className={`topic-item 
                             ${(topic.topicStatus === 'FINISHED' || topic.topicStatus === 'WITHDRAWN' || topic.topicStatus === 'INFORMATION') ? 'finished-topic' : ''} 
@@ -539,17 +538,25 @@ function Topics() {
                                 <div className="topic-header-div">
                                     <h3 className="text-center">
                                         {topic.pdfFileId ? (
-                                        <span
+                                            <span
                                             onClick={(e) => {
-                                            e.preventDefault();
-                                            handlePdfFetch(topic.pdfFileId);
+                                                e.preventDefault();
+                                                handlePdfFetch(topic.pdfFileId);
                                             }}
-                                            className="topic-header-pdf topic-header-text"
-                                        >
+                                            className={`topic-header-text topic-header-pdf ${
+                                                userInfo?.role === "ROLE_GUEST" ? "guest-width" : ""
+                                            }`}
+                                            >
                                             {topic.title}
-                                        </span>
+                                            </span>
                                         ) : (
-                                        <span className='topic-header-text'>{topic.title}</span>
+                                            <span
+                                            className={`topic-header-text ${
+                                                userInfo?.role === "ROLE_GUEST" ? "guest-width" : ""
+                                            }`}
+                                            >
+                                            {topic.title}
+                                            </span>
                                         )}
                                     </h3>
                                     <div className='menu-wrapper'>
