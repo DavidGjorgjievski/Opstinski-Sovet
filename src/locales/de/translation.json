@@ -450,7 +450,8 @@
     "cancelButton": "Abbrechen",
     "noTopicsPresent": "Kein Thema wird präsentiert",
     "autoRefreshOn": "Automatisch",
-    "webSocketMode": "Manuell"
+    "webSocketMode": "Manuell",
+    "presentBadge": "Präsentiertes Thema"
   },
 
   "tooltip": {

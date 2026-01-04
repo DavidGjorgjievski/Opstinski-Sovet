@@ -450,7 +450,8 @@
     "cancelButton": "Откажи",
     "noTopicsPresent": "Нема презентирачка точка",
     "autoRefreshOn": "Автоматско",
-    "webSocketMode": "Механичко"
+    "webSocketMode": "Механичко",
+    "presentBadge": "Презентирачка точка"
   },
 
   "tooltip": {

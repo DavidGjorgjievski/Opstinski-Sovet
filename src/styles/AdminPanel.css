@@ -320,15 +320,6 @@
     border-radius: 10px;
 }
 
-.not-available-text {
-    background-color: #ff4d4d;
-    color: #000;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 16px;
-    padding: 5px;
-}
-
 .table td,
 .table th {
     vertical-align: middle !important;

@@ -184,6 +184,25 @@ html {
     padding-bottom: 150px;
 }
 
+.topic-div-rel {
+    position: relative;
+}
+
+.topic-bookmark-icon {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: #fbe64e;
+    font-size: 18px;
+    z-index: 10;
+    transition: transform 0.1s, color 0.1s;
+}
+
+.topic-bookmark-icon:hover {
+    color: #f7db2c;
+    transform: scale(1.03);
+}
+
 .topic-item {
     margin-bottom: 20px;
     border-radius: 20px;

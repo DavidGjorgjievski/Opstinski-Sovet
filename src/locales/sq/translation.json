@@ -450,7 +450,8 @@
     "cancelButton": "Anulo",
     "noTopicsPresent": "Aucun sujet n'est présenté",
     "autoRefreshOn": "Automatike",
-    "webSocketMode": "Mekanike"
+    "webSocketMode": "Mekanike",
+    "presentBadge": "Temë e prezantuar"
   },
 
   "tooltip": {

@@ -7,7 +7,7 @@ import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
@@ -524,6 +524,14 @@ function Topics() {
                     .sort((a, b) => a.order_id - b.order_id)
                     .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
+                            {topic.id === presentedTopicId && (
+                                <FontAwesomeIcon 
+                                    icon={faBookmark} 
+                                    className="topic-bookmark-icon" 
+                                    title={t("topicsPage.presentBadge")} 
+                                />
+                            )}
+
                             <span id={`topic-${topic.id}`} className="topic-span-id"></span>
                           <div className={`topic-item 
                             ${(topic.topicStatus === 'FINISHED' || topic.topicStatus === 'WITHDRAWN' || topic.topicStatus === 'INFORMATION') ? 'finished-topic' : ''} 

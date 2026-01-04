@@ -450,7 +450,8 @@
     "cancelButton": "Cancel",
     "noTopicsPresent": "No topic is being presented",
     "autoRefreshOn": "Automatic",
-    "webSocketMode": "Manual"
+    "webSocketMode": "Manual",
+    "presentBadge": "Presented Topic"
   },
 
   "restartTopicModal": {
