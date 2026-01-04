@@ -193,7 +193,7 @@ html {
     top: 15px;
     left: 20px;
     color: #fbe64e;
-    font-size: 18px;
+    font-size: 24px;
     z-index: 10;
     transition: transform 0.1s, color 0.1s;
 }
@@ -486,10 +486,39 @@ html {
 .menu-dots {
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    transition: 
+        border-color 0.3s,
+        background-color 0.3s,
+        transform 0.2s;
 }
 
+/* Hover */
 .menu-dots:hover {
+    background-color: #ddd;
     transform: scale(1.06);
+}
+
+/* Opened state */
+.menu-dots.open {
+    background-color: #ddd;
+}
+
+/* Icon */
+.menu-dots-icon {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate icon when open */
+.menu-dots.open .menu-dots-icon {
+    transform: rotate(90deg);
 }
 
 .menu-dots-icon{
@@ -551,7 +580,7 @@ html {
 .menu-container {
     position: absolute;
     right: 0;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .topic-delete-button{
@@ -776,13 +805,17 @@ html {
         margin-top: 10px;
     }
 
+    .topic-bookmark-icon {
+        font-size: 20px;
+    }
+
     .topic-add-button{
         margin-left: 0px !important;
     }
 
     .topic-header-text,
     .topic-header-pdf {
-        width: 80%;
+        width: 70%;
     }
 
     .topic-item-body-detail {

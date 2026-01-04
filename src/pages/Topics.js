@@ -15,7 +15,7 @@ import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import api from '../api/axios'; 
 
-function Topics() {
+function Topics() { 
     const [topics, setTopics] = useState([]);
     const [presentedTopicId, setPresentedTopicId] = useState(null);
     const { id } = useParams();
@@ -555,7 +555,10 @@ function Topics() {
                                     <div className='menu-wrapper'>
                                     {hasTopicPermissions  && (
                                         <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
-                                            <div className="menu-dots" onClick={() => toggleMenu(topic.id)}>
+                                           <div
+                                                className={`menu-dots ${openMenus[topic.id] ? 'open' : ''}`}
+                                                onClick={() => toggleMenu(topic.id)}
+                                                >
                                                 <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
                                             </div>
                                             {openMenus[topic.id] && (
