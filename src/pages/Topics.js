@@ -536,26 +536,54 @@ function Topics() {
                             ${(topic.topicStatus === 'FINISHED' || topic.topicStatus === 'WITHDRAWN' || topic.topicStatus === 'INFORMATION') ? 'finished-topic' : ''} 
                             topic-item-size`}>
                                 <div className="topic-header-div">
-                                    <h3 className="text-center">
+                                   <h3 className="text-center">
                                         {topic.pdfFileId ? (
                                             <span
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                handlePdfFetch(topic.pdfFileId);
-                                            }}
-                                            className={`topic-header-text topic-header-pdf ${
-                                                userInfo?.role === "ROLE_GUEST" ? "guest-width" : ""
-                                            }`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handlePdfFetch(topic.pdfFileId);
+                                                }}
+                                                className={`topic-header-text topic-header-pdf
+                                                    ${
+                                                        ["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT"].includes(userInfo?.role)
+                                                            ? "ape-width"
+                                                            : ""
+                                                    }
+                                                    ${
+                                                        ["ROLE_USER", "ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
+                                                            ? "user_width"
+                                                            : ""
+                                                    }
+                                                    ${
+                                                        userInfo?.role === "ROLE_GUEST"
+                                                            ? "guset_width"
+                                                            : ""
+                                                    }
+                                                `}
                                             >
-                                            {topic.title}
+                                                {topic.title}
                                             </span>
                                         ) : (
                                             <span
-                                            className={`topic-header-text ${
-                                                userInfo?.role === "ROLE_GUEST" ? "guest-width" : ""
-                                            }`}
+                                                className={`topic-header-text
+                                                    ${
+                                                        ["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT"].includes(userInfo?.role)
+                                                            ? "ape-width"
+                                                            : ""
+                                                    }
+                                                    ${
+                                                        ["ROLE_USER", "ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
+                                                            ? "user-width"
+                                                            : ""
+                                                    }
+                                                    ${
+                                                        userInfo?.role === "ROLE_GUEST"
+                                                            ? "guset-width"
+                                                            : ""
+                                                    }
+                                                `}
                                             >
-                                            {topic.title}
+                                                {topic.title}
                                             </span>
                                         )}
                                     </h3>

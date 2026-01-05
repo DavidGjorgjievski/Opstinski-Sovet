@@ -553,13 +553,15 @@ html {
     text-align: center;
 }
 
-.topic-header-text,
-.topic-header-pdf {
-    width: 85%;
+.ape-width{
+    width: 90%;
 }
 
-.topic-header-text.guest-width,
-.topic-header-pdf.guest-width {
+.user-width {
+    width: 90%;
+}
+
+.guset-width{
     width: 95%;
 }
 
@@ -592,10 +594,8 @@ html {
     color: #d9534f;
 }
 
-
 .menu-wrapper {
     align-self: flex-start;
-    /* Align this element to the top in a flex container */
 }
 
 .toggle-topics{
@@ -810,6 +810,14 @@ html {
         margin-top: 10px;
     }
 
+    .ape-width {
+        width: 70%;
+    }
+
+    .user-width {
+        width: 80%;
+    }
+
     .topic-bookmark-icon {
         font-size: 20px;
     }
@@ -818,13 +826,11 @@ html {
         margin-left: 0px !important;
     }
 
-    .topic-header-text,
-    .topic-header-pdf {
-        width: 70%;
+    .user-width {
+        width: 80%;
     }
 
-    .topic-header-text.guest-width,
-    .topic-header-pdf.guest-width {
+    .guest-width {
         width: 95%;
     }
 
@@ -1022,6 +1028,12 @@ html {
     }
 }
 
+@media (max-width: 350px) {
+    .user-width{
+        width: 75%;
+    }
+}
+
 @media (max-width: 345px) {
 .gold-button,
     .change-topic-status-button {
@@ -1064,8 +1076,6 @@ html {
         margin-right: 6.5px;
     }
 }
-
-/* 3 dots menu */
 
 @keyframes blink {
     0% {
