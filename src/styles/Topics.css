@@ -561,7 +561,7 @@ html {
     width: 90%;
 }
 
-.guset-width{
+.guest-width{
     width: 95%;
 }
 
@@ -824,14 +824,6 @@ html {
 
     .topic-add-button{
         margin-left: 0px !important;
-    }
-
-    .user-width {
-        width: 80%;
-    }
-
-    .guest-width {
-        width: 95%;
     }
 
     .topic-item-body-detail {

@@ -551,12 +551,12 @@ function Topics() {
                                                     }
                                                     ${
                                                         ["ROLE_USER", "ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
-                                                            ? "user_width"
+                                                            ? "user-width"
                                                             : ""
                                                     }
                                                     ${
                                                         userInfo?.role === "ROLE_GUEST"
-                                                            ? "guset_width"
+                                                            ? "guest-width"
                                                             : ""
                                                     }
                                                 `}
