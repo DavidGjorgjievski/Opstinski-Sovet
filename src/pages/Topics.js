@@ -524,7 +524,7 @@ function Topics() {
                     .sort((a, b) => a.order_id - b.order_id)
                     .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
-                           {topic.id === presentedTopicId && userInfo?.role !== "ROLE_GUEST" && (
+                           {topic.id === presentedTopicId && userInfo?.role !== "ROLE_GUEST" && !isOn && (
                                 <FontAwesomeIcon 
                                     icon={faBookmark} 
                                     className="topic-bookmark-icon" 

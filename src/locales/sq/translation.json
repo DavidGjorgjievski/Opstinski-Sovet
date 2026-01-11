@@ -247,7 +247,7 @@
     "dragOrClick": "Lëshoni skedarin këtu ose",
     "clickHere": "klikoni për të zgjedhur një imazh",
     "invalidType": "Lejohen vetëm imazhet JPG ose PNG.",
-    "sizeLimit": "Madhësia maksimale e skedarit është 50KB!",
+    "sizeLimit": "Madhësia maksimale e skedarit është 35KB!",
     "selectFile": "Ju lutemi zgjidhni një imazh për të vazhduar.",
     "uploadError": "Gabim gjatë ngarkimit të imazhit.",
     "uploadSuccess": "Imazhi u ngarkua me sukses.",

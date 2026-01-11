@@ -33,7 +33,7 @@ const ChangeImage = () => {
                 return;
             }
 
-            if (selectedFile.size > 51200) { // 50KB limit
+            if (selectedFile.size > 35840) { // 50KB limit
                 setFileSizeError(true);
                 setFile(null);
                 setFileName(t('changeImage.noFileSelected'));

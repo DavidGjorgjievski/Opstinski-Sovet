@@ -247,7 +247,7 @@
     "dragOrClick": "Ziehen Sie eine Datei hierher oder",
     "clickHere": "klicken Sie, um ein Bild auszuwählen",
     "invalidType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
-    "sizeLimit": "Maximale Dateigröße: 50 KB!",
+    "sizeLimit": "Maximale Dateigröße: 35KB!",
     "selectFile": "Bitte wählen Sie ein Bild aus, um fortzufahren.",
     "uploadError": "Fehler beim Hochladen des Bildes.",
     "uploadSuccess": "Bild erfolgreich hochgeladen.",

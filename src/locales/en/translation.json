@@ -247,7 +247,7 @@
     "dragOrClick": "Drop a file here or",
     "clickHere": "click to choose an image",
     "invalidType": "Only JPG or PNG images are allowed.",
-    "sizeLimit": "Maximum file size is 50KB!",
+    "sizeLimit": "Maximum file size is 35KB!",
     "selectFile": "Please select an image to continue.",
     "uploadError": "Error uploading image.",
     "uploadSuccess": "Image uploaded successfully.",
