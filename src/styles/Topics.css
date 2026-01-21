@@ -292,12 +292,9 @@ html {
     border: 2px solid;
     border-radius: 10px;
     font-weight: 500;
-}
-
-.topic-button-vote {
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-    
+
 @keyframes votePulse {
     0% {
         transform: scale(1);
