@@ -294,9 +294,34 @@ html {
     font-weight: 500;
 }
 
+.topic-button-vote {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+    
+@keyframes votePulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1.12);
+    }
+}
+
+.topic-item-body-detail-active .topic-button-vote.active-vote {
+    transform: scale(1.12);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    animation: votePulse 0.25s ease-out;
+}
+
 .vote-yes {
     border-color: #68c0a2;
-    background-color: rgba(104, 192, 162, 0.5);
+    background-color: rgba(104, 192, 162, 0.25);
 }
 
 .vote-hover-enabled.vote-yes:hover {
@@ -318,7 +343,7 @@ html {
 
 .vote-no {
     border-color: #f29195;
-    background-color: rgba(242, 145, 149, 0.5);
+    background-color: rgba(242, 145, 149, 0.25);
 }
 
 .vote-hover-enabled.vote-no:hover {
@@ -340,7 +365,7 @@ html {
 
 .vote-abstained {
     border-color: #b7b472;
-    background-color: rgba(183, 180, 114, 0.5);
+    background-color: rgba(183, 180, 114, 0.25);
 }
 
 .vote-hover-enabled.vote-abstained:hover {
@@ -362,7 +387,7 @@ html {
 
 .vote-cantvote {
     border-color: #c5c5c5;
-    background-color: rgba(197, 197, 197, 0.5);
+    background-color: rgba(197, 197, 197, 0.25);
 }
 
 .vote-hover-enabled.vote-cantvote:hover {
@@ -384,7 +409,7 @@ html {
 
 .vote-haventvote {
     border-color: #a3b6d3;
-    background-color: rgba(163, 182, 211, 0.5);
+    background-color: rgba(163, 182, 211, 0.25);
 }
 
 .vote-hover-enabled.vote-haventvote:hover {
