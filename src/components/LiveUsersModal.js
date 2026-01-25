@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "../styles/LiveUsersModal.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
 
@@ -74,7 +74,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, token, role, status }
       <div className="liv-modal-overlay" onClick={onClose}>
       <div className="liv-modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="liv-close-btn" onClick={onClose}>
-          ×
+           <FontAwesomeIcon icon={faXmark} />
         </button>
 
         {/* Offline Users Table */}
