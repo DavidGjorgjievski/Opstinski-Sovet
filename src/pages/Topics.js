@@ -481,6 +481,7 @@ function Topics() {
         userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
         ) || userInfo.role === 'ROLE_ADMIN'
     );
+
     return (
         <div className="topics-container">
             <HelmetProvider>
@@ -918,6 +919,7 @@ function Topics() {
             token={token}
             role={userInfo.role}
             status={userInfo.status}
+            canSeeAction={hasTopicPermissionsStatus}
         />
         </div>
     );
