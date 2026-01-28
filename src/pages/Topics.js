@@ -486,21 +486,20 @@ function Topics() {
     );
 
     function calculateProgress(topics) {
-    // Filter out INFORMATION and WITHDRAWN topics
-    const validTopics = topics.filter(
-        (topic) => topic.topicStatus !== "INFORMATION" && topic.topicStatus !== "WITHDRAWN"
-    );
+        if (topics.length === 0) return 0; // Avoid division by zero
 
-    if (validTopics.length === 0) return 0; // Avoid division by zero
+        // Count FINISHED, INFORMATION, and WITHDRAWN topics
+        const finishedCount = topics.filter(
+            (topic) =>
+                topic.topicStatus === "FINISHED" ||
+                topic.topicStatus === "INFORMATION" ||
+                topic.topicStatus === "WITHDRAWN"
+        ).length;
 
-    // Count FINISHED topics among valid topics
-    const finishedCount = validTopics.filter(
-        (topic) => topic.topicStatus === "FINISHED"
-    ).length;
+        // Calculate percentage based on all topics
+        return Math.min((finishedCount / topics.length) * 100, 100);
+    }
 
-    // Calculate percentage
-    return Math.min((finishedCount / validTopics.length) * 100, 100);
-}
 
 
     return (
@@ -522,7 +521,7 @@ function Topics() {
                             </button>
                             <h1 className="topic-header-title">{t("topicsPage.headerTitle")}</h1>
 
-                        {userInfo.role === "ROLE_ADMIN" && topics.length > 0 && (
+                        {["ROLE_ADMIN", "ROLE_PRESIDENT", "ROLE_USER"].includes(userInfo.role) && topics.length > 0 && (
                             <div className="progress-bar-container">
                                 <div
                                     className="progress-bar-fill"
