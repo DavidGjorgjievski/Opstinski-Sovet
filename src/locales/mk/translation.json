@@ -451,7 +451,8 @@
     "noTopicsPresent": "Нема презентирачка точка",
     "autoRefreshOn": "Автоматско",
     "webSocketMode": "Механичко",
-    "presentBadge": "Презентирачка точка"
+    "presentBadge": "Презентирачка точка",
+    "progressbar": "test"
   },
 
   "tooltip": {

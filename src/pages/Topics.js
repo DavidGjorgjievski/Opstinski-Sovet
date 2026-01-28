@@ -284,10 +284,12 @@ function Topics() {
             await fetchTopics();
 
             // Update current votes state
+           if (userInfo.role !== "ROLE_ADMIN") {
             setCurrentVotes((prevVotes) => ({
-            ...prevVotes,
-            [String(topicId)]: 'HAVE_NOT_VOTED', // Ensure topicId is treated as string
+                ...prevVotes,
+                [String(topicId)]: 'HAVE_NOT_VOTED', 
             }));
+            }
 
             // Send WebSocket updates
             sendVote(topicId);
@@ -483,6 +485,24 @@ function Topics() {
         ) || userInfo.role === 'ROLE_ADMIN'
     );
 
+    function calculateProgress(topics) {
+    // Filter out INFORMATION and WITHDRAWN topics
+    const validTopics = topics.filter(
+        (topic) => topic.topicStatus !== "INFORMATION" && topic.topicStatus !== "WITHDRAWN"
+    );
+
+    if (validTopics.length === 0) return 0; // Avoid division by zero
+
+    // Count FINISHED topics among valid topics
+    const finishedCount = validTopics.filter(
+        (topic) => topic.topicStatus === "FINISHED"
+    ).length;
+
+    // Calculate percentage
+    return Math.min((finishedCount / validTopics.length) * 100, 100);
+}
+
+
     return (
         <div className="topics-container">
             <HelmetProvider>
@@ -506,25 +526,11 @@ function Topics() {
                             <div className="progress-bar-container">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{
-                                        width: `${Math.min(
-                                            (topics.filter((topic) => topic.topicStatus === "FINISHED").length / topics.length) * 100,
-                                            100
-                                        )}%`,
-                                    }}
+                                    style={{ width: `${calculateProgress(topics)}%` }}
                                 ></div>
-                                <span className="progress-text">
-                                    {Math.round(
-                                        Math.min(
-                                            (topics.filter((topic) => topic.topicStatus === "FINISHED").length / topics.length) * 100,
-                                            100
-                                        )
-                                    )}
-                                    %
-                                </span>
+                                <span className="progress-text">{Math.round(calculateProgress(topics))}%</span>
                             </div>
                         )}
-
 
                         <div>
                             {sessionTitle && <h6 className='session-title'>{sessionTitle}</h6>}
