@@ -502,18 +502,13 @@ function Topics() {
                             </button>
                             <h1 className="topic-header-title">{t("topicsPage.headerTitle")}</h1>
 
-                            {userInfo.role === "ROLE_ADMIN" && topics.length > 0 && (
+                        {userInfo.role === "ROLE_ADMIN" && topics.length > 0 && (
                             <div className="progress-bar-container">
                                 <div
                                     className="progress-bar-fill"
                                     style={{
                                         width: `${Math.min(
-                                            (topics.filter(
-                                                (topic) =>
-                                                    topic.topicStatus === "FINISHED" ||
-                                                    topic.topicStatus === "INFORMATION" ||
-                                                    topic.topicStatus === "WITHDRAWN"
-                                            ).length / topics.length) * 100,
+                                            (topics.filter((topic) => topic.topicStatus === "FINISHED").length / topics.length) * 100,
                                             100
                                         )}%`,
                                     }}
@@ -521,12 +516,7 @@ function Topics() {
                                 <span className="progress-text">
                                     {Math.round(
                                         Math.min(
-                                            (topics.filter(
-                                                (topic) =>
-                                                    topic.topicStatus === "FINISHED" ||
-                                                    topic.topicStatus === "INFORMATION" ||
-                                                    topic.topicStatus === "WITHDRAWN"
-                                            ).length / topics.length) * 100,
+                                            (topics.filter((topic) => topic.topicStatus === "FINISHED").length / topics.length) * 100,
                                             100
                                         )
                                     )}
@@ -534,6 +524,7 @@ function Topics() {
                                 </span>
                             </div>
                         )}
+
 
                         <div>
                             {sessionTitle && <h6 className='session-title'>{sessionTitle}</h6>}
