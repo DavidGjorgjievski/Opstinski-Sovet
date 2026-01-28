@@ -300,21 +300,35 @@ html {
         transform: scale(1);
     }
 
-    50% {
-        transform: scale(1.15);
+    30% {
+        transform: scale(1.08);
+    }
+
+    55% {
+        transform: scale(1.16);
+    }
+
+    70% {
+        transform: scale(1.22);
+    }
+
+    85% {
+        transform: scale(1.205);
     }
 
     100% {
-        transform: scale(1.12);
+        transform: scale(1.2);
     }
 }
 
 .topic-item-body-detail-active .topic-button-vote.active-vote {
-    transform: scale(1.12);
+    transform: scale(1.2);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    font-weight: 700;
+    font-weight: 800;
     animation: votePulse 0.25s ease-out;
 }
+
+
 
 .vote-yes {
     border-color: #68c0a2;
