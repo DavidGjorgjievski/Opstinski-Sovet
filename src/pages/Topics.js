@@ -51,6 +51,8 @@ function Topics() {
 
     useEffect(() => {
 
+        if (userInfo.role === "ROLE_GUEST") return;
+
         if (!sessionMunicipalityTermId || !municipalityId) return;
 
         const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
@@ -61,7 +63,7 @@ function Topics() {
 
         setshowFixDiv(sessionMunicipalityTermId === newestMandateId);
 
-    }, [sessionMunicipalityTermId, municipalityId]);
+    }, [sessionMunicipalityTermId, municipalityId, userInfo.role]);
 
     const [isOn, setIsOn] = useState(() => {
         const saved = localStorage.getItem(`toggle_state_session_${id}`);
@@ -892,34 +894,33 @@ function Topics() {
 
             {showFixDiv && (
                 <div
-    className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}
-    onClick={toggleVisibility}
->
-    <div className="arrow">
-        <FontAwesomeIcon icon={faChevronLeft} />
-    </div>
+                className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}
+                onClick={toggleVisibility}
+                >
+                    <div className="arrow">
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                    </div>
 
-    {showNumber && (
-        <>
-            <div className="tooltip-container" onClick={(e) => e.stopPropagation()}>
-                <div onClick={handleToggle} className="toggle-topics">
-                    <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
-                </div>
-                <span className="tooltip-text">{t("tooltip.easyMode")}</span>
+                    {showNumber && (
+                        <>
+                            <div className="tooltip-container" onClick={(e) => e.stopPropagation()}>
+                                <div onClick={handleToggle} className="toggle-topics">
+                                    <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
+                                </div>
+                                <span className="tooltip-text">{t("tooltip.easyMode")}</span>
+                            </div>
+
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <div className="number" onClick={() => setIsLiveModalOpen(true)}>
+                                    <p className="number-content">
+                                        <span className="number-content-span">{onlineUsersNumber}</span>
+                                        <FontAwesomeIcon icon={faUsers} />
+                                    </p>
+                                </div>
+                            </div>
+                        </>
+                    )}
             </div>
-
-            <div onClick={(e) => e.stopPropagation()}>
-                <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                    <p className="number-content">
-                        <span className="number-content-span">{onlineUsersNumber}</span>
-                        <FontAwesomeIcon icon={faUsers} />
-                    </p>
-                </div>
-            </div>
-        </>
-    )}
-</div>
-
             )}
 
           {isModalOpen && (
