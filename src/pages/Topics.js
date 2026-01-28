@@ -148,6 +148,7 @@ function Topics() {
             );
 
             setTopics(response.data.topics);
+            console.log(response.data.topics)
             setPresentedTopicId(response.data.presentedTopicId);
             setTopicsLoaded(true);
         } catch (error) {
@@ -500,9 +501,43 @@ function Topics() {
                                 <FontAwesomeIcon icon={faChevronLeft} /> {t("topicsPage.backButton")}
                             </button>
                             <h1 className="topic-header-title">{t("topicsPage.headerTitle")}</h1>
-                             <div>
-                                 {sessionTitle && <h6 className='session-title'>{sessionTitle}</h6>}
+
+                            {userInfo.role === "ROLE_ADMIN" && topics.length > 0 && (
+                            <div className="progress-bar-container">
+                                <div
+                                    className="progress-bar-fill"
+                                    style={{
+                                        width: `${Math.min(
+                                            (topics.filter(
+                                                (topic) =>
+                                                    topic.topicStatus === "FINISHED" ||
+                                                    topic.topicStatus === "INFORMATION" ||
+                                                    topic.topicStatus === "WITHDRAWN"
+                                            ).length / topics.length) * 100,
+                                            100
+                                        )}%`,
+                                    }}
+                                ></div>
+                                <span className="progress-text">
+                                    {Math.round(
+                                        Math.min(
+                                            (topics.filter(
+                                                (topic) =>
+                                                    topic.topicStatus === "FINISHED" ||
+                                                    topic.topicStatus === "INFORMATION" ||
+                                                    topic.topicStatus === "WITHDRAWN"
+                                            ).length / topics.length) * 100,
+                                            100
+                                        )
+                                    )}
+                                    %
+                                </span>
                             </div>
+                        )}
+
+                        <div>
+                            {sessionTitle && <h6 className='session-title'>{sessionTitle}</h6>}
+                        </div>
                         </div>
                         <div className="session-button-container">
                              <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
