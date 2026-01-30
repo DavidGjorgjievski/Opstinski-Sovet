@@ -9,30 +9,52 @@ export default function useVoteWebSocket(sessionId) {
   useEffect(() => {
     if (!sessionId) return;
 
-    const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
-    const client = new Client({
-      webSocketFactory: () => socket,
-      reconnectDelay: 5000,
-      onConnect: () => {
-        client.subscribe(`/topic/sessions/${sessionId}`, (msg) => {
-          try {
-            const data = JSON.parse(msg.body); // now receiving JSON, not just ID
-            setMessages((prev) => [...prev, data]);
-          } catch (e) {
-            console.error("Failed to parse WebSocket message:", e);
-          }
-        });
-      },
-    });
+    const connect = () => {
+      const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
+      const client = new Client({
+        webSocketFactory: () => socket,
+        reconnectDelay: 5000,
+        onConnect: () => {
+          client.subscribe(`/topic/sessions/${sessionId}`, (msg) => {
+            try {
+              const data = JSON.parse(msg.body);
+              setMessages((prev) => [...prev, data]);
+            } catch (e) {
+              console.error("Failed to parse WebSocket message:", e);
+            }
+          });
+        },
+        onStompError: (frame) => {
+          console.error("STOMP error:", frame);
+        },
+      });
 
-    client.activate();
-    stompClientRef.current = client;
+      client.activate();
+      stompClientRef.current = client;
+    };
 
-    return () => client.deactivate();
+    connect();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (!stompClientRef.current?.connected) {
+          console.log("Tab visible, reconnecting WebSocket...");
+          stompClientRef.current?.deactivate();
+          connect();
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      stompClientRef.current?.deactivate();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [sessionId]);
 
   const sendVote = (topicId) => {
-    if (stompClientRef.current && stompClientRef.current.connected) {
+    if (stompClientRef.current?.connected) {
       stompClientRef.current.publish({
         destination: `/app/vote/${sessionId}`,
         body: `${topicId}`,
