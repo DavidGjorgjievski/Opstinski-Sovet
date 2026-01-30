@@ -70,6 +70,10 @@ function Topics() {
         return saved === 'true'; // convert to boolean
     });
 
+
+
+
+
     const handleToggle = () => {
         const newValue = !isOn;
         setIsOn(newValue);
@@ -525,6 +529,17 @@ function Topics() {
         return Math.min((finishedCount / topics.length) * 100, 100);
     }
 
+
+    useEffect(() => {
+    const handleVisibilityChange = () => {
+        if (!document.hidden) {
+            fetchTopics();
+        }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+}, [fetchTopics]); 
 
 
     return (
