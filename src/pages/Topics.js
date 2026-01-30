@@ -361,7 +361,7 @@ function Topics() {
         }
 
         try {
-            await api.post(`/api/topics/vote/${topicId}/${voteType}`);
+            await api.get(`/api/topics/vote/${topicId}/${voteType}`);
 
             console.log(`${voteType} vote submitted successfully`);
 
@@ -528,23 +528,6 @@ function Topics() {
         // Calculate percentage based on all topics
         return Math.min((finishedCount / topics.length) * 100, 100);
     }
-
-
-useEffect(() => {
-    const handleVisibilityChange = () => {
-        if (!document.hidden) {
-            // Just trigger a manual refresh flag or console log
-            console.log("User returned to the page — you can refresh manually now");
-            // Optionally, set a state to indicate refresh is needed
-            setTopicsLoaded(false); // example: flag for manual refresh
-        }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-}, []);
-
-
 
     return (
         <div className="topics-container">
