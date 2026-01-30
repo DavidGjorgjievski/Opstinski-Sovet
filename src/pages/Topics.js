@@ -530,16 +530,20 @@ function Topics() {
     }
 
 
-    useEffect(() => {
+useEffect(() => {
     const handleVisibilityChange = () => {
         if (!document.hidden) {
-            fetchTopics();
+            // Just trigger a manual refresh flag or console log
+            console.log("User returned to the page — you can refresh manually now");
+            // Optionally, set a state to indicate refresh is needed
+            setTopicsLoaded(false); // example: flag for manual refresh
         }
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-}, [fetchTopics]); 
+}, []);
+
 
 
     return (
