@@ -453,28 +453,39 @@ function Topics() {
     };
 
     useEffect(() => {
-    if (voteMessages.length === 0) return;
+        if (voteMessages.length === 0) return;
 
-    const lastResult = voteMessages.at(-1);
-    const updatedTopicId = lastResult.topicId;
+        const lastResult = voteMessages.at(-1);
+        const updatedTopicId = lastResult.topicId;
 
-    setTopics((prevTopics) =>
-        prevTopics.map((topic) =>
-        topic.id === updatedTopicId
-            ? {
-                ...topic,
-                yes: lastResult.yes,
-                no: lastResult.no,
-                abstained: lastResult.abstained,
-                cantVote: lastResult.cantVote,
-                haveNotVoted: lastResult.haveNotVoted,
-                absent: lastResult.absent,
-                topicStatus: lastResult.status,
-            }
-            : topic
-        )
-    );
+        // Update topic vote counts and status
+        setTopics((prevTopics) =>
+            prevTopics.map((topic) =>
+                topic.id === updatedTopicId
+                    ? {
+                        ...topic,
+                        yes: lastResult.yes,
+                        no: lastResult.no,
+                        abstained: lastResult.abstained,
+                        cantVote: lastResult.cantVote,
+                        haveNotVoted: lastResult.haveNotVoted,
+                        absent: lastResult.absent,
+                        topicStatus: lastResult.status,
+                    }
+                    : topic
+            )
+        );
+
+        // Reset currentVotes if topic is restarted
+        if (lastResult.status === 'CREATED') {
+            setCurrentVotes((prevVotes) => ({
+                ...prevVotes,
+                [updatedTopicId]: 'HAVE_NOT_VOTED',
+            }));
+        }
     }, [voteMessages]);
+
+
 
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
