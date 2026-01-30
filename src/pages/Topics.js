@@ -349,25 +349,37 @@ function Topics() {
     };
 
     const handleVote = async (topicId, voteType) => {
+
+        // Prevent sending request if vote is already the same
+        if (currentVotes[topicId] === voteType) {
+            console.log("Vote unchanged, request skipped");
+            return;
+        }
+
         try {
-            // Axios GET request using your api instance
-            await api.get(`/api/topics/vote/${topicId}/${voteType}`);
+            await api.post(`/api/topics/vote/${topicId}/${voteType}`);
 
             console.log(`${voteType} vote submitted successfully`);
 
-            // Set vote action flag to true to skip scroll restoration
+            // Mark this as a vote action
             setIsVoteAction(true);
 
-            // Update the current vote for the topic
+            // Update local vote state immediately (optimistic UI)
             setCurrentVotes((prevVotes) => ({
-            ...prevVotes,
-            [topicId]: voteType,
+                ...prevVotes,
+                [topicId]: voteType,
             }));
 
-            // Trigger WebSocket update
+            // Notify others via WebSocket
             sendVote(topicId);
+
         } catch (error) {
-            console.error('Error submitting vote:', error);
+            console.error("Error submitting vote:", error);
+
+            // Optional: revert UI on conflict
+            if (error.response?.status === 409) {
+                console.warn("Vote conflict, retrying not allowed");
+            }
         }
     };
 
