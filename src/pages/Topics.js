@@ -361,7 +361,7 @@ function Topics() {
         }
 
         try {
-            await api.get(`/api/topics/vote/${topicId}/${voteType}`);
+            await api.post(`/api/topics/vote/${topicId}/${voteType}`);
 
             console.log(`${voteType} vote submitted successfully`);
 
