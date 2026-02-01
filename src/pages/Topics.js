@@ -539,7 +539,6 @@ useEffect(() => {
         return Math.min((finishedCount / topics.length) * 100, 100);
     }
 
-
     return (
         <div className="topics-container">
             <HelmetProvider>
