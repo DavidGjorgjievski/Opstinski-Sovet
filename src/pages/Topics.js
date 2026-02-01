@@ -144,19 +144,17 @@ function Topics() {
     };
 
     const fetchTopics = useCallback(async () => {
-        try {
-            const response = await api.get(
-            `/api/sessions/${id}/topics`
-            );
-
-            setTopics(response.data.topics);
-            console.log(response.data.topics)
-            setPresentedTopicId(response.data.presentedTopicId);
-            setTopicsLoaded(true);
-        } catch (error) {
-            console.error("Error fetching topics:", error);
-        }
-    }, [id]);
+    try {
+        const response = await api.get(`/api/sessions/${id}/topics`);
+        setTopics(response.data.topics);
+        setPresentedTopicId(response.data.presentedTopicId);
+        setTopicsLoaded(true);
+        return response.data.topics; // return the topics
+    } catch (error) {
+        console.error("Error fetching topics:", error);
+        return []; // return empty array on error
+    }
+}, [id]);
 
     useEffect(() => {
         const cachedSessions = localStorage.getItem(`sessions_${municipalityId}`);
@@ -437,7 +435,7 @@ function Topics() {
 useEffect(() => {
   if (newTopicMessages.length > 0) {
     (async () => {
-      const updatedTopics = await fetchTopics(); // fetch and return topics
+      const updatedTopics = await fetchTopics(); // now it returns topics
 
       setCurrentVotes(prevVotes => {
         const newVotes = { ...prevVotes };
@@ -451,7 +449,8 @@ useEffect(() => {
       });
     })();
   }
-}, [newTopicMessages, fetchTopics, id]); // topics removed from deps
+}, [newTopicMessages, fetchTopics, id]);
+
 
 
 
