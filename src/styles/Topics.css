@@ -324,6 +324,9 @@ html {
     border-radius: 10px;
     font-weight: 500;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 @keyframes votePulse {
@@ -509,6 +512,9 @@ html {
 
 .text-for-rez {
     font-size: 1.25rem;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .topic-status-text{
@@ -641,7 +647,7 @@ html {
 
 
 .ape-width{
-    width: 90%;
+    width: 85%;
 }
 
 .user-width {

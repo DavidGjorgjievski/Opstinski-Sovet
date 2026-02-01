@@ -558,7 +558,7 @@ useEffect(() => {
                             </button>
                             <h1 className="topic-header-title">{t("topicsPage.headerTitle")}</h1>
 
-                        {["ROLE_ADMIN", "ROLE_PRESIDENT", "ROLE_USER"].includes(userInfo.role) && topics.length > 0 && (
+                        {["ROLE_ADMIN", "ROLE_PRESIDENT", "ROLE_USER", "ROLE_MAYOR", "ROLE_EDITOR"].includes(userInfo.role) && topics.length > 0 && (
                             <div className="progress-bar-container">
                                 <div
                                     className="progress-bar-fill"
@@ -916,9 +916,14 @@ useEffect(() => {
                         </div>
                     )) }
                     <div className="mt-4">
-                        {topics.length > 2 && hasTopicPermissions && (
+                        {topics.length > 2 && hasTopicPermissions && !isOn && (
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                                <button className="topic-add-button" onClick={saveScrollPosition}>{t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} /></button>
+                                <button
+                                    className="topic-add-button"
+                                    onClick={saveScrollPosition}
+                                >
+                                    {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
+                                </button>
                             </Link>
                         )}
                     </div>
