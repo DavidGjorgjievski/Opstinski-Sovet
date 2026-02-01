@@ -434,24 +434,25 @@ function Topics() {
     }, [presenterMessages]);
 
 
-  useEffect(() => {
-    if (newTopicMessages.length > 0) {
-        (async () => {
-            await fetchTopics(); // fetch updated topics
+useEffect(() => {
+  if (newTopicMessages.length > 0) {
+    (async () => {
+      const updatedTopics = await fetchTopics(); // fetch and return topics
 
-            setCurrentVotes(prevVotes => {
-                const updatedVotes = { ...prevVotes };
-                topics.forEach(topic => {
-                    if (!(topic.id in updatedVotes)) {
-                        updatedVotes[topic.id] = "HAVE_NOT_VOTED"; // init votes
-                    }
-                });
-                localStorage.setItem(`currentVotes_session_${id}`, JSON.stringify(updatedVotes));
-                return updatedVotes;
-            });
-        })();
-    }
-}, [newTopicMessages, fetchTopics, topics, id]);
+      setCurrentVotes(prevVotes => {
+        const newVotes = { ...prevVotes };
+        updatedTopics.forEach(topic => {
+          if (!(topic.id in newVotes)) {
+            newVotes[topic.id] = "HAVE_NOT_VOTED"; 
+          }
+        });
+        localStorage.setItem(`currentVotes_session_${id}`, JSON.stringify(newVotes));
+        return newVotes;
+      });
+    })();
+  }
+}, [newTopicMessages, fetchTopics, id]); // topics removed from deps
+
 
 
     const handlePresentClick = async (topicId) => {
