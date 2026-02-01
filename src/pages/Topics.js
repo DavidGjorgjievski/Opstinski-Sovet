@@ -70,10 +70,6 @@ function Topics() {
         return saved === 'true'; // convert to boolean
     });
 
-
-
-
-
     const handleToggle = () => {
         const newValue = !isOn;
         setIsOn(newValue);
@@ -438,11 +434,25 @@ function Topics() {
     }, [presenterMessages]);
 
 
-    useEffect(() => {
-        if (newTopicMessages.length > 0) {
-            fetchTopics();
-        }
-    }, [newTopicMessages, fetchTopics]);
+  useEffect(() => {
+    if (newTopicMessages.length > 0) {
+        (async () => {
+            await fetchTopics(); // fetch updated topics
+
+            setCurrentVotes(prevVotes => {
+                const updatedVotes = { ...prevVotes };
+                topics.forEach(topic => {
+                    if (!(topic.id in updatedVotes)) {
+                        updatedVotes[topic.id] = "HAVE_NOT_VOTED"; // init votes
+                    }
+                });
+                localStorage.setItem(`currentVotes_session_${id}`, JSON.stringify(updatedVotes));
+                return updatedVotes;
+            });
+        })();
+    }
+}, [newTopicMessages, fetchTopics, topics, id]);
+
 
     const handlePresentClick = async (topicId) => {
         try {
