@@ -5,7 +5,8 @@ import { Client } from "@stomp/stompjs";
 export default function useVoteWebSocket(sessionId) {
   const [messages, setMessages] = useState([]);
   const stompClientRef = useRef(null);
-  const isConnectedRef = useRef(false); // track actual connection state
+  const isConnectedRef = useRef(false);
+  const reconnectLock = useRef(false);
 
   const connect = useCallback(() => {
     const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
@@ -17,16 +18,18 @@ export default function useVoteWebSocket(sessionId) {
       onConnect: () => {
         console.log("Vote WebSocket connected");
         isConnectedRef.current = true;
+        reconnectLock.current = false;
+
         client.subscribe(`/topic/sessions/${sessionId}`, (msg) => {
           try {
             const data = JSON.parse(msg.body);
             setMessages((prev) => [...prev, data]);
           } catch (e) {
-            console.error("Failed to parse WebSocket message:", e);
+            console.error("Failed to parse Vote WS message:", e);
           }
         });
       },
-      onStompError: (frame) => console.error("STOMP error:", frame),
+      onStompError: (frame) => console.error("Vote WS STOMP error:", frame),
       onDisconnect: () => (isConnectedRef.current = false),
     });
 
@@ -35,26 +38,25 @@ export default function useVoteWebSocket(sessionId) {
     return client;
   }, [sessionId]);
 
+  const tryReconnect = useCallback(() => {
+    if (isConnectedRef.current || reconnectLock.current) return;
+    reconnectLock.current = true;
+    stompClientRef.current?.deactivate();
+    connect().finally(() => {
+      reconnectLock.current = false;
+    });
+  }, [connect]);
+
   useEffect(() => {
     if (!sessionId) return;
 
     connect();
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible" && !isConnectedRef.current) {
-        console.log("Tab active, reconnecting Vote WebSocket...");
-        stompClientRef.current?.deactivate();
-        connect();
-      }
+      if (document.visibilityState === "visible") tryReconnect();
     };
 
-    const interval = setInterval(() => {
-      if (!isConnectedRef.current) {
-        console.log("Vote WebSocket inactive, reconnecting...");
-        stompClientRef.current?.deactivate();
-        connect();
-      }
-    }, 15000);
+    const interval = setInterval(() => tryReconnect(), 30000);
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
@@ -63,14 +65,10 @@ export default function useVoteWebSocket(sessionId) {
       clearInterval(interval);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [sessionId, connect]);
+  }, [sessionId, connect, tryReconnect]);
 
   const sendVote = async (topicId) => {
-    // If not connected, try to reconnect first
     if (!stompClientRef.current?.connected) {
-      console.log("Vote WebSocket not connected, reconnecting...");
-      stompClientRef.current?.deactivate();
-
       await new Promise((resolve) => {
         const tempClient = connect();
         const check = setInterval(() => {
@@ -82,7 +80,6 @@ export default function useVoteWebSocket(sessionId) {
       });
     }
 
-    // Send the vote if connected
     if (stompClientRef.current?.connected) {
       stompClientRef.current.publish({
         destination: `/app/vote/${sessionId}`,

@@ -6,6 +6,7 @@ export default function useNewTopicWebSocket(sessionId) {
   const [messages, setMessages] = useState([]);
   const stompClientRef = useRef(null);
   const isConnectedRef = useRef(false);
+  const reconnectLock = useRef(false);
 
   const connect = useCallback(() => {
     const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
@@ -17,11 +18,13 @@ export default function useNewTopicWebSocket(sessionId) {
       onConnect: () => {
         console.log("NewTopic WebSocket connected");
         isConnectedRef.current = true;
+        reconnectLock.current = false;
+
         client.subscribe(`/topic/newTopics/${sessionId}`, (msg) => {
           setMessages((prev) => [...prev, msg.body]);
         });
       },
-      onStompError: (frame) => console.error("STOMP error:", frame),
+      onStompError: (frame) => console.error("NewTopic WS STOMP error:", frame),
       onDisconnect: () => (isConnectedRef.current = false),
     });
 
@@ -30,26 +33,25 @@ export default function useNewTopicWebSocket(sessionId) {
     return client;
   }, [sessionId]);
 
+  const tryReconnect = useCallback(() => {
+    if (isConnectedRef.current || reconnectLock.current) return;
+    reconnectLock.current = true;
+    stompClientRef.current?.deactivate();
+    connect().finally(() => {
+      reconnectLock.current = false;
+    });
+  }, [connect]);
+
   useEffect(() => {
     if (!sessionId) return;
 
     connect();
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible" && !isConnectedRef.current) {
-        console.log("Tab active, reconnecting NewTopic WebSocket...");
-        stompClientRef.current?.deactivate();
-        connect();
-      }
+      if (document.visibilityState === "visible") tryReconnect();
     };
 
-    const interval = setInterval(() => {
-      if (!isConnectedRef.current) {
-        console.log("NewTopic WebSocket inactive, reconnecting...");
-        stompClientRef.current?.deactivate();
-        connect();
-      }
-    }, 15000);
+    const interval = setInterval(() => tryReconnect(), 30000);
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
@@ -58,12 +60,10 @@ export default function useNewTopicWebSocket(sessionId) {
       clearInterval(interval);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [sessionId, connect]); // ✅ now connect is included
+  }, [sessionId, connect, tryReconnect]);
 
   const sendNewTopic = async (body = "NEW_TOPIC") => {
     if (!stompClientRef.current?.connected) {
-      console.log("NewTopic WebSocket not connected, reconnecting...");
-      stompClientRef.current?.deactivate();
       await new Promise((resolve) => {
         const tempClient = connect();
         const check = setInterval(() => {
