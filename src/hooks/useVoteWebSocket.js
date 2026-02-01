@@ -12,7 +12,7 @@ export default function useVoteWebSocket(sessionId) {
   const connect = useCallback(() => {
     if (!sessionId) return;
 
-    // Deactivate old client
+    // Deactivate old client if exists
     if (stompClientRef.current) {
       stompClientRef.current.deactivate();
       stompClientRef.current = null;
@@ -26,20 +26,21 @@ export default function useVoteWebSocket(sessionId) {
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
       onConnect: () => {
-        console.log("Vote WebSocket connected");
+        console.log("Vote WS connected");
         isConnectedRef.current = true;
         reconnectLock.current = false;
 
+        // Subscribe
         client.subscribe(`/topic/sessions/${sessionId}`, (msg) => {
           try {
             const data = JSON.parse(msg.body);
             setMessages((prev) => [...prev, data]);
           } catch (e) {
-            console.error("Failed to parse Vote WS message:", e);
+            console.error("Failed to parse WS message:", e);
           }
         });
 
-        // send queued messages
+        // Send queued messages
         while (messageQueueRef.current.length) {
           const body = messageQueueRef.current.shift();
           client.publish({ destination: `/app/vote/${sessionId}`, body });
@@ -69,12 +70,14 @@ export default function useVoteWebSocket(sessionId) {
 
     connect();
 
+    // Reconnect when tab becomes active
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") ensureConnected();
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
+    // Periodic reconnect check
     const interval = setInterval(() => ensureConnected(), 15000);
 
     return () => {
