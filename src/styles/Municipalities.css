@@ -76,6 +76,17 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
+.user-municipality-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.highlight-grid-container {
+    margin-top: 0 !important;
+    padding-bottom: 10px !important;
+}
+
+
 @media (min-width: 670px) {
     .grid-container.size-4up {
         grid-template-columns: repeat(2, 1fr);
@@ -207,6 +218,8 @@
     width: 50%;
 }
 
+    
+
 .button-see-content,
 .button-option-content {
     width: 100%;
@@ -261,13 +274,19 @@
     align-items: center;
     width: 100%;
     min-height: 200px;
-    /* optional: adjusts vertical spacing */
 }
 
 .no-municipalities-message {
     text-align: center;
     font-size: 1.5rem;
     color: #333;
+}
+
+.municipality-item.user-municipality {
+    border: 2px solid #fbe64e;
+    /* gold border */
+    background-color: rgba(251, 230, 78, 0.15);
+    /* subtle gold background */
 }
 
 @media (max-width: 768px) {
@@ -313,7 +332,6 @@
 }
 
 @media (max-width: 370px) {
-
     .first-municipality-button {
         margin-right: 10px;
     }
