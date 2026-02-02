@@ -988,9 +988,6 @@ useEffect(() => {
             isOpen={isLiveModalOpen}
             onClose={() => setIsLiveModalOpen(false)}
             municipalityId={municipalityId}
-            token={token}
-            role={userInfo.role}
-            status={userInfo.status}
             canSeeAction={hasTopicPermissionsStatus}
         />
         </div>
