@@ -264,6 +264,8 @@ html {
     margin-right: 10px;
 }
 
+
+
 .topic-item-body-detail {
     display: flex;
     flex-direction: row;
@@ -316,8 +318,8 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     text-align: center;
     justify-self: center;
     border: 2px solid;
@@ -1024,6 +1026,14 @@ html {
 
     .topic-item-body-detail-group-footer .command-buttons:not(:last-child) {
         margin-right: 10px;
+    }
+
+    .topic-item-body-detail-group {
+        margin-top: 15px;
+    }
+    
+    .topic-item-body-detail-group:first-child {
+        margin-top: 0px;
     }
 }
 
