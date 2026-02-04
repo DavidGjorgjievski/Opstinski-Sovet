@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import "../styles/MunicipalityMandateUsersAddList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import api from '../api/axios';
 
 function MunicipalityMandateUsersAddList() {
@@ -97,10 +97,15 @@ const handleRemoveUser = async (username) => {
         <div className="municipality-mandate-users-list-header">
           <div className="header-section">
             <button
-              className="municipality-mandate-users-back-button"
-              onClick={() => navigate(-1)}
+                className="municipality-mandate-users-back-button"
+                onClick={() => navigate(-1)}
             >
-              <FontAwesomeIcon icon={faArrowLeft} /> {t("MunicipalityMandateUsersList.back")}
+                <span className="back-icon">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </span>
+                <span className="back-text">
+                    {t("MunicipalityMandateUsersList.back")}
+                </span>
             </button>
           </div>
  

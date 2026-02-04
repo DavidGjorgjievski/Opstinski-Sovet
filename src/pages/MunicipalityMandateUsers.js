@@ -5,7 +5,7 @@ import "../styles/MunicipalityMandateUsers.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import api from '../api/axios';
 
 function MunicipalityMandateUsers() {
@@ -62,7 +62,12 @@ useEffect(() => {
         <div className="municipality-mandate-users-header">
           <div className="header-section">
             <button className="municipality-mandate-users-back-button" onClick={() => navigate(-1)}>
-              <FontAwesomeIcon icon={faArrowLeft} /> {t("MunicipalityMandateUsers.back")}
+                <span className="back-icon">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </span>
+                <span className="back-text">
+                    {t("MunicipalityMandateUsers.back")}
+                </span>
             </button>
           </div>
 

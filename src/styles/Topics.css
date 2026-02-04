@@ -184,22 +184,71 @@ html {
 }
 
 .back-button-topic {
-    background-color: white;
-    padding: 5px 15px;
-    width: 100px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    font-weight: bold;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 16px;
+    min-width: 100px;
+
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 10px;
-    color: black;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+
     cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
+    user-select: none;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
 }
 
-.back-button-topic:hover{
-    background-color: #ddd;
-    transform: scale(1.03);
+/* Icon animation */
+.back-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.25s ease;
+}
+
+/* Hover */
+.back-button-topic:hover {
+    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.back-button-topic:hover .back-icon {
+    transform: translateX(-4px);
+}
+
+/* Active (click feedback) */
+.back-button-topic:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Keyboard accessibility */
+.back-button-topic:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(251, 230, 78, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Optional: text spacing */
+.back-text {
+    white-space: nowrap;
 }
 
 .profile-back-button {

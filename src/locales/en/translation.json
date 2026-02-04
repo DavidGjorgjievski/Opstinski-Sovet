@@ -283,6 +283,7 @@
   },
 
   "session": {
+    "back":"Back",
     "title": "Sessions",
     "subtitle": "Each session includes the members of the council.",
     "add": "Add Session",

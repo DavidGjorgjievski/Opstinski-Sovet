@@ -283,6 +283,7 @@
   },
 
   "session": {
+    "back":"Zurück",
     "title": "Sitzungen",
     "subtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
     "add": "Sitzung anlegen",

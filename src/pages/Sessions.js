@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import '../styles/Sessions.css'; 
 import Header from '../components/Header';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import NoTopicsExportModal from '../components/NoTopicsExportModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faChevronLeft, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
@@ -25,6 +25,7 @@ function Sessions() {
     const [openMenuId, setOpenMenuId] = useState(null);
     const dropdownRefs = useRef({});
     const [showNoTopicsModal, setShowNoTopicsModal] = useState(false);
+    const navigate = useNavigate();
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -221,24 +222,41 @@ function Sessions() {
             <Header />
 
             <main className="session-body-container">
-                <div className={`session-header 
-                    ${sessions.length === 1 ? 'session-header-size1' : ''} 
-                    ${sessions.length === 0 ? 'session-header-empty' : ''}
-                `}>
-                    <div className='session-header-div'>
-                        <h1 className="session-header-title">{t('session.title')}</h1>
-                        <p>{t('session.subtitle')}</p>
-                    </div>
-                    {canAddSession && (
-                        <div className="session-button-container">
-                            <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
-                                <button className="session-add-button">
-                                    {t('session.add')} <FontAwesomeIcon icon={faPlus} />
-                                </button>
-                            </a>
-                        </div>
-                    )}
+               <div className={`session-header 
+                ${sessions.length === 0 ? 'session-header-empty' : ''}`}>
+
+                {/* Back Button above the title */}
+               
+
+                <div className='session-header-div'>
+
+                <div className="session-back-button-wrapper">
+                   <button
+                        className="session-back-button"
+                        onClick={() => navigate('/municipalities')}
+                    >
+                        <span className="back-icon">
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </span>
+                        <span className="back-text">{t('session.back')}</span>
+                    </button>
                 </div>
+                    <h1 className="session-header-title">{t('session.title')}</h1>
+                    <p>{t('session.subtitle')}</p>
+                </div>
+
+                {canAddSession && (
+                    <div className="session-button-container">
+                        <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
+                            <button className="session-add-button">
+                                {t('session.add')} <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                        </a>
+                    </div>
+                )}
+            </div>
+
+
 
                 {loading ? (
                     <div className="loading-spinner">

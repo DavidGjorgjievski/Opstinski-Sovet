@@ -221,9 +221,12 @@ function AdminPanel() {
             <div className="admin-body d-flex flex-column">
                 <div className="admin-header-div">
                     <div className='back-button-admin-panel-div'>
-                         <a href="/" className='a-tag-user-back-button'>
-                            <button className="user-back-button"><FontAwesomeIcon icon={faChevronLeft} /> {t("adminPanel.backButton")}</button>
-                        </a>
+                         <button className="user-back-button">
+                            <span className="back-icon">
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </span>
+                            {t("adminPanel.backButton")}
+                        </button>
                     </div>
                     <h1 className="admin-title">{t("adminPanel.allUsers")}</h1>
                     <a href="/admin-panel/add-form">

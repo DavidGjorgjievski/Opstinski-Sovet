@@ -93,7 +93,12 @@ function TopicDetails() {
                     <>
                         <div className='back-button-detailed-results-container'>
                             <button onClick={handleBackButtonClick} className="back-button">
-                                <FontAwesomeIcon icon={faChevronLeft} /> {t("topicsDetails.backButton")}
+                                <span className="back-icon">
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                </span>
+                                <span className="back-text">
+                                    {t("topicsDetails.backButton")}
+                                </span>
                             </button>
                         </div>
                         <div className="detailed-result-header">

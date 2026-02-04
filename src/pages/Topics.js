@@ -553,8 +553,14 @@ useEffect(() => {
                         <div className='topic-header-title-div'>
                             <button
                                 className="back-button-topic"
-                                onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}>
-                                <FontAwesomeIcon icon={faChevronLeft} /> {t("topicsPage.backButton")}
+                                onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}
+                            >
+                                <span className="back-icon">
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                </span>
+                                <span className="back-text">
+                                    {t("topicsPage.backButton")}
+                                </span>
                             </button>
                             <h1 className="topic-header-title">{t("topicsPage.headerTitle")}</h1>
 
