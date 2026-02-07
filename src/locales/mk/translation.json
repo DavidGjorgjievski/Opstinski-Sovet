@@ -453,7 +453,7 @@
     "autoRefreshOn": "Автоматско",
     "webSocketMode": "Механичко",
     "presentBadge": "Презентирачка точка",
-    "progressbar": "test"
+    "currency": "ден"
   },
 
   "tooltip": {
@@ -498,7 +498,7 @@
     "selectedFiles": "Избрани датотеки",
     "currentPdf": "Тековна PDF датотека",
     "topicStatus": "Статус на точка:",
-    "selectStatus": "Избери статус",
+    "selectStatus": "Избери статус:",
     "dropHere": "Пуштете датотека тука",
     "orClick": "кликнете за да изберете PDF датотеката",
     "statusOptions": {
@@ -511,7 +511,10 @@
     "removePdf": "Избриши",
     "addButton": "Додади",
     "editButton": "Уреди",
-    "back": "Назад"
+    "back": "Назад",
+    "amount": "Износ:",
+    "amountPlaceholder": "Внесете износ",
+    "optional": "(опционално)"
   },
 
   "restartTopicModal": {

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
@@ -23,6 +23,7 @@ const AddTopicForm = () => {
     const [title, setTitle] = useState('');
     const [files, setFiles] = useState([]);   
     const [pdfId, setPdfId] = useState(null);
+    const [amount, setAmount] = useState('');
     const [fileError, setFileError] = useState(false);
     const [fileTypeError, setFileTypeError] = useState(false);
     const [currentPdfFileName, setCurrentPdfFileName] = useState('');
@@ -74,16 +75,18 @@ const AddTopicForm = () => {
 
     const fetchTopic = async () => {
         try {
-        const { data: topicData } = await api.get(
-            `/api/sessions/${id}/topics/${idt}`
-        );
+            const { data: topicData } = await api.get(
+                `/api/sessions/${id}/topics/${idt}`
+            );
 
-        setTitle(topicData.title);
-        setCurrentPdfFileName(topicData.pdfFileName);
-        setPdfId(topicData.pdfFileId);
-        setTopicStatus(topicData.topicStatus || "CREATED");
+            setTitle(topicData.title);
+            setCurrentPdfFileName(topicData.pdfFileName);
+            setPdfId(topicData.pdfFileId);
+            setTopicStatus(topicData.topicStatus || "CREATED");
+            setAmount(topicData.amount ? topicData.amount : '');
+
         } catch (error) {
-        console.error("Error fetching the topic:", error);
+            console.error("Error fetching the topic:", error);
         }
     };
 
@@ -98,6 +101,10 @@ const AddTopicForm = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("topicStatus", topicStatus);
+
+    if (amount) {
+        formData.append("amount", amount);
+    }
 
     files.forEach(file => formData.append("files", file));
 
@@ -267,6 +274,35 @@ const handleRemovePdf = async () => {
     }
 };
 
+// At the top of AddTopicForm, after all useState declarations
+const textareaRef = useRef(null);
+const minRows = 3;
+const maxRows = 10;
+const lineHeight = 24; // px
+
+const resizeTextarea = useCallback(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    textarea.rows = minRows; // reset to minimum
+    const currentRows = Math.floor(textarea.scrollHeight / lineHeight);
+
+    // Add +1 row ONLY if adding after/before AND NOT editing
+    const extraRow = (!isEditing && (isAddAfter || isAddBefore)) ? 1 : 0;
+
+    textarea.rows = Math.min(Math.max(currentRows + extraRow, minRows), maxRows);
+}, [isEditing, isAddAfter, isAddBefore]);
+
+
+// On component mount, resize if editing and title exists
+useEffect(() => {
+    if (textareaRef.current && title) {
+        resizeTextarea();
+    }
+}, [title, resizeTextarea]);
+
+
+
     return (
         <HelmetProvider>
             <div className="add-topic-container">
@@ -302,19 +338,32 @@ const handleRemovePdf = async () => {
                             <div>
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
-                                        <label htmlFor="title" className="label-add">{t("addTopicForm.topicTitle")}</label>
-                                           <textarea
-                                            id="title"
-                                            name="title"
-                                            className="mb-2 topic-textarea-title"
-                                            value={title}
-                                                onChange={(e) => setTitle(e.target.value)}
+                                            <label htmlFor="title" className="label-add">{t("addTopicForm.topicTitle")}</label>
+                                            <textarea
+                                                ref={textareaRef}
+                                                id="title"
+                                                name="title"
+                                                className="mb-1 topic-textarea-title"
+                                                value={title}
+                                                onChange={(e) => {
+                                                    const value = e.target.value.slice(0, 500);
+                                                    setTitle(value);
+                                                    resizeTextarea();
+                                                }}
                                                 required
                                                 placeholder={t("addTopicForm.placeholder")}
-                                                rows={title.split("\n").length > 1 ? 2 : 1}
+                                                rows={minRows}
+                                                maxLength={500}
                                             />
-                                    </div>
+                                            <div className="character-counter">
+                                                {title.length}/500
+                                            </div>
+                                        </div>
+
                                     <label htmlFor="file" className="label-add">{t("addTopicForm.uploadPdf")}</label>
+                                    <p className="optional-text">
+                                        {t("addTopicForm.optional")}
+                                    </p>
                                     <div className="form-group d-flex justify-content-center">
                                         <div className={`file-drop-area ${fileError || fileTypeError ? 'is-active' : ''}`}>
                                             <p className="file-drop-message">
@@ -410,6 +459,42 @@ const handleRemovePdf = async () => {
                                                 ))}
                                             </div>
                                         )}
+                                    </div>
+
+                                    <div className="form-group mt-3">
+                                        <label htmlFor="amount" className="label-add">{t("addTopicForm.amount")}</label>
+                                        <p className="optional-text">
+                                            {t("addTopicForm.optional")}
+                                        </p>
+                                        <input
+                                            type="number"
+                                            id="amount"
+                                            name="amount"
+                                            className="topic-amount-input"
+                                            value={amount}
+                                            onChange={(e) => {
+                                                // Remove anything invalid
+                                                let value = e.target.value;
+
+                                                // Prevent empty string or 0
+                                                if (value === '' || Number(value) <= 0) {
+                                                    setAmount('');
+                                                    return;
+                                                }
+
+                                                setAmount(value);
+                                            }}
+                                            onKeyDown={(e) => {
+                                                // Prevent typing e, E, +, - 
+                                                if (['e', 'E', '+', '-'].includes(e.key)) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
+                                            placeholder={t("addTopicForm.amountPlaceholder")}
+                                            min={1}
+                                            step={1}
+                                        />
+
                                     </div>
 
                                     <div className="mt-3 d-flex flex-start">

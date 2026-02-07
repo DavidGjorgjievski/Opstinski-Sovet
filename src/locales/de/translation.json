@@ -452,7 +452,8 @@
     "noTopicsPresent": "Kein Thema wird präsentiert",
     "autoRefreshOn": "Automatisch",
     "webSocketMode": "Manuell",
-    "presentBadge": "Präsentiertes Thema"
+    "presentBadge": "Präsentiertes Thema",
+    "currency": "MKD"
   },
 
   "tooltip": {
@@ -497,7 +498,7 @@
     "selectedFiles": "Ausgewählte Dateien",
     "currentPdf": "Aktuelle PDF-Datei",
     "topicStatus": "Thema Status:",
-    "selectStatus": "Status auswählen",
+    "selectStatus": "Status auswählen:",
     "dropHere": "Datei hier ablegen",
     "orClick": "oder klicken, um die PDF auszuwählen",
     "statusOptions": {
@@ -510,7 +511,10 @@
     "removePdf": "Löschen",
     "addButton": "Hinzufügen",
     "editButton": "Bearbeiten",
-    "back": "Zurück"
+    "back": "Zurück",
+    "amount": "Betrag:",
+    "amountPlaceholder": "Betrag eingeben",
+    "optional": "(optional)"
   },
 
   "restartTopicModal": {

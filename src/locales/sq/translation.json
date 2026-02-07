@@ -452,7 +452,8 @@
     "noTopicsPresent": "Aucun sujet n'est présenté",
     "autoRefreshOn": "Automatike",
     "webSocketMode": "Mekanike",
-    "presentBadge": "Temë e prezantuar"
+    "presentBadge": "Temë e prezantuar",
+    "currency": "den"
   },
 
   "tooltip": {
@@ -497,7 +498,7 @@
     "selectedFiles": "Skedat e zgjedhura",
     "currentPdf": "Skeda aktuale PDF",
     "topicStatus": "Statusi i temës:",
-    "selectStatus": "Zgjidh statusin",
+    "selectStatus": "Zgjidh statusin:",
     "dropHere": "Hidhni një dokument këtu",
     "orClick": "ose klikoni për të zgjedhur PDF-in",
     "statusOptions": {
@@ -510,7 +511,10 @@
     "removePdf": "Fshi",
     "addButton": "Shto",
     "editButton": "Redakto",
-    "back": "Kthehu"
+    "back": "Kthehu",
+    "amount": "Shuma:",
+    "amountPlaceholder": "Shkruani shumën",
+    "optional": "(opsionale)"
   },
 
   "restartTopicModal": {

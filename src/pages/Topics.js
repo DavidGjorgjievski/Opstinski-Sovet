@@ -147,6 +147,7 @@ function Topics() {
     try {
         const response = await api.get(`/api/sessions/${id}/topics`);
         setTopics(response.data.topics);
+        console.log(response.data.topics)
         setPresentedTopicId(response.data.presentedTopicId);
         setTopicsLoaded(true);
         return response.data.topics; // return the topics
@@ -721,7 +722,13 @@ useEffect(() => {
 
                                     </div>                    
                                 </div>
-                                      
+
+                                {topic.amount && (
+                                    <div className="topic-amount-container">
+                                        {topic.amount} {t("topicsPage.currency")}
+                                    </div>
+                                )}
+
                                 <div className='topic-item-body'>
                                     {(topic.topicStatus === "ACTIVE" || topic.topicStatus === "FINISHED") && (
                                    <div

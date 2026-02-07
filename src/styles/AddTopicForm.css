@@ -112,6 +112,7 @@
     transition: all 0.3s ease;
     font-weight: 500;
     caret-color: black;
+    font-size: 17px;
 }
 
 .topic-textarea-title:focus {
@@ -124,6 +125,12 @@
     resize: none;
     min-height: 60px;
     overflow-y: auto;
+}
+
+.character-counter {
+    text-align: end;
+    color: #6c757d;
+    font-size: 0.85rem;
 }
 
 .topic-status-select-wrapper{
@@ -144,7 +151,7 @@
     width: 200px;
     padding: 8px 10px;
     border: 2px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
     background-color: #fff;
@@ -330,6 +337,32 @@
 
 .add-topic-body-container .form-control {
     border-radius: 10px !important;
+}
+
+.topic-amount-input {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 14px;
+    width: 200px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 17px;
+    caret-color: black;
+}
+
+.topic-amount-input:focus {
+    border-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.optional-text {
+    font-size: 14px;
+    color: #8a8f98;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: -5px;
+    letter-spacing: 0.2px;
 }
 
 @media (max-width: 768px) {

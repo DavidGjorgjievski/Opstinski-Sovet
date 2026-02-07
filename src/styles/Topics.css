@@ -1238,3 +1238,36 @@ html {
 .live-icon {
     animation: blink 2s infinite;
 }
+
+
+
+.topic-amount-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 6px 16px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    line-height: 1;
+    /* ensures vertical centering */
+}
+
+/* Hover effect */
+.topic-amount-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Optional: smaller on mobile */
+@media (max-width: 400px) {
+    .topic-amount-container {
+        font-size: 0.9rem;
+        padding: 4px 12px;
+    }
+}

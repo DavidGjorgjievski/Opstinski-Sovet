@@ -452,7 +452,8 @@
     "noTopicsPresent": "No topic is being presented",
     "autoRefreshOn": "Automatic",
     "webSocketMode": "Manual",
-    "presentBadge": "Presented Topic"
+    "presentBadge": "Presented Topic",
+    "currency": "MKD"
   },
 
   "restartTopicModal": {
@@ -517,7 +518,10 @@
     "removePdf": "Remove",
     "addButton": "Add",
     "editButton": "Edit",
-    "back": "Back"
+    "back": "Back",
+    "amount": "Amount",
+    "amountPlaceholder": "Enter amount",
+    "optional": "(optional)"
   },
 
   "topicsDetails": {
