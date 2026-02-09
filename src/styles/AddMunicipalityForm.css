@@ -107,44 +107,6 @@
     display: none;
 }
 
-.municipality-form-add-button {
-    background-color: #fbe64e;
-    width: 140px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 0px solid white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.municipality-form-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
-
-.municipality-form-back-button-topic {
-    background-color: white;
-    padding: 10px 20px;
-    width: 140px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.municipality-form-back-button-topic:hover {
-    background-color: #ddd;
-    transform: scale(1.03);
-}
-
 .form-control:focus {
     border-color: #f7db2c;
     box-shadow: 0 0 6px rgba(79, 110, 247, 0.3);
@@ -158,7 +120,6 @@
     margin-bottom: 20px;
     border-radius: 10px;
 }
-
 
 /* Hide only inputs with this class */
 .custom-file-input {
@@ -192,12 +153,6 @@
     .add-municipality-body-container {
         width: 95%;
     }
-
-    .municipality-form-add-button,
-    .municipality-form-back-button-topic {
-        font-size: 13.5px !important;
-        padding: 8px 12px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -212,12 +167,6 @@
 }
 
 @media (max-width: 380px) {
-    .municipality-form-add-button,
-    .municipality-form-back-button-topic {
-        font-size: 13px !important;
-        padding: 8px 12px;
-    }
-
     .add-municipality-header-div h1 {
         font-size: 1.8rem;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Login.css';
@@ -27,7 +27,7 @@ function Login() {
     const { t } = useTranslation();
     const { login, isAuthenticated } = useAuth();
     const navigate = useNavigate();
-
+    const dropdownRef = useRef(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorKey, setErrorKey] = useState('');
@@ -84,6 +84,21 @@ function Login() {
         localStorage.setItem('selectedLanguage', lang);
     };
 
+    useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setOpen(false);
+        }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, []);
+
+
    return (
         <div className="login-page-wrapper">
             <div className="login-container">
@@ -137,12 +152,13 @@ function Login() {
                             {t("login.forgotPassword")}
                         </Link>
                     </div>
-                    <input
+                   <button
                         type="submit"
-                        className='login-button'
-                        value={loading ? t('login.pleaseWait') : t('login.loginButton')}
+                        className="login-button"
                         disabled={loading}
-                    />
+                    >
+                        {loading ? t('login.pleaseWait') : t('login.loginButton')}
+                    </button>
                 </form>
 
                 {/* Guest button */}
@@ -164,8 +180,11 @@ function Login() {
                 {/* Language Selector */}
                 <div className="language-dropdown-container">
                     <label className="language-label">{t('login.selectLanguage')}</label>
-                    <div className="language-dropdown">
-                        <button className="selected-language" onClick={() => setOpen(!open)}>
+                    <div className="language-dropdown" ref={dropdownRef}>
+                        <button
+                            className={`selected-language ${open ? 'open' : ''}`}
+                            onClick={() => setOpen(!open)}
+                        >
                             <img
                                 src={languageData[selectedLang].flag}
                                 alt={selectedLang}

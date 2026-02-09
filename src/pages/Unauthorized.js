@@ -15,7 +15,7 @@ const Unauthorized = () => {
                     <FontAwesomeIcon icon={faTriangleExclamation} className="unauthorized-icon" />
                 </h1>
                 <p>{t("unauthorized.message")}</p>
-                <Link to="/" className="unauthorized-back-button">
+                <Link to="/" className="wide-back-button">
                     {t("unauthorized.backButton")}
                 </Link>
             </div>

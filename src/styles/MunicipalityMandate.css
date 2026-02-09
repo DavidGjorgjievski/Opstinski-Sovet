@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     box-sizing: border-box;
     position: relative;
 }
@@ -17,10 +17,16 @@
 
 .municipality-mandate-header {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
-    flex-wrap: nowrap;
+    gap: 15px;
+    text-align: center;
+}
+
+.municipality-mandate-add-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .municipality-mandate-header-title {
@@ -28,25 +34,6 @@
     color: black;
     font-weight: 500;
     margin-bottom: 0;
-}
-
-.municipality-mandate-add-button {
-    background-color: #fbe64e;
-    width: 180px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.municipality-mandate-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
 }
 
 .mandates-list {
@@ -105,24 +92,71 @@
 }
 
 .mandate-view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
     width: 125px;
-    background-color: #fbe64e;
-    border: none;
     height: 36.2px;
-    border-radius: 8px;
     padding: 6px 12px;
-    font-size: 12px;
-    font-weight: bold;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    border: 2px solid #fbe64e;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
     cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-    color: black;
+    text-decoration: none;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    position: relative;
+    overflow: hidden;
 }
 
+/* Shine effect */
+.mandate-view-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover state */
 .mandate-view-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.05);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #f7db2c;
 }
 
+/* Shine animation */
+.mandate-view-button:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.mandate-view-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
+}
 .municipality-mandate-option-wrapper {
     position: relative;
     display: inline-block;
@@ -142,19 +176,68 @@
 }
 
 .municipality-mandate-button-option-content {
-    border: 2px solid #ddd;
-    background-color: white;
-    border-radius: 10px;
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
     padding: 6px 8px;
-    font-weight: 500;
     width: 125px;
-    color: black;
-    transition: background-color 0.1s, transform 0.1s;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    background-color: #fff;
+    color: #222;
+
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+
+    position: relative;
+    overflow: hidden;
 }
 
-.municipality-mandate-button-option-content:hover {
-    transform: scale(1.03);
+/* Shine effect */
+.municipality-mandate-button-option-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.25),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover + active (open state) */
+.municipality-mandate-button-option-content:hover,
+.municipality-mandate-button-option-content.active {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.1),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    border-color: #ccc;
+}
+
+/* Shine animation */
+.municipality-mandate-button-option-content:hover::after,
+.municipality-mandate-button-option-content.active::after {
+    left: 130%;
+}
+
+/* Active click state */
+.municipality-mandate-button-option-content:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .municipality-mandate-option-menu .dropdown-item {
@@ -212,12 +295,6 @@
         text-align: center;
     }
 
-    .municipality-mandate-add-button {
-        width: 150px;
-        padding: 8px 16px;
-        font-size: 12px;
-    }
-
     .mandate-image {
         width: 100%;
         height: auto;
@@ -239,3 +316,5 @@
         margin-top: 120px;
     }
 }
+
+

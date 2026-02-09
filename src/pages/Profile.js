@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCamera,
     faPenToSquare,
-    faLock,
     faPlus,
     faChevronLeft
 } from '@fortawesome/free-solid-svg-icons';
@@ -160,8 +159,8 @@ function Profile() {
 
                        <div className="detail-row password-row">
                             <span className="label">{t("profile.password")}:</span>
-                            <Link className="edit-password-btn" to="/profile/change-password-form">
-                                {t("profile.change")} <FontAwesomeIcon icon={faLock} />
+                            <Link className="bio-action-btn" to="/profile/change-password-form">
+                                <FontAwesomeIcon icon={faPenToSquare} />
                             </Link>
                         </div>
                     </div>

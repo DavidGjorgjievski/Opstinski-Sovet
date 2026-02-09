@@ -1,17 +1,385 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    padding-top: 60px;
+.add-form-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: 140px;
+    padding: 10px 20px;
+
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+
+    cursor: pointer;
+    user-select: none;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+
+    position: relative;
+    overflow: hidden;
 }
 
-/* html {
-    overflow-x: hidden;
-    overscroll-behavior-x: none;
-    touch-action: pan-y;
-} */
+/* Icon animation */
+.add-form-back-button .back-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.25s ease;
+}
+
+/* Hover state */
+.add-form-back-button:hover {
+    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Icon slides left on hover */
+.add-form-back-button:hover .back-icon {
+    transform: translateX(-4px);
+}
+
+/* Active state */
+.add-form-back-button:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus accessibility */
+.add-form-back-button:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(251, 230, 78, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.12);
+}
 
 
+.add-form-submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: 140px;
+    padding: 10px 20px;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect */
+.add-form-submit-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover animation */
+.add-form-submit-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.add-form-submit-button:hover::after {
+    left: 130%;
+}
+
+/* Active click effect */
+.add-form-submit-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.entity-add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 170px;
+    padding: 10px 20px;
+
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    border: none;
+    border-radius: 16px;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect */
+.entity-add-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover state */
+.entity-add-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Shine animation on hover */
+.entity-add-button:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.entity-add-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .entity-add-button {
+        width: 140px;
+        padding: 8px 16px;
+        font-size: 14px;
+        gap: 6px;
+    }
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 16px;
+    min-width: 100px;
+
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+
+    cursor: pointer;
+    user-select: none;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+}
+
+/* Icon animation */
+.back-button .back-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.25s ease;
+}
+
+/* Hover */
+.back-button:hover {
+    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.back-button:hover .back-icon {
+    transform: translateX(-4px);
+}
+
+/* Active */
+.back-button:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus (accessibility) */
+.back-button:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(251, 230, 78, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Text */
+.back-button .back-text {
+    white-space: nowrap;
+}
 
 
+.wide-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-decoration: none;
+    padding: 6px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    color: black;
+    cursor: pointer;
+    user-select: none;
 
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+}
+
+/* Hover */
+.wide-back-button:hover {
+    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+    border-color: #ccc;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Active */
+.wide-back-button:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus */
+.wide-back-button:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(251, 230, 78, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.btn-delete-modal {
+    background: linear-gradient(135deg, #ff4d4f, #d9363e);
+    color: white;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(.4, 0, .2, 1);
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.btn-cancel-modal {
+    background: linear-gradient(135deg, #f1f3f5, #e9ecef);
+    color: #333;
+    border: 1px solid #dee2e6;
+    padding: 10px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(.4, 0, .2, 1);
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Hover effects */
+.btn-delete-modal:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 18px rgba(217, 54, 62, 0.35);
+}
+
+.btn-cancel-modal:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Active (press) */
+.btn-delete-modal:active,
+.btn-cancel-modal:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus accessibility */
+.btn-delete-modal:focus-visible,
+.btn-cancel-modal:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(255, 77, 79, 0.3);
+}

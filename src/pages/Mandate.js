@@ -112,7 +112,7 @@ const handleDeleteConfirm = async () => {
                     <div className="mandate-header">
                         <h1 className="mandate-header-title">{t('mandate.title')}</h1>
                         <button 
-                            className="mandate-add-button" 
+                            className="entity-add-button" 
                             onClick={() => navigate('/mandate/add-form')}
                         >
                             {t('mandate.addButton')} <FontAwesomeIcon icon={faPlus} />
@@ -153,7 +153,10 @@ const handleDeleteConfirm = async () => {
                                             </div>
 
                                             <div className="mandate-options">
-                                                <button className="options-btn" onClick={() => toggleMenu(mandate.id)}>
+                                               <button 
+                                                    className={`options-btn ${openMenuId === mandate.id ? 'open' : ''}`} 
+                                                    onClick={() => toggleMenu(mandate.id)}
+                                                >
                                                     <FontAwesomeIcon icon={faEllipsisV} />
                                                 </button>
 

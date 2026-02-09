@@ -43,25 +43,6 @@
     margin-bottom: 0px;
 }
 
-.municipality-add-button {
-    background-color: #fbe64e;
-    width: 210px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 0px solid white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.municipality-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
-
 .grid-container {
     display: grid;
     gap: 20px;
@@ -69,7 +50,7 @@
     margin-top: 10px;
     width: 100%;
     padding: 0 20px;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
 }
 
 .grid-container.size-4up {
@@ -153,7 +134,6 @@
     border-color: rgb(174, 159, 159);
 }
 
-
 .municipality-info {
     padding: 0 8px 8px 8px;
     flex: 1;
@@ -176,38 +156,147 @@
 }
 
 .button-see-content {
-    background-color: #fbe64e;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: auto;
     padding: 6px 8px;
+    /* stays the same */
     font-size: 14px;
     font-weight: 500;
-    border-radius: 10px;
+
     border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
     cursor: pointer;
     text-decoration: none;
-    color: black;
     border: 2px solid #fbe64e;
-    display: inline-block;
-    transition: background-color 0.1s, transform 0.1s;
+
+    /* REMOVE inset shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    position: relative;
+    overflow: hidden;
 }
 
+/* Shine effect */
+.button-see-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover state */
 .button-see-content:hover {
-    background-color: #f7db2c;
-    border: 2px solid #f7db2c;
-    transform: scale(1.03);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: #f7db2c;
 }
 
-.button-option-content{
-    border: 2px solid #ddd;
-    background-color: white;
-    border-radius: 10px;
-    font-size: 14px;
+/* Shine animation on hover */
+.button-see-content:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.button-see-content:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-option-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    /* optional, for icons */
+
     padding: 6px 8px;
+    /* stays the same */
+    font-size: 14px;
     font-weight: 500;
-    transition: background-color 0.1s, transform 0.1s;
+
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    /* slightly more modern rounding */
+    background-color: #fff;
+    color: #222;
+
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
 }
 
-.button-option-content:hover{
-    transform: scale(1.03);
+/* Optional subtle shine for hover (like add buttons) */
+.button-option-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.25),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover effect */
+.button-option-content:hover {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.1),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    border-color: #ccc;
+}
+
+/* Shine animation on hover */
+.button-option-content:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.button-option-content:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.button-option-content:hover,
+.button-option-content.active {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.1),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    border-color: #ccc;
+}
+
+/* Shine effect stays the same for active */
+.button-option-content.active::after {
+    left: 130%;
 }
 
 .municipality-buttons>div {
@@ -217,8 +306,6 @@
 .municipality-buttons>div {
     width: 50%;
 }
-
-    
 
 .button-see-content,
 .button-option-content {
@@ -284,19 +371,13 @@
 
 .municipality-item.user-municipality {
     border: 2px solid #fbe64e;
-    /* gold border */
     background-color: rgba(251, 230, 78, 0.15);
-    /* subtle gold background */
 }
 
 @media (max-width: 768px) {
     .municipality-header-title {
         font-size: 2.5rem;
         margin-bottom: 0px;
-    }
-
-    .municipality-add-button {
-        font-size: 13px;
     }
 
     .admin-dropdown {
@@ -341,12 +422,5 @@
     .municipality-button-size {
             font-size: 13px !important;
         }
-}
-
-@media (max-width: 340px) {
-
-    .municipality-add-button {
-        font-size: 12px;
-    }
 }
 

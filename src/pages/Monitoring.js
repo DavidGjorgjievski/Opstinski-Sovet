@@ -95,7 +95,7 @@ function Monitoring() {
                     {/* Custom Dropdown */}
                     <div className="monitoring-filter-wrapper" ref={dropdownRef}>
                         <div 
-                            className="monitoring-filter-selected" 
+                            className={`monitoring-filter-selected ${dropdownOpen ? 'active' : ''}`}
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                         >
                             {selectedOption.icon && <span className="filter-icon">{selectedOption.icon}</span>}

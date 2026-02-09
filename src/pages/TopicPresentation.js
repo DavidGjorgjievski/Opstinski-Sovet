@@ -121,13 +121,17 @@ const TopicPresentation = () => {
         />        
 
         <button
-          className="back-button-presenter"
+          className="back-button"
           onClick={() =>
             navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)
           }
         >
-          <FontAwesomeIcon icon={faChevronLeft} />{" "}
-          {t("topicsPage.backButton")}
+          <span className="back-icon">
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </span>
+          <span className="back-text">
+            {t("topicsPage.backButton")}
+          </span>
         </button>
 
         <div className="toggle-container">

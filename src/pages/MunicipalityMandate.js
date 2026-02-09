@@ -13,7 +13,7 @@ import api from '../api/axios';
 function MunicipalityMandate() {
  const { t } = useTranslation();
 const navigate = useNavigate();
-const { id } = useParams();
+const { municipalityId } = useParams();
 const [municipalityTerms, setMunicipalityTerms] = useState([]);
 const [openMenuId, setOpenMenuId] = useState(null);
 const [loading, setLoading] = useState(true);
@@ -35,7 +35,7 @@ const [selectedMandate, setSelectedMandate] = useState(null);
 useEffect(() => {
   const fetchMunicipalityTerms = async () => {
     setLoading(true);
-    const cacheKey = `municipalityMandates_${id}`;
+    const cacheKey = `municipalityMandates_${municipalityId}`;
     const cachedData = localStorage.getItem(cacheKey);
 
     if (cachedData) {
@@ -45,7 +45,7 @@ useEffect(() => {
     }
 
     try {
-      const response = await api.get(`/api/municipality-terms/municipality/${id}`);
+      const response = await api.get(`/api/municipality-terms/municipality/${municipalityId}`);
       const data = response.data || [];
       setMunicipalityTerms(data);
       localStorage.setItem(cacheKey, JSON.stringify(data));
@@ -57,7 +57,7 @@ useEffect(() => {
   };
 
   fetchMunicipalityTerms();
-}, [id]);
+}, [municipalityId]);
 
 // Close dropdown when clicking outside
 useEffect(() => {
@@ -96,7 +96,7 @@ const confirmDeleteMandate = async () => {
     setMunicipalityTerms(updatedTerms);
 
     // Update cache
-    localStorage.setItem(`municipalityMandates_${id}`, JSON.stringify(updatedTerms));
+    localStorage.setItem(`municipalityMandates_${municipalityId}`, JSON.stringify(updatedTerms));
   } catch (error) {
     console.error('Error deleting mandate:', error);
   } finally {
@@ -117,19 +117,24 @@ const confirmDeleteMandate = async () => {
       <Header isSticky={true} />
 
       <main className={`municipality-mandate-body-container ${municipalityTerms.length === 2 ? 'two-mandates' : ''}`}>
-  <div className="municipality-mandate-header">
-    <h1 className="municipality-mandate-header-title">
-      {t('MunicipalityMandate.mandateTitle')}
-    </h1>
-    {userInfo.role === 'ROLE_ADMIN' && (
-      <button
-        className="municipality-mandate-add-button"
-        onClick={() => navigate(`/municipalities/${id}/mandates/add-form`)}
-      >
-        {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
-      </button>
-    )}
-  </div>
+        <div className="municipality-mandate-header">
+          <h1 className="municipality-mandate-header-title">
+            {t('MunicipalityMandate.mandateTitle')}
+          </h1>
+
+          {userInfo.role === 'ROLE_ADMIN' && (
+            <div className="municipality-mandate-add-wrapper">
+              <button
+                className="entity-add-button"
+                onClick={() => navigate(`/municipalities/${municipalityId}/mandates/add-form`)}
+              >
+                {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
+              </button>
+            </div>
+          )}
+        </div>
+
+
 
   {/* Spinner under header */}
   {loading && (
@@ -168,7 +173,7 @@ const confirmDeleteMandate = async () => {
                   <button
                     className="mandate-view-button"
                     onClick={() =>
-                      navigate(`/municipalities/${id}/mandates/users/${item.id}`)
+                      navigate(`/municipalities/${municipalityId}/mandates/users/${item.id}`)
                     }
                   >
                     {t('MunicipalityMandate.view')} <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -180,12 +185,14 @@ const confirmDeleteMandate = async () => {
                       ref={(el) => (menuRefs.current[item.id] = el)}
                     >
                       <button
-                        className="municipality-mandate-button-option-content"
+                        className={`municipality-mandate-button-option-content ${
+                          openMenuId === item.id ? "active" : ""
+                        }`}
                         onClick={() =>
                           setOpenMenuId(openMenuId === item.id ? null : item.id)
                         }
                       >
-                        {t('MunicipalityMandate.options')}{' '}
+                        {t('MunicipalityMandate.options')}
                         <FontAwesomeIcon
                           icon={openMenuId === item.id ? faChevronUp : faChevronDown}
                         />
@@ -196,7 +203,7 @@ const confirmDeleteMandate = async () => {
                           <button
                             className="dropdown-item"
                             onClick={() =>
-                              navigate(`/municipalities/${id}/mandates/edit/${item.id}`)
+                              navigate(`/municipalities/${municipalityId}/mandates/edit/${item.id}`)
                             }
                           >
                             <FontAwesomeIcon icon={faPenToSquare} /> {t('MunicipalityMandate.edit')}

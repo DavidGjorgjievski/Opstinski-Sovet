@@ -74,7 +74,6 @@
     font-weight: 600;
 }
 
-
 .error-message {
     margin-top: 10px;
     padding: 10px;
@@ -94,41 +93,6 @@
     text-align: center;
     font-size: 14px;
 }
-
-.button-change-image-submit,
-.button-change-image-back {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.button-change-image-submit {
-    background-color: #fde047;
-    color: black;
-}
-
-.button-change-image-submit:hover {
-    background-color: #facc15;
-    transform: scale(1.03);
-}
-
-.button-change-image-back {
-    background-color: #ffffff;
-    border: 1px solid #dedede;
-    color: black;
-    text-decoration: none;
-}
-
-.button-change-image-back:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.03);
-}
-
-
 
 @media (max-width: 600px) {
     .change-image-body-container h2 {
@@ -163,13 +127,6 @@
     .file-drop-message-image {
         font-size: 14px;
     }
-
-    .button-change-image-submit,
-    .button-change-image-back {
-        font-size: 13px;
-        padding: 12px;
-        text-align: center;
-    }
 }
 
 @keyframes fadeIn {
@@ -183,8 +140,6 @@
         transform: translateY(0);
     }
 }
-
-
 
  .change-image-container {
      display: flex;
@@ -255,42 +210,6 @@
      font-weight: bold;
  }
 
- .button-change-image-submit {
-     background-color: #fbe64e;
-     border: none;
-     border-radius: 10px;
-     padding: 10px 20px;
-     color: black;
-     font-weight: 500;
-     font-size: 14px;
-     cursor: pointer;
-     transition: background-color 0.1s, transform 0.1s;
- }
-
- .button-change-image-submit:hover {
-     background-color: #f7db2c;
-     transform: scale(1.03);
- }
-
- .button-change-image-back {
-     background-color: white;
-     padding: 8px 18px;
-     font-size: 14px;
-     border: 1px solid #ddd;
-     font-weight: 500;
-     text-align: center;
-     border-radius: 10px;
-     color: black;
-     cursor: pointer;
-     transition: background-color 0.1s, transform 0.1s;
- }
-
- .button-change-image-back:hover {
-     background-color: #ddd;
-     transform: scale(1.03);
- }
-
- /* 📱 MOBILE RESPONSIVE — SAME LOGIC AS CHANGE PASSWORD */
  @media (max-width: 600px) {
      .change-image-title {
          font-size: 1.5rem !important;
@@ -300,10 +219,5 @@
  @media (max-width: 500px) {
      .change-image-body {
          width: 95vw;
-     }
-
-     .button-change-image-submit,
-     .button-change-image-back {
-         font-size: 13px;
      }
  }

@@ -18,10 +18,10 @@ function MunicipalityConfirmModal({ show, onClose, onConfirm, municipalityName }
                 <p>{t("MunicipalityModal.message")}</p>
                 <p><strong>{municipalityName}</strong>?</p>
                 <div className="municipality-modal-actions">
-                <button className="municipality-btn municipality-btn-danger" onClick={onConfirm}>
+                <button className="btn-delete-modal" onClick={onConfirm}>
                     {t("MunicipalityModal.delete")}
                 </button>
-                <button className="municipality-btn municipality-btn-secondary" onClick={onClose}>
+                <button className="btn-cancel-modal" onClick={onClose}>
                     {t("MunicipalityModal.cancel")}
                 </button>
                 </div>

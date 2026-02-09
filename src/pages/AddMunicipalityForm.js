@@ -9,31 +9,32 @@ import { faPenToSquare, faPlus, faChevronLeft, faImage } from '@fortawesome/free
 import api from '../api/axios'; // Axios instance
 
 function AddMunicipalityForm() {
-    const { id } = useParams(); // For edit mode
+    const { municipalityId } = useParams(); // For edit mode
     const [name, setName] = useState('');
     const [logo, setLogo] = useState(null);
     const [flag, setFlag] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const isEditMode = !!id;
+    const isEditMode = !!municipalityId;
     const { t } = useTranslation();
 
     useEffect(() => {
         if (isEditMode) {
             const fetchMunicipality = async () => {
                 try {
-                    const response = await api.get(`/api/municipalities/${id}`);
+                    const response = await api.get(`/api/municipalities/${municipalityId}`);
                     const data = response.data;
                     setName(data.name || '');
-                    // Optionally, handle existing logo/flag preview if needed
                 } catch (err) {
                     console.error('Error fetching municipality:', err);
                     setError('Имаше грешка при вчитување на општината.');
                 }
             };
+
             fetchMunicipality();
         }
-    }, [id, isEditMode]);
+    }, [municipalityId, isEditMode]);
+
 
     const handleNameChange = (e) => setName(e.target.value);
     const handleLogoChange = (e) => setLogo(e.target.files[0]);
@@ -59,7 +60,7 @@ function AddMunicipalityForm() {
         if (flag) formData.append('flag', flag);
 
         try {
-            const url = isEditMode ? `/api/municipalities/${id}` : '/api/municipalities';
+            const url = isEditMode ? `/api/municipalities/${municipalityId}` : '/api/municipalities';
             const method = isEditMode ? 'put' : 'post';
             const response = await api({
                 method,
@@ -159,18 +160,20 @@ function AddMunicipalityForm() {
                                 </div>
 
                                 <div className="mt-3 d-flex">
-                                    <button type="submit" className="me-2 municipality-form-add-button">
+                                    <button type="submit" className="me-2 add-form-submit-button">
                                         {isEditMode ? t("addMunicipality.submitEdit") : t("addMunicipality.submitAdd")}
                                         <FontAwesomeIcon icon={isEditMode ? faPenToSquare : faPlus} className="ms-2" />
                                     </button>
-                                    <button
+                                  <button
                                         type="button"
-                                        className="municipality-form-back-button-topic"
+                                        className="add-form-back-button"
                                         onClick={() => navigate('/municipalities')}
                                     >
-                                        <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
-                                        {t("addMunicipality.back")}
-                                    </button>
+                                        <span className="back-icon">
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </span>
+                                        {t('addMandate.back')}
+                                    </button> 
                                 </div>
                             </form>
                         </div>

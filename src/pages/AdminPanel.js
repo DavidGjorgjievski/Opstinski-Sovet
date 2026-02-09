@@ -230,7 +230,7 @@ function AdminPanel() {
                     </div>
                     <h1 className="admin-title">{t("adminPanel.allUsers")}</h1>
                     <a href="/admin-panel/add-form">
-                        <button className="user-add-button">{t("adminPanel.addUserButton")} <FontAwesomeIcon icon={faPlus} /></button>
+                        <button className="entity-add-button">{t("adminPanel.addUserButton")} <FontAwesomeIcon icon={faPlus} /></button>
                     </a>
                 </div>
 

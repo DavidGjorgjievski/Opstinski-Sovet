@@ -41,7 +41,7 @@ const SessionExpiredModal = () => {
           </strong>
         </p>
         <button
-          className="sem-close-btn"
+          className="btn-delete-modal"
           onClick={() => {
             closeModal();
             window.location.href = '/login';

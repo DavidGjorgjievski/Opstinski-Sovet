@@ -10,7 +10,7 @@ import api from '../api/axios';
 
 function MunicipalityMandateUsers() {
 const { t } = useTranslation();
-const { id, mandateId } = useParams();
+const { municipalityId, mandateId } = useParams();
 const navigate = useNavigate();
 const [users, setUsers] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -61,7 +61,7 @@ useEffect(() => {
         {/* Header */}
         <div className="municipality-mandate-users-header">
           <div className="header-section">
-            <button className="municipality-mandate-users-back-button" onClick={() => navigate(-1)}>
+            <button className="back-button" onClick={() => navigate(-1)}>
                 <span className="back-icon">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </span>
@@ -81,7 +81,7 @@ useEffect(() => {
              {userData.role === 'ROLE_ADMIN' && (
                   <button
                     className="municipalaty-mandate-users-view-button"
-                    onClick={() => navigate(`/municipalities/${id}/mandates/users/${mandateId}/add-list`)}
+                    onClick={() => navigate(`/municipalities/${municipalityId}/mandates/users/${mandateId}/add-list`)}
                   >
                     {t('MunicipalityMandateUsers.edit')} <FontAwesomeIcon icon={faUserPen} />
                   </button> 

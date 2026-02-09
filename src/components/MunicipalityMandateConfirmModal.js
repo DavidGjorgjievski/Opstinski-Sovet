@@ -16,10 +16,10 @@ function MunicipalityMandateConfirmModal({ show, onClose, onConfirm, mandateName
                 <p className="mm-modal-mandate-name"><strong>{mandateName}</strong>?</p>
 
                 <div className="mm-modal-actions">
-                    <button className="mm-btn mm-btn-danger" onClick={onConfirm}>
+                    <button className="btn-delete-modal" onClick={onConfirm}>
                         {t("municipalityMandateModal.deleteButton")}
                     </button>
-                    <button className="mm-btn mm-btn-secondary" onClick={onClose}>
+                    <button className="btn-cancel-modal" onClick={onClose}>
                         {t("municipalityMandateModal.cancelButton")}
                     </button>
                 </div>

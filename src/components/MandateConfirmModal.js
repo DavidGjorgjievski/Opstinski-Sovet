@@ -17,10 +17,10 @@ function MandateConfirmModal({ show, onClose, onConfirm, mandateName }) {
                 <p><strong>{mandateName}</strong>?</p>
 
                 <div className="session-modal-actions">
-                    <button className="session-btn session-btn-danger" onClick={onConfirm}>
+                    <button className="btn-delete-modal" onClick={onConfirm}>
                         {t("mandateModal.deleteButton")}
                     </button>
-                    <button className="session-btn session-btn-secondary" onClick={onClose}>
+                    <button className="btn-cancel-modal" onClick={onClose}>
                         {t("mandateModal.cancelButton")}
                     </button>
                 </div>

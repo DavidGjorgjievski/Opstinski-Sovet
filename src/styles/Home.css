@@ -35,22 +35,68 @@
 }
 
 .municipality-nav-button {
-    background-color: #fbe64e;
-    width: 180px;
-    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 190px;
+    padding: 12px 22px;
+
     font-size: 16px;
-    border: 0px solid white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    border: none;
+    border-radius: 16px;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
     cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
 }
 
+/* Shine effect */
+.municipality-nav-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover state */
 .municipality-nav-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Shine animation on hover */
+.municipality-nav-button:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.municipality-nav-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {

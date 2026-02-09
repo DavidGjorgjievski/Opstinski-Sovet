@@ -4,14 +4,14 @@ import Header from '../components/Header';
 import '../styles/AddMunicipalityMandateForm.css';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faPlus, faImage, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faPlus, faImage, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/axios';
 
 function AddMunicipalityMandateForm() {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { id, mandateId } = useParams(); 
+    const { municipalityId, mandateId } = useParams(); 
     const isEditMode = Boolean(mandateId);
     const [mandate, setMandate] = useState('');
     const [municipality, setMunicipality] = useState('');
@@ -29,10 +29,10 @@ function AddMunicipalityMandateForm() {
     // Load municipality
     useEffect(() => {
         const municipalities = JSON.parse(localStorage.getItem('municipalities')) || [];
-        const current = municipalities.find(m => m.id === Number(id));
+        const current = municipalities.find(m => m.id === Number(municipalityId));
         if (current) setMunicipality(current.name);
         else setError(t('AddMunicipalityMandate.errorFetchingMunicipality'));
-    }, [id, t]);
+    }, [municipalityId, t]);
 
     // Load term info + image if edit mode
     useEffect(() => {
@@ -81,7 +81,7 @@ function AddMunicipalityMandateForm() {
                     new Date(current.startDate) > new Date(latest.startDate) ? current : latest
                 );
                 
-                formData.append("municipalityId", id);
+                formData.append("municipalityId", municipalityId);
                 formData.append("termId", newestMandate.id);
             }
 
@@ -101,13 +101,13 @@ function AddMunicipalityMandateForm() {
             });
 
             // Refresh from backend after saving
-            const updatedTermsResponse = await api.get(`/api/municipality-terms/municipality/${id}`, {
+            const updatedTermsResponse = await api.get(`/api/municipality-terms/municipality/${municipalityId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
             localStorage.setItem('municipalityTerms', JSON.stringify(updatedTermsResponse.data));
 
-            navigate(`/municipalities/${id}/mandates`);
+            navigate(`/municipalities/${municipalityId}/mandates`);
         } catch (err) {
             console.error(err);
             setError(t('AddMunicipalityMandate.errorSubmit'));
@@ -167,17 +167,19 @@ function AddMunicipalityMandateForm() {
                         </div>
 
                         <div className="mt-3 d-flex form-buttons-wrapper">
-                            <button type="submit" className="me-2 municipality-form-add-button">
+                            <button type="submit" className="me-2 add-form-submit-button">
                                 {isEditMode ? t('AddMunicipalityMandate.saveButton') : t('AddMunicipalityMandate.submitButton')}
                                 <FontAwesomeIcon icon={isEditMode ? faPenToSquare : faPlus} className="ms-2" />
                             </button>
 
-                            <button
+                           <button
                                 type="button"
-                                className="municipality-form-back-button-topic"
-                                onClick={() => navigate(`/municipalities/${id}/mandates`)}
+                                className="add-form-back-button"
+                                onClick={() => navigate(`/municipalities/${municipalityId}/mandates`)}
                             >
-                                <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                                <span className="back-icon">
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                </span>
                                 {t('AddMunicipalityMandate.backButton')}
                             </button>
                         </div>

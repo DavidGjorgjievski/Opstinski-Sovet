@@ -31,7 +31,7 @@ function RestartTopicStatusModal({ isOpen, onClose, onConfirm, topicTitle }) {
                     <button onClick={onConfirm} className="top-confirm-button">
                         {t("restartTopicModal.confirm")}
                     </button>
-                    <button onClick={onClose} className="top-cancel-button">
+                    <button onClick={onClose} className="btn-cancel-modal top-cancel-button">
                         {t("restartTopicModal.cancel")}
                     </button>
                 </div>

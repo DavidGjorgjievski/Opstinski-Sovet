@@ -152,7 +152,7 @@
 
   "Municipality": {
     "municipalitiesTitle": "Општини",
-    "addMunicipalityButton": "Додади Општина",
+    "addMunicipalityButton": "Додади",
     "view": "Преглед",
     "options": "Опции",
     "mandates": "Мандати",
@@ -265,7 +265,7 @@
     "incorrectCurrent": "Погрешна сегашна лозинка.",
     "generalError": "Нешто не е во ред при промената на лозинката.",
     "success": "Лозинката е променета успешно.",
-    "submit": "Промени лозинка",
+    "submit": "Промени",
     "back": "Назад"
   },
 
@@ -286,7 +286,7 @@
     "back":"Назад",
     "title": "Седници",
     "subtitle": "Секоја седница ги вклучува членовите на советот.",
-    "add": "Додади Седница",
+    "add": "Додади",
     "view": "Преглед",
     "edit": "Уреди",
     "delete": "Избриши",
@@ -327,7 +327,7 @@
     "adminPanelTitle": "Админ Панел",
     "backButton": "Назад",
     "allUsers": "Сите корисници",
-    "addUserButton": "Додади корисник",
+    "addUserButton": "Додади",
     "admins": "Админи",
     "presidents": "Претседатели",
     "councilors": "Советници",
@@ -426,7 +426,7 @@
     "pageTitle": "Точки",
     "headerTitle": "Точки",
     "backButton": "Назад",
-    "addTopicButton": "Додади Точка",
+    "addTopicButton": "Додади",
     "present": "Презентирај",
     "newTopicBefore": "Нова точка",
     "newTopicAfter": "Нова точка",

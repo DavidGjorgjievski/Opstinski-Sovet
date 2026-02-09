@@ -72,12 +72,12 @@ function ForgotPassword() {
                         required
                     />
 
-                    <button className="fp-submit" disabled={loading}>
+                    <button className="login-button" disabled={loading}>
                         {loading ? t("forgot.sending") : t("forgot.sendButton")}
                     </button>
                 </form>
 
-                <button className="fp-back" onClick={() => navigate("/login")}>
+                <button className="guest-button" onClick={() => navigate("/login")}>
                     {t("forgot.backToLogin")}
                 </button>
 

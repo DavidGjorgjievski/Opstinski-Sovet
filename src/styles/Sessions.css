@@ -89,25 +89,6 @@ html{
     align-items: flex-end;
     justify-content: flex-end;
 }
-.session-add-button {
-    background-color: #fbe64e;
-    width: 180px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 0px solid white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-    margin-top: 10px;
-}
-
-.session-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
 
 /* Base styles for session grid */
 .session-grid-container {
@@ -231,76 +212,6 @@ html{
     position: relative;
 }
 
-.session-back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 6px 16px;
-    min-width: 100px;
-
-    background: linear-gradient(135deg, #ffffff, #f7f7f7);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 10px;
-
-    font-size: 14px;
-    font-weight: 600;
-    color: #222;
-
-    cursor: pointer;
-    user-select: none;
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-
-    transition:
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.15s ease;
-}
-
-/* Icon animation */
-.session-back-button .back-icon {
-    display: flex;
-    align-items: center;
-    transition: transform 0.25s ease;
-}
-
-
-
-/* Hover */
-.session-back-button:hover {
-    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
-    box-shadow:
-        0 6px 14px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
-}
-
-.session-back-button:hover .back-icon {
-    transform: translateX(-4px);
-}
-
-/* Active (click feedback) */
-.session-back-button:active {
-    transform: translateY(0) scale(0.97);
-    box-shadow:
-        0 3px 8px rgba(0, 0, 0, 0.12);
-}
-
-/* Keyboard accessibility */
-.session-back-button:focus-visible {
-    outline: none;
-    box-shadow:
-        0 0 0 3px rgba(251, 230, 78, 0.45),
-        0 4px 10px rgba(0, 0, 0, 0.12);
-}
-
-/* Text spacing */
-.session-back-button .back-text {
-    white-space: nowrap;
-}
-
 .export-loading-spinner {
     display: flex;
     justify-content: center;
@@ -320,27 +231,6 @@ html{
 }
 
 .button-option-content:hover{
-    transform: scale(1.03);
-}
-
-.button-see-content {
-    background-color: #fbe64e;
-    padding: 8px 10px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-    border: 2px solid #fbe64e;
-    display: inline-block;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.button-see-content:hover {
-    background-color: #f7db2c;
-    border: 2px solid #f7db2c;
     transform: scale(1.03);
 }
 
@@ -435,9 +325,6 @@ html{
     .session-header-title {
         font-size: 2.5rem;
     }
-    .session-add-button{
-        font-size: 14px;
-    }
 
     .admin-dropdown{
         right: 8px;
@@ -463,11 +350,7 @@ html{
 }
 
 @media (max-width: 370px) {
-   
-    .session-add-button {
-        font-size: 13px;
-    }
-
+    
     .admin-dropdown {
         right: 6.5px;
         min-width: 100px;

@@ -500,7 +500,7 @@ useEffect(() => {
                                     <div className="mt-3 d-flex flex-start">
                                         <button
                                             type="submit"
-                                            className="topic-form-submit-button me-2"
+                                            className="add-form-submit-button me-2"
                                         >
                                             {idt && !isAddAfter && !isAddBefore ? (
                                                 <>
@@ -517,14 +517,18 @@ useEffect(() => {
 
                                         <button
                                             type="button"
-                                            className="topic-form-back-button"
-                                            onClick={() => navigate(
-                                                idt
-                                                    ? `/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`
-                                                    : `/municipalities/${municipalityId}/sessions/${id}/topics`
-                                            )}
+                                            className="add-form-back-button"
+                                            onClick={() =>
+                                                navigate(
+                                                    idt
+                                                        ? `/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`
+                                                        : `/municipalities/${municipalityId}/sessions/${id}/topics`
+                                                )
+                                            }
                                         >
-                                            <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+                                            <span className="back-icon">
+                                                <FontAwesomeIcon icon={faChevronLeft} />
+                                            </span>
                                             {t("addTopicForm.back")}
                                         </button>
                                     </div>

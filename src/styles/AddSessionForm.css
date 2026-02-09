@@ -103,54 +103,10 @@
     border-radius: 10px !important;
 }
 
-/* --- Buttons --- */
-.session-form-submit-button {
-    background-color: #fbe64e;
-    width: 140px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.session-form-submit-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
-
-.session-form-back-button {
-    background-color: white;
-    width: 140px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.session-form-back-button:hover {
-    background-color: #ddd;
-    transform: scale(1.03);
-}
-
 /* Responsive tweaks */
 @media (max-width: 768px) {
     .add-session-body-container {
         width: 95% !important;
-    }
-
-    .session-form-submit-button,
-    .session-form-back-button {
-        font-size: 13.5px !important;
     }
 }
 
@@ -161,13 +117,6 @@
 }
 
 @media (max-width: 380px) {
-
-    .session-form-submit-button,
-    .session-form-back-button {
-        font-size: 13px !important;
-        padding: 8px 12px;
-    }
-
     .add-session-header-div h1 {
         font-size: 1.8rem;
     }

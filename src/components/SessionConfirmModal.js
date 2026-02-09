@@ -18,10 +18,10 @@ function SessionConfirmModal({ show, onClose, onConfirm, sessionName }) {
                 <p><strong>{sessionName}</strong>?</p>
 
                 <div className="session-modal-actions">
-                    <button className="session-btn session-btn-danger" onClick={onConfirm}>
+                    <button className="btn-delete-modal" onClick={onConfirm}>
                         {t("sessionModal.deleteButton")}
                     </button>
-                    <button className="session-btn session-btn-secondary" onClick={onClose}>
+                    <button className="btn-cancel-modal" onClick={onClose}>
                         {t("sessionModal.cancelButton")}
                     </button>
                 </div>

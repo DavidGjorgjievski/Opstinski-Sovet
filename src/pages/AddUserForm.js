@@ -369,16 +369,18 @@ function AddUserForm() {
 
               {/* Buttons */}
               <div className="mt-4 d-flex">
-                <button type="submit" className="me-2 user-form-submit-button">
+                <button type="submit" className="me-2 add-form-submit-button">
                   {isEditMode ? t("editUserForm.editUser") : t("addUserForm.addUser")} 
                   <FontAwesomeIcon icon={faUserPlus} className="ms-2" />
                 </button>
                 <button
                   type="button"
-                  className="user-form-back-button"
+                  className="add-form-back-button"
                   onClick={() => navigate("/admin-panel")}
                 >
-                  <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+                  <span className="back-icon">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </span>
                   {t("addUserForm.back")}
                 </button>
               </div>

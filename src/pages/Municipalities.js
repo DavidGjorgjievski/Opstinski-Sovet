@@ -199,7 +199,7 @@ function Municipalities() {
                 {userInfo.role === 'ROLE_ADMIN' && (
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
-                            <button className="municipality-add-button">
+                            <button className="entity-add-button">
                                 {t('Municipality.addMunicipalityButton')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
@@ -261,8 +261,10 @@ function Municipalities() {
                                                     </Link>
                                                 </div>
                                                 <div className="admin-dropdown-wrapper">
-                                                    <button
-                                                        className="button-option-content municipality-button-size"
+                                                   <button
+                                                        className={`button-option-content municipality-button-size ${
+                                                            openMenuId === municipality.id ? "active" : ""
+                                                        }`}
                                                         onClick={() =>
                                                             setOpenMenuId(openMenuId === municipality.id ? null : municipality.id)
                                                         }
@@ -270,7 +272,6 @@ function Municipalities() {
                                                         {t('Municipality.options')}{" "}
                                                         <FontAwesomeIcon icon={openMenuId === municipality.id ? faChevronUp : faChevronDown} />
                                                     </button>
-
                                                     {openMenuId === municipality.id && (
                                                         <div className="admin-dropdown">
                                                             <Link

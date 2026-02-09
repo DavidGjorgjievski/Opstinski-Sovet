@@ -146,53 +146,10 @@
     transform: scale(1.03);
 }
 
-.user-form-submit-button {
-    background-color: #fbe64e;
-    width: 145px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.user-form-submit-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
-
-.user-form-back-button {
-    background-color: white;
-    width: 145px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-}
-
-.user-form-back-button:hover {
-    background-color: #ddd;
-    transform: scale(1.03);
-}
-
 /* Responsive tweaks */
 @media (max-width: 768px) {
     .add-user-form-body-container {
         width: 95% !important;
-    }
-
-    .user-form-submit-button,
-    .user-form-back-button {
-        font-size: 13.5px !important;
     }
 }
 
@@ -203,13 +160,6 @@
 }
 
 @media (max-width: 380px) {
-
-    .user-form-submit-button,
-    .user-form-back-button {
-        font-size: 13px !important;
-        padding: 8px 12px;
-    }
-
     .add-user-header-div h1 {
         font-size: 1.8rem;
     }

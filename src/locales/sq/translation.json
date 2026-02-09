@@ -152,7 +152,7 @@
 
   "Municipality": {
     "municipalitiesTitle": "Komunat",
-    "addMunicipalityButton": "Shto Komunë",
+    "addMunicipalityButton": "Shto",
     "view": "Shiko",
     "options": "Opsione",
     "mandates": "Mandatet",
@@ -265,7 +265,7 @@
     "incorrectCurrent": "Fjalëkalimi aktual është i pasaktë.",
     "generalError": "Diçka shkoi keq gjatë ndryshimit të fjalëkalimit.",
     "success": "Fjalëkalimi u ndryshua me sukses.",
-    "submit": "Ndrysho fjalëkalimin", 
+    "submit": "Ndrysho", 
     "back": "Kthehu"
   },
 
@@ -286,7 +286,7 @@
     "back":"Kthehu",
     "title": "Seancat",
     "subtitle": "Çdo seancë përfshin anëtarët e këshillit.",
-    "add": "Shto Seancë",
+    "add": "Shto",
     "view": "Shiko",
     "edit": "Ndrysho",
     "delete": "Fshi",
@@ -327,7 +327,7 @@
     "adminPanelTitle": "Paneli i Administratorit",
     "backButton": "Kthehu",
     "allUsers": "Të gjithë përdoruesit",
-    "addUserButton": "Shto përdorues",
+    "addUserButton": "Shto",
     "admins": "Administratorë",
     "presidents": "Presidentë",
     "councilors": "Këshilltarë",
@@ -426,7 +426,7 @@
     "pageTitle": "Pikat",
     "headerTitle": "Pikat",
     "backButton": "Kthehu",
-    "addTopicButton": "Shto Pikë",
+    "addTopicButton": "Shto",
     "present": "Prezantoni",
     "newTopicBefore": "Pikë e re",
     "newTopicAfter": "Pikë e re",

@@ -232,7 +232,7 @@ function Sessions() {
 
                 <div className="session-back-button-wrapper">
                    <button
-                        className="session-back-button"
+                        className="back-button"
                         onClick={() => navigate('/municipalities')}
                     >
                         <span className="back-icon">
@@ -248,15 +248,13 @@ function Sessions() {
                 {canAddSession && (
                     <div className="session-button-container">
                         <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
-                            <button className="session-add-button">
+                            <button className="entity-add-button">
                                 {t('session.add')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
                     </div>
                 )}
             </div>
-
-
 
                 {loading ? (
                     <div className="loading-spinner">
@@ -395,12 +393,12 @@ const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setO
                             className="admin-dropdown-wrapper w-100"
                             ref={(el) => (dropdownRefs.current[session.id] = el)}
                         >
-                            <button
-                                className="button-option-content w-100"
-                                onClick={() => setOpenMenuId(openMenuId === session.id ? null : session.id)}
-                            >
-                                {t('session.options')} <FontAwesomeIcon icon={openMenuId === session.id ? faChevronUp : faChevronDown} />
-                            </button>
+                           <button
+    className={`button-option-content w-100 ${openMenuId === session.id ? "active" : ""}`}
+    onClick={() => setOpenMenuId(openMenuId === session.id ? null : session.id)}
+>
+    {t('session.options')} <FontAwesomeIcon icon={openMenuId === session.id ? faChevronUp : faChevronDown} />
+</button>
 
                             {openMenuId === session.id && (
                                 <div className="admin-dropdown">

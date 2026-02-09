@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangeImage.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -15,6 +15,7 @@ const ChangeImage = () => {
     const [errorKey, setErrorKey] = useState(null);
     const [successKey, setSuccessKey] = useState(null);
     const [fileSizeError, setFileSizeError] = useState(false);
+    const navigate = useNavigate();
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -118,12 +119,19 @@ const ChangeImage = () => {
                             {successKey && <p className="success-message">{t(successKey)}</p>}
 
                             <div className="d-flex flex-row mt-2">
-                                <button type="submit" className="button-change-image-submit me-2">
+                                <button type="submit" className="add-form-submit-button me-2">
                                     {t('changeImage.uploadButton')} <FontAwesomeIcon icon={faUpload} />
                                 </button>
-                                <Link to="/profile" className="button-change-image-back">
-                                    <FontAwesomeIcon icon={faChevronLeft} /> {t('changeImage.backButton')}
-                                </Link>
+                                 <button
+                                    type="button"
+                                    className="add-form-back-button"
+                                    onClick={() => navigate('/profile')}
+                                    >
+                                    <span className="back-icon">
+                                        <FontAwesomeIcon icon={faChevronLeft} />
+                                    </span>
+                                    {t('changeImage.backButton')}
+                                </button>
                             </div>
                         </form>
                     </div>

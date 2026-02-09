@@ -27,25 +27,4 @@
     justify-content: space-around;
 }
 
-.municipality-btn {
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.1s, transform 0.1s;
-}
 
-.municipality-btn:hover{
-    transform: scale(1.03);
-}
-
-.municipality-btn-danger {
-    background-color: #dc3545;
-    color: white;
-}
-
-.municipality-btn-secondary {
-    background-color: #6c757d;
-    color: white;
-}

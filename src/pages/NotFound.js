@@ -14,7 +14,7 @@ const NotFound = () => {
           {t("notFound.title")} <FontAwesomeIcon icon={faBan} className="notfound-icon" />
         </h1>
         <p>{t("notFound.message")}</p>
-        <Link to="/" className="notfound-back-button">
+        <Link to="/" className="wide-back-button">
           {t("notFound.backButton")}
         </Link>
       </div>

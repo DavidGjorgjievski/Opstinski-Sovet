@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangePassword.css'; 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -15,6 +15,7 @@ const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordErrorKey, setPasswordErrorKey] = useState(null); // string | null
   const [successMessage, setSuccessMessage] = useState(null);     // string | null
+  const navigate = useNavigate();
 
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
@@ -140,13 +141,20 @@ const ChangePassword = () => {
             {successMessage && <p className="success-message">{successMessage}</p>}
 
             <div className='d-flex flex-row mt-2'>
-              <button type="submit" className="button-change-password-submit me-2">
+              <button type="submit" className="add-form-submit-button me-2">
                 {t('changePassword.submit')}{" "}
                 <FontAwesomeIcon icon={faLock} />
               </button>
-              <Link to="/profile" className="button-change-password-back">
-                <FontAwesomeIcon icon={faChevronLeft} /> {t('changePassword.back')}
-              </Link>
+              <button
+                type="button"
+                className="add-form-back-button"
+                onClick={() => navigate('/profile')}
+              >
+                <span className="back-icon">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </span>
+                {t('changePassword.back')}
+              </button>
             </div>
           </form>
         </div>

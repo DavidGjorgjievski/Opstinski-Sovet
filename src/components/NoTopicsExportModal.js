@@ -14,7 +14,7 @@ function NoTopicsExportModal({ show, onClose }) {
                 <p>{t("NoTopicsExportModal.noTopicsMessage")}</p>
                 <div className="no-topics-modal-actions">
                     <button
-                        className="no-topics-btn no-topics-btn-secondary"
+                        className="btn-cancel-modal"
                         onClick={onClose}
                     >
                         {t("NoTopicsExportModal.closeButton")}

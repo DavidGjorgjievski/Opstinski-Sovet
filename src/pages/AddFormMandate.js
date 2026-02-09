@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import '../styles/AddFormMandate.css';
+import '../styles/Main.css';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -137,7 +138,7 @@ function AddFormMandate() {
                             <div className="mt-3 d-flex">
                                 <button 
                                     type="submit" 
-                                    className="me-2 mandate-form-submit-button"
+                                    className="me-2 add-form-submit-button"
                                 >
                                     {isEditMode ? t('addMandate.updateButton') : t('addMandate.submit')}
                                     <FontAwesomeIcon 
@@ -146,17 +147,16 @@ function AddFormMandate() {
                                     />
                                 </button>
 
-                                <button
+                               <button
                                     type="button"
-                                    className="mandate-form-back-button"
+                                    className="add-form-back-button"
                                     onClick={() => navigate('/mandate')}
                                 >
-                                    <FontAwesomeIcon 
-                                        icon={faChevronLeft} 
-                                        className="me-2"
-                                    />
+                                    <span className="back-icon">
+                                        <FontAwesomeIcon icon={faChevronLeft} />
+                                    </span>
                                     {t('addMandate.back')}
-                                </button>
+                                    </button> 
                             </div>
                         </form>
 

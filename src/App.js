@@ -37,7 +37,7 @@ import Monitoring from './pages/Monitoring';
 import ProfileView from './pages/ProfileView'
 import { SessionModalProvider } from './context/SessionModalContext';
 import SessionExpiredModal from './components/SessionExpiredModal';
-
+import './styles/Main.css';
 
 import "./i18n"; 
 
@@ -82,22 +82,22 @@ function App() {
               />
 
               <Route
-                path="/municipalities/:id/mandates"
+                path="/municipalities/:municipalityId/mandates"
                 element={<ProtectedRoute element={<MunicipalityMandate />} />}
               />
 
               <Route
-                path="/municipalities/:id/mandates/add-form"
+                path="/municipalities/:municipalityId/mandates/add-form"
                 element={<ProtectedRoute element={<AddMunicipalityMandateForm />} allowedRoles={['ROLE_ADMIN']} />}
               />
 
                <Route
-                path="/municipalities/:id/mandates/edit/:mandateId"
+                path="/municipalities/:municipalityId/mandates/edit/:mandateId"
                 element={<ProtectedRoute element={<AddMunicipalityMandateForm />} allowedRoles={['ROLE_ADMIN']} />}
               />
 
               <Route
-                path="/municipalities/:id/mandates/users/:mandateId"
+                path="/municipalities/:municipalityId/mandates/users/:mandateId"
                 element={ <ProtectedRoute element={<MunicipalityMandateUsers />} />}
               />
 
@@ -117,7 +117,7 @@ function App() {
                 element={<ProtectedRoute element={<AddMunicipalityForm />} allowedRoles={['ROLE_ADMIN']} />} 
             />
             <Route 
-                path="/municipalities/edit/:id" 
+                path="/municipalities/edit/:municipalityId" 
                 element={<ProtectedRoute element={<AddMunicipalityForm />} allowedRoles={['ROLE_ADMIN']} />} 
             />
 

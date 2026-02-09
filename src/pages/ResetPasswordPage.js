@@ -80,12 +80,12 @@ function ResetPasswordPage() {
                         required
                     />
 
-                    <button className="rp-submit" disabled={loading}>
+                    <button className="login-button" disabled={loading}>
                         {loading ? t("reset.sending") : t("reset.submitButton")}
                     </button>
                 </form>
 
-                <button className="rp-back" onClick={() => navigate("/login")}>
+                <button className="guest-button" onClick={() => navigate("/login")}>
                     {t("reset.backToLogin")}
                 </button>
             </div>

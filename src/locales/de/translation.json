@@ -152,7 +152,7 @@
 
   "Municipality": {
     "municipalitiesTitle": "Gemeinden",
-    "addMunicipalityButton": "Gemeinde hinzufügen",
+    "addMunicipalityButton": "Hinzufügen",
     "view": "Ansehen",
     "options": "Optionen",
     "mandates": "Amtszeiten",
@@ -265,7 +265,7 @@
     "incorrectCurrent": "Falsches aktuelles Passwort.",
     "generalError": "Beim Ändern des Passworts ist ein Fehler aufgetreten.",
     "success": "Passwort erfolgreich geändert.",
-    "submit": "Passwort ändern",
+    "submit": "Ändern",
     "back": "Zurück"
   },
 
@@ -286,7 +286,7 @@
     "back":"Zurück",
     "title": "Sitzungen",
     "subtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
-    "add": "Sitzung anlegen",
+    "add": "Hinzufügen",
     "view": "Ansehen",
     "edit": "Bearbeiten",
     "delete": "Löschen",
@@ -327,7 +327,7 @@
     "adminPanelTitle": "Admin-Panel",
     "backButton": "Zurück",
     "allUsers": "Alle Benutzer",
-    "addUserButton": "Benutzer hinzufügen",
+    "addUserButton": "Hinzufügen",
     "admins": "Admins",
     "presidents": "Präsidenten",
     "councilors": "Ratsmitglieder",
@@ -426,7 +426,7 @@
     "pageTitle": "Themen",
     "headerTitle": "Themen",
     "backButton": "Zurück",
-    "addTopicButton": "Thema hinzufügen",
+    "addTopicButton": "Hinzufügen",
     "present": "Präsentieren",
     "newTopicBefore": "Neues Thema",
     "newTopicAfter": "Neues Thema",

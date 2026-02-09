@@ -33,10 +33,10 @@ function PDFConfirmModal({ isOpen, onClose, onConfirm, pdfName }) {
 
                 {/* Action Buttons */}
                 <div className="pdf-modal-actions">
-                    <button className="pdf-btn pdf-btn-danger" onClick={onConfirm}>
+                    <button className="btn-delete-modal" onClick={onConfirm}>
                         {t("pdfConfirmModal.removeButton")}
                     </button>
-                    <button className="pdf-btn pdf-btn-secondary" onClick={onClose}>
+                    <button className="btn-cancel-modal" onClick={onClose}>
                         {t("pdfConfirmModal.cancelButton")}
                     </button>
                 </div>

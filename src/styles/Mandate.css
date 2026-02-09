@@ -18,6 +18,7 @@
 
 .mandate-header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -32,22 +33,69 @@
 }
 
 .mandate-add-button {
-    background-color: #fbe64e;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
     width: 180px;
     padding: 10px 20px;
+
     font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
     border: none;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
     cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    position: relative;
+    overflow: hidden;
 }
 
+/* Shine effect */
+.mandate-add-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover */
 .mandate-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Shine animation */
+.mandate-add-button:hover::after {
+    left: 130%;
+}
+
+/* Active */
+.mandate-add-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mandate-list-ul {
@@ -111,18 +159,43 @@
 }
 
 .options-btn {
-    background: none;
-    border: none;
-    color: black;
     cursor: pointer;
-    font-size: 24px;
-    padding: 4px;
-    border-radius: 6px;
-    transition: transform 0.1s;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    border: none;
+    /* remove default button border */
+    transition:
+        border-color 0.3s,
+        background-color 0.3s,
+        transform 0.2s;
+    padding: 0;
 }
 
+/* Hover */
 .options-btn:hover {
-    transform: scale(1.05);
+    background-color: #ddd;
+    transform: scale(1.06);
+}
+
+/* Opened state - you can toggle "open" class via JS like in menu-dots */
+.options-btn.open {
+    background-color: #ddd;
+}
+
+/* Icon */
+.options-btn svg {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate icon when open */
+.options-btn.open svg {
+    transform: rotate(90deg);
 }
 
 .options-menu {

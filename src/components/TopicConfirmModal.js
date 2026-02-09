@@ -27,10 +27,10 @@ function TopicConfirmModal({ isOpen, onClose, onConfirm, topicTitle }) {
                 </p>
 
                 <div className="topic-modal-actions">
-                    <button className="topic-btn topic-btn-danger" onClick={onConfirm}>
+                    <button className="btn-delete-modal" onClick={onConfirm}>
                         {t("topicsPage.confirmDeleteButton")}
                     </button>
-                    <button className="topic-btn topic-btn-secondary" onClick={onClose}>
+                    <button className="btn-cancel-modal" onClick={onClose}>
                         {t("topicsPage.cancelButton")}
                     </button>
                 </div>

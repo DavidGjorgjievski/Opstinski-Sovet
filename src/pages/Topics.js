@@ -147,7 +147,6 @@ function Topics() {
     try {
         const response = await api.get(`/api/sessions/${id}/topics`);
         setTopics(response.data.topics);
-        console.log(response.data.topics)
         setPresentedTopicId(response.data.presentedTopicId);
         setTopicsLoaded(true);
         return response.data.topics; // return the topics
@@ -553,7 +552,7 @@ useEffect(() => {
                      <div className="topic-header">
                         <div className='topic-header-title-div'>
                             <button
-                                className="back-button-topic"
+                                className="back-button"
                                 onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}
                             >
                                 <span className="back-icon">
@@ -582,7 +581,7 @@ useEffect(() => {
                         <div className="session-button-container">
                              <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
                                 {hasTopicPermissions  && (
-                                    <button className="topic-add-button" onClick={saveScrollPosition}>
+                                    <button className="entity-add-button" onClick={saveScrollPosition}>
                                         {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
                                     </button>
                                 )}
@@ -932,7 +931,7 @@ useEffect(() => {
                         {topics.length > 2 && hasTopicPermissions && !isOn && (
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
                                 <button
-                                    className="topic-add-button"
+                                    className="entity-add-button"
                                     onClick={saveScrollPosition}
                                 >
                                     {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />

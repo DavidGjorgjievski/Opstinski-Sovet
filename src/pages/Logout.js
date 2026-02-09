@@ -25,7 +25,7 @@ const Logout = () => {
                 <p>{t('logout.thanks')}</p>
                 <button 
                     onClick={() => window.location.href = '/login'} 
-                    className="login-button"
+                    className="login-button logout-button"
                 >
                     {t('logout.loginAgain')}
                 </button>

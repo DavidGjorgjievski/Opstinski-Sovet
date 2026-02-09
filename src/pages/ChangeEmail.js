@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
 import '../styles/ChangeEmail.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -14,6 +14,7 @@ const ChangeEmail = () => {
   const [confirmEmail, setConfirmEmail] = useState('');
   const [errorKey, setErrorKey] = useState(null);
   const [successKey, setSuccessKey] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,12 +93,19 @@ const ChangeEmail = () => {
           {successKey && <p className="success-message-email">{t(successKey)}</p>}
 
           <div className='d-flex flex-row mt-2'>
-            <button type="submit" className="button-change-email-submit me-2">
+            <button type="submit" className="add-form-submit-button me-2">
               {t('changeEmail.submit')} <FontAwesomeIcon icon={faEnvelope} />
             </button>
-            <Link to="/profile" className="button-change-email-back">
-              <FontAwesomeIcon icon={faChevronLeft} /> {t('changeEmail.back')}
-            </Link>
+           <button
+              type="button"
+              className="add-form-back-button"
+              onClick={() => navigate('/profile')}
+            >
+              <span className="back-icon">
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </span>
+              {t('changeEmail.back')}
+            </button>
           </div>
         </form>
       </main>

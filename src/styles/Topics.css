@@ -49,73 +49,133 @@ html {
     width: 150px;
 }
 
-.topic-add-button {
-    background-color: #fbe64e;
-    padding: 10px 20px;
-    font-size: 15px;
-    border: 0px solid white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-    white-space: nowrap;
-    min-width: 130px;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.topic-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
-
 .change-topic-status-button {
-    height: 36.2px;
-    background-color: white;
-    color: black;
-    border: 2px solid #ddd;
-    padding: 6px 10px;
-    border-radius: 10px !important;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-    font-weight: 500;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
+
     width: 210px;
+    /* keep your original width */
+    height: 36.2px;
+    /* keep your original height */
+    padding: 6px 10px;
+    /* keep your original padding */
+    font-size: 14px;
+    /* your preferred font-size */
+    font-weight: 500;
+
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    /* keep consistent rounding */
+    color: black;
+
+    cursor: pointer;
+    user-select: none;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
 }
 
+/* Hover effect */
 .change-topic-status-button:hover {
-    background-color: #f7f7f7;
+    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
     border-color: #ccc;
-    transform: scale(1.03);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Active effect */
+.change-topic-status-button:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus accessibility */
+.change-topic-status-button:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(251, 230, 78, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .gold-button {
-    height: 36.2px;
-    background-color: #fbe64e;
-    color: #000;
-    padding: 6px 10px;
-    font-weight: 500;
-    border: none;
-    font-weight: 500;
-    border-radius: 10px;
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
+    gap: 6px;
+    /* for the icon spacing */
+
     width: 210px;
+    /* keep existing */
+    height: 36.2px;
+    /* keep existing */
+    padding: 6px 10px;
+    /* keep existing */
+    font-size: 15px;
+    /* match topic-add-button */
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    border: none;
+    border-radius: 14px;
+    /* modern rounded corners */
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+
+    position: relative;
+    overflow: hidden;
 }
 
+/* Shine effect */
+.gold-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover state */
 .gold-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Shine animation on hover */
+.gold-button:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.gold-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .gold-button.mk,
@@ -181,74 +241,6 @@ html {
     display: flex;
     flex-direction: column;
     align-items: start;
-}
-
-.back-button-topic {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 6px 16px;
-    min-width: 100px;
-
-    background: linear-gradient(135deg, #ffffff, #f7f7f7);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 10px;
-
-    font-size: 14px;
-    font-weight: 600;
-    color: #222;
-
-    cursor: pointer;
-    user-select: none;
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
-
-    transition:
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.15s ease;
-}
-
-/* Icon animation */
-.back-icon {
-    display: flex;
-    align-items: center;
-    transition: transform 0.25s ease;
-}
-
-/* Hover */
-.back-button-topic:hover {
-    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
-    box-shadow:
-        0 6px 14px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
-}
-
-.back-button-topic:hover .back-icon {
-    transform: translateX(-4px);
-}
-
-/* Active (click feedback) */
-.back-button-topic:active {
-    transform: translateY(0) scale(0.97);
-    box-shadow:
-        0 3px 8px rgba(0, 0, 0, 0.12);
-}
-
-/* Keyboard accessibility */
-.back-button-topic:focus-visible {
-    outline: none;
-    box-shadow:
-        0 0 0 3px rgba(251, 230, 78, 0.45),
-        0 4px 10px rgba(0, 0, 0, 0.12);
-}
-
-/* Optional: text spacing */
-.back-text {
-    white-space: nowrap;
 }
 
 .profile-back-button {
@@ -966,10 +958,6 @@ html {
         font-size: 20px;
     }
 
-    .topic-add-button{
-        margin-left: 0px !important;
-    }
-
     .topic-item-body-detail {
         flex-direction: column;
     }
@@ -1011,11 +999,6 @@ html {
     .topic-header-title {
         text-align: center;
         margin: 0;
-    }
-
-    .topic-add-button {
-        /* padding: 5px 10px; */
-        margin-left: 20px;
     }
 
     .topic-button {
@@ -1245,6 +1228,7 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     background: linear-gradient(135deg, #fbe64e, #f7db2c);
     color: #1a1a1a;
     font-weight: 600;
@@ -1253,15 +1237,40 @@ html {
     border-radius: 999px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
-    transition: transform 0.15s ease, box-shadow 0.2s ease;
     line-height: 1;
-    /* ensures vertical centering */
+    cursor: default;
+
+    position: relative;
+    overflow: hidden;
+
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+/* Shine effect */
+.topic-amount-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.25),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
 }
 
 /* Hover effect */
 .topic-amount-container:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Shine animation on hover */
+.topic-amount-container:hover::after {
+    left: 130%;
 }
 
 /* Optional: smaller on mobile */

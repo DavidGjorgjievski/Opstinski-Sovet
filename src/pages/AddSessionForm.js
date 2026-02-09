@@ -134,7 +134,7 @@ function AddSessionForm() {
                                     <div className="mt-3 d-flex">
                                     <button 
                                         type="submit" 
-                                        className="me-2 session-form-submit-button"
+                                        className="me-2 add-form-submit-button"
                                     >
                                         {id ? t("addSessionForm.editButton") : t("addSessionForm.addButton")}
                                         <FontAwesomeIcon 
@@ -145,13 +145,12 @@ function AddSessionForm() {
 
                                     <button 
                                         type="button" 
-                                        className="session-form-back-button"
+                                        className="add-form-back-button"
                                         onClick={handleBack}
                                     >
-                                        <FontAwesomeIcon 
-                                            icon={faChevronLeft} 
-                                            className="me-2"
-                                        />
+                                        <span className="back-icon">
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </span>
                                         {t("addSessionForm.backButton")}
                                     </button>
                                 </div>

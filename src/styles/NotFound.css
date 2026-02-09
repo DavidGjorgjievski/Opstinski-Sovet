@@ -23,47 +23,10 @@
     vertical-align: middle;
 }
 
-.notfound-back-button {
-    display: inline-block;
-    background-color: white;
-    padding: 8px 20px;
-    font-size: 14px;
-    border: 2px solid #ddd;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-    text-decoration: none;
-    max-width: 90%;
-    box-sizing: border-box;
-    margin-top: 20px;
-}
-
-.notfound-back-button:hover {
-    background-color: #ddd;
-    transform: scale(1.03);
-}
-
-@media (max-width: 600px) {
-    .notfound-back-button {
-        width: 100%;
-        font-size: 14px;
-        padding: 12px;
-    }
-}
-
 @media (max-width: 500px) {
     .notfound-content {
         padding: 20px;
         border-radius: 20px;
         width: 95%;
-    }
-}
-
-@media (max-width: 380px) {
-    .notfound-back-button {
-        font-size: 13px;
     }
 }

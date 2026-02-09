@@ -86,26 +86,6 @@
         0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-.user-add-button {
-    width: 200px;
-    background-color: #fbe64e;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 0 solid white;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
-    margin-top: 10px;
-}
-
-.user-add-button:hover {
-    background-color: #f7db2c;
-    transform: scale(1.03);
-}
-
 .admin-title {
     margin: 10px 20px;
 }

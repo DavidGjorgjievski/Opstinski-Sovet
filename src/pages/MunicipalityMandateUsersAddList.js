@@ -97,7 +97,7 @@ const handleRemoveUser = async (username) => {
         <div className="municipality-mandate-users-list-header">
           <div className="header-section">
             <button
-                className="municipality-mandate-users-back-button"
+                className="back-button"
                 onClick={() => navigate(-1)}
             >
                 <span className="back-icon">

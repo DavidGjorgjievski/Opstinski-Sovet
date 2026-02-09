@@ -69,19 +69,70 @@ input {
 }
 
 .login-button {
-    background-color: #e3d356;
-    color: black !important;
-    cursor: pointer;
-    border-radius: 10px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 10px 20px;
+    width: 100%;
+    margin-bottom: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
     border: none;
-    font-weight: bold;
-    transition: background-color 0.1s, transform 0.1s;
+    border-radius: 16px !important;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111 !important;
+
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+
+    position: relative;
+    overflow: hidden;
 }
 
+/* Shine effect */
+.login-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
 
+/* Hover state */
 .login-button:hover {
-    background-color: rgb(233, 222, 99);
-    transform: scale(1.03);
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Shine animation */
+.login-button:hover::after {
+    left: 130%;
+}
+
+/* Active state */
+.login-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .error-message {
@@ -109,23 +160,56 @@ input {
     transform: scale(1.05);
 }
 
+.guest-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 
-.guest-button{
-    background-color: white;
-    padding: 5px 15px;
+    width: 210px;
+    padding: 6px 10px;
+
     font-size: 16px;
-    border: 1px solid #ddd;
     font-weight: bold;
-    text-align: center;
-    border-radius: 10px;
+
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border: 2px solid #ddd;
+    border-radius: 12px;
     color: black;
+
     cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
+    user-select: none;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
 }
 
-.guest-button:hover{
-    background-color: #ddd;
-    transform: scale(1.03);
+/* Hover */
+.guest-button:hover {
+    background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+    border-color: #ccc;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Active */
+.guest-button:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus */
+.guest-button:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(251, 230, 78, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .language-dropdown-container {
@@ -158,8 +242,10 @@ input {
     transition: background-color 0.1s, transform 0.1s;
 }
 
-.selected-language:hover {
+.selected-language:hover,
+.selected-language.open {
     transform: scale(1.03);
+    background-color: #f5f5f5;
 }
 
 .selected-language span{

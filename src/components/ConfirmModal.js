@@ -27,10 +27,10 @@ const ConfirmModal = ({ show, onClose, onConfirm, userName, errorMessage }) => {
                             {t("confirmModal.message")} <strong>{userName}</strong>?
                         </p>
                         <div className="user-modal-actions">
-                            <button className="user-btn user-btn-danger" onClick={onConfirm}>
+                            <button className="btn-delete-modal" onClick={onConfirm}>
                                 {t("confirmModal.delete")}
                             </button>
-                            <button className="user-btn user-btn-secondary" onClick={onClose}>
+                            <button className="btn-cancel-modal" onClick={onClose}>
                                 {t("confirmModal.cancel")}
                             </button>
                         </div>

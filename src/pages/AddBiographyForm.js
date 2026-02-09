@@ -26,14 +26,12 @@ function AddBiographyForm({ mode }) {
         e.preventDefault();
 
         try {
-            // 🔥 SEND PLAIN STRING
             await api.post(
                 '/api/users/biography',
                 biography,
                 { headers: { 'Content-Type': 'text/plain' } }
             );
 
-            // 🔥 UPDATE CORRECT LOCALSTORAGE KEY
             const storedUser = JSON.parse(localStorage.getItem('userInfo'));
             if (storedUser) {
                 storedUser.biography = biography;
@@ -84,21 +82,23 @@ function AddBiographyForm({ mode }) {
                                 <div className="mt-3 d-flex">
                                     <button
                                         type="submit"
-                                        className="biography-form-submit-button"
+                                        className="add-form-submit-button me-2"
                                     >
                                         {t(`addBiographyForm.${mode}.saveButton`)}
                                         <FontAwesomeIcon
                                             icon={mode === 'edit' ? faPenToSquare : faPlus}
-                                            className="ms-2"
+                                            className="me-2"
                                         />
                                     </button>
 
                                     <button
                                         type="button"
-                                        className="biography-form-back-button"
+                                        className="add-form-back-button"
                                         onClick={handleBack}
                                     >
-                                        <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+                                        <span className="back-icon">
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </span>
                                         {t(`addBiographyForm.${mode}.backButton`)}
                                     </button>
                                 </div>
