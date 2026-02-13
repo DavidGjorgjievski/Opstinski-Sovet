@@ -7,7 +7,7 @@ import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff, faBookmark, faFilePen } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
@@ -20,7 +20,6 @@ function Topics() {
     const [presentedTopicId, setPresentedTopicId] = useState(null);
     const { id } = useParams();
     const { municipalityId } = useParams();
-    const [userRole, setUserRole] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTopicId, setSelectedTopicId] = useState(null);
     const [selectedTopicTitle, setSelectedTopicTitle] = useState(null);
@@ -169,21 +168,22 @@ function Topics() {
     }, [municipalityId, id]);
 
     const fetchUserVotes = useCallback(async () => {
+        // Only fetch votes for ROLE_USER or ROLE_PRESIDENT
+        if (!['ROLE_USER', 'ROLE_PRESIDENT'].includes(userInfo.role)) return;
+
         try {
-            const response = await api.get(
-            `/api/sessions/${id}/topics-user-votes`
-            );
+            const response = await api.get(`/api/sessions/${id}/topics-user-votes`);
 
             const votesMap = {};
             response.data.forEach(([topicId, voteStatus]) => {
-            votesMap[topicId] = voteStatus;
+                votesMap[topicId] = voteStatus;
             });
 
             setCurrentVotes(votesMap);
         } catch (error) {
             console.error("Error fetching user votes:", error);
         }
-    }, [id]);
+    }, [id, userInfo.role]);
 
     const fetchOnlineUsers = useCallback(async () => {
         if (!municipalityId) return;
@@ -206,9 +206,6 @@ function Topics() {
     }, [fetchOnlineUsers, showFixDiv]);
 
     useEffect(() => {
-        if (userInfo && userInfo.role) {
-            setUserRole(userInfo.role);
-        }
         fetchTopics();
         if (
         showFixDiv &&
@@ -250,11 +247,7 @@ function Topics() {
         }
     }, [topics]);
 
-   const canVote = 
-    (userRole === 'ROLE_PRESIDENT' || userRole === 'ROLE_USER') &&
-    userInfo.municipalityId === municipalityId 
-    &&
-    userInfo.status === 'ACTIVE';
+  
 
     const handlePdfFetch = async (pdfId) => {
         try {
@@ -284,13 +277,14 @@ function Topics() {
             await fetchTopics();
 
             // Update current votes state
-           if (userInfo.role !== "ROLE_ADMIN") {
-            setCurrentVotes((prevVotes) => ({
-                ...prevVotes,
-                [String(topicId)]: 'HAVE_NOT_VOTED', 
-            }));
-            }
-
+          if (userInfo.role === "ROLE_ADMIN") {
+    console.log('Admin detected — skipping currentVotes update');
+} else {
+    setCurrentVotes((prevVotes) => ({
+        ...prevVotes,
+        [String(topicId)]: 'HAVE_NOT_VOTED',
+    }));
+}
             // Send WebSocket updates
             sendVote(topicId);
             sendPresenterUpdate(topicId);
@@ -327,11 +321,14 @@ function Topics() {
             // Update local state
             setIsVoteAction(true);
 
-            setCurrentVotes((prevVotes) => {
-            const updatedVotes = { ...prevVotes };
-            delete updatedVotes[topicId]; // Remove votes for this topic
-            return updatedVotes;
-            });
+            // Only update currentVotes for ROLE_USER and ROLE_PRESIDENT
+            if (userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_PRESIDENT') {
+                setCurrentVotes((prevVotes) => {
+                    const updatedVotes = { ...prevVotes };
+                    delete updatedVotes[topicId]; // Remove votes for this topic
+                    return updatedVotes;
+                });
+            }
 
             console.log('Voting restarted successfully');
 
@@ -504,6 +501,18 @@ useEffect(() => {
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
 
+    const hasTopicPermissionsPlusUser = (
+    (
+        (['ROLE_PRESIDENT', 'ROLE_EDITOR', 'ROLE_USER'].includes(userInfo.role)) &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    ) 
+    || userInfo.role === 'ROLE_ADMIN'
+);
+
     const hasTopicPermissions  = (
         ((userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
         userInfo.status === "ACTIVE" &&
@@ -538,6 +547,15 @@ useEffect(() => {
         // Calculate percentage based on all topics
         return Math.min((finishedCount / topics.length) * 100, 100);
     }
+
+    const canVote = (
+        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    );
 
     return (
         <div className="topics-container">
@@ -620,12 +638,12 @@ useEffect(() => {
                                                 }}
                                                 className={`topic-header-text topic-header-pdf
                                                     ${
-                                                        ["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT"].includes(userInfo?.role)
+                                                        ["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT", "ROLE_USER"].includes(userInfo?.role)
                                                             ? "ape-width"
                                                             : ""
                                                     }
                                                     ${
-                                                        ["ROLE_USER", "ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
+                                                        ["ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
                                                             ? "user-width"
                                                             : ""
                                                     }
@@ -642,12 +660,12 @@ useEffect(() => {
                                             <span
                                                 className={`topic-header-text
                                                     ${
-                                                        ["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT"].includes(userInfo?.role)
+                                                        ["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT", "ROLE_USER",].includes(userInfo?.role)
                                                             ? "ape-width"
                                                             : ""
                                                     }
                                                     ${
-                                                        ["ROLE_USER", "ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
+                                                        ["ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role)
                                                             ? "user-width"
                                                             : ""
                                                     }
@@ -663,70 +681,109 @@ useEffect(() => {
                                         )}
                                     </h3>
                                     <div className='menu-wrapper'>
-                                    {hasTopicPermissions  && (
-                                        <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
-                                           <div
-                                                className={`menu-dots ${openMenus[topic.id] ? 'open' : ''}`}
-                                                onClick={() => toggleMenu(topic.id)}
-                                                >
-                                                <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
-                                            </div>
-                                            {openMenus[topic.id] && (
-                                                <ul className="menu-list">
-                                                    {userInfo.role !== 'ROLE_EDITOR' && (
-                                                        <li>
-                                                            <span
-                                                                onClick={() => {
-                                                                    handlePresentClick(topic.id);
-                                                                    toggleMenu(topic.id);
-                                                                }}
-                                                            >
-                                                                {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
-                                                            </span>
-                                                        </li>
-                                                    )}
-                                                    <li>
-                                                        <Link
-                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-before/${topic.id}`}
-                                                            onClick={saveScrollPosition}
-                                                        >
-                                                            <span>{t("topicsPage.newTopicBefore")} <FontAwesomeIcon icon={faArrowUp} /></span>
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-after/${topic.id}`}
-                                                            onClick={saveScrollPosition}
-                                                        >
-                                                            <span>{t("topicsPage.newTopicAfter")} <FontAwesomeIcon icon={faArrowDown} /></span>
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            to={`/municipalities/${municipalityId}/sessions/${id}/topics/edit/${topic.id}`}
-                                                            onClick={saveScrollPosition}
-                                                        >
-                                                            {t("topicsPage.edit")} <FontAwesomeIcon icon={faPenToSquare} />
-                                                        </Link>
-                                                    </li>
-                                                    <li className="topic-delete-button">
-                                                        <span onClick={() => { openModal(topic.id, topic.title); toggleMenu(topic.id); }}>
-                                                            {t("topicsPage.delete")} <FontAwesomeIcon icon={faTrash} />
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            )}
-                                        </div>
-                                    )}
+                                        {hasTopicPermissionsPlusUser && (
+                                            <div className="menu-container" ref={(el) => (menuRefs.current[topic.id] = el)}>
+                                            <div
+                                                    className={`menu-dots ${openMenus[topic.id] ? 'open' : ''}`}
+                                                    onClick={() => toggleMenu(topic.id)}
+                                                    >
+                                                    <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
+                                                </div>
+                                                {openMenus[topic.id] && (
+                                                    <ul className="menu-list">
+                                                        {['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && (
+                                                            <li>
+                                                                <Link
+                                                                    to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${topic.id}`}
+                                                                    onClick={saveScrollPosition}
+                                                                >
+                                                                    <span>
+                                                                        {t("topicsPage.amendments")}{" "}
+                                                                        <FontAwesomeIcon icon={faFilePen} />
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+                                                        )}
+                                                    {(userInfo.role === 'ROLE_ADMIN' || userInfo.role === 'ROLE_PRESIDENT') && (
+                                                            <li>
+                                                                <span
+                                                                    onClick={() => {
+                                                                        handlePresentClick(topic.id);
+                                                                        toggleMenu(topic.id);
+                                                                    }}
+                                                                >
+                                                                    {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
+                                                                </span>
+                                                            </li>
+                                                        )}
+                                                    {['ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && (
+                                                            <>
+                                                                <li>
+                                                                    <Link
+                                                                        to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-before/${topic.id}`}
+                                                                        onClick={saveScrollPosition}
+                                                                    >
+                                                                        <span>
+                                                                            {t("topicsPage.newTopicBefore")}{" "}
+                                                                            <FontAwesomeIcon icon={faArrowUp} />
+                                                                        </span>
+                                                                    </Link>
+                                                                </li>
 
+                                                                <li>
+                                                                    <Link
+                                                                        to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-after/${topic.id}`}
+                                                                        onClick={saveScrollPosition}
+                                                                    >
+                                                                        <span>
+                                                                            {t("topicsPage.newTopicAfter")}{" "}
+                                                                            <FontAwesomeIcon icon={faArrowDown} />
+                                                                        </span>
+                                                                    </Link>
+                                                                </li>
+
+                                                                <li>
+                                                                    <Link
+                                                                        to={`/municipalities/${municipalityId}/sessions/${id}/topics/edit/${topic.id}`}
+                                                                        onClick={saveScrollPosition}
+                                                                    >
+                                                                        {t("topicsPage.edit")}{" "}
+                                                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                                                    </Link>
+                                                                </li>
+
+                                                                <li className="topic-delete-button">
+                                                                    <span
+                                                                        onClick={() => {
+                                                                            openModal(topic.id, topic.title);
+                                                                            toggleMenu(topic.id);
+                                                                        }}
+                                                                    >
+                                                                        {t("topicsPage.delete")}{" "}
+                                                                        <FontAwesomeIcon icon={faTrash} />
+                                                                    </span>
+                                                                </li>
+                                                            </>
+                                                        )}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>                    
                                 </div>
 
                                 {topic.amount && (
-                                    <div className="topic-amount-container">
-                                        {topic.amount} {t("topicsPage.currency")}
+                                    <div className="topic-pill-container">
+                                            <div className="topic-amount-container">
+                                                {topic.amount} {t("topicsPage.currency")}
+                                            </div>
+
+                                        {/* <div className="amendments-button">
+                                            Амандмани
+                                        </div> */}
                                     </div>
                                 )}
+
 
                                 <div className='topic-item-body'>
                                     {(topic.topicStatus === "ACTIVE" || topic.topicStatus === "FINISHED") && (
@@ -749,11 +806,11 @@ useEffect(() => {
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-yes',
-                                                            currentVotes[topic.id] === 'YES' ? 'active-vote' : '',
+                                                            currentVotes[topic.id] === 'YES' && canVote ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'YES' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            canVote ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-yes-finished' : '',
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
@@ -770,11 +827,11 @@ useEffect(() => {
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-no',
-                                                            currentVotes[topic.id] === 'NO' ? 'active-vote' : '',
+                                                            currentVotes[topic.id] === 'NO' && canVote ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'NO' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            canVote ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-no-finished' : '',
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
@@ -790,14 +847,14 @@ useEffect(() => {
                                                 </div>
                                                 <div
                                                     onClick={canVote && topic.topicStatus === 'ACTIVE' ? () => handleVote(topic.id, 'ABSTAINED') : undefined}
-                                                    className={[
+                                                   className={[
                                                         'topic-button-vote',
                                                         'vote-abstained',
-                                                        currentVotes[topic.id] === 'ABSTAINED' ? 'active-vote' : '',
+                                                        currentVotes[topic.id] === 'ABSTAINED' && canVote ? 'active-vote' : '',
                                                         topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'ABSTAINED' &&
                                                         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                         topic.topicStatus === 'ACTIVE' &&
-                                                        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                        canVote ? 'vote-activated' : '',
                                                         topic.topicStatus === 'FINISHED' ? 'vote-abstained-finished' : '',
                                                         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                     ].join(' ')}
@@ -814,11 +871,11 @@ useEffect(() => {
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-cantvote',
-                                                            currentVotes[topic.id] === 'CANNOT_VOTE' ? 'active-vote' : '',
+                                                            currentVotes[topic.id] === 'CANNOT_VOTE' && canVote ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'CANNOT_VOTE' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            canVote ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-cantvote-finished' : '',
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}
@@ -837,11 +894,11 @@ useEffect(() => {
                                                         className={[
                                                             'topic-button-vote',
                                                             'vote-haventvote',
-                                                            currentVotes[topic.id] === 'HAVE_NOT_VOTED' ? 'active-vote' : '',
+                                                            currentVotes[topic.id] === 'HAVE_NOT_VOTED' && canVote ? 'active-vote' : '',
                                                             topic.topicStatus === 'ACTIVE' && currentVotes[topic.id] !== 'HAVE_NOT_VOTED' &&
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-scale' : '',
                                                             topic.topicStatus === 'ACTIVE' &&
-                                                            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') ? 'vote-activated' : '',
+                                                            canVote ? 'vote-activated' : '',
                                                             topic.topicStatus === 'FINISHED' ? 'vote-haventvote-finished' : '',
                                                             (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') && userInfo.status === "ACTIVE" && userInfo.municipalityId === municipalityId ? 'vote-hover-enabled' : ''
                                                         ].join(' ')}

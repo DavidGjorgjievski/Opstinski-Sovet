@@ -202,7 +202,7 @@ html {
     background-color: #d8d5d5;
 }
 
-.topic-header-title{
+.topic-header-title {
     font-size: 3rem;
 }
 
@@ -574,7 +574,8 @@ html {
     position: absolute;
     background: white;
     border: 1px solid #ddd;
-    border-radius: 5%;
+    border-radius: 12px;
+    overflow: hidden;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -1222,8 +1223,6 @@ html {
     animation: blink 2s infinite;
 }
 
-
-
 .topic-amount-container {
     display: inline-flex;
     align-items: center;
@@ -1233,7 +1232,7 @@ html {
     color: #1a1a1a;
     font-weight: 600;
     font-size: 1rem;
-    padding: 6px 16px;
+    padding: 10px 20px;
     border-radius: 999px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
@@ -1271,6 +1270,67 @@ html {
 /* Shine animation on hover */
 .topic-amount-container:hover::after {
     left: 130%;
+}
+
+.amendments-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Gray gradient background */
+    background: linear-gradient(135deg, #d1d1d1, #a8a8a8);
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    line-height: 1;
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+/* Shine effect */
+.amendments-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.25),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+/* Hover effect */
+.amendments-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Shine animation on hover */
+.amendments-button:hover::after {
+    left: 130%;
+}
+
+.topic-pill-container {
+    display: inline-flex;
+    /* wrap tightly around content */
+    flex-direction: column;
+    /* stack vertically */
+    gap: 10px;
+    /* space between amount and amendments button */
+    align-items: center;
+    /* align items to the left, use center if you want centered */
 }
 
 /* Optional: smaller on mobile */

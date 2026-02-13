@@ -430,6 +430,7 @@
     "present": "Present",
     "newTopicBefore": "New Topic",
     "newTopicAfter": "New Topic",
+    "amendments": "Amendments",
     "edit": "Edit",
     "delete": "Delete",
     "details": "Details",
@@ -539,6 +540,10 @@
     "image": "Image",
     "fullName": "Full Name",
     "vote": "Vote"
+  },
+
+  "amendments": {
+    "title": "Amendments"
   },
 
   "pdfConfirmModal": {
