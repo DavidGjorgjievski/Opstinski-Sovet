@@ -276,7 +276,7 @@
 
 @media (max-width: 768px) {
     .back-button {
-        display: none;
+        display: none !important;
     }
 }
 
