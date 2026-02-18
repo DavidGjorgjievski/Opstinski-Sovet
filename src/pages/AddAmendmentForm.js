@@ -3,10 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import {
-    handleDragOver,
-    handleDragLeave,
-    handleDrop,
-    handlePaste,
     MAX_FILE_SIZE_BYTES,
 } from '../util/fileUpload';
 import '../styles/AddTopicForm.css';

@@ -9,7 +9,6 @@ import AmendmentConfirmModal from '../components/AmendmentConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faChevronLeft, 
-    faPlus, 
     faEllipsisV, 
     faPenToSquare, 
     faTrash,
