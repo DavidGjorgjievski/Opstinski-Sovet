@@ -525,6 +525,14 @@
     "cancel": "Abbrechen"
   },
 
+  "restartAmendmentModal": {
+    "title": "Bestätigung für erneute Abstimmung",
+    "message": "Sind Sie sicher, dass Sie das Amendment für eine erneute Abstimmung zurücksetzen möchten?",
+    "confirm": "Ja",
+    "cancel": "Abbrechen"
+  },
+
+
   "topicsDetails": {
     "detailedResults": "Detaillierte Ergebnisse",
     "details": "Details",
@@ -577,5 +585,13 @@
     "noTopicsTitle": "Keine Themen verfügbar",
     "noTopicsMessage": "Diese Sitzung hat keine Themen zum Exportieren.",
     "closeButton": "Schließen"
+  },
+
+  "amendments": {
+    "title": "Änderungsanträge",
+    "confirmDeleteTitle": "Löschbestätigung",
+    "confirmDeleteMessage": "Sind Sie sicher, dass Sie diese Änderung löschen möchten?",
+    "confirmDeleteButton": "Löschen",
+    "cancelButton": "Abbrechen"
   }
 }

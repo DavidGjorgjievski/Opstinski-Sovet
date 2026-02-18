@@ -464,6 +464,13 @@
     "cancel": "Cancel"
   },
 
+  "restartAmendmentModal": {
+    "title": "Confirm Restart Voting",
+    "message": "Are you sure you want to restart the amendment for a new vote?",
+    "confirm": "Yes",
+    "cancel": "Cancel"
+  },
+
   "tooltip": {
     "easyMode": "Easy mode"
   },
@@ -542,10 +549,6 @@
     "vote": "Vote"
   },
 
-  "amendments": {
-    "title": "Amendments"
-  },
-
   "pdfConfirmModal": {
     "title": "Confirm PDF Removal",
     "message": "Are you sure you want to remove this PDF",
@@ -581,5 +584,41 @@
     "noTopicsTitle": "No Topics Available",
     "noTopicsMessage": "This session has no topics to export.",
     "closeButton": "Close"
+  },
+
+  "amendments": {
+    "title": "Amendments",
+    "confirmDeleteTitle": "Confirm Delete",
+    "confirmDeleteMessage": "Are you sure you want to delete this amendment?",
+    "confirmDeleteButton": "Delete",
+    "cancelButton": "Cancel"
+  },
+
+  "addAmendmentForm": {
+      "addTitle": "Add Amendment",
+      "editTitle": "Edit Amendment",
+      "title": "Amendment Title:",
+      "placeholder": "Amendment Title",
+      "uploadPdf": "Upload PDF:",
+      "maxSizeError": "Maximum PDF file size is 35MB!",
+      "typeError": "Please upload only PDF files!",
+      "selectedFiles": "Selected Files",
+      "currentPdf": "Current PDF",
+      "selectStatus": "Select Status:",
+      "dropHere": "Drop file here",
+      "orClick": "or click to select PDF",
+      "statusOptions": {
+          "created": "Created",
+          "active": "Active",
+          "finished": "Finished"
+      },
+      "removePdf": "Remove",
+      "addButton": "Add",
+      "editButton": "Edit",
+      "back": "Back",
+      "amount": "Amount:",
+      "amountPlaceholder": "Enter amount",
+      "optional": "(optional)"
   }
+
 }

@@ -525,6 +525,13 @@
     "cancel": "Откажи"
   },
 
+  "restartAmendmentModal": {
+    "title": "Потврда за повторно гласање",
+    "message": "Дали сте сигурни дека сакате да го рестартирате амандманот за повторно гласање?",
+    "confirm": "Да",
+    "cancel": "Откажи"
+  },
+
   "topicsDetails": {
     "detailedResults": "Детални резултати",
     "details": "Детали",
@@ -577,5 +584,41 @@
     "noTopicsTitle": "Нема Точки",
     "noTopicsMessage": "Оваа седница нема точки за експортирање.",
     "closeButton": "Затвори"
+  },
+
+  "amendments": {
+    "title": "Амандмани",
+    "confirmDeleteTitle": "Потврди Бришење",
+    "confirmDeleteMessage": "Дали сте сигурни дека сакате да го избришете овој амандман",
+    "confirmDeleteButton": "Избриши",
+    "cancelButton": "Откажи"
+  },
+
+    "addAmendmentForm": {
+      "addTitle": "Додади амандман",
+      "editTitle": "Уреди амандман",
+      "title": "Наслов на амандман:",
+      "placeholder": "Наслов на амандман",
+      "uploadPdf": "Прикачи PDF датотека:",
+      "maxSizeError": "Максималната големина на PDF датотека/датотеки е 35MB!",
+      "typeError": "Молам, прикачете само PDF датотеки!",
+      "selectedFiles": "Избрани датотеки",
+      "currentPdf": "Тековна PDF датотека",
+      "selectStatus": "Избери статус:",
+      "dropHere": "Пуштете датотека тука",
+      "orClick": "кликнете за да изберете PDF датотеката",
+      "statusOptions": {
+          "created": "Креиран",
+          "active": "Активен",
+          "finished": "Завршен"
+      },
+      "removePdf": "Избриши",
+      "addButton": "Додади",
+      "editButton": "Уреди",
+      "back": "Назад",
+      "amount": "Износ:",
+      "amountPlaceholder": "Внесете износ",
+      "optional": "(опционално)"
   }
+
 }

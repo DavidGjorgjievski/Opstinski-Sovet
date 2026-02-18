@@ -9,3 +9,54 @@
 .amendments-body-container {
     margin-top: 80px;
 }
+
+.topic-subtitle-wrapper {
+    max-width: 850px;
+    margin: 10px auto;
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    word-break: break-word;
+}
+
+.topic-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 870px) {
+    .topic-subtitle-wrapper {
+        max-width: 95%;
+        /* almost full width on mobile */
+    }
+
+    .topic-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+
+.info-pill {
+    display: inline-block;
+    color: #333;
+    padding: 20px 30px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.info-pill h2 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+}
+
+.info-pill p {
+    margin: 0;
+    font-size: 1rem;
+}

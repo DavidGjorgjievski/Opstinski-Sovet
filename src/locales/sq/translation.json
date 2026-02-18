@@ -525,6 +525,13 @@
     "cancel": "Anulo"
   },
 
+  "restartAmendmentModal": {
+    "title": "Konfirmo Rivotimin",
+    "message": "A jeni i sigurt që doni ta rinisni amendamentin për rivotim?",
+    "confirm": "Po",
+    "cancel": "Anulo"
+  },
+
   "topicsDetails": {
     "detailedResults": "Rezultatet e Detajuara",
     "details": "Detajet",
@@ -575,5 +582,41 @@
     "noTopicsTitle": "Asnjë Temë e Disponueshme",
     "noTopicsMessage": "Kjo seancë nuk ka tema për të eksportuar.",
     "closeButton": "Mbyll"
+  },
+
+  "amendments": {
+    "title": "Amendamente",
+    "confirmDeleteTitle":"Konfirmo Fshirjen",
+    "confirmDeleteMessage": "A jeni i sigurt që dëshironi të fshini këtë amendament?",
+    "confirmDeleteButton": "Fshij",
+    "cancelButton": "Anulo"
+  },
+
+  "addAmendmentForm": {
+      "addTitle": "Shto amendament",
+      "editTitle": "Ndrysho amendament",
+      "title": "Titulli i amendamentit:",
+      "placeholder": "Titulli i amendamentit",
+      "uploadPdf": "Ngarko PDF:",
+      "maxSizeError": "Madhësia maksimale e PDF-it/fajllave është 35MB!",
+      "typeError": "Ju lutem ngarkoni vetëm PDF!",
+      "selectedFiles": "Fajllat e zgjedhura",
+      "currentPdf": "PDF aktual",
+      "selectStatus": "Zgjidh statusin:",
+      "dropHere": "Hidhni fajllin këtu",
+      "orClick": "ose klikoni për të zgjedhur PDF-in",
+      "statusOptions": {
+          "created": "Krijuar",
+          "active": "Aktiv",
+          "finished": "Përfunduar"
+      },
+      "removePdf": "Fshi",
+      "addButton": "Shto",
+      "editButton": "Ndrysho",
+      "back": "Kthehu",
+      "amount": "Shuma:",
+      "amountPlaceholder": "Futni shumën",
+      "optional": "(opsionale)"
   }
+
 }

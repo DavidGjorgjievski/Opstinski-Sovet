@@ -30,6 +30,7 @@ import MunicipalityMandate from './pages/MunicipalityMandate';
 import AddMunicipalityMandateForm from './pages/AddMunicipalityMandateForm';
 import HeadLinks from './components/HeadLinks';
 import Amendments from './pages/Amendments';
+import AddAmendmentForm from './pages/AddAmendmentForm';
 import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
 import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAddList'
 import ForgotPassword from './pages/ForgotPassword'
@@ -157,8 +158,23 @@ function App() {
               />
 
               <Route
-                path="/municipalities/:municipalityId/sessions/:id?/topics/amendments/:topicId"
+                path="/municipalities/:municipalityId/sessions/:id?/topics/amendments/:idt"
                 element={<ProtectedRoute element={<Amendments />} />}
+              />
+
+              <Route
+                path="/municipalities/:municipalityId/sessions/:id?/topics/amendments/:idt/add-form"
+                element={<ProtectedRoute element={<AddAmendmentForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']} />}
+              />
+
+              <Route
+                path="/municipalities/:municipalityId/sessions/:id?/topics/amendments/:idt/edit/:amendmentId"
+                element={
+                  <ProtectedRoute
+                    element={<AddAmendmentForm />}
+                    allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']}
+                  />
+                }
               />
 
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics" element={<ProtectedRoute element={<Topics />} />} />

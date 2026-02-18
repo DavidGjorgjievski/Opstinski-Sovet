@@ -274,6 +274,11 @@
     white-space: nowrap;
 }
 
+@media (max-width: 768px) {
+    .back-button {
+        display: none;
+    }
+}
 
 .wide-back-button {
     display: inline-flex;
