@@ -591,7 +591,8 @@
     "confirmDeleteTitle": "Потврди Бришење",
     "confirmDeleteMessage": "Дали сте сигурни дека сакате да го избришете овој амандман",
     "confirmDeleteButton": "Избриши",
-    "cancelButton": "Откажи"
+    "cancelButton": "Откажи",
+    "amendmentFrom": "Амандман од"
   },
 
     "addAmendmentForm": {

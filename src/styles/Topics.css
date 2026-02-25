@@ -666,27 +666,33 @@ html {
 .topic-header-pdf {
     position: relative;
     cursor: pointer !important;
-    color: black;
-    transition: color 0.3s ease;
+    color: #1a1a1a;
     text-align: center;
+    transition: color 0.25s ease, transform 0.2s ease;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 2px 6px;
 }
 
 .topic-header-pdf::after {
     content: '';
     position: absolute;
-    left: 0;
-    bottom: -2px;
+    left: 10%;
+    bottom: -3px;
     width: 0%;
     height: 2px;
-    background-color: black;
-    transition: width 0.3s ease;
+    background: black;
+    border-radius: 2px;
+    transition: width 0.35s ease, left 0.35s ease;
 }
 
 .topic-header-pdf:hover {
     color: black;
+    transform: scale(1.02);
 }
 
 .topic-header-pdf:hover::after {
+    left: 0%;
     width: 100%;
 }
 
@@ -701,25 +707,6 @@ html {
 
 .guest-width{
     width: 95%;
-}
-
-.topic-header-pdf::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 0%;
-    height: 2px;
-    background-color: black;
-    transition: width 0.3s ease;
-}
-
-.topic-header-pdf:hover {
-    color: black;
-}
-
-.topic-header-pdf:hover::after {
-    width: 100%;
 }
 
 .menu-container {
@@ -1284,7 +1271,7 @@ html {
     font-weight: 600;
     font-size: 1rem;
     padding: 10px 20px;
-    border-radius: 999px;
+    border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
     line-height: 1;
@@ -1337,7 +1324,7 @@ html {
 /* Optional: smaller on mobile */
 @media (max-width: 400px) {
     .topic-amount-container {
-        font-size: 0.9rem;
-        padding: 4px 12px;
+        font-size: 1rem;
+        padding: 10px 20px;
     }
 }

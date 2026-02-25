@@ -772,18 +772,25 @@ useEffect(() => {
                                     </div>                    
                                 </div>
 
-                                {topic.amount && (
+                                {(topic.amount || topic.hasAmendments) && (
                                     <div className="topic-pill-container">
+                                        {topic.amount && (
                                             <div className="topic-amount-container">
                                                 {topic.amount} {t("topicsPage.currency")}
                                             </div>
-
-                                        {/* <div className="amendments-button">
-                                            Амандмани
-                                        </div> */}
+                                        )}
+                                        {topic.hasAmendments && (
+                                            <Link
+                                                to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${topic.id}`}
+                                                onClick={saveScrollPosition}
+                                            >
+                                                <div className="amendments-button">
+                                                    {t("topicsPage.amendments")}
+                                                </div>
+                                            </Link>
+                                        )}
                                     </div>
                                 )}
-
 
                                 <div className='topic-item-body'>
                                     {(topic.topicStatus === "ACTIVE" || topic.topicStatus === "FINISHED") && (

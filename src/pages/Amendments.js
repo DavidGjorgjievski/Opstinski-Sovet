@@ -6,9 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import RestartAmendmentStatusModal from '../components/RestartAmendmentStatusModal';
 import AmendmentConfirmModal from '../components/AmendmentConfirmModal';
+import useAmendmentVoteWebSocket from "../hooks/useAmendmentVoteWebSocket";
+import useNewAmendmentWebSocket from "../hooks/useNewAmendmentWebSocket";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faChevronLeft, 
+    faPlus, 
     faEllipsisV, 
     faPenToSquare, 
     faTrash,
@@ -41,7 +44,11 @@ function Amendments() {
     const [deleteAmendmentTitle, setDeleteAmendmentTitle] = useState("");
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
+    
+    const { messages: amendmentMessages, sendVote: sendAmendmentVote } =
+    useAmendmentVoteWebSocket(idt);
 
+    const { messages: newAmendmentMessages, sendNewAmendment } = useNewAmendmentWebSocket(idt);
 
     const toggleMenu = (amendmentId) => {
     setOpenMenus(prev => ({
@@ -63,12 +70,16 @@ const closeDeleteAmendmentModal = () => {
 
 const handleDeleteAmendmentConfirm = async () => {
     try {
-       await api.delete(`/api/topics/${idt}/amendments/${deleteAmendmentId}`);
-        // Refresh amendments list
+        await api.delete(`/api/topics/${idt}/amendments/${deleteAmendmentId}`);
+
         await fetchAmendments();
+
+        sendNewAmendment(`DELETE_AMENDMENT_${deleteAmendmentId}`);
+
     } catch (error) {
         console.error("Error deleting amendment:", error);
     }
+
     closeDeleteAmendmentModal();
 };
 
@@ -80,27 +91,38 @@ const handleDeleteAmendmentConfirm = async () => {
         sessionStorage.setItem('scrollPosition', window.scrollY);
     };
 
-    const fetchAmendments = useCallback(async () => {
-        try {
-            const response = await api.get(`/api/topics/${idt}/amendments`);
-            const data = response.data || {};
-            setAmendments(Array.isArray(data.amendments) ? data.amendments : []);
-            setTopicTitle(data.topicTitle || "");
-            setLoaded(true);
-            setTopics(Array.isArray(data.topics) ? data.topics : []); // for progress
-        } catch (error) {
-            console.error("Error fetching amendments:", error);
-            setAmendments([]);
-            setTopicTitle("");
-            setTopics([]);
-            setLoaded(true);
-        }
-    }, [idt]);
+const fetchAmendments = useCallback(async () => {
+    try {
+        const response = await api.get(`/api/topics/${idt}/amendments`);
+        const data = response.data || {};
+        const amendmentsArray = Array.isArray(data.amendments) ? data.amendments : [];
+        setAmendments(amendmentsArray);
+        setTopicTitle(data.topicTitle || "");
+        setLoaded(true);
+        setTopics(Array.isArray(data.topics) ? data.topics : []); // for progress
+        return amendmentsArray; // ✅ return for WebSocket
+    } catch (error) {
+        console.error("Error fetching amendments:", error);
+        setAmendments([]);
+        setTopicTitle("");
+        setTopics([]);
+        setLoaded(true);
+        return []; // ✅ safe fallback
+    }
+}, [idt]);
 
     useEffect(() => {
         fetchAmendments();
     }, [fetchAmendments]);
 
+    const hasAmendmentAccess = (
+        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    );
     
     const hasAmendmentPermission = (
         (
@@ -125,7 +147,7 @@ const handleDeleteAmendmentConfirm = async () => {
 
     const handleAmendmentPdfFetch = async (pdfId) => {
     try {
-        const response = await api.get(`/api/amendments/pdf/${pdfId}`, {
+        const response = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}`, {
             responseType: "blob", // important for PDF
             headers: { Accept: "application/pdf" },
         });
@@ -172,20 +194,37 @@ const handleDeleteAmendmentConfirm = async () => {
         fetchAmendmentUserVotes();
     }, [fetchAmendmentUserVotes]);
 
+
 const handleAmendmentVote = async (amendmentId, voteType) => {
-    if (currentVotes[amendmentId] === voteType) return;
+
+    // Prevent duplicate vote
+    if (currentVotes[amendmentId] === voteType) {
+        console.log("Amendment vote unchanged, request skipped");
+        return;
+    }
 
     try {
         await api.post(
             `/api/topics/${idt}/amendments/vote/${amendmentId}/${voteType}`
         );
 
+        console.log(`${voteType} amendment vote submitted`);
+
+        // Optimistic UI update
         setCurrentVotes((prevVotes) => ({
             ...prevVotes,
             [amendmentId]: voteType,
         }));
+
+        // 🔥 Notify others via WebSocket
+        sendAmendmentVote(amendmentId);
+
     } catch (error) {
         console.error("Error submitting amendment vote:", error);
+
+        if (error.response?.status === 409) {
+            console.warn("Amendment vote conflict");
+        }
     }
 };
 
@@ -274,6 +313,58 @@ const restartAmendmentVoting = async (amendmentId, topicId) => {
     }
 };
 
+useEffect(() => {
+    if (amendmentMessages.length === 0) return;
+
+    const lastResult = amendmentMessages.at(-1);
+    const updatedAmendmentId = lastResult.amendmentId;
+
+    // Update amendment vote counts and status
+    setAmendments((prevAmendments) =>
+        prevAmendments.map((amendment) =>
+            amendment.id === updatedAmendmentId
+                ? {
+                    ...amendment,
+                    yes: lastResult.yes,
+                    no: lastResult.no,
+                    abstained: lastResult.abstained,
+                    cantVote: lastResult.cantVote,
+                    haveNotVoted: lastResult.haveNotVoted,
+                    absent: lastResult.absent,
+                    status: lastResult.status,
+                }
+                : amendment
+        )
+    );
+
+    // Reset currentVotes if amendment voting restarted
+    if (lastResult.status === "CREATED") {
+        setCurrentVotes((prevVotes) => ({
+            ...prevVotes,
+            [updatedAmendmentId]: "HAVE_NOT_VOTED",
+        }));
+    }
+
+}, [amendmentMessages]);
+
+useEffect(() => {
+  if (newAmendmentMessages.length > 0) {
+    (async () => {
+      const updatedAmendments = await fetchAmendments(); // now returns array safely
+
+      setCurrentVotes(prevVotes => {
+        const newVotes = { ...prevVotes };
+        updatedAmendments.forEach(amendment => {
+          if (!(amendment.id in newVotes)) {
+            newVotes[amendment.id] = "HAVE_NOT_VOTED"; 
+          }
+        });
+        localStorage.setItem(`currentVotes_amendments_${idt}`, JSON.stringify(newVotes));
+        return newVotes;
+      });
+    })();
+  }
+}, [newAmendmentMessages, fetchAmendments, idt]);
 
 const openRestartAmendmentModal = (amendmentId, amendmentTitle) => {
     setRestartAmendmentId(amendmentId);
@@ -283,7 +374,7 @@ const openRestartAmendmentModal = (amendmentId, amendmentTitle) => {
 
 const hasAmendmentPermissionsStatus = (
     (
-        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
+        userInfo.role === 'ROLE_PRESIDENT' &&
         userInfo.status === "ACTIVE" &&
         Number(municipalityId) === Number(userInfo.municipalityId) &&
         Array.isArray(userInfo.municipalityTermIds) &&
@@ -306,8 +397,6 @@ const handleRestartAmendmentConfirm = () => {
     closeRestartAmendmentModal();
 };
 
-
-
  useEffect(() => {
         const handleClickOutside = (event) => {
             Object.keys(menuRefs.current).forEach((key) => {
@@ -322,8 +411,6 @@ const handleRestartAmendmentConfirm = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
-
 
     return (
         <div className="amendments-container">
@@ -371,15 +458,15 @@ const handleRestartAmendmentConfirm = () => {
                         </div>
 
                         {/* Add button */}
-                        {/* <div className="session-button-container">
+                        <div className="session-button-container">
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}/add-form`}>
-                                {hasAmendmentPermission && (
+                                {hasAmendmentAccess && (
                                     <button className="entity-add-button" onClick={saveScrollPosition}>
                                     {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
                                     </button>
                                 )}
                             </Link>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
 
@@ -446,8 +533,9 @@ const handleRestartAmendmentConfirm = () => {
                                                     </span>
                                                 )}
                                             </h3>
+                                           
                                             <div className='menu-wrapper'>
-                                            {hasAmendmentPermission && (
+                                            {hasAmendmentPermission && (userInfo.role === 'ROLE_ADMIN' || amendment.createdBy === userInfo.username) && (
                                                 <div className="menu-container" ref={(el) => (menuRefs.current[amendment.id] = el)}>
                                                     
                                                     {/* Menu Dots */}
@@ -462,8 +550,8 @@ const handleRestartAmendmentConfirm = () => {
                                                     {openMenus[amendment.id] && (
                                                         <ul className="menu-list">
 
-                                                            {/* Edit Amendment - for admin/president/editor */}
-                                                            {['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_EDITOR'].includes(userInfo.role) && (
+                                                            {/* Edit Amendment - for admin/president/editor/user */}
+                                                            {['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_EDITOR', 'ROLE_USER'].includes(userInfo.role) && (
                                                                 <li>
                                                                     <Link
                                                                         to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}/edit/${amendment.id}`}
@@ -498,6 +586,14 @@ const handleRestartAmendmentConfirm = () => {
                                         </div>
 
                                         </div>
+
+                                         {(amendment.createdByName || amendment.createdBySurname) && (
+                                                <div className="amendment-created-by-container">
+                                                    <span className="amendment-created-by">
+                                                        {t("amendments.amendmentFrom")}: {amendment.createdByName} {amendment.createdBySurname}
+                                                    </span>
+                                                </div>
+                                            )}
 
 
                                         {amendment.amount && (
@@ -777,13 +873,6 @@ const handleRestartAmendmentConfirm = () => {
                                 </div>
                             ))
                     }
-                    <div className="info-pill">
-                        <h2>Страницата за Амандмани е во изработка</h2>
-                        <p>Функционалноста за управување со амандмани е во фаза на развој.</p>
-                    </div>
-
-
-
                 </div>
                 
 

@@ -346,17 +346,17 @@ useEffect(() => {
                                                 className="mb-1 topic-textarea-title"
                                                 value={title}
                                                 onChange={(e) => {
-                                                    const value = e.target.value.slice(0, 500);
+                                                    const value = e.target.value.slice(0, 700);
                                                     setTitle(value);
                                                     resizeTextarea();
                                                 }}
                                                 required
                                                 placeholder={t("addTopicForm.placeholder")}
                                                 rows={minRows}
-                                                maxLength={500}
+                                                maxLength={700}
                                             />
                                             <div className="character-counter">
-                                                {title.length}/500
+                                                {title.length}/700
                                             </div>
                                         </div>
 

@@ -18,6 +18,7 @@ import Topics from './pages/Topics';
 import Municipalities from './pages/Municipalities'
 import AddTopicForm from './pages/AddTopicForm';
 import TopicDetails from './pages/TopicDetails';
+import AmendmentDetails from './pages/AmendmentDetails';
 import Unauthorized from './pages/Unauthorized';
 import AddMunicipalityForm from './pages/AddMunicipalityForm';
 import TopicPresentation from './pages/TopicPresentation'
@@ -164,7 +165,7 @@ function App() {
 
               <Route
                 path="/municipalities/:municipalityId/sessions/:id?/topics/amendments/:idt/add-form"
-                element={<ProtectedRoute element={<AddAmendmentForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']} />}
+                element={<ProtectedRoute element={<AddAmendmentForm />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR', 'ROLE_USER']} />}
               />
 
               <Route
@@ -172,7 +173,7 @@ function App() {
                 element={
                   <ProtectedRoute
                     element={<AddAmendmentForm />}
-                    allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR']}
+                    allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_EDITOR', 'ROLE_USER']}
                   />
                 }
               />
@@ -197,6 +198,7 @@ function App() {
               />
              
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics/details/:idt" element={<ProtectedRoute element={<TopicDetails />} />} />
+              <Route path="/municipalities/:municipalityId/sessions/:id?/topics/amendments/:idt/details/:amendmentId" element={<ProtectedRoute element={<AmendmentDetails />} />} />
 
               <Route path="*" element={<NotFound />} /> 
             </Routes>

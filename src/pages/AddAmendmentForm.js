@@ -13,7 +13,7 @@ import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free
 import api from '../api/axios';
 
 const AddAmendmentForm = () => {
-    const { idt, amendmentId, municipalityId } = useParams();
+    const { id, idt, amendmentId, municipalityId } = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
 
@@ -114,7 +114,7 @@ const AddAmendmentForm = () => {
         const newAmendmentId = isEditing ? amendmentId : response.data.amendmentId;
 
         // Navigate to amendments page and scroll to the amendment
-        navigate(`/municipalities/${municipalityId}/sessions/${idt}/topics/amendments/${idt}#amendment-${newAmendmentId}`);
+        navigate(`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}#amendment-${newAmendmentId}`);
     } catch (err) {
         console.error("Error submitting amendment:", err);
     } finally {
@@ -237,16 +237,16 @@ const AddAmendmentForm = () => {
                                         className="mb-1 topic-textarea-title"
                                         value={title}
                                         onChange={(e) => {
-                                            const value = e.target.value.slice(0, 500);
+                                            const value = e.target.value.slice(0, 700);
                                             setTitle(value);
                                             resizeTextarea();
                                         }}
                                         placeholder={t("addAmendmentForm.placeholder")}
                                         rows={minRows}
-                                        maxLength={500}
+                                        maxLength={700}
                                         required
                                     />
-                                    <div className="character-counter">{title.length}/500</div>
+                                    <div className="character-counter">{title.length}/700</div>
                                 </div>
 
                                 {/* PDF Upload */}
@@ -360,7 +360,7 @@ const AddAmendmentForm = () => {
                                     <button
                                         type="button"
                                         className="add-form-back-button"
-                                        onClick={() => navigate(`/municipalities/${municipalityId}/sessions/${idt}/topics/amendments/${idt}`)}
+                                        onClick={() => navigate(`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}`)}
                                     >
                                         <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
                                         {t("addAmendmentForm.back")}
