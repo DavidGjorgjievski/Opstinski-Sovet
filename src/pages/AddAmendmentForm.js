@@ -275,8 +275,10 @@ const AddAmendmentForm = () => {
                                         <ul className="file-list">
                                             {files.map((f, idx) => (
                                                 <li key={idx} className="file-item d-flex align-items-center justify-content-between">
-                                                    <span>{f.name} ({(f.size/(1024*1024)).toFixed(2)} MB)</span>
-                                                    <button type="button" onClick={() => setFiles(prev => prev.filter((_, i) => i !== idx))}>
+                                                    <span className="file-name">
+                                                        {f.name} <span className="file-size">({(f.size/(1024*1024)).toFixed(2)} MB)</span>
+                                                    </span>
+                                                    <button type="button" className="remove-file-btn ms-2" onClick={() => setFiles(prev => prev.filter((_, i) => i !== idx))}>
                                                         <FontAwesomeIcon icon={faTrash} />
                                                     </button>
                                                 </li>
@@ -294,7 +296,7 @@ const AddAmendmentForm = () => {
                                         <span className="pdf-link me-2" onClick={() => handlePdfFetch(pdfId)} style={{ cursor: 'pointer' }}>
                                             {currentPdfFileName}
                                         </span>
-                                        <button type="button" onClick={() => setIsPdfModalOpen(true)}>
+                                        <button type="button" className="remove-pdf-button" onClick={() => setIsPdfModalOpen(true)}>
                                             {t("addAmendmentForm.removePdf")} <FontAwesomeIcon icon={faTrash} />
                                         </button>
                                     </div>

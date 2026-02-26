@@ -586,11 +586,10 @@
 
   "amendments": {
     "title": "Amendamente",
-    "confirmDeleteTitle":"Konfirmo Fshirjen",
+    "confirmDeleteTitle": "Konfirmo Fshirjen",
     "confirmDeleteMessage": "A jeni i sigurt që dëshironi të fshini këtë amendament?",
     "confirmDeleteButton": "Fshij",
-    "cancelButton": "Anulo",
-    "amendmentFrom": "Amendament nga"
+    "cancelButton": "Anulo"
   },
 
   "addAmendmentForm": {
