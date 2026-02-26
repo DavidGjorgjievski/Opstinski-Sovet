@@ -1229,6 +1229,7 @@ html {
 
     position: relative;
     overflow: hidden;
+    margin-top: 10px;
 
     transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
