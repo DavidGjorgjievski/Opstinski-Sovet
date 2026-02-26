@@ -565,8 +565,9 @@ const handleRestartAmendmentConfirm = () => {
                                                                 </li>
                                                             )}
 
-                                                            {/* Delete Amendment - for admin/president */}
-                                                            {['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && (
+                                                            {/* Delete Amendment - for admin/president, or user who created it */}
+                                                            {(['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) ||
+                                                              (userInfo.role === 'ROLE_USER' && amendment.createdBy === userInfo.username)) && (
                                                                 <li className="topic-delete-button">
                                                                     <span
                                                                         onClick={() => {
