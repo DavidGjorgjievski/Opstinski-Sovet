@@ -669,7 +669,9 @@ html {
     color: #1a1a1a;
     text-align: center;
     transition: color 0.25s ease, transform 0.2s ease;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
     border-radius: 6px;
     padding: 2px 6px;
 }
@@ -709,8 +711,6 @@ html {
     border-top-color: #444;
     border-radius: 50%;
     animation: pdf-spin 0.7s linear infinite;
-    margin-left: 0.4em;
-    vertical-align: middle;
     flex-shrink: 0;
 }
 
