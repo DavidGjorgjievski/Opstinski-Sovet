@@ -44,6 +44,7 @@ function Topics() {
     const [isVoteAction, setIsVoteAction] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
     const [loadingPdfId, setLoadingPdfId] = useState(null);
+    const votingInProgressRef = useRef(new Set());
     // WEB SOCKETS
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
     const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
@@ -352,14 +353,18 @@ function Topics() {
 
         // Prevent sending request if vote is already the same
         if (currentVotes[topicId] === voteType) {
-            console.log("Vote unchanged, request skipped");
             return;
         }
 
+        // Prevent concurrent votes for the same topic
+        if (votingInProgressRef.current.has(topicId)) {
+            return;
+        }
+
+        votingInProgressRef.current.add(topicId);
+
         try {
             await api.post(`/api/topics/vote/${topicId}/${voteType}`);
-
-            console.log(`${voteType} vote submitted successfully`);
 
             // Mark this as a vote action
             setIsVoteAction(true);
@@ -375,11 +380,8 @@ function Topics() {
 
         } catch (error) {
             console.error("Error submitting vote:", error);
-
-            // Optional: revert UI on conflict
-            if (error.response?.status === 409) {
-                console.warn("Vote conflict, retrying not allowed");
-            }
+        } finally {
+            votingInProgressRef.current.delete(topicId);
         }
     };
 
