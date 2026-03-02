@@ -214,6 +214,8 @@ const handleAmendmentVote = async (amendmentId, voteType) => {
 
     votingInProgressRef.current.add(amendmentId);
 
+    const prevVoteType = currentVotes[amendmentId];
+
     try {
         await api.post(
             `/api/topics/${idt}/amendments/vote/${amendmentId}/${voteType}`
@@ -224,6 +226,26 @@ const handleAmendmentVote = async (amendmentId, voteType) => {
             ...prevVotes,
             [amendmentId]: voteType,
         }));
+
+        // Optimistically update vote counts on the buttons
+        const voteFieldMap = {
+            'YES': 'yes',
+            'NO': 'no',
+            'ABSTAINED': 'abstained',
+            'CANNOT_VOTE': 'cantVote',
+            'HAVE_NOT_VOTED': 'haveNotVoted',
+        };
+        setAmendments((prevAmendments) =>
+            prevAmendments.map((amendment) => {
+                if (amendment.id !== amendmentId) return amendment;
+                const updated = { ...amendment };
+                const newField = voteFieldMap[voteType];
+                const prevField = voteFieldMap[prevVoteType];
+                if (newField) updated[newField] = (updated[newField] || 0) + 1;
+                if (prevField) updated[prevField] = Math.max(0, (updated[prevField] || 0) - 1);
+                return updated;
+            })
+        );
 
         // Notify others via WebSocket
         sendAmendmentVote(amendmentId);
