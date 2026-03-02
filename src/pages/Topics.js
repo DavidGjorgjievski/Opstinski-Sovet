@@ -363,6 +363,8 @@ function Topics() {
 
         votingInProgressRef.current.add(topicId);
 
+        const prevVoteType = currentVotes[topicId];
+
         try {
             await api.post(`/api/topics/vote/${topicId}/${voteType}`);
 
@@ -374,6 +376,26 @@ function Topics() {
                 ...prevVotes,
                 [topicId]: voteType,
             }));
+
+            // Optimistically update vote counts on the buttons
+            const voteFieldMap = {
+                'YES': 'yes',
+                'NO': 'no',
+                'ABSTAINED': 'abstained',
+                'CANNOT_VOTE': 'cantVote',
+                'HAVE_NOT_VOTED': 'haveNotVoted',
+            };
+            setTopics((prevTopics) =>
+                prevTopics.map((topic) => {
+                    if (topic.id !== topicId) return topic;
+                    const updated = { ...topic };
+                    const newField = voteFieldMap[voteType];
+                    const prevField = voteFieldMap[prevVoteType];
+                    if (newField) updated[newField] = (updated[newField] || 0) + 1;
+                    if (prevField) updated[prevField] = Math.max(0, (updated[prevField] || 0) - 1);
+                    return updated;
+                })
+            );
 
             // Notify others via WebSocket
             sendVote(topicId);
