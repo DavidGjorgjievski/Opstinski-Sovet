@@ -43,6 +43,7 @@ function Topics() {
     const [showNumber, setShowNumber] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
+    const [loadingPdfId, setLoadingPdfId] = useState(null);
     // WEB SOCKETS
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
     const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
@@ -250,18 +251,22 @@ function Topics() {
   
 
     const handlePdfFetch = async (pdfId) => {
+        if (loadingPdfId === pdfId) return;
+        setLoadingPdfId(pdfId);
         try {
             const response = await api.get(`/api/topics/pdf/${pdfId}`, {
-                responseType: "blob", 
+                responseType: "blob",
                 headers: { Accept: "application/pdf" },
             });
 
-            const url = URL.createObjectURL(response.data); 
-            window.open(url, "_blank"); 
+            const url = URL.createObjectURL(response.data);
+            window.open(url, "_blank");
 
             setTimeout(() => URL.revokeObjectURL(url), 10000);
         } catch (error) {
             console.error("Error fetching PDF:", error);
+        } finally {
+            setLoadingPdfId(null);
         }
     };
 
@@ -652,9 +657,13 @@ useEffect(() => {
                                                             ? "guest-width"
                                                             : ""
                                                     }
+                                                    ${loadingPdfId === topic.pdfFileId ? "pdf-loading" : ""}
                                                 `}
                                             >
                                                 {topic.title}
+                                                {loadingPdfId === topic.pdfFileId && (
+                                                    <span className="pdf-spinner" aria-label="Loading PDF" />
+                                                )}
                                             </span>
                                         ) : (
                                             <span
