@@ -35,6 +35,7 @@ function Amendments() {
     const [topics, setTopics] = useState([]); // for progress bar
     const [openMenus, setOpenMenus] = useState({}); // track which amendment menu is open
     const menuRefs = useRef({}); // refs for each amendment menu
+    const votingInProgressRef = useRef(new Set());
     const [currentVotes, setCurrentVotes] = useState({});
     const [isRestartAmendmentModalOpen, setIsRestartAmendmentModalOpen] = useState(false);
     const [restartAmendmentId, setRestartAmendmentId] = useState(null);
@@ -203,16 +204,20 @@ const handleAmendmentVote = async (amendmentId, voteType) => {
 
     // Prevent duplicate vote
     if (currentVotes[amendmentId] === voteType) {
-        console.log("Amendment vote unchanged, request skipped");
         return;
     }
+
+    // Prevent concurrent votes for the same amendment
+    if (votingInProgressRef.current.has(amendmentId)) {
+        return;
+    }
+
+    votingInProgressRef.current.add(amendmentId);
 
     try {
         await api.post(
             `/api/topics/${idt}/amendments/vote/${amendmentId}/${voteType}`
         );
-
-        console.log(`${voteType} amendment vote submitted`);
 
         // Optimistic UI update
         setCurrentVotes((prevVotes) => ({
@@ -220,15 +225,13 @@ const handleAmendmentVote = async (amendmentId, voteType) => {
             [amendmentId]: voteType,
         }));
 
-        // 🔥 Notify others via WebSocket
+        // Notify others via WebSocket
         sendAmendmentVote(amendmentId);
 
     } catch (error) {
         console.error("Error submitting amendment vote:", error);
-
-        if (error.response?.status === 409) {
-            console.warn("Amendment vote conflict");
-        }
+    } finally {
+        votingInProgressRef.current.delete(amendmentId);
     }
 };
 
