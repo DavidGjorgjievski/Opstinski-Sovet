@@ -250,10 +250,11 @@ const startAmendmentVoting = async (amendmentId, topicId) => {
             }));
         }
 
+        // Send WebSocket update
+        sendAmendmentVote(amendmentId);
 
     } catch (error) {
         console.error('Error starting amendment voting:', error);
-        // Optional: show toast/alert
     }
 };
 
@@ -277,9 +278,12 @@ const finishAmendmentVoting = async (amendmentId, topicId) => {
         if (userInfo.role !== "ROLE_ADMIN") {
             setCurrentVotes((prevVotes) => ({
                 ...prevVotes,
-                [String(amendmentId)]: null, // Clear vote or leave as is
+                [String(amendmentId)]: null,
             }));
         }
+
+        // Send WebSocket update
+        sendAmendmentVote(amendmentId);
 
     } catch (error) {
         console.error('Error finishing amendment voting:', error);
@@ -307,10 +311,13 @@ const restartAmendmentVoting = async (amendmentId, topicId) => {
         if (['ROLE_USER', 'ROLE_PRESIDENT'].includes(userInfo.role)) {
             setCurrentVotes((prevVotes) => {
                 const updatedVotes = { ...prevVotes };
-                delete updatedVotes[amendmentId]; // Remove old vote
+                delete updatedVotes[amendmentId];
                 return updatedVotes;
             });
         }
+
+        // Send WebSocket update
+        sendAmendmentVote(amendmentId);
 
     } catch (error) {
         console.error('Error restarting amendment voting:', error);

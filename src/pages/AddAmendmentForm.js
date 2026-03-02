@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+import useNewAmendmentWebSocket from '../hooks/useNewAmendmentWebSocket';
 
 const AddAmendmentForm = () => {
     const { id, idt, amendmentId, municipalityId } = useParams();
@@ -38,6 +39,8 @@ const AddAmendmentForm = () => {
     const minRows = 3;
     const maxRows = 10;
     const lineHeight = 24;
+
+    const { sendNewAmendment } = useNewAmendmentWebSocket(idt);
 
     const isEditing = !!amendmentId;
 
@@ -112,6 +115,8 @@ const AddAmendmentForm = () => {
 
         // Get the amendment ID
         const newAmendmentId = isEditing ? amendmentId : response.data.amendmentId;
+
+        sendNewAmendment("NEW_AMENDMENT");
 
         // Navigate to amendments page and scroll to the amendment
         navigate(`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}#amendment-${newAmendmentId}`);
