@@ -42,6 +42,7 @@ function Amendments() {
     const [isDeleteAmendmentModalOpen, setIsDeleteAmendmentModalOpen] = useState(false);
     const [deleteAmendmentId, setDeleteAmendmentId] = useState(null);
     const [deleteAmendmentTitle, setDeleteAmendmentTitle] = useState("");
+    const [loadingPdfId, setLoadingPdfId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
     
@@ -146,21 +147,24 @@ const fetchAmendments = useCallback(async () => {
     };
 
     const handleAmendmentPdfFetch = async (pdfId) => {
-    try {
-        const response = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}`, {
-            responseType: "blob", // important for PDF
-            headers: { Accept: "application/pdf" },
-        });
+        if (loadingPdfId === pdfId) return;
+        setLoadingPdfId(pdfId);
+        try {
+            const response = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}`, {
+                responseType: "blob",
+                headers: { Accept: "application/pdf" },
+            });
 
-        const url = URL.createObjectURL(response.data);
-        window.open(url, "_blank");
+            const url = URL.createObjectURL(response.data);
+            window.open(url, "_blank");
 
-        // revoke the object URL after some time to free memory
-        setTimeout(() => URL.revokeObjectURL(url), 10000);
-    } catch (error) {
-        console.error("Error fetching amendment PDF:", error);
-    }
-};
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
+        } catch (error) {
+            console.error("Error fetching amendment PDF:", error);
+        } finally {
+            setLoadingPdfId(null);
+        }
+    };
 
     const canVote = (
         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
@@ -516,9 +520,13 @@ const handleRestartAmendmentConfirm = () => {
                                                             ${["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT", "ROLE_USER"].includes(userInfo?.role) ? "ape-width" : ""}
                                                             ${["ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role) ? "user-width" : ""}
                                                             ${userInfo?.role === "ROLE_GUEST" ? "guest-width" : ""}
+                                                            ${loadingPdfId === amendment.pdfFileId ? "pdf-loading" : ""}
                                                         `}
                                                     >
                                                         {amendment.title}
+                                                        {loadingPdfId === amendment.pdfFileId && (
+                                                            <span className="pdf-spinner" aria-label="Loading PDF" />
+                                                        )}
                                                     </span>
                                                 ) : (
                                                     <span
