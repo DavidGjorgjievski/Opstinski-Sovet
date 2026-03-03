@@ -402,10 +402,8 @@ html {
     transform: scale(1.2);
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     font-weight: 800;
-    animation: votePulse 0.25s ease-out;
+    animation: votePulse 0.125s ease-out;
 }
-
-
 
 .vote-yes {
     border-color: #68c0a2;

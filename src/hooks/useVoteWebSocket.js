@@ -9,9 +9,8 @@ export default function useVoteWebSocket(sessionId) {
   const reconnectLock = useRef(false);
 
   const connect = useCallback(() => {
-    const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
     const client = new Client({
-      webSocketFactory: () => socket,
+      webSocketFactory: () => new SockJS(`${process.env.REACT_APP_API_URL}/ws`),
       reconnectDelay: 5000,
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
@@ -39,12 +38,11 @@ export default function useVoteWebSocket(sessionId) {
   }, [sessionId]);
 
   const tryReconnect = useCallback(() => {
-    if (isConnectedRef.current || reconnectLock.current) return;
+    if (stompClientRef.current?.connected || reconnectLock.current) return;
     reconnectLock.current = true;
     stompClientRef.current?.deactivate();
-    connect().finally(() => {
-      reconnectLock.current = false;
-    });
+    connect();
+    reconnectLock.current = false;
   }, [connect]);
 
   useEffect(() => {

@@ -8,9 +8,8 @@ export default function usePresenterWebSocket(sessionId) {
   const isConnectedRef = useRef(false); // track connection state
 
   const connect = useCallback(() => {
-    const socket = new SockJS(`${process.env.REACT_APP_API_URL}/ws`);
     const client = new Client({
-      webSocketFactory: () => socket,
+      webSocketFactory: () => new SockJS(`${process.env.REACT_APP_API_URL}/ws`),
       reconnectDelay: 5000,
       heartbeatIncoming: 10000,
       heartbeatOutgoing: 10000,
@@ -36,7 +35,7 @@ export default function usePresenterWebSocket(sessionId) {
     connect();
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible" && !isConnectedRef.current) {
+      if (document.visibilityState === "visible" && !stompClientRef.current?.connected) {
         console.log("Tab active, reconnecting Presenter WebSocket...");
         stompClientRef.current?.deactivate();
         connect();
@@ -44,7 +43,7 @@ export default function usePresenterWebSocket(sessionId) {
     };
 
     const interval = setInterval(() => {
-      if (!isConnectedRef.current) {
+      if (!stompClientRef.current?.connected) {
         console.log("Presenter WebSocket inactive, reconnecting...");
         stompClientRef.current?.deactivate();
         connect();
