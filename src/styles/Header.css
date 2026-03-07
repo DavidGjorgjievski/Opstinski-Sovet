@@ -1,6 +1,5 @@
 header {
     padding-bottom: 0;
-    /* position: fixed; */
     top: 0;
     width: 100%;
     z-index: 1200;
@@ -97,11 +96,12 @@ nav {
     margin-top: 5px;
     margin-right: 50px;
     cursor: pointer;
-    transition: background-color 0.1s, transform 0.1s;
+    transition: transform 0.2s ease;
 }
 
-.header-image:hover {
-    transform: scale(1.03);
+.header-image:hover,
+.header-image.profile-open {
+    transform: scale(1.06);
 }
 
 .nav-item li a.active {
@@ -221,8 +221,12 @@ nav {
     display: inline-block;
     right: 120px;
     top: 50%;
-    transform: translateY(-50%);
-    transition: background-color 0.1s, transform 0.1s;
+    transform: translateY(-50%) scale(1);
+    transition: transform 0.2s ease;
+}
+
+.language-dropdown-container-header.lang-open {
+    transform: translateY(-50%) scale(1.1);
 }
 
 .selected-language-header {
@@ -248,7 +252,7 @@ nav {
 
 .language-options-header {
     position: absolute;
-    top: 38px;
+    top: 30px;
     right: 0;
     background: #fff;
     border: 1px solid #ddd;
@@ -268,6 +272,14 @@ nav {
 .language-option-header:hover {
     background-color: #f2f2f2;
     border-radius: 4px;
+}
+
+.language-option-header:hover .lang-flag-header {
+    transform: scale(1.06);
+}
+
+.language-option-header .lang-flag-header {
+    transition: transform 0.15s ease;
 }
 
 .arrow-lang-header{

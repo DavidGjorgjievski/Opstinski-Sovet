@@ -184,7 +184,7 @@ function Header({ isSticky = false }) {
 
                 <div ref={profileLangRef} className="profile-lang-wrapper">
                     {/* Language Selector */}
-                    <div className="language-dropdown-container-header">
+                    <div className={`language-dropdown-container-header${openLang ? ' lang-open' : ''}`}>
                         <button
                             className="selected-language-header"
                             onClick={() => setOpenLang(!openLang)}
@@ -224,7 +224,7 @@ function Header({ isSticky = false }) {
                     {/* Profile Picture */}
                     <img
                         src={`data:image/jpeg;base64,${userInfo.image}`}
-                        className="header-image"
+                        className={`header-image${isProfileMenuOpen ? ' profile-open' : ''}`}
                         alt="User Profile"
                         onClick={() => setProfileMenuOpen((open) => !open)}
                     />
