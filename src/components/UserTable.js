@@ -40,13 +40,20 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
             </td>
             <td className="ut-td ut-td-actions">
                 <div className="ut-actions">
-                    <button className="ut-btn ut-btn-edit" onClick={() => onEditClick(user)}>
+                   <button
+                        className="ut-btn ut-btn-edit"
+                        onClick={() => onEditClick(user)}
+                        title={t("common.edit")}
+                    >
                         <FontAwesomeIcon icon={faPenToSquare} />
-                        <span>{t("common.edit")}</span>
                     </button>
-                    <button className="ut-btn ut-btn-delete" onClick={() => onDeleteClick(user)}>
+
+                    <button
+                        className="ut-btn ut-btn-delete"
+                        onClick={() => onDeleteClick(user)}
+                        title={t("adminpanel.delete")}
+                    >
                         <FontAwesomeIcon icon={faTrash} />
-                        <span>{t("adminpanel.delete")}</span>
                     </button>
                 </div>
             </td>

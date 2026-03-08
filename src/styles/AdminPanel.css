@@ -334,27 +334,21 @@
 .ut-actions {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    align-items: stretch;
+    align-items: center;
+    gap: 6px;
 }
 
 .ut-btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    width: 100%;
-    min-width: 90px;
-    padding: 7px 10px;
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
-    font-size: 0.76rem;
-    font-weight: 600;
     border: none;
     cursor: pointer;
+    font-size: 0.9rem;
     transition: background 0.16s ease, transform 0.12s ease, box-shadow 0.16s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .ut-btn-edit {
@@ -365,7 +359,7 @@
 .ut-btn-edit:hover {
     background: #868e96;
     color: #fff;
-    box-shadow: 0 4px 12px rgba(134,142,150,0.35);
+    box-shadow: 0 4px 12px rgba(134, 142, 150, 0.35);
     transform: translateY(-1px);
 }
 
@@ -377,7 +371,7 @@
 .ut-btn-delete:hover {
     background: #e53e3e;
     color: #fff;
-    box-shadow: 0 4px 12px rgba(229,62,62,0.3);
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
     transform: translateY(-1px);
 }
 
@@ -390,6 +384,20 @@
     .user-back-button { font-size: 13px; }
     .admin-title { font-size: 30px; }
     .ut-th, .ut-td { padding: 9px 8px; }
+}
+
+@media (max-width: 1100px) {
+
+    .ut-th,
+    .ut-td {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .ut-td-email {
+        font-size: 0.9rem;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -414,6 +422,27 @@
 
     .ut-btn span { display: none; }
     .ut-btn { padding: 7px 10px; }
+}
+
+@media (max-width: 768px) {
+
+    .filter-select-options {
+        max-height: none;
+    }
+
+    .ut-table-wrap {
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .ut-table {
+        width: max-content;
+        min-width: 100%;
+        border-collapse: collapse;
+    }
+
 }
 
 @media (max-width: 500px) {
