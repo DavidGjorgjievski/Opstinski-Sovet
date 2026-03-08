@@ -46,6 +46,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
                         title={t("common.edit")}
                     >
                         <FontAwesomeIcon icon={faPenToSquare} />
+                        <span className="ut-btn-text">{t("common.edit")}</span>
                     </button>
 
                     <button
@@ -54,6 +55,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
                         title={t("adminpanel.delete")}
                     >
                         <FontAwesomeIcon icon={faTrash} />
+                        <span className="ut-btn-text">{t("adminpanel.delete")}</span>
                     </button>
                 </div>
             </td>
