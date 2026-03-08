@@ -81,7 +81,7 @@ function AmendmentDetails() {
                                         <FontAwesomeIcon icon={faChevronLeft} />
                                     </span>
                                     <span className="back-text">
-                                        {t('topicsDetails.backButton')}
+                                        {t('common.back')}
                                     </span>
                                 </button>
                             </div>

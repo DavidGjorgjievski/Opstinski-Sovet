@@ -99,7 +99,7 @@ function AddBiographyForm({ mode }) {
                                         <span className="back-icon">
                                             <FontAwesomeIcon icon={faChevronLeft} />
                                         </span>
-                                        {t(`addBiographyForm.${mode}.backButton`)}
+                                        {t("common.back")}
                                     </button>
                                 </div>
                             </form>

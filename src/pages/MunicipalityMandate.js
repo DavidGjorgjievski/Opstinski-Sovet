@@ -128,7 +128,7 @@ const confirmDeleteMandate = async () => {
                 className="entity-add-button"
                 onClick={() => navigate(`/municipalities/${municipalityId}/mandates/add-form`)}
               >
-                {t('MunicipalityMandate.add')} <FontAwesomeIcon icon={faPlus} />
+                {t('common.add')} <FontAwesomeIcon icon={faPlus} />
               </button>
             </div>
           )}
@@ -206,7 +206,7 @@ const confirmDeleteMandate = async () => {
                               navigate(`/municipalities/${municipalityId}/mandates/edit/${item.id}`)
                             }
                           >
-                            <FontAwesomeIcon icon={faPenToSquare} /> {t('MunicipalityMandate.edit')}
+                            <FontAwesomeIcon icon={faPenToSquare} /> {t('common.edit')}
                           </button>
 
                           <button

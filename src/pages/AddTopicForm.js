@@ -505,12 +505,12 @@ useEffect(() => {
                                             {idt && !isAddAfter && !isAddBefore ? (
                                                 <>
                                                     <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
-                                                    {t("addTopicForm.editButton")}
+                                                    {t("common.edit")}
                                                 </>
                                             ) : (
                                                 <>
                                                     <FontAwesomeIcon icon={faPlus} className="me-2" />
-                                                    {t("addTopicForm.addButton")}
+                                                    {t("common.add")}
                                                 </>
                                             )}
                                         </button>
@@ -529,7 +529,7 @@ useEffect(() => {
                                             <span className="back-icon">
                                                 <FontAwesomeIcon icon={faChevronLeft} />
                                             </span>
-                                            {t("addTopicForm.back")}
+                                            {t("common.back")}
                                         </button>
                                     </div>
                                 </form>

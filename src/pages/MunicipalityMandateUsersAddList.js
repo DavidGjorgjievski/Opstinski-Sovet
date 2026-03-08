@@ -104,7 +104,7 @@ const handleRemoveUser = async (username) => {
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </span>
                 <span className="back-text">
-                    {t("MunicipalityMandateUsersList.back")}
+                    {t("common.back")}
                 </span>
             </button>
           </div>
@@ -147,7 +147,7 @@ const handleRemoveUser = async (username) => {
                       className="municipality-mandate-users-list-add-button"
                       onClick={() => handleAddUser(user.username)}
                     >
-                      {t("MunicipalityMandateUsersList.add")} <FontAwesomeIcon icon={faUserPlus} />
+                      {t("common.add")} <FontAwesomeIcon icon={faUserPlus} />
                     </button>
                   </div>
                 ))}

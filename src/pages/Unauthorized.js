@@ -16,7 +16,7 @@ const Unauthorized = () => {
                 </h1>
                 <p>{t("unauthorized.message")}</p>
                 <Link to="/" className="wide-back-button">
-                    {t("unauthorized.backButton")}
+                    {t("common.backToHomepage")}
                 </Link>
             </div>
         </div>

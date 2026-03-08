@@ -104,7 +104,7 @@ const ChangeEmail = () => {
               <span className="back-icon">
                 <FontAwesomeIcon icon={faChevronLeft} />
               </span>
-              {t('changeEmail.back')}
+              {t('common.back')}
             </button>
           </div>
         </form>

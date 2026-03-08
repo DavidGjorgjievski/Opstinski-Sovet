@@ -86,7 +86,7 @@ function ResetPasswordPage() {
                 </form>
 
                 <button className="guest-button" onClick={() => navigate("/login")}>
-                    {t("reset.backToLogin")}
+                    {t("common.backToLogin")}
                 </button>
             </div>
         </div>

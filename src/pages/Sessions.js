@@ -238,7 +238,7 @@ function Sessions() {
                         <span className="back-icon">
                             <FontAwesomeIcon icon={faChevronLeft} />
                         </span>
-                        <span className="back-text">{t('session.back')}</span>
+                        <span className="back-text">{t('common.back')}</span>
                     </button>
                 </div>
                     <h1 className="session-header-title">{t('session.title')}</h1>
@@ -249,7 +249,7 @@ function Sessions() {
                     <div className="session-button-container">
                         <a href={`/municipalities/${municipalityId}/sessions/add-form`}>
                             <button className="entity-add-button">
-                                {t('session.add')} <FontAwesomeIcon icon={faPlus} />
+                                {t('common.add')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
                     </div>
@@ -425,7 +425,7 @@ const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setO
                                                 className="dropdown-item"
                                                 href={`/municipalities/${municipalityId}/sessions/edit/${session.id}`}
                                             >
-                                                <FontAwesomeIcon icon={faPenToSquare} /> {t('session.edit')}
+                                                <FontAwesomeIcon icon={faPenToSquare} /> {t('common.edit')}
                                             </a>
                                             <button
                                                 className="dropdown-item delete"

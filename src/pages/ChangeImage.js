@@ -130,7 +130,7 @@ const ChangeImage = () => {
                                     <span className="back-icon">
                                         <FontAwesomeIcon icon={faChevronLeft} />
                                     </span>
-                                    {t('changeImage.backButton')}
+                                    {t('common.back')}
                                 </button>
                             </div>
                         </form>

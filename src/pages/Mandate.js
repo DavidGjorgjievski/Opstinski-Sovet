@@ -115,7 +115,7 @@ const handleDeleteConfirm = async () => {
                             className="entity-add-button" 
                             onClick={() => navigate('/mandate/add-form')}
                         >
-                            {t('mandate.addButton')} <FontAwesomeIcon icon={faPlus} />
+                            {t('common.add')} <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
 
@@ -166,7 +166,7 @@ const handleDeleteConfirm = async () => {
                                                             className="option-item" 
                                                             onClick={() => navigate(`/mandate/edit/${mandate.id}`)}
                                                         >
-                                                            <FontAwesomeIcon icon={faPenToSquare} /> {t('mandate.edit')}
+                                                            <FontAwesomeIcon icon={faPenToSquare} /> {t('common.edit')}
                                                         </button>
                                                         <button 
                                                             className="option-item delete"

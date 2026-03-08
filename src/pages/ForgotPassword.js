@@ -78,7 +78,7 @@ function ForgotPassword() {
                 </form>
 
                 <button className="guest-button" onClick={() => navigate("/login")}>
-                    {t("forgot.backToLogin")}
+                    {t("common.backToLogin")}
                 </button>
 
             </div>

@@ -163,7 +163,7 @@ function Municipalities() {
                                         className="dropdown-item"
                                         to={`/municipalities/edit/${municipality.id}`}
                                     >
-                                        <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
+                                        <FontAwesomeIcon icon={faPenToSquare} /> {t('common.edit')}
                                     </Link>
 
                                     <button
@@ -200,7 +200,7 @@ function Municipalities() {
                     <div className="municipality-button-container">
                         <a href="/municipalities/add-form">
                             <button className="entity-add-button">
-                                {t('Municipality.addMunicipalityButton')} <FontAwesomeIcon icon={faPlus} />
+                                {t('common.add')} <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </a>
                     </div>
@@ -287,7 +287,7 @@ function Municipalities() {
                                                                         className="dropdown-item"
                                                                         to={`/municipalities/edit/${municipality.id}`}
                                                                     >
-                                                                        <FontAwesomeIcon icon={faPenToSquare} /> {t('Municipality.edit')}
+                                                                        <FontAwesomeIcon icon={faPenToSquare} /> {t('common.edit')}
                                                                     </Link>
 
                                                                     <button

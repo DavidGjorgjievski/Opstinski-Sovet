@@ -153,7 +153,7 @@ const ChangePassword = () => {
                 <span className="back-icon">
                   <FontAwesomeIcon icon={faChevronLeft} />
                 </span>
-                {t('changePassword.back')}
+                {t('common.back')}
               </button>
             </div>
           </form>

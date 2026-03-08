@@ -370,7 +370,7 @@ function AddUserForm() {
               {/* Buttons */}
               <div className="mt-4 d-flex">
                 <button type="submit" className="me-2 add-form-submit-button">
-                  {isEditMode ? t("editUserForm.editUser") : t("addUserForm.addUser")} 
+                  {isEditMode ? t("common.edit") : t("common.add")}
                   <FontAwesomeIcon icon={faUserPlus} className="ms-2" />
                 </button>
                 <button
@@ -381,7 +381,7 @@ function AddUserForm() {
                   <span className="back-icon">
                     <FontAwesomeIcon icon={faChevronLeft} />
                   </span>
-                  {t("addUserForm.back")}
+                  {t("common.back")}
                 </button>
               </div>
             </form>

@@ -1,4 +1,12 @@
 {
+  "common": {
+    "back": "Kthehu",
+    "backToLogin": "Kthehu tek hyrja",
+    "backToHomepage": "Shko te faqja kryesore",
+    "add": "Shto",
+    "edit": "Ndrysho"
+  },
+
   "login": {
     "title": "Ju lutem identifikohuni:",
     "username": "Emri i përdoruesit",
@@ -24,8 +32,7 @@
     "sendButton": "Dërgo linkun për rivendosje",
     "sending": "Duke dërguar...",
     "success": "Lidhja për rivendosje është dërguar.",
-    "error": "Gabim gjatë dërgimit. Provo përsëri.",
-    "backToLogin": "Kthehu tek hyrja"
+    "error": "Gabim gjatë dërgimit. Provo përsëri."
   },
 
   "reset": {
@@ -36,8 +43,7 @@
     "sending": "Duke përpunuar...",
     "success": "Fjalëkalimi u rivendos me sukses!",
     "error": "Ndodhi një gabim. Ju lutemi provoni përsëri.",
-    "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen.",
-    "backToLogin": "Kthehu tek hyrja"
+    "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen."
   },
 
   "nav": {
@@ -72,9 +78,7 @@
 
   "mandate": {
     "title": "Mandati",
-    "addButton": "Shto",
     "noMandates": "Nuk ka mandate të disponueshme",
-    "edit": "Redakto",
     "delete": "Fshij"
   },
 
@@ -83,13 +87,11 @@
     "editTitle": "Përditëso mandatin",
     "startDate": "Data e fillimit",
     "endDate": "Data e përfundimit",
-    "submit": "Shto",
     "updateButton": "Përditëso",
     "success": "Mandati u shtua me sukses!",
     "updated": "Mandati u përditësua me sukses!",
     "error": "Ndodhi një gabim gjatë shtimit të mandatit.",
-    "errorFetch": "Ndodhi një gabim gjatë marrjes së mandatit.",
-    "back": "Kthehu"
+    "errorFetch": "Ndodhi një gabim gjatë marrjes së mandatit."
   },
 
   "mandateModal": {
@@ -101,10 +103,8 @@
 
   "MunicipalityMandate": {
     "mandateTitle": "Mandatet e Komunës",
-    "add": "Shto",
     "view": "Shiko",
     "options": "Opsione",
-    "edit": "Përpuno",
     "delete": "Fshi",
     "noMandates": "Nuk ka mandate të disponueshme."
   },
@@ -117,9 +117,7 @@
   "municipalityLabel": "Komuna",
   "municipalityPlaceholder": "Shkruaj komunën",
   "imageLabel": "Imazh",
-  "submitButton": "Shto",
   "saveButton": "Ruaj",
-  "backButton": "Kthehu",
   "errorFieldsRequired": "Të gjitha fushat janë të detyrueshme!",
   "errorImageRequired": "Ju lutemi ngarkoni një imazh!",
   "errorSubmit": "Ruajtja dështoi. Provoni përsëri!"
@@ -134,29 +132,23 @@
 
 "MunicipalityMandateUsers": {
     "title": "Këshilltarët",
-    "back": "Kthehu",
     "noUsers": "Nuk u gjetën përdorues për këtë mandat.",
-    "edit": "Ndrysho",
     "president": "Kryetar"
   },
 
    "MunicipalityMandateUsersList": {
     "title":"Ndrysho Këshilltarin",
-    "back": "Kthehu",
     "loading": "Duke u ngarkuar...",
     "noUsers": "Nuk u gjetën përdorues.",
-    "add": "Shto",
     "noTermUsers": "Nuk u gjetën përdorues për këtë mandat.",
     "remove": "Hiq"
   },
 
   "Municipality": {
     "municipalitiesTitle": "Komunat",
-    "addMunicipalityButton": "Shto",
     "view": "Shiko",
     "options": "Opsione",
     "mandates": "Mandatet",
-    "edit": "Përpuno",
     "delete": "Fshi",
     "noMunicipalities": "Nuk ka komuna të disponueshme",
     "loading": "Po ngarkohet..."
@@ -171,9 +163,6 @@
     "namePlaceholder": "Shkruaj komunën",
     "logoLabel": "Logo:",
     "flagImageLabel": "Flamuri:",
-    "submitAdd": "Shto",
-    "submitEdit": "Ndrysho",
-    "back": "Kthehu",
     "errorNameRequired": "Emri i komunës është i detyrueshëm!",
     "errorLogoRequired": "Zgjedhja e logos është e detyrueshme!",
     "errorGeneral": "Ndodhi një gabim gjatë përpunimit të komunës.",
@@ -251,8 +240,7 @@
     "selectFile": "Ju lutemi zgjidhni një imazh për të vazhduar.",
     "uploadError": "Gabim gjatë ngarkimit të imazhit.",
     "uploadSuccess": "Imazhi u ngarkua me sukses.",
-    "uploadButton": "Ngarko",
-    "backButton": "Kthehu"
+    "uploadButton": "Ngarko"
   },
 
   "changePassword": {
@@ -265,8 +253,7 @@
     "incorrectCurrent": "Fjalëkalimi aktual është i pasaktë.",
     "generalError": "Diçka shkoi keq gjatë ndryshimit të fjalëkalimit.",
     "success": "Fjalëkalimi u ndryshua me sukses.",
-    "submit": "Ndrysho", 
-    "back": "Kthehu"
+    "submit": "Ndrysho"
   },
 
   "changeEmail": {
@@ -275,7 +262,6 @@
     "new": "Email i ri",
     "confirm": "Konfirmo email-in",
     "submit": "Dërgo",
-    "back": "Kthehu",
     "emailMismatch": "Email-et nuk përputhen",
     "emailExists": "Ky email është tashmë në përdorim",
     "generalError": "Ndodhi një gabim",
@@ -283,12 +269,9 @@
   },
 
   "session": {
-    "back":"Kthehu",
     "title": "Seancat",
     "subtitle": "Çdo seancë përfshin anëtarët e këshillit.",
-    "add": "Shto",
     "view": "Shiko",
-    "edit": "Ndrysho",
     "delete": "Fshi",
     "options": "Opsione",
     "export": "Eksporto",
@@ -317,17 +300,12 @@
     "editHeader": "Redakto seancën",
     "sessionNameLabel": "Emri i seancës:",
     "sessionNamePlaceholder": "Emri i seancës",
-    "sessionDateLabel": "Data e seancës:",
-    "addButton": "Shto",
-    "editButton": "Redakto",
-    "backButton": "Kthehu"
+    "sessionDateLabel": "Data e seancës:"
   },
 
   "adminPanel": {
     "adminPanelTitle": "Paneli i Administratorit",
-    "backButton": "Kthehu",
     "allUsers": "Të gjithë përdoruesit",
-    "addUserButton": "Shto",
     "admins": "Administratorë",
     "presidents": "Presidentë",
     "councilors": "Këshilltarë",
@@ -354,7 +332,6 @@
     "municipality": "Komuna",
     "actions": "Veprime",
     "delete": "Fshi",
-    "edit": "Redakto",
     "notAvailable": "Nuk ka"
   },
 
@@ -391,9 +368,7 @@
     "chooseFile": "klikoni për të zgjedhur fotografi",
     "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
     "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
-    "passwordMismatch": "Fjalëkalimet nuk përputhen.",
-    "addUser": "Shto",
-    "back": "Kthehu"
+    "passwordMismatch": "Fjalëkalimet nuk përputhen."
   },
 
   "editUserForm": {
@@ -418,20 +393,16 @@
     "chooseFile": "klikoni për të zgjedhur fotografi",
     "invalidFileType": "Lejohen vetëm fotografi JPG ose PNG.",
     "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
-    "editUser": "Ndrysho",
     "cancel": "Anulo"
   },
 
   "topicsPage": {
     "pageTitle": "Pikat",
     "headerTitle": "Pikat",
-    "backButton": "Kthehu",
-    "addTopicButton": "Shto",
     "present": "Prezantoni",
     "newTopicBefore": "Pikë e re",
     "newTopicAfter": "Pikë e re",
     "amendments": "Amendamente",
-    "edit": "Përpuno",
     "delete": "Fshij",
     "details": "Detajet",
     "detailedResults": "Rezultatet e Detajuara",
@@ -476,14 +447,12 @@
 
   "unauthorized": {
     "title": "E palejuar",
-    "message": "Nuk keni leje të hyni në këtë faqe.",
-    "backButton": "Shko te faqja kryesore"
+    "message": "Nuk keni leje të hyni në këtë faqe."
   },
 
   "notFound": {
     "title": "404 - Faqja nuk u gjet",
-    "message": "Faqja që po kërkoni nuk ekziston.",
-    "backButton": "Shko te faqja kryesore"
+    "message": "Faqja që po kërkoni nuk ekziston."
   },
 
   "addTopicForm": {
@@ -510,9 +479,6 @@
       "withdrawn": "Tërhequr"
     },
     "removePdf": "Fshi",
-    "addButton": "Shto",
-    "editButton": "Redakto",
-    "back": "Kthehu",
     "amount": "Shuma:",
     "amountPlaceholder": "Shkruani shumën",
     "optional": "(opsionale)"
@@ -535,7 +501,6 @@
   "topicsDetails": {
     "detailedResults": "Rezultatet e Detajuara",
     "details": "Detajet",
-    "backButton": "Kthehu",
     "notStartedMessage": "Tema ende nuk ka filluar",
     "viewDocument": "Shiko dokumentin",
     "yes": "Po",
@@ -560,14 +525,12 @@
     "add": {
       "title": "Shto Biografi",
       "biographyPlaceholder": "Shkruaj diçka për veten...",
-      "saveButton": "Ruaj",
-      "backButton": "Kthehu"
+      "saveButton": "Ruaj"
     },
     "edit": {
       "title": "Ndrysho Biografi",
       "biographyPlaceholder": "Përditëso biografinë...",
-      "saveButton": "Ruaj",
-      "backButton": "Kthehu"
+      "saveButton": "Ruaj"
     }
   },
 
@@ -611,9 +574,6 @@
           "finished": "Përfunduar"
       },
       "removePdf": "Fshi",
-      "addButton": "Shto",
-      "editButton": "Ndrysho",
-      "back": "Kthehu",
       "amount": "Shuma:",
       "amountPlaceholder": "Futni shumën",
       "optional": "(opsionale)"

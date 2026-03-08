@@ -472,7 +472,7 @@ const handleRestartAmendmentConfirm = () => {
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </span>
                                 <span className="back-text">
-                                    {t("topicsPage.backButton")}
+                                    {t("common.back")}
                                 </span>
                             </button>
 
@@ -498,7 +498,7 @@ const handleRestartAmendmentConfirm = () => {
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}/add-form`}>
                                 {hasAmendmentAccess && (
                                     <button className="entity-add-button" onClick={saveScrollPosition}>
-                                    {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
+                                    {t("common.add")} <FontAwesomeIcon icon={faPlus} />
                                     </button>
                                 )}
                             </Link>
@@ -598,7 +598,7 @@ const handleRestartAmendmentConfirm = () => {
                                                                         onClick={saveScrollPosition}
                                                                     >
                                                                         <span>
-                                                                            {t("topicsPage.edit")}{" "}
+                                                                            {t("common.edit")}{" "}
                                                                             <FontAwesomeIcon icon={faPenToSquare} />
                                                                         </span>
                                                                     </Link>

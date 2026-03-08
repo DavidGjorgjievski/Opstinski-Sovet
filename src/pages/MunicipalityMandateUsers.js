@@ -66,7 +66,7 @@ useEffect(() => {
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </span>
                 <span className="back-text">
-                    {t("MunicipalityMandateUsers.back")}
+                    {t("common.back")}
                 </span>
             </button>
           </div>
@@ -83,7 +83,7 @@ useEffect(() => {
                     className="municipalaty-mandate-users-view-button"
                     onClick={() => navigate(`/municipalities/${municipalityId}/mandates/users/${mandateId}/add-list`)}
                   >
-                    {t('MunicipalityMandateUsers.edit')} <FontAwesomeIcon icon={faUserPen} />
+                    {t('common.edit')} <FontAwesomeIcon icon={faUserPen} />
                   </button> 
                 )}
           </div>

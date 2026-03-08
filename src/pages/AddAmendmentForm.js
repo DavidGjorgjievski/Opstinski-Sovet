@@ -354,12 +354,12 @@ const AddAmendmentForm = () => {
                                         {isEditing ? (
                                             <>
                                                 <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
-                                                {t("addAmendmentForm.editButton")}
+                                                {t("common.edit")}
                                             </>
                                         ) : (
                                             <>
                                                 <FontAwesomeIcon icon={faPlus} className="me-2" />
-                                                {t("addAmendmentForm.addButton")}
+                                                {t("common.add")}
                                             </>
                                         )}
                                     </button>
@@ -370,7 +370,7 @@ const AddAmendmentForm = () => {
                                         onClick={() => navigate(`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}`)}
                                     >
                                         <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
-                                        {t("addAmendmentForm.back")}
+                                        {t("common.back")}
                                     </button>
 
                                 </div>

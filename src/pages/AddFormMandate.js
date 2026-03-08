@@ -140,7 +140,7 @@ function AddFormMandate() {
                                     type="submit" 
                                     className="me-2 add-form-submit-button"
                                 >
-                                    {isEditMode ? t('addMandate.updateButton') : t('addMandate.submit')}
+                                    {isEditMode ? t('addMandate.updateButton') : t('common.add')}
                                     <FontAwesomeIcon 
                                         icon={isEditMode ? faPenToSquare : faPlus} 
                                         className="ms-2"
@@ -155,7 +155,7 @@ function AddFormMandate() {
                                     <span className="back-icon">
                                         <FontAwesomeIcon icon={faChevronLeft} />
                                     </span>
-                                    {t('addMandate.back')}
+                                    {t('common.back')}
                                     </button> 
                             </div>
                         </form>

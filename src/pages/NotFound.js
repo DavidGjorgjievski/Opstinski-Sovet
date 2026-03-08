@@ -15,7 +15,7 @@ const NotFound = () => {
         </h1>
         <p>{t("notFound.message")}</p>
         <Link to="/" className="wide-back-button">
-          {t("notFound.backButton")}
+          {t("common.backToHomepage")}
         </Link>
       </div>
     </div>

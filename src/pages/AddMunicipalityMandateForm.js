@@ -168,7 +168,7 @@ function AddMunicipalityMandateForm() {
 
                         <div className="mt-3 d-flex form-buttons-wrapper">
                             <button type="submit" className="me-2 add-form-submit-button">
-                                {isEditMode ? t('AddMunicipalityMandate.saveButton') : t('AddMunicipalityMandate.submitButton')}
+                                {isEditMode ? t('AddMunicipalityMandate.saveButton') : t('common.add')}
                                 <FontAwesomeIcon icon={isEditMode ? faPenToSquare : faPlus} className="ms-2" />
                             </button>
 
@@ -180,7 +180,7 @@ function AddMunicipalityMandateForm() {
                                 <span className="back-icon">
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </span>
-                                {t('AddMunicipalityMandate.backButton')}
+                                {t('common.back')}
                             </button>
                         </div>
                     </form>

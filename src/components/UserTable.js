@@ -1,47 +1,52 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     const { t } = useTranslation();
 
     const renderUserRow = (user) => (
-        <tr className={bgColor} key={user.username}>
-            <td>
-                {user.image && (
+        <tr className="ut-row" key={user.username}>
+            <td className="ut-td ut-td-avatar">
+                {user.image ? (
                     <img
                         src={`data:image/jpeg;base64,${user.image}`}
                         alt={`${user.name} ${user.surname}`}
-                        className="user-admin-img"
+                        className="ut-avatar"
                     />
+                ) : (
+                    <div className="ut-avatar-placeholder">
+                        <FontAwesomeIcon icon={faUser} />
+                    </div>
                 )}
             </td>
-            <td>{user.username}</td>
-            <td>{user.name}</td>
-            <td>{user.surname}</td>
-            <td>
-                {user.email && user.email.trim() !== "" 
-                    ? user.email 
-                    : <span>/</span>
-                }
+            <td className="ut-td ut-td-username">{user.username}</td>
+            <td className="ut-td">{user.name}</td>
+            <td className="ut-td">{user.surname}</td>
+            <td className="ut-td ut-td-email">
+                {user.email && user.email.trim() !== "" ? user.email : <span className="ut-empty">—</span>}
             </td>
-            <td>
-               <span className={user.status === "ACTIVE" ? "admin-panel-status-active" : "admin-panel-status-inactive"}>{user.status}</span> 
+            <td className="ut-td">
+                <span className={user.status === "ACTIVE" ? "ut-badge ut-badge-active" : "ut-badge ut-badge-inactive"}>
+                    {user.status}
+                </span>
             </td>
-            <td>
+            <td className="ut-td">
                 {user.municipalityName && user.municipalityName.trim() !== ""
                     ? user.municipalityName
-                    : <span>/</span>
+                    : <span className="ut-empty">—</span>
                 }
             </td>
-            <td>
-                <div className="action-buttons-vertical">
-                    <button className="btn-edit" onClick={() => onEditClick(user)}>
-                        {t("adminpanel.edit")} <FontAwesomeIcon icon={faPenToSquare} />
+            <td className="ut-td ut-td-actions">
+                <div className="ut-actions">
+                    <button className="ut-btn ut-btn-edit" onClick={() => onEditClick(user)}>
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                        <span>{t("common.edit")}</span>
                     </button>
-                     <button className="btn-delete" onClick={() => onDeleteClick(user)}>
-                        {t("adminpanel.delete")} <FontAwesomeIcon icon={faTrash} />
+                    <button className="ut-btn ut-btn-delete" onClick={() => onDeleteClick(user)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                        <span>{t("adminpanel.delete")}</span>
                     </button>
                 </div>
             </td>
@@ -49,21 +54,23 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     );
 
     return (
-        <>
-            <h2 className="text-center mt-4">{title}</h2>
-            <hr className="fancy-hr" />
-            <div className="custom-table-responsive">
-                <table className="table table-bordered text-center">
+        <div className={`ut-card ${bgColor}`}>
+            <div className="ut-card-header">
+                <span className="ut-card-title">{title}</span>
+                <span className="ut-card-count">{users.length}</span>
+            </div>
+            <div className="ut-table-wrap">
+                <table className="ut-table">
                     <thead>
-                        <tr className={bgColor}>
-                            <th>{t("adminpanel.image")}</th>
-                            <th>{t("adminpanel.username")}</th>
-                            <th>{t("adminpanel.name")}</th>
-                            <th>{t("adminpanel.surname")}</th>
-                            <th>{t("adminpanel.email")}</th>
-                            <th>{t("adminpanel.status")}</th>
-                            <th>{t("adminpanel.municipality")}</th>
-                            <th>{t("adminpanel.actions")}</th>
+                        <tr className="ut-thead-row">
+                            <th className="ut-th">{t("adminpanel.image")}</th>
+                            <th className="ut-th">{t("adminpanel.username")}</th>
+                            <th className="ut-th">{t("adminpanel.name")}</th>
+                            <th className="ut-th">{t("adminpanel.surname")}</th>
+                            <th className="ut-th">{t("adminpanel.email")}</th>
+                            <th className="ut-th">{t("adminpanel.status")}</th>
+                            <th className="ut-th">{t("adminpanel.municipality")}</th>
+                            <th className="ut-th">{t("adminpanel.actions")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,7 +78,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
 

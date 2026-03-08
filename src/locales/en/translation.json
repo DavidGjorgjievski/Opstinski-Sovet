@@ -1,4 +1,12 @@
 {
+  "common": {
+    "back": "Back",
+    "backToLogin": "Back to Login",
+    "backToHomepage": "Go to homepage",
+    "add": "Add",
+    "edit": "Edit"
+  },
+
   "login": {
     "title": "Please log in:",
     "username": "Username",
@@ -24,8 +32,7 @@
     "sendButton": "Send Reset Link",
     "sending": "Sending...",
     "success": "Reset link has been sent.",
-    "error": "Failed to send the reset link. Try again.",
-    "backToLogin": "Back to Login"
+    "error": "Failed to send the reset link. Try again."
   },
 
   "reset": {
@@ -36,8 +43,7 @@
     "sending": "Processing...",
     "success": "Password has been reset successfully!",
     "error": "An error occurred. Please try again.",
-    "passwordsDoNotMatch": "Passwords do not match.",
-    "backToLogin": "Back to Login"
+    "passwordsDoNotMatch": "Passwords do not match."
   },
 
   "nav": {
@@ -72,9 +78,7 @@
 
   "mandate": {
     "title": "Mandate",
-    "addButton": "Add",
     "noMandates": "No mandates available",
-    "edit": "Edit",
     "delete": "Delete"
   },
 
@@ -83,13 +87,11 @@
     "editTitle": "Edit Mandate",
     "startDate": "Start Date",
     "endDate": "End Date",
-    "submit": "Add",
     "updateButton": "Update",
     "success": "Mandate added successfully!",
     "updated": "Mandate updated successfully!",
     "error": "An error occurred while processing the mandate.",
-    "errorFetch": "Failed to load mandate.",
-    "back": "Back"
+    "errorFetch": "Failed to load mandate."
   },
 
   "mandateModal": {
@@ -101,10 +103,8 @@
 
   "MunicipalityMandate": {
     "mandateTitle": "Municipality Mandates",
-    "add": "Add",
     "view": "View",
     "options": "Options",
-    "edit": "Edit",
     "delete": "Delete",
     "noMandates": "No mandates available."
   },
@@ -117,9 +117,7 @@
   "municipalityLabel": "Municipality",
   "municipalityPlaceholder": "Enter municipality",
   "imageLabel": "Image",
-  "submitButton": "Add",
   "saveButton": "Save",
-  "backButton": "Back",
   "errorFieldsRequired": "All fields are required!",
   "errorImageRequired": "Please upload an image!",
   "errorSubmit": "Failed to save. Please try again!"
@@ -134,29 +132,23 @@
 
 "MunicipalityMandateUsers": {
     "title": "Councillors",
-    "back": "Back",
     "noUsers": "No users found for this mandate.",
-    "edit": "Edit",
     "president": "President"
   },
 
   "MunicipalityMandateUsersList": {
     "title": "Edit Councillors",
-    "back": "Back",
     "loading": "Loading...",
     "noUsers": "No users found.",
-    "add": "Add",
     "noTermUsers": "No users found for this term.",
     "remove": "Remove"
   },
 
   "Municipality": {
     "municipalitiesTitle": "Municipalities",
-    "addMunicipalityButton": "Add",
     "view": "View",
     "options": "Options",
     "mandates": "Mandates",
-    "edit": "Edit",
     "delete": "Delete",
     "noMunicipalities": "No municipalities available",
     "loading": "Loading..."
@@ -171,9 +163,6 @@
     "namePlaceholder": "Мunicipality name",
     "logoLabel": "Logo:",
     "flagImageLabel": "Flag:",
-    "submitAdd": "Add",
-    "submitEdit": "Edit",
-    "back": "Back",
     "errorNameRequired": "Municipality name is required!",
     "errorLogoRequired": "Logo selection is required!",
     "errorGeneral": "There was an error processing the municipality.",
@@ -251,8 +240,7 @@
     "selectFile": "Please select an image to continue.",
     "uploadError": "Error uploading image.",
     "uploadSuccess": "Image uploaded successfully.",
-    "uploadButton": "Upload",
-    "backButton": "Back"
+    "uploadButton": "Upload"
   },
 
   "changePassword": {
@@ -265,8 +253,7 @@
     "incorrectCurrent": "Incorrect current password.",
     "generalError": "Something went wrong while changing the password.",
     "success": "Password changed successfully.",
-    "submit": "Change",
-    "back": "Back"
+    "submit": "Change"
   },
 
   "changeEmail": {
@@ -275,7 +262,6 @@
     "new": "New Email",
     "confirm": "Confirm Email",
     "submit": "Submit",
-    "back": "Back",
     "emailMismatch": "Emails do not match",
     "emailExists": "This email is already in use",
     "generalError": "An error occurred",
@@ -283,12 +269,9 @@
   },
 
   "session": {
-    "back":"Back",
     "title": "Sessions",
     "subtitle": "Each session includes the members of the council.",
-    "add": "Add",
     "view": "View",
-    "edit": "Edit",
     "delete": "Delete",
     "options": "Options",
     "export": "Export",
@@ -317,17 +300,12 @@
     "editHeader": "Edit Session",
     "sessionNameLabel": "Session Name:",
     "sessionNamePlaceholder": "Session name",
-    "sessionDateLabel": "Session Date:",
-    "addButton": "Add",
-    "editButton": "Edit",
-    "backButton": "Back"
+    "sessionDateLabel": "Session Date:"
   },
 
   "adminPanel": {
     "adminPanelTitle": "Admin Panel",
-    "backButton": "Back",
     "allUsers": "All Users",
-    "addUserButton": "Add",
     "admins": "Admins",
     "presidents": "Presidents",
     "councilors": "Councilors",
@@ -354,7 +332,6 @@
     "municipality": "Municipality",
     "actions": "Actions",
     "delete": "Delete",
-    "edit": "Edit",
     "notAvailable": "N/A"
   },
 
@@ -391,9 +368,7 @@
     "chooseFile": "click to select an image",
     "invalidFileType": "Only JPG or PNG images are allowed.",
     "fileTooLarge": "Maximum image size allowed is 50KB.",
-    "passwordMismatch": "Passwords do not match.",
-    "addUser": "Add",
-    "back": "Back"
+    "passwordMismatch": "Passwords do not match."
   },
 
   "editUserForm": {
@@ -418,20 +393,16 @@
     "chooseFile": "click to choose an image",
     "invalidFileType": "Only JPG or PNG images are allowed.",
     "fileTooLarge": "Maximum allowed image size is 50KB.",
-    "editUser": "Update",
     "cancel": "Cancel"
   },
 
   "topicsPage": {
     "pageTitle": "Topics",
     "headerTitle": "Topics",
-    "backButton": "Back",
-    "addTopicButton": "Add",
     "present": "Present",
     "newTopicBefore": "New Topic",
     "newTopicAfter": "New Topic",
     "amendments": "Amendments",
-    "edit": "Edit",
     "delete": "Delete",
     "details": "Details",
     "detailedResults": "Detailed Results",
@@ -490,14 +461,12 @@
 
   "unauthorized": {
     "title": "Unauthorized",
-    "message": "You are not authorized to access this page.",
-    "backButton": "Go to homepage"
+    "message": "You are not authorized to access this page."
   },
 
   "notFound": {
     "title": "404 - Page Not Found",
-    "message": "The page you are looking for does not exist.",
-    "backButton": "Go to homepage"
+    "message": "The page you are looking for does not exist."
   },
 
   "addTopicForm": {
@@ -524,9 +493,6 @@
       "withdrawn": "Withdrawn"
     },
     "removePdf": "Remove",
-    "addButton": "Add",
-    "editButton": "Edit",
-    "back": "Back",
     "amount": "Amount",
     "amountPlaceholder": "Enter amount",
     "optional": "(optional)"
@@ -535,7 +501,6 @@
   "topicsDetails": {
     "detailedResults": "Detailed Results",
     "details": "Details",
-    "backButton": "Back",
     "notStartedMessage": "The topic has not started yet",
     "viewDocument": "View Document",
     "yes": "Yes",
@@ -561,15 +526,13 @@
       "title": "Add Biography",
       "header": "Add Biography",
       "biographyPlaceholder": "Write something about yourself...",
-      "saveButton": "Save",
-      "backButton": "Back"
+      "saveButton": "Save"
     },
     "edit": {
       "title": "Edit Biography",
       "header": "Edit Biography",
       "biographyPlaceholder": "Update your biography...",
-      "saveButton": "Save",
-      "backButton": "Back"
+      "saveButton": "Save"
     }
   },
   
@@ -614,9 +577,6 @@
           "finished": "Finished"
       },
       "removePdf": "Remove",
-      "addButton": "Add",
-      "editButton": "Edit",
-      "back": "Back",
       "amount": "Amount:",
       "amountPlaceholder": "Enter amount",
       "optional": "(optional)"

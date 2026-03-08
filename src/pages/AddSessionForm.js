@@ -136,7 +136,7 @@ function AddSessionForm() {
                                         type="submit" 
                                         className="me-2 add-form-submit-button"
                                     >
-                                        {id ? t("addSessionForm.editButton") : t("addSessionForm.addButton")}
+                                        {id ? t("common.edit") : t("common.add")}
                                         <FontAwesomeIcon 
                                             icon={id ? faPenToSquare : faPlus} 
                                             className="ms-2"
@@ -151,7 +151,7 @@ function AddSessionForm() {
                                         <span className="back-icon">
                                             <FontAwesomeIcon icon={faChevronLeft} />
                                         </span>
-                                        {t("addSessionForm.backButton")}
+                                        {t("common.back")}
                                     </button>
                                 </div>
                                 </form>

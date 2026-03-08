@@ -606,7 +606,7 @@ useEffect(() => {
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </span>
                                 <span className="back-text">
-                                    {t("topicsPage.backButton")}
+                                    {t("common.back")}
                                 </span>
                             </button>
                             <h1 className="topic-header-title">{t("topicsPage.headerTitle")}</h1>
@@ -629,7 +629,7 @@ useEffect(() => {
                              <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
                                 {hasTopicPermissions  && (
                                     <button className="entity-add-button" onClick={saveScrollPosition}>
-                                        {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
+                                        {t("common.add")} <FontAwesomeIcon icon={faPlus} />
                                     </button>
                                 )}
                             </Link>
@@ -780,7 +780,7 @@ useEffect(() => {
                                                                         to={`/municipalities/${municipalityId}/sessions/${id}/topics/edit/${topic.id}`}
                                                                         onClick={saveScrollPosition}
                                                                     >
-                                                                        {t("topicsPage.edit")}{" "}
+                                                                        {t("common.edit")}{" "}
                                                                         <FontAwesomeIcon icon={faPenToSquare} />
                                                                     </Link>
                                                                 </li>
@@ -1031,7 +1031,7 @@ useEffect(() => {
                                     className="entity-add-button"
                                     onClick={saveScrollPosition}
                                 >
-                                    {t("topicsPage.addTopicButton")} <FontAwesomeIcon icon={faPlus} />
+                                    {t("common.add")} <FontAwesomeIcon icon={faPlus} />
                                 </button>
                             </Link>
                         )}

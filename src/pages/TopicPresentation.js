@@ -130,7 +130,7 @@ const TopicPresentation = () => {
             <FontAwesomeIcon icon={faChevronLeft} />
           </span>
           <span className="back-text">
-            {t("topicsPage.backButton")}
+            {t("common.back")}
           </span>
         </button>
 

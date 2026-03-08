@@ -1,4 +1,12 @@
 {
+  "common": {
+    "back": "Zurück",
+    "backToLogin": "Zurück zum Login",
+    "backToHomepage": "Zur Startseite",
+    "add": "Hinzufügen",
+    "edit": "Bearbeiten"
+  },
+
   "login": {
     "title": "Melden Sie sich an:",
     "username": "Benutzername",
@@ -24,8 +32,7 @@
     "sendButton": "Link zum Zurücksetzen senden",
     "sending": "Senden...",
     "success": "Der Link zum Zurücksetzen wurde gesendet.",
-    "error": "Fehler beim Senden des Links. Bitte erneut versuchen.",
-    "backToLogin": "Zurück zum Login"
+    "error": "Fehler beim Senden des Links. Bitte erneut versuchen."
   },
 
   "reset": {
@@ -36,8 +43,7 @@
     "sending": "Wird verarbeitet...",
     "success": "Das Passwort wurde erfolgreich zurückgesetzt!",
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
-    "passwordsDoNotMatch": "Passwörter stimmen nicht überein.",
-    "backToLogin": "Zurück zum Login"
+    "passwordsDoNotMatch": "Passwörter stimmen nicht überein."
   },
 
   "nav": {
@@ -72,9 +78,7 @@
 
   "mandate": {
     "title": "Mandat",
-    "addButton": "Hinzufügen",
     "noMandates": "Keine Mandate verfügbar",
-    "edit": "Bearbeiten",
     "delete": "Löschen"
   },
 
@@ -83,13 +87,11 @@
     "editTitle": "Mandat bearbeiten",
     "startDate": "Anfangsdatum",
     "endDate": "Enddatum",
-    "submit": "Hinzufügen",
     "updateButton": "Aktualisieren",
     "success": "Das Mandat wurde erfolgreich hinzugefügt!",
     "updated": "Das Mandat wurde erfolgreich aktualisiert!",
     "error": "Beim Verarbeiten des Mandats ist ein Fehler aufgetreten.",
-    "errorFetch": "Fehler beim Laden des Mandats.",
-    "back": "Zurück"
+    "errorFetch": "Fehler beim Laden des Mandats."
   },
 
   "mandateModal": {
@@ -101,10 +103,8 @@
   
   "MunicipalityMandate": {
    "mandateTitle": "Gemeindemandate",
-    "add": "Hinzufügen",
     "view": "Ansehen",
     "options": "Optionen",
-    "edit": "Bearbeiten",
     "delete": "Löschen",
     "noMandates": "Keine Mandate verfügbar."
   },
@@ -117,9 +117,7 @@
   "municipalityLabel": "Gemeinde",
   "municipalityPlaceholder": "Gemeinde eingeben",
   "imageLabel": "Bild",
-  "submitButton": "Hinzufügen",
   "saveButton": "Speichern",
-  "backButton": "Zurück",
   "errorFieldsRequired": "Alle Felder sind erforderlich!",
   "errorImageRequired": "Bitte ein Bild hochladen!",
   "errorSubmit": "Speichern fehlgeschlagen. Bitte erneut versuchen!"
@@ -134,29 +132,23 @@
 
 "MunicipalityMandateUsers": {
     "title": "Ratsmitglieder",
-    "back": "Zurück",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden.",
-    "edit": "Bearbeiten",
     "president": "Präsident"
   },
 
    "MunicipalityMandateUsersList": {
     "title": "Ratsmitglied Bearbeiten",
-    "back": "Zurück",
     "loading": "Lädt...",
     "noUsers": "Keine Benutzer gefunden.",
-    "add": "Hinzufügen",
     "noTermUsers": "Keine Benutzer für diese Amtsperiode gefunden.",
     "remove": "Entfernen"
   },
 
   "Municipality": {
     "municipalitiesTitle": "Gemeinden",
-    "addMunicipalityButton": "Hinzufügen",
     "view": "Ansehen",
     "options": "Optionen",
     "mandates": "Amtszeiten",
-    "edit": "Bearbeiten",
     "delete": "Löschen",
     "noMunicipalities": "Keine Gemeinden verfügbar",
     "loading": "Wird geladen..."
@@ -171,9 +163,6 @@
     "namePlaceholder": "Gemeindename",
     "logoLabel": "Logo:",
     "flagImageLabel": "Flagge:",
-    "submitAdd": "Hinzufügen",
-    "submitEdit": "Bearbeiten",
-    "back": "Zurück",
     "errorNameRequired": "Der Gemeindename ist erforderlich!",
     "errorLogoRequired": "Die Auswahl eines Logos ist erforderlich!",
     "errorGeneral": "Beim Verarbeiten der Gemeinde ist ein Fehler aufgetreten.",
@@ -251,8 +240,7 @@
     "selectFile": "Bitte wählen Sie ein Bild aus, um fortzufahren.",
     "uploadError": "Fehler beim Hochladen des Bildes.",
     "uploadSuccess": "Bild erfolgreich hochgeladen.",
-    "uploadButton": "Hochladen",
-    "backButton": "Zurück"
+    "uploadButton": "Hochladen"
   },
 
   "changePassword": {
@@ -265,8 +253,7 @@
     "incorrectCurrent": "Falsches aktuelles Passwort.",
     "generalError": "Beim Ändern des Passworts ist ein Fehler aufgetreten.",
     "success": "Passwort erfolgreich geändert.",
-    "submit": "Ändern",
-    "back": "Zurück"
+    "submit": "Ändern"
   },
 
   "changeEmail": {
@@ -275,7 +262,6 @@
     "new": "Neue E-Mail",
     "confirm": "E-Mail bestätigen",
     "submit": "Bestätigen",
-    "back": "Zurück",
     "emailMismatch": "Die E-Mails stimmen nicht überein",
     "emailExists": "Diese E-Mail wird bereits verwendet",
     "generalError": "Ein Fehler ist aufgetreten",
@@ -283,12 +269,9 @@
   },
 
   "session": {
-    "back":"Zurück",
     "title": "Sitzungen",
     "subtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
-    "add": "Hinzufügen",
     "view": "Ansehen",
-    "edit": "Bearbeiten",
     "delete": "Löschen",
     "options": "Optionen",
     "export": "Exportieren",
@@ -317,17 +300,12 @@
     "editHeader": "Sitzung bearbeiten",
     "sessionNameLabel": "Name der Sitzung:",
     "sessionNamePlaceholder": "Sitzungsname",
-    "sessionDateLabel": "Datum der Sitzung:",
-    "addButton": "Hinzufügen",
-    "editButton": "Bearbeiten",
-    "backButton": "Zurück"
+    "sessionDateLabel": "Datum der Sitzung:"
   },
 
   "adminPanel": {
     "adminPanelTitle": "Admin-Panel",
-    "backButton": "Zurück",
     "allUsers": "Alle Benutzer",
-    "addUserButton": "Hinzufügen",
     "admins": "Admins",
     "presidents": "Präsidenten",
     "councilors": "Ratsmitglieder",
@@ -354,7 +332,6 @@
     "municipality": "Gemeinde",
     "actions": "Aktionen",
     "delete": "Löschen",
-    "edit": "Bearbeiten",
     "notAvailable": "Nicht verfügbar"
   },
 
@@ -391,9 +368,7 @@
     "chooseFile": "klicken, um ein Bild auszuwählen",
     "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
     "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
-    "passwordMismatch": "Passwörter stimmen nicht überein.",
-    "addUser": "Hinzufügen",
-    "back": "Zurück"
+    "passwordMismatch": "Passwörter stimmen nicht überein."
   },
 
   "editUserForm": {
@@ -418,20 +393,16 @@
     "chooseFile": "klicken, um ein Bild auszuwählen",
     "invalidFileType": "Nur JPG- oder PNG-Bilder sind erlaubt.",
     "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
-    "editUser": "Bearbeiten",
     "cancel": "Abbrechen"
   },
 
   "topicsPage": {
     "pageTitle": "Themen",
     "headerTitle": "Themen",
-    "backButton": "Zurück",
-    "addTopicButton": "Hinzufügen",
     "present": "Präsentieren",
     "newTopicBefore": "Neues Thema",
     "newTopicAfter": "Neues Thema",
     "amendments": "Änderungsanträge",
-    "edit": "Bearbeiten",
     "delete": "Löschen",
     "details": "Details",
     "detailedResults": "Detaillierte Ergebnisse",
@@ -476,14 +447,12 @@
 
   "unauthorized": {
     "title": "Unzulässig",
-    "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen.",
-    "backButton": "Zur Startseite"
+    "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen."
   },
 
   "notFound": {
     "title": "404 - Seite nicht gefunden",
-    "message": "Die Seite, die Sie suchen, existiert nicht.",
-    "backButton": "Zur Startseite"
+    "message": "Die Seite, die Sie suchen, existiert nicht."
   },
 
   "addTopicForm": {
@@ -510,9 +479,6 @@
       "withdrawn": "Zurückgezogen"
     },
     "removePdf": "Löschen",
-    "addButton": "Hinzufügen",
-    "editButton": "Bearbeiten",
-    "back": "Zurück",
     "amount": "Betrag:",
     "amountPlaceholder": "Betrag eingeben",
     "optional": "(optional)"
@@ -536,7 +502,6 @@
   "topicsDetails": {
     "detailedResults": "Detaillierte Ergebnisse",
     "details": "Details",
-    "backButton": "Zurück",
     "notStartedMessage": "Das Thema hat noch nicht begonnen",
     "viewDocument": "Dokument ansehen",
     "yes": "Ja",
@@ -562,15 +527,13 @@
       "title": "Biografie hinzufügen",
       "header": "Biografie hinzufügen",
       "biographyPlaceholder": "Schreibe etwas über dich...",
-      "saveButton": "Speichern",
-      "backButton": "Zurück"
+      "saveButton": "Speichern"
     },
     "edit": {
       "title": "Biografie bearbeiten",
       "header": "Biografie bearbeiten",
       "biographyPlaceholder": "Aktualisiere Deine Biografie...",
-      "saveButton": "Speichern",
-      "backButton": "Zurück"
+      "saveButton": "Speichern"
     }
   },
   

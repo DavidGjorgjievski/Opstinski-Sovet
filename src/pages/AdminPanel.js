@@ -221,16 +221,16 @@ function AdminPanel() {
             <div className="admin-body d-flex flex-column">
                 <div className="admin-header-div">
                     <div className='back-button-admin-panel-div'>
-                         <button className="user-back-button">
+                         <button className="user-back-button" onClick={() => navigate('/')}>
                             <span className="back-icon">
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </span>
-                            {t("adminPanel.backButton")}
+                            {t("common.back")}
                         </button>
                     </div>
                     <h1 className="admin-title">{t("adminPanel.allUsers")}</h1>
                     <a href="/admin-panel/add-form">
-                        <button className="entity-add-button">{t("adminPanel.addUserButton")} <FontAwesomeIcon icon={faPlus} /></button>
+                        <button className="entity-add-button">{t("common.add")} <FontAwesomeIcon icon={faPlus} /></button>
                     </a>
                 </div>
 

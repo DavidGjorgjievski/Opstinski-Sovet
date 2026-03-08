@@ -1,4 +1,12 @@
 {
+  "common": {
+    "back": "Назад",
+    "backToLogin": "Назад кон најава",
+    "backToHomepage": "Одете на почетната страница",
+    "add": "Додади",
+    "edit": "Уреди"
+  },
+
   "login": {
     "title": "Ве молиме најавете се:",
     "username": "Корисничко име",
@@ -24,8 +32,7 @@
     "sendButton": "Испрати линк за ресетирање",
     "sending": "Се испраќа...",
     "success": "Испратен е линк за ресетирање.",
-    "error": "Настана грешка. Обидете се повторно.",
-    "backToLogin": "Назад кон најава"
+    "error": "Настана грешка. Обидете се повторно."
   },
 
   "reset": {
@@ -36,8 +43,7 @@
     "sending": "Се обработува...",
     "success": "Лозинката е успешно променета!",
     "error": "Настана грешка. Обидете се повторно.",
-    "passwordsDoNotMatch": "Лозинките не се совпаѓаат.",
-    "backToLogin": "Назад кон најава"
+    "passwordsDoNotMatch": "Лозинките не се совпаѓаат."
   },
   
   "nav": {
@@ -72,9 +78,7 @@
 
   "mandate": {
     "title": "Мандати",
-    "addButton": "Додади",
     "noMandates": "Нема достапни мандати",
-    "edit": "Уреди",
     "delete": "Избриши"
   },
 
@@ -83,13 +87,11 @@
     "editTitle": "Уреди мандат",
     "startDate": "Почетен датум",
     "endDate": "Краен датум",
-    "submit": "Додади",
     "updateButton": "Уреди",
     "success": "Мандатот е успешно додаден!",
     "updated": "Мандатот е успешно ажуриран!",
     "error": "Настана грешка при додавање на мандатот.",
-    "errorFetch": "Настана грешка при вчитување на мандатот.",
-    "back": "Назад"
+    "errorFetch": "Настана грешка при вчитување на мандатот."
   },
 
   "mandateModal": {
@@ -101,10 +103,8 @@
 
   "MunicipalityMandate": {
     "mandateTitle": "Мандати на општината",
-    "add": "Додади",
     "view": "Преглед",
     "options": "Опции",
-    "edit": "Уреди",
     "delete": "Избриши",
     "noMandates": "Нема достапни мандати."
   },
@@ -117,9 +117,7 @@
   "municipalityLabel": "Општина",
   "municipalityPlaceholder": "Внеси општина",
   "imageLabel": "Слика",
-  "submitButton": "Додади",
   "saveButton": "Уреди",
-  "backButton": "Назад",
   "errorFieldsRequired": "Сите полиња се задолжителни!",
   "errorImageRequired": "Ве молиме прикачете слика!",
   "errorSubmit": "Неуспешно зачувување. Обидете се повторно!"
@@ -134,29 +132,23 @@
 
 "MunicipalityMandateUsers": {
     "title": "Советници",
-    "back": "Назад",
     "noUsers": "Нема корисници за овој мандат.",
-    "edit": "Уреди",
     "president": "Претседател"
   },
 
   "MunicipalityMandateUsersList": {
     "title": "Уреди Советници",
-    "back": "Назад",
     "loading": "Се вчитува...",
     "noUsers": "Не се пронајдени корисници.",
-    "add": "Додади",
     "noTermUsers": "Не се пронајдени корисници за овој мандат.",
     "remove": "Отстрани"
   },
 
   "Municipality": {
     "municipalitiesTitle": "Општини",
-    "addMunicipalityButton": "Додади",
     "view": "Преглед",
     "options": "Опции",
     "mandates": "Мандати",
-    "edit": "Уреди",
     "delete": "Избриши",
     "noMunicipalities": "Нема достапни општини",
     "loading": "Се вчитува..."
@@ -171,9 +163,6 @@
     "namePlaceholder": "Име на општина",
     "logoLabel": "Лого:",
     "flagImageLabel": "Знаме:",
-    "submitAdd": "Додади",
-    "submitEdit": "Уреди",
-    "back": "Назад",
     "errorNameRequired": "Името на општината е задолжително!",
     "errorLogoRequired": "Изборот на лого е задолжителен!",
     "errorGeneral": "Имаше грешка при обработка на општината.",
@@ -251,8 +240,7 @@
     "selectFile": "Изберете слика за да продолжите.",
     "uploadError": "Грешка при прикачување на сликата.",
     "uploadSuccess": "Сликата е успешно променета.",
-    "uploadButton": "Прикачи",
-    "backButton": "Назад"
+    "uploadButton": "Прикачи"
   },
 
   "changePassword": {
@@ -265,8 +253,7 @@
     "incorrectCurrent": "Погрешна сегашна лозинка.",
     "generalError": "Нешто не е во ред при промената на лозинката.",
     "success": "Лозинката е променета успешно.",
-    "submit": "Промени",
-    "back": "Назад"
+    "submit": "Промени"
   },
 
   "changeEmail": {
@@ -275,7 +262,6 @@
     "new": "Нова е-пошта",
     "confirm": "Потврди е-пошта",
     "submit": "Потврди",
-    "back": "Назад",
     "emailMismatch": "Е-поштата не се совпаѓа",
     "emailExists": "Оваа е-пошта веќе е во употреба",
     "generalError": "Се појави грешка",
@@ -283,12 +269,9 @@
   },
 
   "session": {
-    "back":"Назад",
     "title": "Седници",
     "subtitle": "Секоја седница ги вклучува членовите на советот.",
-    "add": "Додади",
     "view": "Преглед",
-    "edit": "Уреди",
     "delete": "Избриши",
     "options": "Опции",
     "export": "Експорт",
@@ -317,17 +300,12 @@
     "editHeader": "Уреди седница",
     "sessionNameLabel": "Име на седница:",
     "sessionNamePlaceholder": "Име на седница",
-    "sessionDateLabel": "Дата на седница:",
-    "addButton": "Додади",
-    "editButton": "Уреди",
-    "backButton": "Назад"
+    "sessionDateLabel": "Дата на седница:"
   },
 
   "adminPanel": {
     "adminPanelTitle": "Админ Панел",
-    "backButton": "Назад",
     "allUsers": "Сите корисници",
-    "addUserButton": "Додади",
     "admins": "Админи",
     "presidents": "Претседатели",
     "councilors": "Советници",
@@ -354,7 +332,6 @@
     "municipality": "Општина",
     "actions": "Акции",
     "delete": "Избриши",
-    "edit": "Уреди",
     "notAvailable": "Нема"
   },
 
@@ -391,9 +368,7 @@
     "chooseFile": "кликнете за да изберете слика",
     "invalidFileType": "Дозволени се само JPG или PNG слики.",
     "fileTooLarge": "Максималната големина на сликата е 50KB.",
-    "passwordMismatch": "Лозинките не се совпаѓаат.",
-    "addUser": "Додади",
-    "back": "Назад"
+    "passwordMismatch": "Лозинките не се совпаѓаат."
   },
 
   "editUserForm": {
@@ -418,20 +393,16 @@
     "chooseFile": "кликнете за да изберете слика",
     "invalidFileType": "Дозволени се само JPG или PNG слики.",
     "fileTooLarge": "Максималната големина на сликата е 50KB.",
-    "editUser": "Измени",
     "cancel": "Откажи"
   },
 
   "topicsPage": {
     "pageTitle": "Точки",
     "headerTitle": "Точки",
-    "backButton": "Назад",
-    "addTopicButton": "Додади",
     "present": "Презентирај",
     "newTopicBefore": "Нова точка",
     "newTopicAfter": "Нова точка",
     "amendments": "Амандмани",
-    "edit": "Уреди",
     "delete": "Избриши",
     "details": "Детали",
     "detailedResults": "Резултати",
@@ -476,14 +447,12 @@
 
   "unauthorized": {
     "title": "Непозволено",
-    "message": "Немате дозвола да пристапите на оваа страница.",
-    "backButton": "Одете на почетната страница"
+    "message": "Немате дозвола да пристапите на оваа страница."
   },
 
   "notFound": {
     "title": "404 - Страницата не е пронајдена",
-    "message": "Страницата што ја барате не постои.",
-    "backButton": "Одете на почетната страница"
+    "message": "Страницата што ја барате не постои."
   },
 
   "addTopicForm": {
@@ -510,9 +479,6 @@
       "withdrawn": "Повлечена"
     },
     "removePdf": "Избриши",
-    "addButton": "Додади",
-    "editButton": "Уреди",
-    "back": "Назад",
     "amount": "Износ:",
     "amountPlaceholder": "Внесете износ",
     "optional": "(опционално)"
@@ -535,7 +501,6 @@
   "topicsDetails": {
     "detailedResults": "Детални резултати",
     "details": "Детали",
-    "backButton": "Назад",
     "notStartedMessage": "Точката сè уште не е започната",
     "viewDocument": "Преглед на документ",
     "yes": "За",
@@ -561,15 +526,13 @@
       "title": "Додади биографија",
       "header": "Додади биографијата",
       "biographyPlaceholder": "Напиши нешто за себе...",
-      "saveButton": "Зачувај",
-      "backButton": "Назад"
+      "saveButton": "Зачувај"
     },
     "edit": {
       "title": "Уреди биографија",
       "header": "Уреди биографијата",
       "biographyPlaceholder": "Ажурирај ја биографијата...",
-      "saveButton": "Зачувај",
-      "backButton": "Назад"
+      "saveButton": "Зачувај"
     }
   },
 
@@ -614,9 +577,6 @@
           "finished": "Завршен"
       },
       "removePdf": "Избриши",
-      "addButton": "Додади",
-      "editButton": "Уреди",
-      "back": "Назад",
       "amount": "Износ:",
       "amountPlaceholder": "Внесете износ",
       "optional": "(опционално)"
