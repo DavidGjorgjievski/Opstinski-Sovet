@@ -95,7 +95,8 @@
 
 .image-upload-button-preview.has-file {
     background-color: #ffffffcc;
-    transform: none;
+    width: 120px;
+    height: 80px;
 }
 
 .hidden-file-input {

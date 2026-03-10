@@ -95,12 +95,12 @@
 
 .image-upload-button-preview.has-file:hover {
     background-color: #ffffffcc;
-    transform: none;
+    transform: scale(1.03);
 }
 
-.image-upload-button-preview.has-file{
+.image-upload-button-preview.has-file {
     background-color: #ffffffcc;
-    transform: none;
+    cursor: pointer;
 }
 
 .hidden-file-input {

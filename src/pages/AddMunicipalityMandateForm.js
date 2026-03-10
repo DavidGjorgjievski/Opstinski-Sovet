@@ -48,14 +48,14 @@ function AddMunicipalityMandateForm() {
         }
 
         if (isEditMode) {
-            const termList = JSON.parse(localStorage.getItem('municipalityTerms')) || [];
+            const termList = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
             const existingTerm = termList.find(m => m.id === Number(mandateId));
 
-            if (existingTerm?.imageUrl) {
-                setPreviewImage(existingTerm.imageUrl);
+            if (existingTerm?.termImage) {
+                setPreviewImage(`data:image/jpeg;base64,${existingTerm.termImage}`);
             }
         }
-    }, [formatDateByLanguage, isEditMode, mandateId, t]);
+    }, [formatDateByLanguage, isEditMode, mandateId, municipalityId, t]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,7 +105,7 @@ function AddMunicipalityMandateForm() {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            localStorage.setItem('municipalityTerms', JSON.stringify(updatedTermsResponse.data));
+            localStorage.setItem(`municipalityMandates_${municipalityId}`, JSON.stringify(updatedTermsResponse.data));
 
             navigate(`/municipalities/${municipalityId}/mandates`);
         } catch (err) {
@@ -151,19 +151,26 @@ function AddMunicipalityMandateForm() {
                             <input className="municipality-input-name" value={municipality} disabled />
                         </div>
 
-                        <div className="image-upload-wrapper">
-                            <label className={`image-upload-button-preview ${previewImage ? 'has-file' : ''}`}>
-                                {previewImage
-                                    ? <img src={previewImage} alt="Preview" />
-                                    : <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-                                }
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="hidden-file-input"
-                                />
+                        <div className="form-group">
+                            <label className="label-add">
+                                {t('AddMunicipalityMandate.imageLabel')}
+                                <br />
+                                <small className="text-muted">({t('AddMunicipalityMandate.imageDescription')})</small>
                             </label>
+                            <div className="image-upload-wrapper">
+                                <label className={`image-upload-button-preview ${previewImage ? 'has-file' : ''}`}>
+                                    {previewImage
+                                        ? <img src={previewImage} alt="Preview" />
+                                        : <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                    }
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className="hidden-file-input"
+                                    />
+                                </label>
+                            </div>
                         </div>
 
                         <div className="mt-3 d-flex form-buttons-wrapper">

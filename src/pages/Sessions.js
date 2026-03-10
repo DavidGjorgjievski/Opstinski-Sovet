@@ -203,13 +203,18 @@ function Sessions() {
             return { term, sessions: termSessions };
         });
 
+    const hasMunicipalityMandate = municipalityTerms.length > 0;
+
     const canAddSession =
+    hasMunicipalityMandate &&
     (
-        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
-        userInfo.status === "ACTIVE" &&
-        municipalityId === userInfo.municipalityId
-    ) ||
-    userInfo.role === 'ROLE_ADMIN';
+        (
+            (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
+            userInfo.status === "ACTIVE" &&
+            municipalityId === userInfo.municipalityId
+        ) ||
+        userInfo.role === 'ROLE_ADMIN'
+    );
 
     return (
         <div className="sessions-container">

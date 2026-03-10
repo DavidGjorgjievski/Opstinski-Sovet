@@ -13,6 +13,8 @@ function AddMunicipalityForm() {
     const [name, setName] = useState('');
     const [logo, setLogo] = useState(null);
     const [flag, setFlag] = useState(null);
+    const [existingLogo, setExistingLogo] = useState(null);
+    const [existingFlag, setExistingFlag] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const isEditMode = !!municipalityId;
@@ -25,6 +27,8 @@ function AddMunicipalityForm() {
                     const response = await api.get(`/api/municipalities/${municipalityId}`);
                     const data = response.data;
                     setName(data.name || '');
+                    if (data.logoImage) setExistingLogo(`data:image/png;base64,${data.logoImage}`);
+                    if (data.flagImage) setExistingFlag(`data:image/png;base64,${data.flagImage}`);
                 } catch (err) {
                     console.error('Error fetching municipality:', err);
                     setError('Имаше грешка при вчитување на општината.');
@@ -122,11 +126,17 @@ function AddMunicipalityForm() {
                                 </div>
 
                                 <div className="form-group">
-                                    <label className="label-add">{t("addMunicipality.logoLabel")}</label>
+                                    <label className="label-add">
+                                        {t("addMunicipality.logoLabel")}
+                                        <br />
+                                        <small className="text-muted">({t("addMunicipality.logoDescription")})</small>
+                                    </label>
                                     <div className="image-upload-wrapper">
-                                        <label className={`image-upload-button-preview ${logo ? 'has-file' : ''}`}>
+                                        <label className={`image-upload-button-preview ${logo || existingLogo ? 'has-file' : ''}`}>
                                             {logo ? (
                                                 <img src={URL.createObjectURL(logo)} alt="Logo Preview" />
+                                            ) : existingLogo ? (
+                                                <img src={existingLogo} alt="Logo Preview" />
                                             ) : (
                                                 <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
                                             )}
@@ -143,9 +153,11 @@ function AddMunicipalityForm() {
                                 <div className="form-group">
                                     <label className="label-add">{t("addMunicipality.flagImageLabel")}</label>
                                     <div className="image-upload-wrapper">
-                                        <label className={`image-upload-button-preview ${flag ? 'has-file' : ''}`}>
+                                        <label className={`image-upload-button-preview ${flag || existingFlag ? 'has-file' : ''}`}>
                                             {flag ? (
                                                 <img src={URL.createObjectURL(flag)} alt="Flag Preview" />
+                                            ) : existingFlag ? (
+                                                <img src={existingFlag} alt="Flag Preview" />
                                             ) : (
                                                 <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
                                             )}
