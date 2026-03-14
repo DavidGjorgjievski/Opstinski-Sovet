@@ -530,6 +530,11 @@ useEffect(() => {
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
 
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const isSessionLocked = userInfo.role !== 'ROLE_ADMIN' &&
+        currentSession && new Date(currentSession.date) < twoMonthsAgo;
+
     const hasTopicPermissionsPlusUser = (
     (
         (['ROLE_PRESIDENT', 'ROLE_EDITOR', 'ROLE_USER'].includes(userInfo.role)) &&
@@ -627,7 +632,7 @@ useEffect(() => {
                         </div>
                         <div className="session-button-container">
                              <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
-                                {hasTopicPermissions  && (
+                                {hasTopicPermissions && !isSessionLocked && (
                                     <button className="entity-add-button" onClick={saveScrollPosition}>
                                         {t("common.add")} <FontAwesomeIcon icon={faPlus} />
                                     </button>
@@ -749,7 +754,7 @@ useEffect(() => {
                                                                 </span>
                                                             </li>
                                                         )}
-                                                    {['ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && (
+                                                    {['ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && !isSessionLocked && (
                                                             <>
                                                                 <li>
                                                                     <Link
@@ -984,7 +989,7 @@ useEffect(() => {
                                                 )}
 
 
-                                            {hasTopicPermissionsStatus && (
+                                            {hasTopicPermissionsStatus && !isSessionLocked && (
                                                     <div className="command-buttons-group">
                                                         {topic.topicStatus === "CREATED" && (
                                                             <div className="command-buttons">
@@ -1025,7 +1030,7 @@ useEffect(() => {
                         </div>
                     )) }
                     <div className="mt-4">
-                        {topics.length > 2 && hasTopicPermissions && !isOn && (
+                        {topics.length > 2 && hasTopicPermissions && !isSessionLocked && !isOn && (
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/add-form`}>
                                 <button
                                     className="entity-add-button"

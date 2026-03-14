@@ -355,6 +355,10 @@ function Sessions() {
 }
 
 const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setOpenMenuId, dropdownRefs, handleDeleteClick, handleExportClick, t }) => {
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const isLocked = userInfo.role !== 'ROLE_ADMIN' && new Date(session.date) < twoMonthsAgo;
+
     const formatDateByLanguage = (dateString, t) => {
         const date = new Date(dateString);
         if (isNaN(date)) return '';
@@ -421,7 +425,7 @@ const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setO
                                         <FontAwesomeIcon icon={faFilePdf} /> {t('session.export')}
                                     </button>
 
-                                    {((
+                                    {!isLocked && ((
                                         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
                                         userInfo.status === "ACTIVE" &&
                                         municipalityId === userInfo.municipalityId &&

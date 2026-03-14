@@ -46,7 +46,12 @@ function Amendments() {
     const [loadingPdfId, setLoadingPdfId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
-    
+
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const isSessionLocked = userInfo.role !== 'ROLE_ADMIN' &&
+        currentSession && new Date(currentSession.date) < twoMonthsAgo;
+
     const { messages: amendmentMessages, sendVote: sendAmendmentVote } =
     useAmendmentVoteWebSocket(idt);
 
@@ -496,7 +501,7 @@ const handleRestartAmendmentConfirm = () => {
                         {/* Add button */}
                         <div className="session-button-container">
                             <Link to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}/add-form`}>
-                                {hasAmendmentAccess && (
+                                {hasAmendmentAccess && !isSessionLocked && (
                                     <button className="entity-add-button" onClick={saveScrollPosition}>
                                     {t("common.add")} <FontAwesomeIcon icon={faPlus} />
                                     </button>
@@ -575,7 +580,7 @@ const handleRestartAmendmentConfirm = () => {
                                             </h3>
                                            
                                             <div className='menu-wrapper'>
-                                            {hasAmendmentPermission && (userInfo.role === 'ROLE_ADMIN' || amendment.createdBy === userInfo.username) && (
+                                            {hasAmendmentPermission && !isSessionLocked && (userInfo.role === 'ROLE_ADMIN' || amendment.createdBy === userInfo.username) && (
                                                 <div className="menu-container" ref={(el) => (menuRefs.current[amendment.id] = el)}>
                                                     
                                                     {/* Menu Dots */}
@@ -865,7 +870,7 @@ const handleRestartAmendmentConfirm = () => {
                                                         </Link>
                                                     </div>
 
-                                                {hasAmendmentPermissionsStatus && (
+                                                {hasAmendmentPermissionsStatus && !isSessionLocked && (
                                                     <div className="command-buttons-group">
 
                                                         {amendment.status === "CREATED" && (
