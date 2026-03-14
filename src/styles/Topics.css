@@ -658,7 +658,6 @@ html {
     display: inline-block;
     text-align: center;
     cursor: default;
-    padding-bottom: 10px;
 }
 
 .topic-header-pdf {
@@ -1250,7 +1249,7 @@ html {
 
     position: relative;
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 2px;
 
     transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
@@ -1293,7 +1292,7 @@ html {
     font-weight: 600;
     font-size: 1rem;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 14px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
     line-height: 1;
@@ -1333,14 +1332,20 @@ html {
 }
 
 .topic-pill-container {
-    display: inline-flex;
-    /* wrap tightly around content */
+    display: flex;
     flex-direction: column;
-    /* stack vertically */
-    gap: 10px;
-    /* space between amount and amendments button */
+    gap: 8px;
     align-items: center;
-    /* align items to the left, use center if you want centered */
+    width: 100%;
+    margin: 10px 0;
+}
+
+.topic-item:has(.topic-pill-container) .topic-item-body {
+    padding-top: 0;
+}
+
+.topic-item:has(.topic-pill-container) .topic-item-body-detail {
+    margin-top: 0;
 }
 
 /* Optional: smaller on mobile */
