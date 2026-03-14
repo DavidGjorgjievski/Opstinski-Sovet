@@ -364,7 +364,7 @@ html {
     text-align: center;
     justify-self: center;
     border: 2px solid;
-    border-radius: 10px;
+    border-radius: 14px;
     font-weight: 500;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     user-select: none;
@@ -565,10 +565,9 @@ html {
 .topic-status-text{
     background-color: #c3c0c0;
     padding: 10px 0px;
-    margin: 0px 10px;
+    margin: 15px 10px;
     border-radius: 10px;
     border: 2px solid #c5c4c4;
-    margin-top: 5px;
 }
 
 .menu-list {
