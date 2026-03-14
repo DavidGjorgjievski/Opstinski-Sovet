@@ -19,6 +19,7 @@ function Sessions() {
     const [sessions, setSessions] = useState([]);
     const [municipalityTerms, setMunicipalityTerms] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [termsLoading, setTermsLoading] = useState(true);
     const [exportLoading, setExportLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [selectedSession, setSelectedSession] = useState(null);
@@ -37,6 +38,7 @@ function Sessions() {
 
         if (cachedData) {
             setMunicipalityTerms(JSON.parse(cachedData));
+            setTermsLoading(false);
             return;
         }
 
@@ -50,6 +52,8 @@ function Sessions() {
 
         } catch (error) {
             console.error('Error fetching Municipality Terms:', error);
+        } finally {
+            setTermsLoading(false);
         }
     };
 
@@ -261,7 +265,7 @@ function Sessions() {
                 )}
             </div>
 
-                {loading ? (
+                {loading || termsLoading ? (
                     <div className="loading-spinner">
                         <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt="Loading..." />
                     </div>
@@ -345,7 +349,7 @@ function Sessions() {
                 />
             </main>
 
-            {!loading && <Footer />}
+            {!loading && !termsLoading && <Footer />}
         </div>
     );
 }
