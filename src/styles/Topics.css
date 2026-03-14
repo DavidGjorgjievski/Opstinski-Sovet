@@ -199,7 +199,7 @@ html {
 }
 
 .finished-topic{
-    background-color: #d8d5d5;
+    background: linear-gradient(145deg, #d8d5d5, #cac7c7);
 }
 
 .topic-header-title {
@@ -521,7 +521,7 @@ html {
 }
 
 .finished-topic {
-    background-color: #cdcaca;
+    background: linear-gradient(145deg, #d8d5d5, #cac7c7);
 }
 
 .vote-numbers-havent-vote {
@@ -552,7 +552,11 @@ html {
 }
 
 .text-for-rez {
-    font-size: 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -863,7 +867,7 @@ html {
     }
 
     .topic-item-body-detail div .text-for-rez {
-        font-size: 1.1rem;
+        font-size: 0.7rem;
     }
 
     .vote-numbers-havent-vote {
@@ -915,7 +919,7 @@ html {
     }
 
     .topic-item-body-detail div .text-for-rez {
-        font-size: 1rem;
+        font-size: 0.7rem;
     }
 
 }
