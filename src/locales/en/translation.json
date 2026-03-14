@@ -407,7 +407,7 @@
     "amendments": "Amendments",
     "delete": "Delete",
     "details": "Details",
-    "detailedResults": "Detailed Results",
+    "detailedResults": "Results",
     "startVoting": "Start Voting",
     "finishVoting": "Finish Voting",
     "restartVoting": "Restart Voting",
@@ -501,7 +501,7 @@
   },
 
   "topicsDetails": {
-    "detailedResults": "Detailed Results",
+    "detailedResults": "Results",
     "details": "Details",
     "notStartedMessage": "The topic has not started yet",
     "viewDocument": "View Document",

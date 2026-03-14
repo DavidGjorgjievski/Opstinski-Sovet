@@ -407,7 +407,7 @@
     "amendments": "Änderungsanträge",
     "delete": "Löschen",
     "details": "Details",
-    "detailedResults": "Detaillierte Ergebnisse",
+    "detailedResults": "Ergebnisse",
     "startVoting": "Abstimmung starten",
     "finishVoting": "Abstimmung beenden",
     "restartVoting": "Abstimmung wiederholen",
@@ -502,7 +502,7 @@
 
 
   "topicsDetails": {
-    "detailedResults": "Detaillierte Ergebnisse",
+    "detailedResults": "Ergebnisse",
     "details": "Details",
     "notStartedMessage": "Das Thema hat noch nicht begonnen",
     "viewDocument": "Dokument ansehen",
