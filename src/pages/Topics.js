@@ -426,8 +426,9 @@ function Topics() {
     };
 
     useEffect(() => {
+        if (!['ROLE_USER', 'ROLE_PRESIDENT'].includes(userInfo.role)) return;
         isVoteActionRef.current = isVoteAction;
-    }, [isVoteAction]);
+    }, [isVoteAction, userInfo.role]);
 
     useEffect(() => {
         if (!topicsLoaded) return; // Wait until first load is complete
@@ -448,6 +449,18 @@ function Topics() {
         }
     }, [topicsLoaded]);
 
+    const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
+        .find(s => s.id === parseInt(id));
+
+    const canVote = (
+        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    );
+
     useEffect(() => {
         if (!presenterMessages.length) return;
 
@@ -463,19 +476,21 @@ useEffect(() => {
     (async () => {
       const updatedTopics = await fetchTopics(); // now it returns topics
 
-      setCurrentVotes(prevVotes => {
-        const newVotes = { ...prevVotes };
-        updatedTopics.forEach(topic => {
-          if (!(topic.id in newVotes)) {
-            newVotes[topic.id] = "HAVE_NOT_VOTED"; 
-          }
+      if (canVote) {
+        setCurrentVotes(prevVotes => {
+          const newVotes = { ...prevVotes };
+          updatedTopics.forEach(topic => {
+            if (!(topic.id in newVotes)) {
+              newVotes[topic.id] = "HAVE_NOT_VOTED";
+            }
+          });
+          localStorage.setItem(`currentVotes_session_${id}`, JSON.stringify(newVotes));
+          return newVotes;
         });
-        localStorage.setItem(`currentVotes_session_${id}`, JSON.stringify(newVotes));
-        return newVotes;
-      });
+      }
     })();
   }
-}, [newTopicMessages, fetchTopics, id]);
+}, [newTopicMessages, fetchTopics, id, canVote]);
 
 
 
@@ -517,18 +532,15 @@ useEffect(() => {
         );
 
         // Reset currentVotes if topic is restarted
-        if (lastResult.status === 'CREATED') {
+        if (canVote && lastResult.status === 'CREATED') {
             setCurrentVotes((prevVotes) => ({
                 ...prevVotes,
                 [updatedTopicId]: 'HAVE_NOT_VOTED',
             }));
         }
-    }, [voteMessages]);
+    }, [voteMessages, canVote]);
 
 
-
-    const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
-        .find(s => s.id === parseInt(id));
 
     const twoMonthsAgo = new Date();
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
@@ -581,15 +593,6 @@ useEffect(() => {
         // Calculate percentage based on all topics
         return Math.min((finishedCount / topics.length) * 100, 100);
     }
-
-    const canVote = (
-        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
-        userInfo.status === "ACTIVE" &&
-        Number(municipalityId) === Number(userInfo.municipalityId) &&
-        Array.isArray(userInfo.municipalityTermIds) &&
-        currentSession &&
-        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
-    );
 
     return (
         <div className="topics-container">
