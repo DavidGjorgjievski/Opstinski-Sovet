@@ -456,6 +456,7 @@
     "image": "Image",
     "name": "Name",
     "surname": "Surname",
+    "nameSurname": "Name and Surname",
     "action": "Action",
     "turnOn": "Turn on",
     "turnOff": "Turn off"

@@ -442,6 +442,7 @@
     "image": "Foto",
     "name": "Emri",
     "surname": "Mbiemri",
+    "nameSurname": "Emri dhe Mbiemri",
     "action": "Veprim",
     "turnOn": "Aktivizo",
     "turnOff": "Çaktivizo"

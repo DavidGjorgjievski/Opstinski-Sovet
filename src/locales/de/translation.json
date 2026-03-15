@@ -442,6 +442,7 @@
     "image": "Bild",
     "name": "Name",
     "surname": "Nachname",
+    "nameSurname": "Name und Nachname",
     "action": "Aktion",
     "turnOn": "Einschalten",
     "turnOff": "Ausschalten"

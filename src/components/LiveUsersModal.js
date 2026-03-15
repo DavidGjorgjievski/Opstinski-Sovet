@@ -121,8 +121,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
           <thead>
             <tr>
               <th>{t("liveUsers.image")}</th>
-              <th>{t("liveUsers.name")}</th>
-              <th>{t("liveUsers.surname")}</th>
+              <th>{t("liveUsers.nameSurname")}</th>
               {canSeeAction && <th>{t("liveUsers.action")}</th>}
             </tr>
           </thead>
@@ -141,8 +140,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
                       className="liv-user-avatar"
                     />
                   </td>
-                  <td>{user.name}</td>
-                  <td>{user.surname}</td>
+                  <td>{user.name} {user.surname}</td>
                   {canSeeAction && (
                     <td>
                       <button
@@ -157,7 +155,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
               ))
             ) : (
               <tr>
-                <td colSpan={canSeeAction ? 4 : 3}>
+                <td colSpan={canSeeAction ? 3 : 2}>
                   {t("liveUsers.noOffline")}
                 </td>
               </tr>
@@ -175,8 +173,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
           <thead>
             <tr>
               <th>{t("liveUsers.image")}</th>
-              <th>{t("liveUsers.name")}</th>
-              <th>{t("liveUsers.surname")}</th>
+              <th>{t("liveUsers.nameSurname")}</th>
               {canSeeAction && <th>{t("liveUsers.action")}</th>}
             </tr>
           </thead>
@@ -195,8 +192,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
                       className="liv-user-avatar"
                     />
                   </td>
-                  <td>{user.name}</td>
-                  <td>{user.surname}</td>
+                  <td>{user.name} {user.surname}</td>
                   {canSeeAction && (
                     <td>
                       <button
@@ -211,7 +207,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
               ))
             ) : (
               <tr>
-                <td colSpan={canSeeAction ? 4 : 3}>
+                <td colSpan={canSeeAction ? 3 : 2}>
                   {t("liveUsers.noOnline")}
                 </td>
               </tr>

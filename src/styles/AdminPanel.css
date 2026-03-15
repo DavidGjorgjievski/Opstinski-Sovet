@@ -430,8 +430,7 @@
         margin-right: 0;
     }
 
-    .ut-btn-text { display: none; }
-    .ut-btn { width: 34px; height: 34px; padding: 0; gap: 0; }
+    .ut-btn { width: 100%; height: 28px; padding: 4px 8px; gap: 5px; }
 }
 
 @media (max-width: 500px) {

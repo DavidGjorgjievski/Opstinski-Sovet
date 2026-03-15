@@ -442,6 +442,7 @@
     "image": "Слика",
     "name": "Име",
     "surname": "Презиме",
+    "nameSurname": "Име и Презиме",
     "action": "Акција",
     "turnOn": "Вклучи",
     "turnOff": "Исклучи"
