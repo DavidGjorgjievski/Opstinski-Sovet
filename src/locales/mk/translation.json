@@ -6,7 +6,6 @@
     "add": "Додади",
     "edit": "Уреди"
   },
-
   "login": {
     "title": "Ве молиме најавете се:",
     "username": "Корисничко име",
@@ -18,14 +17,12 @@
     "forgotPassword": "Ја заборавивте лозинката?",
     "invalidCredentials": "Невалидно корисничко име или лозинка."
   },
-
   "logout": {
     "title": "Одјава",
     "message": "Успешно сте одјавени!",
     "thanks": "Ви благодариме што ја искористивте нашата апликација.",
     "loginAgain": "Најави се повторно"
   },
-
   "forgot": {
     "title": "Заборавена лозинка",
     "emailPlaceholder": "Е-мејл адреса",
@@ -34,7 +31,6 @@
     "success": "Испратен е линк за ресетирање.",
     "error": "Настана грешка. Обидете се повторно."
   },
-
   "reset": {
     "title": "Ресетирање на лозинка",
     "newPassword": "Нова лозинка",
@@ -45,7 +41,6 @@
     "error": "Настана грешка. Обидете се повторно.",
     "passwordsDoNotMatch": "Лозинките не се совпаѓаат."
   },
-  
   "nav": {
     "home": "Почетна",
     "municipalities": "Општини",
@@ -56,7 +51,6 @@
     "monitoring": "Надзор",
     "logout": "Одјави се"
   },
-
   "monitoring": {
     "title": "Надзор",
     "noUsers": "Нема корисници",
@@ -74,20 +68,17 @@
       "offline": "Офлајн"
     }
   },
-
   "home": {
     "title": "Почетна",
     "welcome": "Добредојде на системот за гласање на точки во седници на Општина",
     "description": "Во секоја седница, се вклучуваат советници, меѓу кои и претседателот на советот, кој ја води самата седница. Тие се одговорни за креирање и прифаќање на предлози кои влијаат на сите граѓани во општината.",
     "municipalitiesButton": "Општини"
   },
-
   "mandate": {
     "title": "Мандати",
     "noMandates": "Нема достапни мандати",
     "delete": "Избриши"
   },
-
   "addMandate": {
     "title": "Додади мандат",
     "editTitle": "Уреди мандат",
@@ -99,14 +90,12 @@
     "error": "Настана грешка при додавање на мандатот.",
     "errorFetch": "Настана грешка при вчитување на мандатот."
   },
-
   "mandateModal": {
     "confirmDeleteTitle": "Потврда за бришење",
     "confirmDeleteMessage": "Дали сте сигурни дека сакате да го избришете мандатот",
     "deleteButton": "Избриши",
     "cancelButton": "Откажи"
   },
-
   "MunicipalityMandate": {
     "mandateTitle": "Мандати на општината",
     "view": "Преглед",
@@ -114,35 +103,31 @@
     "delete": "Избриши",
     "noMandates": "Нема достапни мандати."
   },
-
-"AddMunicipalityMandate": {
-  "title": "Додади Општински мандат",
-  "editTitle": "Измени Општински мандат",
-  "mandateLabel": "Мандат",
-  "mandatePlaceholder": "Внеси мандат",
-  "municipalityLabel": "Општина",
-  "municipalityPlaceholder": "Внеси општина",
-  "imageLabel": "Слика",
-  "imageDescription": "Препорачана димензија: 400x225 px",
-  "saveButton": "Уреди",
-  "errorFieldsRequired": "Сите полиња се задолжителни!",
-  "errorImageRequired": "Ве молиме прикачете слика!",
-  "errorSubmit": "Неуспешно зачувување. Обидете се повторно!"
-},
-
-"municipalityMandateModal": {
+  "AddMunicipalityMandate": {
+    "title": "Додади Општински мандат",
+    "editTitle": "Измени Општински мандат",
+    "mandateLabel": "Мандат",
+    "mandatePlaceholder": "Внеси мандат",
+    "municipalityLabel": "Општина",
+    "municipalityPlaceholder": "Внеси општина",
+    "imageLabel": "Слика",
+    "imageDescription": "Препорачана димензија: 400x225 px",
+    "saveButton": "Уреди",
+    "errorFieldsRequired": "Сите полиња се задолжителни!",
+    "errorImageRequired": "Ве молиме прикачете слика!",
+    "errorSubmit": "Неуспешно зачувување. Обидете се повторно!"
+  },
+  "municipalityMandateModal": {
     "confirmDeleteTitle": "Потврда за бришење",
     "confirmDeleteMessage": "Дали сте сигурни дека сакате да го избришете општинскиот мандат",
     "deleteButton": "Избриши",
     "cancelButton": "Откажи"
-},
-
-"MunicipalityMandateUsers": {
+  },
+  "MunicipalityMandateUsers": {
     "title": "Советници",
     "noUsers": "Нема корисници за овој мандат.",
     "president": "Претседател"
   },
-
   "MunicipalityMandateUsersList": {
     "title": "Уреди Советници",
     "loading": "Се вчитува...",
@@ -150,7 +135,6 @@
     "noTermUsers": "Не се пронајдени корисници за овој мандат.",
     "remove": "Отстрани"
   },
-
   "Municipality": {
     "municipalitiesTitle": "Општини",
     "view": "Преглед",
@@ -160,7 +144,6 @@
     "noMunicipalities": "Нема достапни општини",
     "loading": "Се вчитува..."
   },
-  
   "addMunicipality": {
     "pageTitleAdd": "Додади Општина",
     "pageTitleEdit": "Уреди Општина",
@@ -176,14 +159,12 @@
     "errorGeneral": "Имаше грешка при обработка на општината.",
     "chooseFile": "Изберете"
   },
-
   "MunicipalityModal": {
     "title": "Потврди Бришење",
     "message": "Дали сте сигурни дека сакате да ја избришете општината:",
     "delete": "Избриши",
     "cancel": "Откажи"
   },
-
   "profile": {
     "title": "Профил",
     "username": "Корисничко име",
@@ -206,7 +187,6 @@
     "noBiography": "Нема внесена биографија",
     "editBiography": "Измени биографија"
   },
-
   "roles": {
     "user": "Советник",
     "president": "Претседател на совет",
@@ -218,7 +198,6 @@
     "guest": "Гостин",
     "unknown": "Непозната улога"
   },
-
   "profileView": {
     "title": "Профил",
     "loading": "Се вчитува...",
@@ -228,14 +207,13 @@
     "details": "Детали",
     "email": "Е-пошта",
     "municipalityTerm": "Мандат",
-     "status": "Статус",
+    "status": "Статус",
     "statusActive": "Активен",
     "statusInactive": "Неактивен",
     "biography": "Биографија",
     "noBiography": "Нема внесена биографија",
     "notAvailable": "Нема"
   },
-
   "changeImage": {
     "title": "Промена на профилна",
     "header": "Прикачи слика",
@@ -250,7 +228,6 @@
     "uploadSuccess": "Сликата е успешно променета.",
     "uploadButton": "Прикачи"
   },
-
   "changePassword": {
     "title": "Промена на лозинка",
     "header": "Промена на лозинка",
@@ -263,7 +240,6 @@
     "success": "Лозинката е променета успешно.",
     "submit": "Промени"
   },
-
   "changeEmail": {
     "title": "Промени е-пошта",
     "header": "Промени ја вашата е-пошта",
@@ -275,7 +251,6 @@
     "generalError": "Се појави грешка",
     "success": "Е-поштата е успешно променета"
   },
-
   "session": {
     "title": "Седници",
     "subtitle": "Секоја седница ги вклучува членовите на советот.",
@@ -288,19 +263,26 @@
     "exportLoading": "Се генерира PDF...",
     "present": "Презентирај"
   },
-
   "months": [
-    "Јануари", "Февруари", "Март", "Април", "Мај", "Јуни",
-    "Јули", "Август", "Септември", "Октомври", "Ноември", "Декември"
+    "Јануари",
+    "Февруари",
+    "Март",
+    "Април",
+    "Мај",
+    "Јуни",
+    "Јули",
+    "Август",
+    "Септември",
+    "Октомври",
+    "Ноември",
+    "Декември"
   ],
-
   "sessionModal": {
     "confirmDeleteTitle": "Потврди Бришење",
     "confirmDeleteMessage": "Дали сте сигурни дека сакате да ја избришете седницата:",
     "deleteButton": "Избриши",
     "cancelButton": "Откажи"
   },
-
   "addSessionForm": {
     "addTitle": "Додади Седница",
     "editTitle": "Уреди Седница",
@@ -310,7 +292,6 @@
     "sessionNamePlaceholder": "Име на седница",
     "sessionDateLabel": "Дата на седница:"
   },
-
   "adminPanel": {
     "adminPanelTitle": "Админ Панел",
     "allUsers": "Сите корисници",
@@ -324,11 +305,10 @@
     "guests": "Гости",
     "filters": "Филтри",
     "statusLabel": "Статус:",
-    "filterAll":  "Сите",
+    "filterAll": "Сите",
     "noUsersAvailable": "Нема достапни корисници.",
     "deleteError": "Не може да се избрише корисникот затоа што е поврзан со други податоци."
   },
-
   "adminpanel": {
     "image": "Слика",
     "username": "Корисничко име",
@@ -342,7 +322,6 @@
     "delete": "Избриши",
     "notAvailable": "Нема"
   },
-
   "confirmModal": {
     "title": "Дали си сигурен?",
     "message": "Дали сакате да го избришете корисникот",
@@ -351,7 +330,6 @@
     "close": "Затвори",
     "errorTitle": "Грешка"
   },
-
   "addUserForm": {
     "pageTitle": "Додади Корисник",
     "formTitle": "Додади нов корисник",
@@ -378,7 +356,6 @@
     "fileTooLarge": "Максималната големина на сликата е 50KB.",
     "passwordMismatch": "Лозинките не се совпаѓаат."
   },
-
   "editUserForm": {
     "pageTitle": "Измени корисник",
     "formTitle": "Измени корисник",
@@ -403,7 +380,6 @@
     "fileTooLarge": "Максималната големина на сликата е 50KB.",
     "cancel": "Откажи"
   },
-
   "topicsPage": {
     "pageTitle": "Точки",
     "headerTitle": "Точки",
@@ -435,11 +411,9 @@
     "presentBadge": "Презентирачка точка",
     "currency": "ден"
   },
-
   "tooltip": {
     "easyMode": "Лесен режим"
   },
-
   "liveUsers": {
     "offlineUsers": "Офлајн корисници",
     "onlineUsers": "Онлајн корисници",
@@ -453,17 +427,14 @@
     "turnOn": "Вклучи",
     "turnOff": "Исклучи"
   },
-
   "unauthorized": {
     "title": "Непозволено",
     "message": "Немате дозвола да пристапите на оваа страница."
   },
-
   "notFound": {
     "title": "404 - Страницата не е пронајдена",
     "message": "Страницата што ја барате не постои."
   },
-
   "addTopicForm": {
     "addTitle": "Додади точка",
     "editTitle": "Уреди точка",
@@ -492,21 +463,18 @@
     "amountPlaceholder": "Внесете износ",
     "optional": "(опционално)"
   },
-
   "restartTopicModal": {
     "title": "Потврда за повторно гласање",
     "message": "Дали сте сигурни дека сакате да ја рестартирате точката за повторно гласање?",
     "confirm": "Да",
     "cancel": "Откажи"
   },
-
   "restartAmendmentModal": {
     "title": "Потврда за повторно гласање",
     "message": "Дали сте сигурни дека сакате да го рестартирате амандманот за повторно гласање?",
     "confirm": "Да",
     "cancel": "Откажи"
   },
-
   "topicsDetails": {
     "detailedResults": "Детални резултати",
     "details": "Детали",
@@ -522,15 +490,13 @@
     "fullName": "Име и презиме",
     "vote": "Глас"
   },
-
   "pdfConfirmModal": {
     "title": "Потврда за отстранување на PDF",
     "message": "Дали сте сигурни дека сакате да го отстраните овој PDF",
     "removeButton": "Отстрани",
     "cancelButton": "Откажи"
   },
-
-"addBiographyForm": {
+  "addBiographyForm": {
     "add": {
       "title": "Додади биографија",
       "header": "Додади биографијата",
@@ -544,20 +510,17 @@
       "saveButton": "Зачувај"
     }
   },
-
   "sessionExpired": {
     "title": "Сесијата истече",
     "message": "Вашата сесија истече.",
     "redirect": "Пренасочување кон најава за {{count}} секунди…",
     "logoutNow": "Одјави се веднаш"
   },
-
- "NoTopicsExportModal": {
+  "NoTopicsExportModal": {
     "noTopicsTitle": "Нема Точки",
     "noTopicsMessage": "Оваа седница нема точки за експортирање.",
     "closeButton": "Затвори"
   },
-
   "amendments": {
     "title": "Амандмани",
     "confirmDeleteTitle": "Потврди Бришење",
@@ -566,29 +529,39 @@
     "cancelButton": "Откажи",
     "amendmentFrom": "Амандман од"
   },
-
-    "addAmendmentForm": {
-      "addTitle": "Додади амандман",
-      "editTitle": "Уреди амандман",
-      "title": "Наслов на амандман:",
-      "placeholder": "Наслов на амандман",
-      "uploadPdf": "Прикачи PDF датотека:",
-      "maxSizeError": "Максималната големина на PDF датотека/датотеки е 35MB!",
-      "typeError": "Молам, прикачете само PDF датотеки!",
-      "selectedFiles": "Избрани датотеки",
-      "currentPdf": "Тековна PDF датотека",
-      "selectStatus": "Избери статус:",
-      "dropHere": "Пуштете датотека тука",
-      "orClick": "кликнете за да изберете PDF датотеката",
-      "statusOptions": {
-          "created": "Креиран",
-          "active": "Активен",
-          "finished": "Завршен"
-      },
-      "removePdf": "Избриши",
-      "amount": "Износ:",
-      "amountPlaceholder": "Внесете износ",
-      "optional": "(опционално)"
+  "addAmendmentForm": {
+    "addTitle": "Додади амандман",
+    "editTitle": "Уреди амандман",
+    "title": "Наслов на амандман:",
+    "placeholder": "Наслов на амандман",
+    "uploadPdf": "Прикачи PDF датотека:",
+    "maxSizeError": "Максималната големина на PDF датотека/датотеки е 35MB!",
+    "typeError": "Молам, прикачете само PDF датотеки!",
+    "selectedFiles": "Избрани датотеки",
+    "currentPdf": "Тековна PDF датотека",
+    "selectStatus": "Избери статус:",
+    "dropHere": "Пуштете датотека тука",
+    "orClick": "кликнете за да изберете PDF датотеката",
+    "statusOptions": {
+      "created": "Креиран",
+      "active": "Активен",
+      "finished": "Завршен"
+    },
+    "removePdf": "Избриши",
+    "amount": "Износ:",
+    "amountPlaceholder": "Внесете износ",
+    "optional": "(опционално)"
+  },
+  "statistics": {
+    "title": "Статистика",
+    "totalTopics": "Вкупно точки",
+    "topicsWithPdf": "Точки со PDF",
+    "totalPages": "Вкупно страници",
+    "totalSize": "Вкупна големина",
+    "topicTitle": "Точка",
+    "pdf": "PDF Датотека",
+    "pages": "Страници",
+    "size": "Големина",
+    "noPdf": "Нема PDF"
   }
-
 }

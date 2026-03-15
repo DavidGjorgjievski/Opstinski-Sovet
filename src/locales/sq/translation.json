@@ -6,7 +6,6 @@
     "add": "Shto",
     "edit": "Ndrysho"
   },
-
   "login": {
     "title": "Ju lutem identifikohuni:",
     "username": "Emri i përdoruesit",
@@ -18,14 +17,12 @@
     "forgotPassword": "E harruat fjalëkalimin?",
     "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm."
   },
-
   "logout": {
     "title": "Shkyçja",
     "message": "Jeni shkyçur me sukses!",
     "thanks": "Faleminderit që e keni përdorur aplikacionin tonë.",
     "loginAgain": "Hyni përsëri"
   },
-
   "forgot": {
     "title": "Keni harruar fjalëkalimin",
     "emailPlaceholder": "Adresa e email-it",
@@ -34,7 +31,6 @@
     "success": "Lidhja për rivendosje është dërguar.",
     "error": "Gabim gjatë dërgimit. Provo përsëri."
   },
-
   "reset": {
     "title": "Rivendosja e fjalëkalimit",
     "newPassword": "Fjalëkalim i ri",
@@ -45,7 +41,6 @@
     "error": "Ndodhi një gabim. Ju lutemi provoni përsëri.",
     "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen."
   },
-
   "nav": {
     "home": "Ballina",
     "municipalities": "Komunat",
@@ -56,7 +51,6 @@
     "monitoring": "Monitorim",
     "logout": "Shkyçu"
   },
-
   "monitoring": {
     "title": "Monitorim",
     "noUsers": "Nuk ka përdorues",
@@ -74,20 +68,17 @@
       "offline": "Offline"
     }
   },
-
   "home": {
     "title": "Ballina",
     "welcome": "Mirë se vini në sistemin e votimit të këshillit komunal",
     "description": "Në çdo seancë marrin pjesë këshilltarët, përfshirë edhe kryetarin e këshillit, i cili udhëheq seancën. Ata janë përgjegjës për krijimin dhe miratimin e propozimeve që ndikojnë te të gjithë qytetarët e komunës.",
     "municipalitiesButton": "Komunat"
   },
-
   "mandate": {
     "title": "Mandati",
     "noMandates": "Nuk ka mandate të disponueshme",
     "delete": "Fshij"
   },
-
   "addMandate": {
     "title": "Shto mandat",
     "editTitle": "Përditëso mandatin",
@@ -99,14 +90,12 @@
     "error": "Ndodhi një gabim gjatë shtimit të mandatit.",
     "errorFetch": "Ndodhi një gabim gjatë marrjes së mandatit."
   },
-
   "mandateModal": {
     "confirmDeleteTitle": "Konfirmimi i fshirjes",
     "confirmDeleteMessage": "A jeni të sigurt që dëshironi të fshini mandatin",
     "deleteButton": "Fshij",
     "cancelButton": "Anulo"
   },
-
   "MunicipalityMandate": {
     "mandateTitle": "Mandatet e Komunës",
     "view": "Shiko",
@@ -114,43 +103,38 @@
     "delete": "Fshi",
     "noMandates": "Nuk ka mandate të disponueshme."
   },
-
-"AddMunicipalityMandate": {
-  "title": "Shto Mandatin Komunal",
-  "editTitle": "Ndrysho Mandatin Komunal",
-  "mandateLabel": "Mandat",
-  "mandatePlaceholder": "Shkruaj mandatin",
-  "municipalityLabel": "Komuna",
-  "municipalityPlaceholder": "Shkruaj komunën",
-  "imageLabel": "Imazh",
-  "imageDescription": "Madhësia e rekomanduar: 400x225 px",
-  "saveButton": "Ruaj",
-  "errorFieldsRequired": "Të gjitha fushat janë të detyrueshme!",
-  "errorImageRequired": "Ju lutemi ngarkoni një imazh!",
-  "errorSubmit": "Ruajtja dështoi. Provoni përsëri!"
-},
-
-"municipalityMandateModal": {
+  "AddMunicipalityMandate": {
+    "title": "Shto Mandatin Komunal",
+    "editTitle": "Ndrysho Mandatin Komunal",
+    "mandateLabel": "Mandat",
+    "mandatePlaceholder": "Shkruaj mandatin",
+    "municipalityLabel": "Komuna",
+    "municipalityPlaceholder": "Shkruaj komunën",
+    "imageLabel": "Imazh",
+    "imageDescription": "Madhësia e rekomanduar: 400x225 px",
+    "saveButton": "Ruaj",
+    "errorFieldsRequired": "Të gjitha fushat janë të detyrueshme!",
+    "errorImageRequired": "Ju lutemi ngarkoni një imazh!",
+    "errorSubmit": "Ruajtja dështoi. Provoni përsëri!"
+  },
+  "municipalityMandateModal": {
     "confirmDeleteTitle": "Konfirmimi i fshirjes",
     "confirmDeleteMessage": "A jeni të sigurt që dëshironi të fshini mandatin komunal",
     "deleteButton": "Fshij",
     "cancelButton": "Anulo"
-},
-
-"MunicipalityMandateUsers": {
+  },
+  "MunicipalityMandateUsers": {
     "title": "Këshilltarët",
     "noUsers": "Nuk u gjetën përdorues për këtë mandat.",
     "president": "Kryetar"
   },
-
-   "MunicipalityMandateUsersList": {
-    "title":"Ndrysho Këshilltarin",
+  "MunicipalityMandateUsersList": {
+    "title": "Ndrysho Këshilltarin",
     "loading": "Duke u ngarkuar...",
     "noUsers": "Nuk u gjetën përdorues.",
     "noTermUsers": "Nuk u gjetën përdorues për këtë mandat.",
     "remove": "Hiq"
   },
-
   "Municipality": {
     "municipalitiesTitle": "Komunat",
     "view": "Shiko",
@@ -160,7 +144,6 @@
     "noMunicipalities": "Nuk ka komuna të disponueshme",
     "loading": "Po ngarkohet..."
   },
-
   "addMunicipality": {
     "pageTitleAdd": "Shto Komunë",
     "pageTitleEdit": "Ndrysho Komunën",
@@ -176,14 +159,12 @@
     "errorGeneral": "Ndodhi një gabim gjatë përpunimit të komunës.",
     "chooseFile": "Zgjidhni"
   },
-
   "MunicipalityModal": {
     "title": "Konfirmo Fshirjen",
     "message": "A jeni i sigurt që doni ta fshini komunën:",
     "delete": "Fshij",
     "cancel": "Anulo"
   },
-
   "profile": {
     "title": "Profili",
     "username": "Emri i përdoruesit",
@@ -206,7 +187,6 @@
     "noBiography": "Nuk ka biografi të vendosur",
     "editBiography": "Ndrysho biografinë"
   },
-
   "roles": {
     "user": "Këshilltar",
     "president": "Kryetar i këshillit",
@@ -218,8 +198,7 @@
     "guest": "Vizitor",
     "unknown": "Roli i panjohur"
   },
-
-   "profileView": {
+  "profileView": {
     "title": "Profili",
     "loading": "Duke u ngarkuar...",
     "fetchError": "Gabim gjatë marrjes së përdoruesit",
@@ -235,8 +214,7 @@
     "noBiography": "Nuk ka biografi të vendosur",
     "notAvailable": "Nuk është e disponueshme"
   },
-
-   "changeImage": {
+  "changeImage": {
     "title": "Ndrysho profilin",
     "header": "Ngarko imazhin",
     "noFileSelected": "Asnjë skedar i zgjedhur",
@@ -250,7 +228,6 @@
     "uploadSuccess": "Imazhi u ngarkua me sukses.",
     "uploadButton": "Ngarko"
   },
-
   "changePassword": {
     "title": "Ndrysho fjalëkalimin",
     "header": "Ndrysho fjalëkalimin",
@@ -263,7 +240,6 @@
     "success": "Fjalëkalimi u ndryshua me sukses.",
     "submit": "Ndrysho"
   },
-
   "changeEmail": {
     "title": "Ndrysho Email",
     "header": "Ndrysho email-in tuaj",
@@ -275,7 +251,6 @@
     "generalError": "Ndodhi një gabim",
     "success": "Email-i u ndryshua me sukses"
   },
-
   "session": {
     "title": "Seancat",
     "subtitle": "Çdo seancë përfshin anëtarët e këshillit.",
@@ -288,19 +263,26 @@
     "exportLoading": "Po gjenerohet PDF...",
     "present": "Prezantoni"
   },
-
   "months": [
-    "Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor",
-    "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"
+    "Janar",
+    "Shkurt",
+    "Mars",
+    "Prill",
+    "Maj",
+    "Qershor",
+    "Korrik",
+    "Gusht",
+    "Shtator",
+    "Tetor",
+    "Nëntor",
+    "Dhjetor"
   ],
-
   "sessionModal": {
     "confirmDeleteTitle": "Konfirmo Fshirjen",
     "confirmDeleteMessage": "A jeni i sigurt që dëshironi të fshini seancën:",
     "deleteButton": "Fshi",
     "cancelButton": "Anulo"
   },
-
   "addSessionForm": {
     "addTitle": "Shto Seancë",
     "editTitle": "Redakto Seancën",
@@ -310,7 +292,6 @@
     "sessionNamePlaceholder": "Emri i seancës",
     "sessionDateLabel": "Data e seancës:"
   },
-
   "adminPanel": {
     "adminPanelTitle": "Paneli i Administratorit",
     "allUsers": "Të gjithë përdoruesit",
@@ -324,11 +305,10 @@
     "guests": "Mysafirë",
     "filters": "Filtra",
     "statusLabel": "Statusi:",
-    "filterAll":  "Të gjitha",
+    "filterAll": "Të gjitha",
     "noUsersAvailable": "Nuk ka përdorues të disponueshëm.",
     "deleteError": "Nuk mund të fshihet ky përdorues sepse është i lidhur me të dhëna të tjera."
   },
-
   "adminpanel": {
     "image": "Foto",
     "username": "Përdoruesi",
@@ -342,7 +322,6 @@
     "delete": "Fshi",
     "notAvailable": "Nuk ka"
   },
-
   "confirmModal": {
     "title": "A jeni i sigurt?",
     "message": "A jeni i sigurt që dëshironi të fshini përdoruesin",
@@ -351,7 +330,6 @@
     "close": "Mbylle",
     "errorTitle": "Gabim"
   },
-
   "addUserForm": {
     "pageTitle": "Shto Përdorues",
     "formTitle": "Shto përdorues të ri",
@@ -378,7 +356,6 @@
     "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
     "passwordMismatch": "Fjalëkalimet nuk përputhen."
   },
-
   "editUserForm": {
     "pageTitle": "Ndrysho Përdorues",
     "formTitle": "Ndrysho përdorues",
@@ -403,7 +380,6 @@
     "fileTooLarge": "Madhësia maksimale e fotografisë është 50KB.",
     "cancel": "Anulo"
   },
-
   "topicsPage": {
     "pageTitle": "Pikat",
     "headerTitle": "Pikat",
@@ -425,7 +401,7 @@
     "absent": "Mungon",
     "information": "Informacion",
     "withdrawn": "Tërhequr",
-     "confirmDeleteTitle": "Konfirmo Fshirjen",
+    "confirmDeleteTitle": "Konfirmo Fshirjen",
     "confirmDeleteMessage": "A jeni i sigurt që dëshironi ta fshini çështjen:",
     "confirmDeleteButton": "Fshi",
     "cancelButton": "Anulo",
@@ -435,11 +411,9 @@
     "presentBadge": "Temë e prezantuar",
     "currency": "den"
   },
-
   "tooltip": {
     "easyMode": "Modalitet i lehtë"
   },
-
   "liveUsers": {
     "offlineUsers": "Përdoruesit jashtë linje",
     "onlineUsers": "Përdoruesit në linjë",
@@ -453,17 +427,14 @@
     "turnOn": "Aktivizo",
     "turnOff": "Çaktivizo"
   },
-
   "unauthorized": {
     "title": "E palejuar",
     "message": "Nuk keni leje të hyni në këtë faqe."
   },
-
   "notFound": {
     "title": "404 - Faqja nuk u gjet",
     "message": "Faqja që po kërkoni nuk ekziston."
   },
-
   "addTopicForm": {
     "addTitle": "Shto Temë",
     "editTitle": "Redakto Temë",
@@ -492,21 +463,18 @@
     "amountPlaceholder": "Shkruani shumën",
     "optional": "(opsionale)"
   },
-
   "restartTopicModal": {
     "title": "Konfirmo Rivotimin",
     "message": "A jeni i sigurt që doni ta rinisni pikën për rivotim?",
     "confirm": "Po",
     "cancel": "Anulo"
   },
-
   "restartAmendmentModal": {
     "title": "Konfirmo Rivotimin",
     "message": "A jeni i sigurt që doni ta rinisni amendamentin për rivotim?",
     "confirm": "Po",
     "cancel": "Anulo"
   },
-
   "topicsDetails": {
     "detailedResults": "Rezultate",
     "details": "Detajet",
@@ -522,15 +490,13 @@
     "fullName": "Emri dhe mbiemri",
     "vote": "Vota"
   },
-
   "pdfConfirmModal": {
     "title": "Konfirmo heqjen e PDF-së",
     "message": "A jeni i sigurt që doni të hiqni këtë PDF",
     "removeButton": "Hiq",
     "cancelButton": "Anulo"
   },
-
-"addBiographyForm": {
+  "addBiographyForm": {
     "add": {
       "title": "Shto Biografi",
       "biographyPlaceholder": "Shkruaj diçka për veten...",
@@ -542,20 +508,17 @@
       "saveButton": "Ruaj"
     }
   },
-
   "sessionExpired": {
     "title": "Sesioni ka skaduar",
     "message": "Sesioni juaj ka skaduar.",
     "redirect": "Ridrejtim te hyrja për {{count}} sekonda…",
     "logoutNow": "Dil tani"
   },
-
   "NoTopicsExportModal": {
     "noTopicsTitle": "Asnjë Temë e Disponueshme",
     "noTopicsMessage": "Kjo seancë nuk ka tema për të eksportuar.",
     "closeButton": "Mbyll"
   },
-
   "amendments": {
     "title": "Amendamente",
     "confirmDeleteTitle": "Konfirmo Fshirjen",
@@ -563,29 +526,39 @@
     "confirmDeleteButton": "Fshij",
     "cancelButton": "Anulo"
   },
-
   "addAmendmentForm": {
-      "addTitle": "Shto amendament",
-      "editTitle": "Ndrysho amendament",
-      "title": "Titulli i amendamentit:",
-      "placeholder": "Titulli i amendamentit",
-      "uploadPdf": "Ngarko PDF:",
-      "maxSizeError": "Madhësia maksimale e PDF-it/fajllave është 35MB!",
-      "typeError": "Ju lutem ngarkoni vetëm PDF!",
-      "selectedFiles": "Fajllat e zgjedhura",
-      "currentPdf": "PDF aktual",
-      "selectStatus": "Zgjidh statusin:",
-      "dropHere": "Hidhni fajllin këtu",
-      "orClick": "ose klikoni për të zgjedhur PDF-in",
-      "statusOptions": {
-          "created": "Krijuar",
-          "active": "Aktiv",
-          "finished": "Përfunduar"
-      },
-      "removePdf": "Fshi",
-      "amount": "Shuma:",
-      "amountPlaceholder": "Futni shumën",
-      "optional": "(opsionale)"
+    "addTitle": "Shto amendament",
+    "editTitle": "Ndrysho amendament",
+    "title": "Titulli i amendamentit:",
+    "placeholder": "Titulli i amendamentit",
+    "uploadPdf": "Ngarko PDF:",
+    "maxSizeError": "Madhësia maksimale e PDF-it/fajllave është 35MB!",
+    "typeError": "Ju lutem ngarkoni vetëm PDF!",
+    "selectedFiles": "Fajllat e zgjedhura",
+    "currentPdf": "PDF aktual",
+    "selectStatus": "Zgjidh statusin:",
+    "dropHere": "Hidhni fajllin këtu",
+    "orClick": "ose klikoni për të zgjedhur PDF-in",
+    "statusOptions": {
+      "created": "Krijuar",
+      "active": "Aktiv",
+      "finished": "Përfunduar"
+    },
+    "removePdf": "Fshi",
+    "amount": "Shuma:",
+    "amountPlaceholder": "Futni shumën",
+    "optional": "(opsionale)"
+  },
+  "statistics": {
+    "title": "Statistikat",
+    "totalTopics": "Gjithsej pikat",
+    "topicsWithPdf": "Pikat me PDF",
+    "totalPages": "Gjithsej faqe",
+    "totalSize": "Madhësia totale",
+    "topicTitle": "Pika",
+    "pdf": "Skedari PDF",
+    "pages": "Faqe",
+    "size": "Madhësia",
+    "noPdf": "Pa PDF"
   }
-
 }

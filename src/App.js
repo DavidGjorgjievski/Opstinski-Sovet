@@ -37,6 +37,7 @@ import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAdd
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Monitoring from './pages/Monitoring';
+import SessionStatistics from './pages/SessionStatistics';
 import ProfileView from './pages/ProfileView'
 import { SessionModalProvider } from './context/SessionModalContext';
 import SessionExpiredModal from './components/SessionExpiredModal';
@@ -125,6 +126,7 @@ function App() {
             />
 
               <Route path="municipalities/:municipalityId/sessions" element={<ProtectedRoute element={<Sessions />} />} />
+              <Route path="/municipalities/:municipalityId/sessions/:sessionId/statistics" element={<ProtectedRoute element={<SessionStatistics />} />} />
 
 
               <Route 

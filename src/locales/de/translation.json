@@ -6,7 +6,6 @@
     "add": "Hinzufügen",
     "edit": "Bearbeiten"
   },
-
   "login": {
     "title": "Melden Sie sich an:",
     "username": "Benutzername",
@@ -18,14 +17,12 @@
     "forgotPassword": "Passwort vergessen?",
     "invalidCredentials": "Ungültiger Benutzername oder Passwort."
   },
-
   "logout": {
     "title": "Abmeldung",
     "message": "Sie haben sich erfolgreich abgemeldet!",
     "thanks": "Vielen Dank, dass Sie unsere Anwendung genutzt haben.",
     "loginAgain": "Erneut anmelden"
   },
-
   "forgot": {
     "title": "Passwort vergessen",
     "emailPlaceholder": "E-Mail-Adresse",
@@ -34,7 +31,6 @@
     "success": "Der Link zum Zurücksetzen wurde gesendet.",
     "error": "Fehler beim Senden des Links. Bitte erneut versuchen."
   },
-
   "reset": {
     "title": "Passwort zurücksetzen",
     "newPassword": "Neues Passwort",
@@ -45,7 +41,6 @@
     "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "passwordsDoNotMatch": "Passwörter stimmen nicht überein."
   },
-
   "nav": {
     "home": "Startseite",
     "municipalities": "Gemeinden",
@@ -56,7 +51,6 @@
     "monitoring": "Überwachung",
     "logout": "Abmelden"
   },
-
   "monitoring": {
     "title": "Überwachung",
     "noUsers": "Keine Benutzer vorhanden",
@@ -74,20 +68,17 @@
       "offline": "Offline"
     }
   },
-
   "home": {
     "title": "Startseite",
     "welcome": "Willkommen im Abstimmungssystem des Gemeinderates",
     "description": "In jeder Sitzung nehmen die Ratsmitglieder, einschließlich des Ratsvorsitzenden, teil und leiten die Sitzung. Sie sind verantwortlich für die Erstellung und Genehmigung von Vorschlägen, die alle Bürger in der Gemeinde betreffen.",
     "municipalitiesButton": "Gemeinden"
   },
-
   "mandate": {
     "title": "Mandat",
     "noMandates": "Keine Mandate verfügbar",
     "delete": "Löschen"
   },
-
   "addMandate": {
     "title": "Mandat hinzufügen",
     "editTitle": "Mandat bearbeiten",
@@ -99,58 +90,51 @@
     "error": "Beim Verarbeiten des Mandats ist ein Fehler aufgetreten.",
     "errorFetch": "Fehler beim Laden des Mandats."
   },
-
   "mandateModal": {
     "confirmDeleteTitle": "Löschbestätigung",
     "confirmDeleteMessage": "Sind Sie sicher, dass Sie das Mandat löschen möchten",
     "deleteButton": "Löschen",
     "cancelButton": "Abbrechen"
   },
-  
   "MunicipalityMandate": {
-   "mandateTitle": "Gemeindemandate",
+    "mandateTitle": "Gemeindemandate",
     "view": "Ansehen",
     "options": "Optionen",
     "delete": "Löschen",
     "noMandates": "Keine Mandate verfügbar."
   },
-
-"AddMunicipalityMandate": {
-  "title": "Gemeindemandat hinzufügen",
-  "editTitle": "Gemeindemandat bearbeiten",
-  "mandateLabel": "Mandat",
-  "mandatePlaceholder": "Mandat eingeben",
-  "municipalityLabel": "Gemeinde",
-  "municipalityPlaceholder": "Gemeinde eingeben",
-  "imageLabel": "Bild",
-  "imageDescription": "Empfohlene Größe: 400x225 px",
-  "saveButton": "Speichern",
-  "errorFieldsRequired": "Alle Felder sind erforderlich!",
-  "errorImageRequired": "Bitte ein Bild hochladen!",
-  "errorSubmit": "Speichern fehlgeschlagen. Bitte erneut versuchen!"
-},
-
-"municipalityMandateModal": {
+  "AddMunicipalityMandate": {
+    "title": "Gemeindemandat hinzufügen",
+    "editTitle": "Gemeindemandat bearbeiten",
+    "mandateLabel": "Mandat",
+    "mandatePlaceholder": "Mandat eingeben",
+    "municipalityLabel": "Gemeinde",
+    "municipalityPlaceholder": "Gemeinde eingeben",
+    "imageLabel": "Bild",
+    "imageDescription": "Empfohlene Größe: 400x225 px",
+    "saveButton": "Speichern",
+    "errorFieldsRequired": "Alle Felder sind erforderlich!",
+    "errorImageRequired": "Bitte ein Bild hochladen!",
+    "errorSubmit": "Speichern fehlgeschlagen. Bitte erneut versuchen!"
+  },
+  "municipalityMandateModal": {
     "confirmDeleteTitle": "Löschbestätigung",
     "confirmDeleteMessage": "Sind Sie sicher, dass Sie das kommunale Mandat löschen möchten",
     "deleteButton": "Löschen",
     "cancelButton": "Abbrechen"
-},
-
-"MunicipalityMandateUsers": {
+  },
+  "MunicipalityMandateUsers": {
     "title": "Ratsmitglieder",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden.",
     "president": "Präsident"
   },
-
-   "MunicipalityMandateUsersList": {
+  "MunicipalityMandateUsersList": {
     "title": "Ratsmitglied Bearbeiten",
     "loading": "Lädt...",
     "noUsers": "Keine Benutzer gefunden.",
     "noTermUsers": "Keine Benutzer für diese Amtsperiode gefunden.",
     "remove": "Entfernen"
   },
-
   "Municipality": {
     "municipalitiesTitle": "Gemeinden",
     "view": "Ansehen",
@@ -160,7 +144,6 @@
     "noMunicipalities": "Keine Gemeinden verfügbar",
     "loading": "Wird geladen..."
   },
-
   "addMunicipality": {
     "pageTitleAdd": "Gemeinde hinzufügen",
     "pageTitleEdit": "Gemeinde bearbeiten",
@@ -176,14 +159,12 @@
     "errorGeneral": "Beim Verarbeiten der Gemeinde ist ein Fehler aufgetreten.",
     "chooseFile": "auswählen"
   },
-
   "MunicipalityModal": {
     "title": "Löschen bestätigen",
     "message": "Sind Sie sicher, dass Sie die Gemeinde löschen möchten:",
     "delete": "Löschen",
     "cancel": "Abbrechen"
   },
-
   "profile": {
     "title": "Profil",
     "username": "Benutzername",
@@ -206,7 +187,6 @@
     "noBiography": "Keine Biografie vorhanden",
     "editBiography": "Biografie bearbeiten"
   },
-  
   "roles": {
     "user": "Ratsmitglied",
     "president": "Ratspäsident",
@@ -218,8 +198,7 @@
     "guest": "Gast",
     "unknown": "Unbekannte Rolle"
   },
-
-   "profileView": {
+  "profileView": {
     "title": "Profil",
     "loading": "Wird geladen...",
     "fetchError": "Fehler beim Laden des Benutzers",
@@ -235,7 +214,6 @@
     "noBiography": "Keine Biografie vorhanden",
     "notAvailable": "Nicht verfügbar"
   },
-
   "changeImage": {
     "title": "Profilbild ändern",
     "header": "Bild hochladen",
@@ -250,7 +228,6 @@
     "uploadSuccess": "Bild erfolgreich hochgeladen.",
     "uploadButton": "Hochladen"
   },
-
   "changePassword": {
     "title": "Passwort ändern",
     "header": "Passwort ändern",
@@ -263,7 +240,6 @@
     "success": "Passwort erfolgreich geändert.",
     "submit": "Ändern"
   },
-
   "changeEmail": {
     "title": "E-Mail ändern",
     "header": "Ändern Sie Ihre E-Mail-Adresse",
@@ -275,7 +251,6 @@
     "generalError": "Ein Fehler ist aufgetreten",
     "success": "E-Mail erfolgreich aktualisiert"
   },
-
   "session": {
     "title": "Sitzungen",
     "subtitle": "Jede Sitzung umfasst die Mitglieder des Rates.",
@@ -288,19 +263,26 @@
     "exportLoading": "PDF wird generiert...",
     "present": "Präsentieren"
   },
-
   "months": [
-    "Januar", "Februar", "März", "April", "Mai", "Juni",
-    "Juli", "August", "September", "Oktober", "November", "Dezember"
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
   ],
-
   "sessionModal": {
     "confirmDeleteTitle": "Löschung Bestätigen",
     "confirmDeleteMessage": "Sind Sie sicher, dass Sie die Sitzung löschen möchten:",
     "deleteButton": "Löschen",
     "cancelButton": "Abbrechen"
   },
-
   "addSessionForm": {
     "addTitle": "Sitzung Hinzufügen",
     "editTitle": "Sitzung Bearbeiten",
@@ -310,7 +292,6 @@
     "sessionNamePlaceholder": "Sitzungsname",
     "sessionDateLabel": "Datum der Sitzung:"
   },
-
   "adminPanel": {
     "adminPanelTitle": "Admin-Panel",
     "allUsers": "Alle Benutzer",
@@ -324,11 +305,10 @@
     "guests": "Gäste",
     "Filters": "Filter",
     "statusLabel": "Status:",
-    "filterAll":  "Alle",
+    "filterAll": "Alle",
     "noUsersAvailable": "Keine Benutzer verfügbar.",
     "deleteError": "Der Benutzer kann nicht gelöscht werden, da er mit anderen Daten verknüpft ist."
   },
-
   "adminpanel": {
     "image": "Bild",
     "username": "Benutzername",
@@ -342,7 +322,6 @@
     "delete": "Löschen",
     "notAvailable": "Nicht verfügbar"
   },
-
   "confirmModal": {
     "title": "Bist du sicher?",
     "message": "Möchten Sie den Benutzer löschen",
@@ -351,7 +330,6 @@
     "close": "Schließen",
     "errorTitle": "Fehler"
   },
-
   "addUserForm": {
     "pageTitle": "Benutzer hinzufügen",
     "formTitle": "Neuen Benutzer hinzufügen",
@@ -361,7 +339,7 @@
     "enterName": "Vornamen eingeben",
     "surname": "Nachname:",
     "enterSurname": "Nachnamen eingeben",
-    "email":"E-Mail",
+    "email": "E-Mail",
     "enterEmail": "E-Mail eingeben",
     "password": "Passwort:",
     "enterPassword": "Passwort eingeben",
@@ -378,7 +356,6 @@
     "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
     "passwordMismatch": "Passwörter stimmen nicht überein."
   },
-
   "editUserForm": {
     "pageTitle": "Benutzer bearbeiten",
     "formTitle": "Benutzer bearbeiten",
@@ -403,7 +380,6 @@
     "fileTooLarge": "Die maximale Bildgröße beträgt 50KB.",
     "cancel": "Abbrechen"
   },
-
   "topicsPage": {
     "pageTitle": "Themen",
     "headerTitle": "Themen",
@@ -417,7 +393,7 @@
     "startVoting": "Abstimmung starten",
     "finishVoting": "Abstimmung beenden",
     "restartVoting": "Abstimmung wiederholen",
-     "yes": "Ja",
+    "yes": "Ja",
     "no": "Nein",
     "abstained": "Enthalten",
     "cantVote": "Befreit",
@@ -435,11 +411,9 @@
     "presentBadge": "Präsentiertes Thema",
     "currency": "MKD"
   },
-
   "tooltip": {
     "easyMode": "Einfacher Modus"
   },
-
   "liveUsers": {
     "offlineUsers": "Offline-Benutzer",
     "onlineUsers": "Online-Benutzer",
@@ -453,24 +427,21 @@
     "turnOn": "Einschalten",
     "turnOff": "Ausschalten"
   },
-
   "unauthorized": {
     "title": "Unzulässig",
     "message": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen."
   },
-
   "notFound": {
     "title": "404 - Seite nicht gefunden",
     "message": "Die Seite, die Sie suchen, existiert nicht."
   },
-
   "addTopicForm": {
     "addTitle": "Thema hinzufügen",
     "editTitle": "Thema bearbeiten",
     "addBelow": "Thema unten hinzufügen",
     "addAbove": "Thema oben hinzufügen",
     "topicTitle": "Thema Titel:",
-    "placeholder": "Thementitel",  
+    "placeholder": "Thementitel",
     "uploadPdf": "PDF-Datei hochladen:",
     "maxSizeError": "Die maximale Größe der PDF-Datei/Dateien beträgt 35MB!",
     "typeError": "Bitte nur PDF-Dateien hochladen!",
@@ -492,22 +463,18 @@
     "amountPlaceholder": "Betrag eingeben",
     "optional": "(optional)"
   },
-
   "restartTopicModal": {
     "title": "Bestätigung für erneute Abstimmung",
     "message": "Sind Sie sicher, dass Sie den Punkt für eine erneute Abstimmung zurücksetzen möchten?",
     "confirm": "Ja",
     "cancel": "Abbrechen"
   },
-
   "restartAmendmentModal": {
     "title": "Bestätigung für erneute Abstimmung",
     "message": "Sind Sie sicher, dass Sie das Amendment für eine erneute Abstimmung zurücksetzen möchten?",
     "confirm": "Ja",
     "cancel": "Abbrechen"
   },
-
-
   "topicsDetails": {
     "detailedResults": "Ergebnisse",
     "details": "Details",
@@ -523,15 +490,13 @@
     "fullName": "Vor- und Nachname",
     "vote": "Stimme"
   },
-
   "pdfConfirmModal": {
     "title": "PDF-Entfernung bestätigen",
     "message": "Sind Sie sicher, dass Sie dieses PDF entfernen möchten",
     "removeButton": "Entfernen",
     "cancelButton": "Abbrechen"
   },
-
-"addBiographyForm": {
+  "addBiographyForm": {
     "add": {
       "title": "Biografie hinzufügen",
       "header": "Biografie hinzufügen",
@@ -545,20 +510,17 @@
       "saveButton": "Speichern"
     }
   },
-  
   "sessionExpired": {
     "title": "Sitzung abgelaufen",
     "message": "Ihre Sitzung ist abgelaufen.",
     "redirect": "Weiterleitung zur Anmeldung in {{count}} Sekunden…",
     "logoutNow": "Jetzt abmelden"
   },
-
   "NoTopicsExportModal": {
     "noTopicsTitle": "Keine Themen verfügbar",
     "noTopicsMessage": "Diese Sitzung hat keine Themen zum Exportieren.",
     "closeButton": "Schließen"
   },
-
   "amendments": {
     "title": "Änderungsanträge",
     "confirmDeleteTitle": "Löschbestätigung",
@@ -566,5 +528,17 @@
     "confirmDeleteButton": "Löschen",
     "cancelButton": "Abbrechen",
     "amendmentFrom": "Änderungsantrag von"
+  },
+  "statistics": {
+    "title": "Statistik",
+    "totalTopics": "Themen gesamt",
+    "topicsWithPdf": "Themen mit PDF",
+    "totalPages": "Seiten gesamt",
+    "totalSize": "Gesamtgröße",
+    "topicTitle": "Thema",
+    "pdf": "PDF-Datei",
+    "pages": "Seiten",
+    "size": "Größe",
+    "noPdf": "Kein PDF"
   }
 }

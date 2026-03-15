@@ -6,7 +6,6 @@
     "add": "Add",
     "edit": "Edit"
   },
-
   "login": {
     "title": "Please log in:",
     "username": "Username",
@@ -18,14 +17,12 @@
     "forgotPassword": "Forgot password?",
     "invalidCredentials": "Invalid username or password."
   },
-
   "logout": {
     "title": "Logout",
     "message": "You have successfully logged out!",
     "thanks": "Thank you for using our application.",
     "loginAgain": "Log in again"
   },
-
   "forgot": {
     "title": "Forgot Password",
     "emailPlaceholder": "Email address",
@@ -34,7 +31,6 @@
     "success": "Reset link has been sent.",
     "error": "Failed to send the reset link. Try again."
   },
-
   "reset": {
     "title": "Reset Password",
     "newPassword": "New Password",
@@ -45,7 +41,6 @@
     "error": "An error occurred. Please try again.",
     "passwordsDoNotMatch": "Passwords do not match."
   },
-
   "nav": {
     "home": "Home",
     "municipalities": "Municipalities",
@@ -56,7 +51,6 @@
     "monitoring": "Monitoring",
     "logout": "Logout"
   },
-
   "monitoring": {
     "title": "Monitoring",
     "noUsers": "No users found",
@@ -74,20 +68,17 @@
       "offline": "Offline"
     }
   },
-
   "home": {
     "title": "Home",
     "welcome": "Welcome to the municipal council voting system",
     "description": "In each session, council members, including the council president, participate and manage the session. They are responsible for creating and approving proposals that affect all citizens in the municipality.",
     "municipalitiesButton": "Municipalities"
   },
-
   "mandate": {
     "title": "Mandate",
     "noMandates": "No mandates available",
     "delete": "Delete"
   },
-
   "addMandate": {
     "title": "Add Mandate",
     "editTitle": "Edit Mandate",
@@ -99,14 +90,12 @@
     "error": "An error occurred while processing the mandate.",
     "errorFetch": "Failed to load mandate."
   },
-
   "mandateModal": {
     "confirmDeleteTitle": "Delete Confirmation",
     "confirmDeleteMessage": "Are you sure you want to delete the mandate",
     "deleteButton": "Delete",
     "cancelButton": "Cancel"
   },
-
   "MunicipalityMandate": {
     "mandateTitle": "Municipality Mandates",
     "view": "View",
@@ -114,35 +103,31 @@
     "delete": "Delete",
     "noMandates": "No mandates available."
   },
-
-"AddMunicipalityMandate": {
-  "title": "Add Municipality Mandate",
-  "editTitle": "Edit Municipality Mandate",
-  "mandateLabel": "Mandate",
-  "mandatePlaceholder": "Enter mandate",
-  "municipalityLabel": "Municipality",
-  "municipalityPlaceholder": "Enter municipality",
-  "imageLabel": "Image",
-  "imageDescription": "Recommended size: 400x225 px",
-  "saveButton": "Save",
-  "errorFieldsRequired": "All fields are required!",
-  "errorImageRequired": "Please upload an image!",
-  "errorSubmit": "Failed to save. Please try again!"
-},
-
-"municipalityMandateModal": {
+  "AddMunicipalityMandate": {
+    "title": "Add Municipality Mandate",
+    "editTitle": "Edit Municipality Mandate",
+    "mandateLabel": "Mandate",
+    "mandatePlaceholder": "Enter mandate",
+    "municipalityLabel": "Municipality",
+    "municipalityPlaceholder": "Enter municipality",
+    "imageLabel": "Image",
+    "imageDescription": "Recommended size: 400x225 px",
+    "saveButton": "Save",
+    "errorFieldsRequired": "All fields are required!",
+    "errorImageRequired": "Please upload an image!",
+    "errorSubmit": "Failed to save. Please try again!"
+  },
+  "municipalityMandateModal": {
     "confirmDeleteTitle": "Delete Confirmation",
     "confirmDeleteMessage": "Are you sure you want to delete the municipal mandate",
     "deleteButton": "Delete",
     "cancelButton": "Cancel"
-},
-
-"MunicipalityMandateUsers": {
+  },
+  "MunicipalityMandateUsers": {
     "title": "Councillors",
     "noUsers": "No users found for this mandate.",
     "president": "President"
   },
-
   "MunicipalityMandateUsersList": {
     "title": "Edit Councillors",
     "loading": "Loading...",
@@ -150,7 +135,6 @@
     "noTermUsers": "No users found for this term.",
     "remove": "Remove"
   },
-
   "Municipality": {
     "municipalitiesTitle": "Municipalities",
     "view": "View",
@@ -160,7 +144,6 @@
     "noMunicipalities": "No municipalities available",
     "loading": "Loading..."
   },
-
   "addMunicipality": {
     "pageTitleAdd": "Add Municipality",
     "pageTitleEdit": "Edit Municipality",
@@ -176,14 +159,12 @@
     "errorGeneral": "There was an error processing the municipality.",
     "chooseFile": "Choose"
   },
-
   "MunicipalityModal": {
     "title": "Confirm Deletion",
     "message": "Are you sure you want to delete the municipality:",
     "delete": "Delete",
     "cancel": "Cancel"
   },
-
   "profile": {
     "title": "Profile",
     "username": "Username",
@@ -206,7 +187,6 @@
     "noBiography": "No biography provided",
     "editBiography": "Edit biography"
   },
-
   "roles": {
     "user": "Councilor",
     "president": "Council President",
@@ -218,7 +198,6 @@
     "guest": "Guest",
     "unknown": "Unknown Role"
   },
-
   "profileView": {
     "title": "Profile",
     "loading": "Loading...",
@@ -235,7 +214,6 @@
     "noBiography": "No biography provided",
     "notAvailable": "Not available"
   },
-
   "changeImage": {
     "title": "Change Profile Image",
     "header": "Upload Image",
@@ -250,7 +228,6 @@
     "uploadSuccess": "Image uploaded successfully.",
     "uploadButton": "Upload"
   },
-
   "changePassword": {
     "title": "Change Password",
     "header": "Change Password",
@@ -263,7 +240,6 @@
     "success": "Password changed successfully.",
     "submit": "Change"
   },
-
   "changeEmail": {
     "title": "Change Email",
     "header": "Change Your Email",
@@ -275,7 +251,6 @@
     "generalError": "An error occurred",
     "success": "Email successfully updated"
   },
-
   "session": {
     "title": "Sessions",
     "subtitle": "Each session includes the members of the council.",
@@ -288,19 +263,26 @@
     "exportLoading": "Generating PDF...",
     "present": "Present"
   },
-
   "months": [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
   ],
-
   "sessionModal": {
     "confirmDeleteTitle": "Confirm Deletion",
     "confirmDeleteMessage": "Are you sure you want to delete the session:",
     "deleteButton": "Delete",
     "cancelButton": "Cancel"
   },
-
   "addSessionForm": {
     "addTitle": "Add Session",
     "editTitle": "Edit Session",
@@ -310,7 +292,6 @@
     "sessionNamePlaceholder": "Session name",
     "sessionDateLabel": "Session Date:"
   },
-
   "adminPanel": {
     "adminPanelTitle": "Admin Panel",
     "allUsers": "All Users",
@@ -324,11 +305,10 @@
     "guests": "Guests",
     "filters": "Filters",
     "statusLabel": "Status:",
-    "filterAll":  "All",
+    "filterAll": "All",
     "noUsersAvailable": "No users available.",
     "deleteError": "Cannot delete this user because they are linked to other data."
   },
-
   "adminpanel": {
     "image": "Image",
     "username": "Username",
@@ -342,7 +322,6 @@
     "delete": "Delete",
     "notAvailable": "N/A"
   },
-
   "confirmModal": {
     "title": "Are you sure?",
     "message": "Are you sure you want to delete user",
@@ -351,7 +330,6 @@
     "close": "Close",
     "errorTitle": "Error"
   },
-
   "addUserForm": {
     "pageTitle": "Add User",
     "formTitle": "Add New User",
@@ -361,7 +339,7 @@
     "enterName": "Enter name",
     "surname": "Surname:",
     "enterSurname": "Enter surname",
-    "email":"Email",
+    "email": "Email",
     "enterEmail": "Enter email",
     "password": "Password:",
     "enterPassword": "Enter password",
@@ -378,7 +356,6 @@
     "fileTooLarge": "Maximum image size allowed is 50KB.",
     "passwordMismatch": "Passwords do not match."
   },
-
   "editUserForm": {
     "pageTitle": "Edit User",
     "formTitle": "Edit User",
@@ -403,7 +380,6 @@
     "fileTooLarge": "Maximum allowed image size is 50KB.",
     "cancel": "Cancel"
   },
-
   "topicsPage": {
     "pageTitle": "Topics",
     "headerTitle": "Topics",
@@ -435,25 +411,21 @@
     "presentBadge": "Presented Topic",
     "currency": "MKD"
   },
-
   "restartTopicModal": {
     "title": "Confirm Restart Voting",
     "message": "Are you sure you want to restart the topic for a new vote?",
     "confirm": "Yes",
     "cancel": "Cancel"
   },
-
   "restartAmendmentModal": {
     "title": "Confirm Restart Voting",
     "message": "Are you sure you want to restart the amendment for a new vote?",
     "confirm": "Yes",
     "cancel": "Cancel"
   },
-
   "tooltip": {
     "easyMode": "Easy mode"
   },
-
   "liveUsers": {
     "offlineUsers": "Offline users",
     "onlineUsers": "Online users",
@@ -467,17 +439,14 @@
     "turnOn": "Turn on",
     "turnOff": "Turn off"
   },
-
   "unauthorized": {
     "title": "Unauthorized",
     "message": "You are not authorized to access this page."
   },
-
   "notFound": {
     "title": "404 - Page Not Found",
     "message": "The page you are looking for does not exist."
   },
-
   "addTopicForm": {
     "addTitle": "Add Topic",
     "editTitle": "Edit Topic",
@@ -506,7 +475,6 @@
     "amountPlaceholder": "Enter amount",
     "optional": "(optional)"
   },
-
   "topicsDetails": {
     "detailedResults": "Results",
     "details": "Details",
@@ -522,15 +490,13 @@
     "fullName": "Full Name",
     "vote": "Vote"
   },
-
   "pdfConfirmModal": {
     "title": "Confirm PDF Removal",
     "message": "Are you sure you want to remove this PDF",
     "removeButton": "Remove",
     "cancelButton": "Cancel"
   },
-
-"addBiographyForm": {
+  "addBiographyForm": {
     "add": {
       "title": "Add Biography",
       "header": "Add Biography",
@@ -544,20 +510,17 @@
       "saveButton": "Save"
     }
   },
-  
   "sessionExpired": {
     "title": "Session Expired",
     "message": "Your session has expired.",
     "redirect": "Redirecting to login in {{count}} seconds…",
     "logoutNow": "Logout now"
   },
-
   "NoTopicsExportModal": {
     "noTopicsTitle": "No Topics Available",
     "noTopicsMessage": "This session has no topics to export.",
     "closeButton": "Close"
   },
-
   "amendments": {
     "title": "Amendments",
     "confirmDeleteTitle": "Confirm Delete",
@@ -566,29 +529,39 @@
     "cancelButton": "Cancel",
     "amendmentFrom": "Amendment from"
   },
-
   "addAmendmentForm": {
-      "addTitle": "Add Amendment",
-      "editTitle": "Edit Amendment",
-      "title": "Amendment Title:",
-      "placeholder": "Amendment Title",
-      "uploadPdf": "Upload PDF:",
-      "maxSizeError": "Maximum PDF file size is 35MB!",
-      "typeError": "Please upload only PDF files!",
-      "selectedFiles": "Selected Files",
-      "currentPdf": "Current PDF",
-      "selectStatus": "Select Status:",
-      "dropHere": "Drop file here",
-      "orClick": "or click to select PDF",
-      "statusOptions": {
-          "created": "Created",
-          "active": "Active",
-          "finished": "Finished"
-      },
-      "removePdf": "Remove",
-      "amount": "Amount:",
-      "amountPlaceholder": "Enter amount",
-      "optional": "(optional)"
+    "addTitle": "Add Amendment",
+    "editTitle": "Edit Amendment",
+    "title": "Amendment Title:",
+    "placeholder": "Amendment Title",
+    "uploadPdf": "Upload PDF:",
+    "maxSizeError": "Maximum PDF file size is 35MB!",
+    "typeError": "Please upload only PDF files!",
+    "selectedFiles": "Selected Files",
+    "currentPdf": "Current PDF",
+    "selectStatus": "Select Status:",
+    "dropHere": "Drop file here",
+    "orClick": "or click to select PDF",
+    "statusOptions": {
+      "created": "Created",
+      "active": "Active",
+      "finished": "Finished"
+    },
+    "removePdf": "Remove",
+    "amount": "Amount:",
+    "amountPlaceholder": "Enter amount",
+    "optional": "(optional)"
+  },
+  "statistics": {
+    "title": "Statistics",
+    "totalTopics": "Total Topics",
+    "topicsWithPdf": "Topics with PDF",
+    "totalPages": "Total Pages",
+    "totalSize": "Total Size",
+    "topicTitle": "Topic",
+    "pdf": "PDF File",
+    "pages": "Pages",
+    "size": "Size",
+    "noPdf": "No PDF"
   }
-
 }

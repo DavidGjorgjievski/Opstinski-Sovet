@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import SessionConfirmModal from '../components/SessionConfirmModal';
 import NoTopicsExportModal from '../components/NoTopicsExportModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faChevronLeft, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faChevronLeft, faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
@@ -424,6 +424,15 @@ const SessionItem = ({ session, term, municipalityId, userInfo, openMenuId, setO
                                     >
                                         <FontAwesomeIcon icon={faFilePdf} /> {t('session.export')}
                                     </button>
+
+                                    {userInfo.role === 'ROLE_ADMIN' && (
+                                        <a
+                                            className="dropdown-item"
+                                            href={`/municipalities/${municipalityId}/sessions/${session.id}/statistics`}
+                                        >
+                                            <FontAwesomeIcon icon={faChartBar} /> {t('statistics.title')}
+                                        </a>
+                                    )}
 
                                     {!isLocked && ((
                                         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_EDITOR') &&
