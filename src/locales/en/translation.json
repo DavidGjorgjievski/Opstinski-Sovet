@@ -62,6 +62,12 @@
     "noUsers": "No users found",
     "never": "Never",
     "onlineUsers": "Total {{count}} Online",
+    "session": "session",
+    "sessions": "sessions",
+    "currentPage": "Current page",
+    "firstLogin": "First login",
+    "lastSeen": "Last seen",
+    "lastLogout": "Last logout",
     "filters": {
       "all": "All",
       "online": "Online",

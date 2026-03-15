@@ -4,9 +4,20 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faComputer, faChevronDown, faUsers } from '@fortawesome/free-solid-svg-icons';
-import api from '../api/axios'; 
+import { faCircle, faChevronDown, faUsers, faDesktop, faMobileAlt, faTablet, faGlobe, faCalendarDays, faClock } from '@fortawesome/free-solid-svg-icons';
+import api from '../api/axios';
 import '../styles/Monitoring.css';
+
+function resolvePageLabel(currentPage, t) {
+    if (!currentPage) return '';
+    try {
+        const decoded = decodeURIComponent(currentPage);
+        // If decoding changed the value, it was URL-encoded → return the enriched label as-is
+        if (decoded !== currentPage) return decoded;
+    } catch { /* malformed URI component, fall through */ }
+    // Not URL-encoded — treat as i18n key (old format like 'topicsPage.pageTitle')
+    return t(currentPage, { defaultValue: currentPage });
+}
 
 function Monitoring() {
     const [users, setUsers] = useState([]);
@@ -15,7 +26,9 @@ function Monitoring() {
         return localStorage.getItem('monitoringFilter') || 'all';
     });
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [expandedUsers, setExpandedUsers] = useState({});
     const dropdownRef = useRef(null);
+    const listRef = useRef(null);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -23,11 +36,10 @@ function Monitoring() {
     }, [monitoringFilter]);
 
     useEffect(() => {
-        const fetchUsers = async (selectedFilter = monitoringFilter) => {
-            setLoading(true);
+        const fetchUsers = async () => {
             try {
                 let url = '/api/admin/users/last-login';
-                if (selectedFilter !== 'all') url += `?status=${selectedFilter}`;
+                if (monitoringFilter !== 'all') url += `?status=${monitoringFilter}`;
                 const response = await api.get(url);
                 setUsers(response.data);
             } catch (error) {
@@ -37,10 +49,14 @@ function Monitoring() {
             }
         };
 
+        setLoading(true);
         fetchUsers();
+
+        const interval = setInterval(fetchUsers, 30000);
+        return () => clearInterval(interval);
     }, [monitoringFilter]);
 
-    const formatLastSeen = (date) => {
+    const formatDate = (date) => {
         if (!date) return t('monitoring.never');
         return new Date(date).toLocaleString('en-GB', {
             day: '2-digit',
@@ -52,17 +68,49 @@ function Monitoring() {
         });
     };
 
+    const formatDateOnly = (date) => {
+        if (!date) return null;
+        return new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    };
+
+    const formatTimeOnly = (date) => {
+        if (!date) return null;
+        return new Date(date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+    };
+
+    const renderDateTime = (date) => {
+        if (!date) return <span className="session-time-value">{t('monitoring.never')}</span>;
+        return (
+            <span className="session-time-value">
+                <FontAwesomeIcon icon={faCalendarDays} className="session-dt-icon" />
+                {formatDateOnly(date)}
+                <FontAwesomeIcon icon={faClock} className="session-dt-icon" />
+                {formatTimeOnly(date)}
+            </span>
+        );
+    };
+
+    const getDeviceIcon = (deviceType) => {
+        if (!deviceType) return faDesktop;
+        const d = deviceType.toLowerCase();
+        if (d === 'mobile') return faMobileAlt;
+        if (d === 'tablet') return faTablet;
+        return faDesktop;
+    };
+
     const filterOptions = [
         { value: 'all', label: t('monitoring.filters.all'), icon: <FontAwesomeIcon icon={faUsers} /> },
         { value: 'online', label: t('monitoring.filters.online'), icon: <FontAwesomeIcon icon={faCircle} className="status-icon online" /> },
         { value: 'offline', label: t('monitoring.filters.offline'), icon: <FontAwesomeIcon icon={faCircle} className="status-icon offline" /> }
     ];
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setDropdownOpen(false);
+            }
+            if (listRef.current && !listRef.current.contains(event.target)) {
+                setExpandedUsers({});
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -72,6 +120,10 @@ function Monitoring() {
     const handleSelect = (option) => {
         setMonitoringFilter(option.value);
         setDropdownOpen(false);
+    };
+
+    const toggleExpand = (username) => {
+        setExpandedUsers(prev => ({ ...prev, [username]: !prev[username] }));
     };
 
     const selectedOption = filterOptions.find(o => o.value === monitoringFilter);
@@ -94,15 +146,15 @@ function Monitoring() {
 
                     {/* Custom Dropdown */}
                     <div className="monitoring-filter-wrapper" ref={dropdownRef}>
-                        <div 
+                        <div
                             className={`monitoring-filter-selected ${dropdownOpen ? 'active' : ''}`}
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                         >
                             {selectedOption.icon && <span className="filter-icon">{selectedOption.icon}</span>}
                             <span>{selectedOption.label}</span>
-                            <FontAwesomeIcon 
-                                icon={faChevronDown} 
-                                className={`dropdown-chevron ${dropdownOpen ? 'open' : ''}`} 
+                            <FontAwesomeIcon
+                                icon={faChevronDown}
+                                className={`dropdown-chevron ${dropdownOpen ? 'open' : ''}`}
                             />
                         </div>
                         {dropdownOpen && (
@@ -130,49 +182,110 @@ function Monitoring() {
                             <p className="monitoring-empty">{t('monitoring.noUsers')}</p>
                         ) : (
                             <div>
-                               {monitoringFilter !== 'offline' && (
+                                {monitoringFilter !== 'offline' && (
                                     <div className="monitoring-online-count">
-                                        <FontAwesomeIcon 
-                                            icon={faCircle} 
-                                            className="status-icon online" 
-                                            style={{ marginRight: '6px' }} 
+                                        <FontAwesomeIcon
+                                            icon={faCircle}
+                                            className="status-icon online"
+                                            style={{ marginRight: '6px' }}
                                             title={t('monitoring.online')}
                                         />
                                         {t('monitoring.onlineUsers', { count: users.filter(u => u.onlineSessions > 0).length })}
                                     </div>
                                 )}
-                                <ul className="monitoring-list-ul">
-                                    {users.map(user => (
-                                        <li key={user.username} className="monitoring-item">
-                                            <div className="monitoring-content">
-                                                <div className="monitoring-user-image">
-                                                    {user.image ? (
-                                                        <img src={`data:image/jpeg;base64,${user.image}`} alt={user.username} />
-                                                    ) : (
-                                                        <div className="monitoring-image-placeholder" />
-                                                    )}
+                                <ul className="monitoring-list-ul" ref={listRef}>
+                                    {users.map(user => {
+                                        const isOnline = user.onlineSessions > 0;
+                                        const hasSessions = user.sessions && user.sessions.length > 0;
+                                        const isExpanded = expandedUsers[user.username];
+
+                                        return (
+                                            <li key={user.username} className="monitoring-item">
+                                                {/* User row */}
+                                                <div
+                                                    className={`monitoring-content ${hasSessions ? 'monitoring-content-clickable' : ''}`}
+                                                    onClick={() => hasSessions && toggleExpand(user.username)}
+                                                >
+                                                    <div className="monitoring-user-image">
+                                                        {user.image ? (
+                                                            <img src={`data:image/jpeg;base64,${user.image}`} alt={user.username} />
+                                                        ) : (
+                                                            <div className="monitoring-image-placeholder" />
+                                                        )}
+                                                    </div>
+                                                    <div className="monitoring-user-info">
+                                                        <div className="monitoring-user-name">{user.name} {user.surname}</div>
+                                                        <div className="monitoring-user-username">@{user.username}</div>
+                                                        {hasSessions && isOnline && (
+                                                            <div className="monitoring-session-count">
+                                                                {user.sessions.length} {user.sessions.length === 1 ? t('monitoring.session') : t('monitoring.sessions')}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="monitoring-user-lastseen">
+                                                        {formatDate(user.lastSeen)}{" "}
+                                                        <FontAwesomeIcon
+                                                            icon={faCircle}
+                                                            className={isOnline ? 'status-icon online' : 'status-icon offline'}
+                                                            title={isOnline ? 'Online' : 'Offline'}
+                                                        />
+                                                        {hasSessions && (
+                                                            <FontAwesomeIcon
+                                                                icon={faChevronDown}
+                                                                className={`session-expand-chevron ${isExpanded ? 'open' : ''}`}
+                                                            />
+                                                        )}
+                                                    </div>
                                                 </div>
-                                                <div className="monitoring-user-info">
-                                                    <div className="monitoring-user-name">{user.name} {user.surname}</div>
-                                                    <div className="monitoring-user-username">@{user.username}</div>
-                                                </div>
-                                                <div className="monitoring-user-lastseen">
-                                                    {formatLastSeen(user.lastSeen)}{" "}
-                                                    <FontAwesomeIcon
-                                                        icon={faCircle}
-                                                        className={user.onlineSessions > 0 ? 'status-icon online' : 'status-icon offline'}
-                                                        title={user.onlineSessions > 0 ? 'Online' : 'Offline'}
-                                                    />
-                                                    {user.onlineSessions > 1 && (
-                                                        <span className="monitoring-multi-device">
-                                                            <FontAwesomeIcon icon={faComputer} className="device-icon" title={`${user.onlineSessions} devices online`} />
-                                                            <span className="device-count">{user.onlineSessions}</span>
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </li>
-                                    ))}
+
+                                                {/* Session cards */}
+                                                {hasSessions && (
+                                                    <div className={`monitoring-sessions ${isExpanded ? 'open' : ''}`}>
+                                                        {user.sessions.map(session => (
+                                                            <div key={session.id} className="monitoring-session-card">
+                                                                <div className="session-device-row">
+                                                                    <FontAwesomeIcon icon={getDeviceIcon(session.deviceType)} className="session-device-icon" />
+                                                                    <span className="session-device-type">{session.deviceType || '—'}</span>
+                                                                    <span className="session-separator">·</span>
+                                                                    <FontAwesomeIcon icon={faGlobe} className="session-browser-icon" />
+                                                                    <span className="session-browser">{session.browser || '—'}</span>
+                                                                    <span className="session-separator">·</span>
+                                                                    <span className="session-os">{session.os || '—'}</span>
+                                                                </div>
+                                                                {session.active && session.currentPage && (() => {
+                                                                    const label = resolvePageLabel(session.currentPage, t);
+                                                                    const [pagePart, contextPart] = label.split('\n');
+                                                                    return (
+                                                                        <div className="session-current-page">
+                                                                            <span className="session-time-label">{t('monitoring.currentPage')}:</span>
+                                                                            <div className="session-page-value">
+                                                                                <span className="session-page-title">{pagePart}</span>
+                                                                                {contextPart && <span className="session-page-context">{contextPart}</span>}
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                })()}
+                                                                <div className="session-times">
+                                                                    <span className="session-time-label">{t('monitoring.firstLogin')}:</span>
+                                                                    {renderDateTime(session.firstLogin)}
+                                                                </div>
+                                                                <div className="session-times">
+                                                                    <span className="session-time-label">{t('monitoring.lastSeen')}:</span>
+                                                                    {renderDateTime(session.lastSeen)}
+                                                                </div>
+                                                                {!session.active && session.lastLogout && (
+                                                                    <div className="session-times">
+                                                                        <span className="session-time-label">{t('monitoring.lastLogout')}:</span>
+                                                                        {renderDateTime(session.lastLogout)}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         )}

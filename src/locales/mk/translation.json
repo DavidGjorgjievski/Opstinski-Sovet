@@ -62,6 +62,12 @@
     "noUsers": "Нема корисници",
     "never": "Никогаш",
     "onlineUsers": "Вкупно {{count}} Онлајн",
+    "session": "сесија",
+    "sessions": "сесии",
+    "currentPage": "Тековна страница",
+    "firstLogin": "Прва најава",
+    "lastSeen": "Последно виден",
+    "lastLogout": "Последна одјава",
     "filters": {
       "all": "Сите",
       "online": "Онлајн",

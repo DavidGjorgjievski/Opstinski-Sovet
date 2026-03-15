@@ -42,9 +42,10 @@ export const AuthProvider = ({ children }) => {
     setLoading(false); 
 }, []);
 
-    const login = (token,userInfo,role) => {
-        localStorage.setItem('jwtToken', token); 
-        localStorage.setItem('userInfo', userInfo); 
+    const login = (token, userInfo, role, sessionToken) => {
+        localStorage.setItem('jwtToken', token);
+        localStorage.setItem('userInfo', userInfo);
+        if (sessionToken) localStorage.setItem('sessionToken', sessionToken);
         setIsAuthenticated(true);
         setRole(role);
     }
@@ -57,12 +58,15 @@ export const AuthProvider = ({ children }) => {
 
         if (token) {
             try {
+                const sessionToken = localStorage.getItem('sessionToken');
+                const headers = {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                };
+                if (sessionToken) headers['X-Session-Token'] = sessionToken;
                 await fetch(process.env.REACT_APP_API_URL + '/api/logout', {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
+                    headers,
                 });
             } catch (error) {
                 console.error("Error during logout API call:", error);

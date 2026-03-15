@@ -42,15 +42,27 @@ function Login() {
         }
     }, [isAuthenticated, navigate]);
 
+    const detectBrowser = async () => {
+        if (navigator.brave && await navigator.brave.isBrave()) return 'Brave';
+        const ua = navigator.userAgent;
+        if (ua.includes('Edg/') || ua.includes('Edge/')) return 'Edge';
+        if (ua.includes('OPR/') || ua.includes('Opera')) return 'Opera';
+        if (ua.includes('Chrome')) return 'Chrome';
+        if (ua.includes('Firefox')) return 'Firefox';
+        if (ua.includes('Safari')) return 'Safari';
+        return 'Unknown';
+    };
+
     // Handle login
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
+            const browser = await detectBrowser();
             const response = await fetch(process.env.REACT_APP_API_URL + '/api/login', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Browser-Name': browser },
                 body: JSON.stringify({ username, password }),
             });
 
@@ -60,13 +72,13 @@ function Login() {
             }
 
             const data = await response.json();
-            const { token, userInfo } = data;
+            const { token, userInfo, sessionToken } = data;
             const role = userInfo.role;
 
             if (role === "ROLE_PRESENTER") {
                 changeLanguage("mk");
             }
-            login(token, JSON.stringify(userInfo), role);
+            login(token, JSON.stringify(userInfo), role, sessionToken);
             navigate('/');
         } catch (error) {
             console.error('Error:', error);

@@ -62,6 +62,12 @@
     "noUsers": "Keine Benutzer vorhanden",
     "never": "Nie",
     "onlineUsers": "Insgesamt {{count}} Online",
+    "session": "Sitzung",
+    "sessions": "Sitzungen",
+    "currentPage": "Aktuelle Seite",
+    "firstLogin": "Erste Anmeldung",
+    "lastSeen": "Zuletzt gesehen",
+    "lastLogout": "Letzte Abmeldung",
     "filters": {
       "all": "Alle",
       "online": "Online",

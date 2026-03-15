@@ -62,6 +62,12 @@
     "noUsers": "Nuk ka përdorues",
     "never": "Asnjëherë",
     "onlineUsers": "Gjithsej {{count}} Online",
+    "session": "sesion",
+    "sessions": "sesione",
+    "currentPage": "Faqja aktuale",
+    "firstLogin": "Hyrja e parë",
+    "lastSeen": "Parë së fundi",
+    "lastLogout": "Dalja e fundit",
     "filters": {
       "all": "Të gjithë",
       "online": "Online",
