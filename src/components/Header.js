@@ -107,7 +107,7 @@ function Header({ isSticky = false }) {
         const label = buildCurrentPageLabel(location.pathname, t);
         localStorage.setItem('currentPageLabel', label);
         api.post('/api/heartbeat').catch(() => {});
-    }, [location.pathname, userInfo]);
+    }, [location.pathname, userInfo, t]);
 
     return (
         <header
