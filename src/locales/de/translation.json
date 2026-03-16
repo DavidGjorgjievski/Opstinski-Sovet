@@ -530,6 +530,13 @@
     "cancelButton": "Abbrechen",
     "amendmentFrom": "Änderungsantrag von"
   },
+  "municipalityStatistics": {
+    "title": "Statistik",
+    "totalSessions": "Sitzungen gesamt",
+    "sessionName": "Sitzung",
+    "date": "Datum",
+    "viewSession": "Sitzungsstatistik anzeigen"
+  },
   "statistics": {
     "title": "Statistik",
     "totalTopics": "Themen gesamt",

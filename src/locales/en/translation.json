@@ -553,6 +553,13 @@
     "amountPlaceholder": "Enter amount",
     "optional": "(optional)"
   },
+  "municipalityStatistics": {
+    "title": "Statistics",
+    "totalSessions": "Total Sessions",
+    "sessionName": "Session",
+    "date": "Date",
+    "viewSession": "View session statistics"
+  },
   "statistics": {
     "title": "Statistics",
     "totalTopics": "Total Topics",

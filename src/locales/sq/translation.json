@@ -550,6 +550,13 @@
     "amountPlaceholder": "Futni shumën",
     "optional": "(opsionale)"
   },
+  "municipalityStatistics": {
+    "title": "Statistikat",
+    "totalSessions": "Gjithsej seanca",
+    "sessionName": "Seanca",
+    "date": "Data",
+    "viewSession": "Shiko statistikat e seancës"
+  },
   "statistics": {
     "title": "Statistikat",
     "totalTopics": "Gjithsej pikat",

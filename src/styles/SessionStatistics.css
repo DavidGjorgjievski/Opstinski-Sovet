@@ -36,6 +36,22 @@
     margin: 0;
 }
 
+/* ===== Municipality header ===== */
+.stats-municipality-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.stats-municipality-logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
 /* ===== Summary cards ===== */
 .stats-summary-row {
     display: flex;
@@ -121,6 +137,14 @@
 
 .stats-tr:hover {
     background-color: #fafafa;
+}
+
+.stats-tr-clickable {
+    cursor: pointer;
+}
+
+.stats-tr-clickable:hover {
+    background-color: #f1f5f9;
 }
 
 .stats-td {

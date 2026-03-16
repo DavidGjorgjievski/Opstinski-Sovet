@@ -5,7 +5,7 @@ import '../styles/Municipalities.css';
 import Header from '../components/Header';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
@@ -158,6 +158,15 @@ function Municipalities() {
                             </Link>
 
                             {userInfo.role === 'ROLE_ADMIN' && (
+                                <Link
+                                    className="dropdown-item"
+                                    to={`/municipalities/${municipality.id}/statistics`}
+                                >
+                                    <FontAwesomeIcon icon={faChartBar} /> {t('municipalityStatistics.title')}
+                                </Link>
+                            )}
+
+                            {userInfo.role === 'ROLE_ADMIN' && (
                                 <>
                                     <Link
                                         className="dropdown-item"
@@ -280,6 +289,15 @@ function Municipalities() {
                                                             >
                                                                 <FontAwesomeIcon icon={faCalendar} /> {t('Municipality.mandates')}
                                                             </Link>
+
+                                                            {userInfo.role === 'ROLE_ADMIN' && (
+                                                                <Link
+                                                                    className="dropdown-item"
+                                                                    to={`/municipalities/${municipality.id}/statistics`}
+                                                                >
+                                                                    <FontAwesomeIcon icon={faChartBar} /> {t('municipalityStatistics.title')}
+                                                                </Link>
+                                                            )}
 
                                                             {userInfo.role === 'ROLE_ADMIN' && (
                                                                 <>

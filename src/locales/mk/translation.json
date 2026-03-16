@@ -553,6 +553,13 @@
     "amountPlaceholder": "Внесете износ",
     "optional": "(опционално)"
   },
+  "municipalityStatistics": {
+    "title": "Статистика",
+    "totalSessions": "Вкупно седници",
+    "sessionName": "Седница",
+    "date": "Датум",
+    "viewSession": "Преглед на статистика на седница"
+  },
   "statistics": {
     "title": "Статистика",
     "totalTopics": "Вкупно точки",
