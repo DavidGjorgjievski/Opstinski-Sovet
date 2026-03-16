@@ -34,7 +34,20 @@ function SessionStatistics() {
         return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
     };
 
-    const topicsWithPdf = topics.filter(t => t.pdfFileId !== null || t.pdfFileName !== null);
+    const topicsWithPdf = topics.filter(t => t.pdfFileName != null && t.pdfFileName !== '');
+
+    const handlePdfView = async (pdfFileId) => {
+        try {
+            const response = await api.get(`/api/topics/pdf/${pdfFileId}`, {
+                responseType: 'blob',
+                headers: { Accept: 'application/pdf' },
+            });
+            const url = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            window.open(url, '_blank');
+        } catch (err) {
+            console.error('Error fetching PDF:', err);
+        }
+    };
     const totalSize = topics.reduce((sum, t) => sum + (t.pdfSizeBytes || 0), 0);
     const totalPages = topics.reduce((sum, t) => sum + (t.pdfPageCount || 0), 0);
 
@@ -89,7 +102,7 @@ function SessionStatistics() {
                                     <tr>
                                         <th className="stats-th stats-th-num">#</th>
                                         <th className="stats-th">{t('statistics.topicTitle')}</th>
-                                        <th className="stats-th stats-th-center">{t('statistics.pdf')}</th>
+                                        <th className="stats-th stats-th-center stats-th-pdf">{t('statistics.pdf')}</th>
                                         <th className="stats-th stats-th-center">{t('statistics.pages')}</th>
                                         <th className="stats-th stats-th-center">{t('statistics.size')}</th>
                                     </tr>
@@ -101,7 +114,7 @@ function SessionStatistics() {
                                             <td className="stats-td stats-td-title">{topic.title}</td>
                                             <td className="stats-td stats-td-center">
                                                 {topic.pdfFileName ? (
-                                                    <span className="stats-pdf-badge">
+                                                    <span className="stats-pdf-badge stats-pdf-clickable" onClick={() => handlePdfView(topic.pdfFileId)}>
                                                         <FontAwesomeIcon icon={faFilePdf} className="stats-pdf-icon" />
                                                         {topic.pdfFileName}
                                                     </span>

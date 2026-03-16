@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faChevronDown, faUsers, faDesktop, faMobileAlt, faTablet, faGlobe, faCalendarDays, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faChevronDown, faUsers, faDesktop, faMobileAlt, faTablet, faGlobe, faCalendarDays, faClock, faHourglass } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 import '../styles/Monitoring.css';
 
@@ -126,6 +126,23 @@ function Monitoring() {
         setExpandedUsers(prev => ({ ...prev, [username]: !prev[username] }));
     };
 
+    const [now, setNow] = useState(Date.now());
+    useEffect(() => {
+        const tick = setInterval(() => setNow(Date.now()), 60000);
+        return () => clearInterval(tick);
+    }, []);
+
+    const formatOnlineDuration = (firstLogin) => {
+        if (!firstLogin) return null;
+        const diffMs = now - new Date(firstLogin).getTime();
+        if (diffMs < 0) return null;
+        const totalMinutes = Math.floor(diffMs / 60000);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        if (hours > 0) return `${hours}h ${minutes}m`;
+        return `${minutes}m`;
+    };
+
     const selectedOption = filterOptions.find(o => o.value === monitoringFilter);
 
     return (
@@ -216,6 +233,9 @@ function Monitoring() {
                                                     <div className="monitoring-user-info">
                                                         <div className="monitoring-user-name">{user.name} {user.surname}</div>
                                                         <div className="monitoring-user-username">@{user.username}</div>
+                                                        {user.municipalityName && (
+                                                            <div className="monitoring-user-municipality">{user.municipalityName}</div>
+                                                        )}
                                                         {hasSessions && isOnline && (
                                                             <div className="monitoring-session-count">
                                                                 {user.sessions.length} {user.sessions.length === 1 ? t('monitoring.session') : t('monitoring.sessions')}
@@ -252,6 +272,12 @@ function Monitoring() {
                                                                     <span className="session-separator">·</span>
                                                                     <span className="session-os">{session.os || '—'}</span>
                                                                 </div>
+                                                                {session.active && session.firstLogin && (
+                                                                    <div className="session-online-duration">
+                                                                        <FontAwesomeIcon icon={faHourglass} className="session-duration-icon" />
+                                                                        <span>{t('monitoring.onlineFor')}: <strong>{formatOnlineDuration(session.firstLogin)}</strong></span>
+                                                                    </div>
+                                                                )}
                                                                 {session.active && session.currentPage && (() => {
                                                                     const label = resolvePageLabel(session.currentPage, t);
                                                                     const [pagePart, contextPart] = label.split('\n');

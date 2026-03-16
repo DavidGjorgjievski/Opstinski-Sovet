@@ -112,6 +112,12 @@
     color: #777;
 }
 
+.monitoring-user-municipality {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+
 .monitoring-session-count {
     display: inline-flex;
     align-items: center;
@@ -360,6 +366,20 @@
 .session-browser,
 .session-os {
     font-size: 13px;
+}
+
+.session-online-duration {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #16a34a;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.session-duration-icon {
+    font-size: 11px;
 }
 
 .session-times {

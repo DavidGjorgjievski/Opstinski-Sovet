@@ -59,6 +59,7 @@
     "session": "session",
     "sessions": "sessions",
     "currentPage": "Current page",
+    "onlineFor": "Online for",
     "firstLogin": "First login",
     "lastSeen": "Last seen",
     "lastLogout": "Last logout",
