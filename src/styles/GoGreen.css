@@ -48,10 +48,12 @@
 
 .gogreen-hero-inner {
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    box-sizing: border-box;
 }
 
 .gogreen-hero::before {
@@ -82,6 +84,8 @@
     position: relative;
     z-index: 1;
     width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .gogreen-badge {
@@ -105,6 +109,8 @@
     font-size: 28px;
     font-weight: 700;
     margin: 0 0 8px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .gogreen-date {
@@ -118,6 +124,9 @@
     font-size: 15px;
     margin: 0;
     opacity: 0.85;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .gogreen-content {
@@ -249,6 +258,7 @@
 
 .gogreen-table {
     width: 100%;
+    min-width: 480px;
     border-collapse: collapse;
     font-size: 14px;
 }
@@ -287,9 +297,67 @@
     .gogreen-impact-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 550px) {
+    .gogreen-hero {
+        padding: 20px 2.5vw 32px;
+    }
+
+    .gogreen-hero-inner {
+        width: 95vw;
+        padding: 0;
+    }
+
+    .gogreen-content {
+        width: 95vw;
+        margin: 0 auto;
+        padding: 12px 0 40px;
+    }
+}
+
 @media (max-width: 640px) {
-    .gogreen-impact-grid { grid-template-columns: 1fr; }
+    .gogreen-hero {
+        padding: 20px 16px 32px;
+    }
+
+    .gogreen-hero-inner {
+        align-items: center;
+    }
+
+    .gogreen-hero-content {
+        text-align: center;
+    }
+
+    .gogreen-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+    }
+
+    .gogreen-session-name {
+        font-size: 20px;
+        word-break: break-word;
+    }
+
+    .gogreen-subtitle {
+        font-size: 13px;
+    }
+
+    .gogreen-impact-grid { grid-template-columns: repeat(2, 1fr); }
     .gogreen-stats-row   { grid-template-columns: 1fr; }
-    .gogreen-impact-number { font-size: 32px; }
-    .gogreen-session-name { font-size: 22px; }
+    .gogreen-impact-number { font-size: 28px; }
+    .gogreen-impact-card { padding: 20px 12px; }
+    .gogreen-impact-icon { font-size: 28px; }
+    .gogreen-content { padding: 12px 12px 40px; }
+}
+
+@media (max-width: 380px) {
+    .gogreen-impact-grid { grid-template-columns: 1fr; }
+    .gogreen-session-name { font-size: clamp(14px, 4.5vw, 17px); }
+    .gogreen-subtitle { font-size: clamp(10px, 3.2vw, 13px); }
+    .gogreen-badge { font-size: clamp(9px, 2.8vw, 11px); }
+}
+
+@media (max-width: 380px) {
+    .gogreen-hero-inner{
+        width: 90vw;
+    }
 }
