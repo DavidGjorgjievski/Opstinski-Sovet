@@ -8,6 +8,8 @@ const routes = [
     { pattern: /^\/municipalities\/\d+\/sessions/, key: 'session.title' },
     // Municipality mandate
     { pattern: /^\/municipalities\/\d+\/mandates/, key: 'MunicipalityMandate.mandateTitle' },
+    // Go Green
+    { pattern: /^\/municipalities\/\d+\/gogreen/, key: 'goGreen.title' },
     // Municipalities
     { pattern: /^\/municipalities/, key: 'Municipality.municipalitiesTitle' },
     // Admin panel
@@ -74,6 +76,10 @@ export function buildCurrentPageLabel(pathname, t) {
     // Sessions list: /municipalities/:mid/sessions
     m = pathname.match(/^\/municipalities\/(\d+)\/sessions/);
     if (m) return enrichedLabel(t('session.title'), m[1], null);
+
+    // Go Green: /municipalities/:mid/gogreen
+    m = pathname.match(/^\/municipalities\/(\d+)\/gogreen/);
+    if (m) return enrichedLabel(t('goGreen.title'), m[1], null);
 
     // Fall back to translated page title
     const key = pageKeyFromPath(pathname);

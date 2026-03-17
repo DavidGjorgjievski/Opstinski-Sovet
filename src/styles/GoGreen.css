@@ -129,7 +129,7 @@
 /* Impact cards */
 .gogreen-impact-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-bottom: 32px;
 }
@@ -152,6 +152,7 @@
 .gogreen-impact-card.trees { border-top-color: #22c55e; }
 .gogreen-impact-card.co2   { border-top-color: #3b82f6; }
 .gogreen-impact-card.water { border-top-color: #06b6d4; }
+.gogreen-impact-card.pages { border-top-color: #f59e0b; }
 
 .gogreen-impact-icon {
     font-size: 36px;
@@ -161,6 +162,7 @@
 .gogreen-impact-card.trees .gogreen-impact-icon { color: #16a34a; }
 .gogreen-impact-card.co2   .gogreen-impact-icon { color: #2563eb; }
 .gogreen-impact-card.water .gogreen-impact-icon { color: #0891b2; }
+.gogreen-impact-card.pages .gogreen-impact-icon { color: #d97706; }
 
 .gogreen-impact-number {
     font-size: 40px;
@@ -279,6 +281,10 @@
 
 .gogreen-no-pdf td {
     color: #9ca3af;
+}
+
+@media (max-width: 900px) {
+    .gogreen-impact-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {

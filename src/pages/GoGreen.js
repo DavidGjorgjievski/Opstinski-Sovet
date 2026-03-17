@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLeaf, faCloud, faDroplet, faTree, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faLeaf, faCloud, faDroplet, faTree, faChevronLeft, faFileLines } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
@@ -48,12 +48,7 @@ function GoGreen() {
     const trees = useCountUp(data ? Math.round(data.treesSaved * 100) / 100 : 0);
     const co2 = useCountUp(data ? Math.round(data.co2SavedKg) : 0);
     const water = useCountUp(data ? Math.round(data.waterSavedLiters) : 0);
-
-    if (loading) return (
-        <div className="gogreen-loading">
-            <div className="gogreen-spinner"></div>
-        </div>
-    );
+    const pagesPrinted = useCountUp(data ? data.totalPagesPrinted : 0);
 
     return (
         <div className="gogreen-container">
@@ -72,13 +67,18 @@ function GoGreen() {
                         <div className="gogreen-badge">
                             <FontAwesomeIcon icon={faLeaf} /> {t('goGreen.badge')}
                         </div>
-                        <h1 className="gogreen-session-name">{data.municipalityName}</h1>
+                        <h1 className="gogreen-session-name">{data ? data.municipalityName : ''}</h1>
                         <p className="gogreen-subtitle">{t('goGreen.subtitle')}</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="gogreen-content">
+                {loading ? (
+                    <div className="gogreen-loading">
+                        <div className="gogreen-spinner"></div>
+                    </div>
+                ) : (<>
                     {/* Main impact cards */}
                     <div className="gogreen-impact-grid">
                         <div className="gogreen-impact-card trees">
@@ -104,6 +104,14 @@ function GoGreen() {
                             <div className="gogreen-impact-number">{water.toLocaleString()} <span className="gogreen-unit">L</span></div>
                             <div className="gogreen-impact-label">{t('goGreen.waterSaved')}</div>
                             <div className="gogreen-impact-fact">{t('goGreen.waterFact')}</div>
+                        </div>
+                        <div className="gogreen-impact-card pages">
+                            <div className="gogreen-impact-icon">
+                                <FontAwesomeIcon icon={faFileLines} />
+                            </div>
+                            <div className="gogreen-impact-number">{pagesPrinted.toLocaleString()}</div>
+                            <div className="gogreen-impact-label">{t('goGreen.pagesPrinted')}</div>
+                            <div className="gogreen-impact-fact">{t('goGreen.pagesFact')}</div>
                         </div>
                     </div>
 
@@ -133,6 +141,7 @@ function GoGreen() {
                             </table>
                         </div>
                     </div>
+                </>)}
                 </div>
             </main>
             <Footer />
