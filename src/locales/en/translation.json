@@ -571,5 +571,25 @@
     "pages": "Pages",
     "size": "Size",
     "noPdf": "No PDF"
+  },
+  "goGreen": {
+    "title": "Go Green",
+    "badge": "Environmental Impact",
+    "subtitle": "See how much paper, trees, CO₂ and water this municipality saved by going digital.",
+    "treesSaved": "Trees Saved",
+    "treesFact": "1 tree = 10,000 sheets of paper",
+    "co2Saved": "CO₂ Saved",
+    "co2Fact": "5g of CO₂ per sheet of paper",
+    "waterSaved": "Water Saved",
+    "waterFact": "10 liters of water per sheet of paper",
+    "pagesPrinted": "Pages Not Printed",
+    "voters": "Voters",
+    "topicsWithPdf": "Topics with PDF",
+    "breakdown": "Topic Breakdown",
+    "topicTitle": "Topic",
+    "sessionBreakdown": "Session Breakdown",
+    "sessionTitle": "Session",
+    "pages": "Pages",
+    "pagesSaved": "Copies Saved"
   }
 }

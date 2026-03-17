@@ -50,7 +50,11 @@
     margin-top: 10px;
     width: 100%;
     padding: 0 20px;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
+}
+
+.grid-container.admin-padding {
+    padding-bottom: 140px;
 }
 
 .grid-container.size-4up {
@@ -353,6 +357,10 @@
 
 .admin-dropdown .dropdown-item.delete {
     color: #d9534f;
+}
+
+.gogreen-icon {
+    color: #22c55e;
 }
 
 .no-municipalities-wrapper {

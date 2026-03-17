@@ -5,7 +5,7 @@ import '../styles/Municipalities.css';
 import Header from '../components/Header';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar, faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar, faChartBar, faLeaf } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
@@ -166,6 +166,13 @@ function Municipalities() {
                                 </Link>
                             )}
 
+                            <Link
+                                className="dropdown-item gogreen-item"
+                                to={`/municipalities/${municipality.id}/gogreen`}
+                            >
+                                <FontAwesomeIcon icon={faLeaf} className="gogreen-icon" /> {t('goGreen.title')}
+                            </Link>
+
                             {userInfo.role === 'ROLE_ADMIN' && (
                                 <>
                                     <Link
@@ -226,7 +233,7 @@ function Municipalities() {
                     <>
                         {/* User's municipality highlighted */}
                         {userMunicipality && (
-                            <div className="grid-container size-1 highlight-grid-container"> {/* optional: make a grid row */}
+                            <div className={`grid-container size-1 highlight-grid-container${userInfo.role === 'ROLE_ADMIN' ? ' admin-padding' : ''}`}>
                                 {renderMunicipalityItem(userMunicipality, true)}
                             </div>
                         )}
@@ -237,7 +244,7 @@ function Municipalities() {
                                 otherMunicipalities.length === 3 ? "size-3" :
                                 otherMunicipalities.length === 2 ? "size-2" :
                                 otherMunicipalities.length === 1 ? "size-1" : "size-4up"
-                            }`}>
+                            }${userInfo.role === 'ROLE_ADMIN' ? ' admin-padding' : ''}`}>
                                 {otherMunicipalities.map((municipality) => (
                                     <div
                                         key={municipality.id}
@@ -298,6 +305,13 @@ function Municipalities() {
                                                                     <FontAwesomeIcon icon={faChartBar} /> {t('municipalityStatistics.title')}
                                                                 </Link>
                                                             )}
+
+                                                            <Link
+                                                                className="dropdown-item gogreen-item"
+                                                                to={`/municipalities/${municipality.id}/gogreen`}
+                                                            >
+                                                                <FontAwesomeIcon icon={faLeaf} className="gogreen-icon" /> {t('goGreen.title')}
+                                                            </Link>
 
                                                             {userInfo.role === 'ROLE_ADMIN' && (
                                                                 <>
