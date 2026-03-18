@@ -213,6 +213,8 @@ function Monitoring() {
                                 <ul className="monitoring-list-ul" ref={listRef}>
                                     {users.map(user => {
                                         const isOnline = user.onlineSessions > 0;
+                                        const isIdle = isOnline && user.lastSeen && (now - new Date(user.lastSeen).getTime()) > 3 * 60 * 1000;
+                                        const statusClass = !isOnline ? 'offline' : isIdle ? 'idle' : 'online';
                                         const hasSessions = user.sessions && user.sessions.length > 0;
                                         const isExpanded = expandedUsers[user.username];
 
@@ -246,8 +248,8 @@ function Monitoring() {
                                                         {formatDate(user.lastSeen)}{" "}
                                                         <FontAwesomeIcon
                                                             icon={faCircle}
-                                                            className={isOnline ? 'status-icon online' : 'status-icon offline'}
-                                                            title={isOnline ? 'Online' : 'Offline'}
+                                                            className={`status-icon ${statusClass}`}
+                                                            title={statusClass.charAt(0).toUpperCase() + statusClass.slice(1)}
                                                         />
                                                         {hasSessions && (
                                                             <FontAwesomeIcon

@@ -175,6 +175,11 @@
     color: #f87171;
 }
 
+/* Idle - yellow */
+.status-icon.idle {
+    color: #facc15;
+}
+
 .monitoring-multi-device {
     margin-left: 8px;
     display: inline-flex;

@@ -64,10 +64,17 @@ function GoGreen() {
                         <span className="back-text">{t('common.back')}</span>
                     </button>
                     <div className="gogreen-hero-content">
+                        {data?.municipalityLogo && (
+                            <img
+                                src={`data:image/jpeg;base64,${data.municipalityLogo}`}
+                                alt={data.municipalityName}
+                                className="gogreen-municipality-logo"
+                            />
+                        )}
+                        <h1 className="gogreen-session-name">{data ? data.municipalityName : ''}</h1>
                         <div className="gogreen-badge">
                             <FontAwesomeIcon icon={faLeaf} /> {t('goGreen.badge')}
                         </div>
-                        <h1 className="gogreen-session-name">{data ? data.municipalityName : ''}</h1>
                         <p className="gogreen-subtitle">{t('goGreen.subtitle')}</p>
                     </div>
                   </div>
