@@ -398,7 +398,7 @@ function Topics() {
             );
 
             // Notify others via WebSocket
-            sendVote(topicId);
+            sendVote(topicId, voteType, userInfo.username);
 
         } catch (error) {
             console.error("Error submitting vote:", error);
@@ -531,6 +531,14 @@ useEffect(() => {
             )
         );
 
+        // Sync currentVotes for the same user logged in on another device
+        if (canVote && lastResult.voterUsername === userInfo.username && lastResult.voteType) {
+            setCurrentVotes((prevVotes) => ({
+                ...prevVotes,
+                [updatedTopicId]: lastResult.voteType,
+            }));
+        }
+
         // Reset currentVotes if topic is restarted
         if (canVote && lastResult.status === 'CREATED') {
             setCurrentVotes((prevVotes) => ({
@@ -538,7 +546,7 @@ useEffect(() => {
                 [updatedTopicId]: 'HAVE_NOT_VOTED',
             }));
         }
-    }, [voteMessages, canVote]);
+    }, [voteMessages, canVote, userInfo.username]);
 
 
 

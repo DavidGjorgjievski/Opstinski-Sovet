@@ -258,7 +258,6 @@
 
 .gogreen-table {
     width: 100%;
-    min-width: 480px;
     border-collapse: collapse;
     font-size: 14px;
 }
@@ -295,23 +294,6 @@
 
 @media (max-width: 900px) {
     .gogreen-impact-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 550px) {
-    .gogreen-hero {
-        padding: 20px 2.5vw 32px;
-    }
-
-    .gogreen-hero-inner {
-        width: 95vw;
-        padding: 0;
-    }
-
-    .gogreen-content {
-        width: 95vw;
-        margin: 0 auto;
-        padding: 12px 0 40px;
-    }
 }
 
 @media (max-width: 640px) {

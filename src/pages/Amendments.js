@@ -253,7 +253,7 @@ const handleAmendmentVote = async (amendmentId, voteType) => {
         );
 
         // Notify others via WebSocket
-        sendAmendmentVote(amendmentId);
+        sendAmendmentVote(amendmentId, voteType, userInfo.username);
 
     } catch (error) {
         console.error("Error submitting amendment vote:", error);
@@ -378,6 +378,18 @@ useEffect(() => {
         )
     );
 
+    // Sync currentVotes for the same user logged in on another device
+    const canVoteAmendment = (
+        (userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_PRESIDENT') &&
+        userInfo.status === "ACTIVE"
+    );
+    if (canVoteAmendment && lastResult.voterUsername === userInfo.username && lastResult.voteType) {
+        setCurrentVotes((prevVotes) => ({
+            ...prevVotes,
+            [updatedAmendmentId]: lastResult.voteType,
+        }));
+    }
+
     // Reset currentVotes if amendment voting restarted
     if (lastResult.status === "CREATED") {
         setCurrentVotes((prevVotes) => ({
@@ -386,7 +398,7 @@ useEffect(() => {
         }));
     }
 
-}, [amendmentMessages]);
+}, [amendmentMessages, userInfo.username, userInfo.role, userInfo.status]);
 
 useEffect(() => {
   if (newAmendmentMessages.length > 0) {

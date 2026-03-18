@@ -65,7 +65,7 @@ export default function useVoteWebSocket(sessionId) {
     };
   }, [sessionId, connect, tryReconnect]);
 
-  const sendVote = async (topicId) => {
+  const sendVote = async (topicId, voteType = null, username = null) => {
     if (!stompClientRef.current?.connected) {
       await new Promise((resolve) => {
         const tempClient = connect();
@@ -82,6 +82,7 @@ export default function useVoteWebSocket(sessionId) {
       stompClientRef.current.publish({
         destination: `/app/vote/${sessionId}`,
         body: `${topicId}`,
+        headers: { voteType: voteType || '', voterUsername: username || '' },
       });
     } else {
       console.warn("Failed to send vote, still disconnected");

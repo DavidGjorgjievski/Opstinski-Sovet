@@ -65,7 +65,7 @@ export default function useAmendmentVoteWebSocket(sessionId) {
     };
   }, [sessionId, connect, tryReconnect]);
 
-  const sendVote = async (amendmentId) => {
+  const sendVote = async (amendmentId, voteType = null, username = null) => {
     if (!stompClientRef.current?.connected) {
       await new Promise((resolve) => {
         const tempClient = connect();
@@ -82,6 +82,7 @@ export default function useAmendmentVoteWebSocket(sessionId) {
       stompClientRef.current.publish({
         destination: `/app/amendment-vote/${sessionId}`,
         body: `${amendmentId}`,
+        headers: { voteType: voteType || '', voterUsername: username || '' },
       });
     } else {
       console.warn("Failed to send amendment vote, still disconnected");
