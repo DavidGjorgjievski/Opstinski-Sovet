@@ -7,6 +7,8 @@ import "../styles/MunicipalityMandateUsersAddList.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faUserPlus, faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import api from '../api/axios';
+import { storeTermImages, isTermPopulated } from '../cache/imageCache';
+import UserAvatar from '../components/UserAvatar';
 
 function MunicipalityMandateUsersAddList() {
   const { t } = useTranslation();
@@ -16,6 +18,7 @@ function MunicipalityMandateUsersAddList() {
   const [termUsers, setTermUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [termLoading, setTermLoading] = useState(true);
+  const [imagesReady, setImagesReady] = useState(false);
 
   const fetchMunicipalityUsers = useCallback(async () => {
     setLoading(true);
@@ -53,6 +56,14 @@ useEffect(() => {
   fetchMunicipalityUsers();
   fetchTermUsers();
 }, [fetchMunicipalityUsers, fetchTermUsers]);
+
+useEffect(() => {
+  if (!mandateId) return;
+  if (isTermPopulated(mandateId)) { setImagesReady(true); return; }
+  api.get(`/api/municipality-terms/${mandateId}/user-images`)
+    .then(res => { storeTermImages(mandateId, res.data); setImagesReady(true); })
+    .catch(() => setImagesReady(true));
+}, [mandateId]);
 
 // Add user
 const handleAddUser = async (username) => {
@@ -127,17 +138,7 @@ const handleRemoveUser = async (username) => {
               <div className="municipality-mandate-users-list-grid">
                 {users.map(user => (
                   <div key={user.username} className="municipality-mandate-users-list-card">
-                    {user.image ? (
-                      <img
-                        src={`data:image/jpeg;base64,${user.image}`}
-                        alt="User"
-                        className="municipality-mandate-users-list-avatar"
-                      />
-                    ) : (
-                      <div className="municipality-mandate-users-list-avatar placeholder">
-                        {user.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
+                    <UserAvatar username={user.username} name={user.name} surname={user.surname} className="municipality-mandate-users-list-avatar" />
 
                     <p className="municipality-mandate-users-list-name">
                       {user.name} {user.surname}
@@ -173,17 +174,7 @@ const handleRemoveUser = async (username) => {
             <div className="municipality-mandate-users-list-grid">
               {termUsers.map(user => (
                 <div key={user.username} className="municipality-mandate-users-list-card">
-                  {user.image ? (
-                    <img
-                      src={`data:image/jpeg;base64,${user.image}`}
-                      alt="User"
-                      className="municipality-mandate-users-list-avatar"
-                    />
-                  ) : (
-                    <div className="municipality-mandate-users-list-avatar placeholder">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
-                  )}
+                  <UserAvatar username={user.username} name={user.name} surname={user.surname} className="municipality-mandate-users-list-avatar" termId={mandateId} />
 
                   <p className="municipality-mandate-users-list-name">
                     {user.name} {user.surname}

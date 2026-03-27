@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import api from '../api/axios';
+import { storeTermImages, isTermPopulated } from '../cache/imageCache';
+import UserAvatar from '../components/UserAvatar';
 
 function MunicipalityMandateUsers() {
 const { t } = useTranslation();
@@ -22,6 +24,7 @@ const [userData] = useState(() => {
   const storedUserInfo = localStorage.getItem("userInfo");
   return storedUserInfo ? JSON.parse(storedUserInfo) : {};
 });
+const [imagesReady, setImagesReady] = useState(false);
 
 // Fetch votable users using Axios
 useEffect(() => {
@@ -43,6 +46,14 @@ useEffect(() => {
   };
 
   fetchUsers();
+}, [mandateId]);
+
+useEffect(() => {
+  if (!mandateId) return;
+  if (isTermPopulated(mandateId)) { setImagesReady(true); return; }
+  api.get(`/api/municipality-terms/${mandateId}/user-images`)
+    .then(res => { storeTermImages(mandateId, res.data); setImagesReady(true); })
+    .catch(() => setImagesReady(true));
 }, [mandateId]);
 
 
@@ -103,17 +114,7 @@ useEffect(() => {
   <div className="municipality-mandate-president-section">
     <div className="municipality-mandate-president-card"
     onClick={() => navigate(`/profile-view/${president.username}`)}>
-      {president.image ? (
-        <img
-          src={`data:image/jpeg;base64,${president.image}`}
-          alt="President"
-          className="municipality-mandate-users-avatar"
-        />
-      ) : (
-        <div className="municipality-mandate-users-avatar placeholder">
-          {president.name.charAt(0).toUpperCase()}
-        </div>
-      )}
+      <UserAvatar username={president.username} name={president.name} surname={president.surname} className="municipality-mandate-users-avatar" termId={mandateId} />
 
       <p className="municipality-mandate-users-name">
         {president.name} {president.surname}
@@ -134,17 +135,7 @@ useEffect(() => {
           className="municipality-mandate-users-card" 
           onClick={() => navigate(`/profile-view/${user.username}`)}
       >
-        {user.image ? (
-          <img
-            src={`data:image/jpeg;base64,${user.image}`}
-            alt="User"
-            className="municipality-mandate-users-avatar"
-          />
-        ) : (
-          <div className="municipality-mandate-users-avatar placeholder">
-            {user.name.charAt(0).toUpperCase()}
-          </div>
-        )}
+        <UserAvatar username={user.username} name={user.name} surname={user.surname} className="municipality-mandate-users-avatar" termId={mandateId} />
         <p className="municipality-mandate-users-name">
           {user.name} {user.surname}
         </p>
