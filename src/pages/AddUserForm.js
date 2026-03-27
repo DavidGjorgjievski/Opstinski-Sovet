@@ -127,7 +127,7 @@ function AddUserForm() {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
-      const validTypes = ["image/jpeg", "image/png"];
+      const validTypes = ["image/jpeg", "image/png", "image/webp"];
       if (!validTypes.includes(selectedFile.type)) {
         setFileError(true);
         setFileSizeError(false);
@@ -358,8 +358,9 @@ function AddUserForm() {
                   type="file"
                   id="file"
                   name="file"
+                  accept="image/jpeg,image/png,image/webp"
                   onChange={handleFileChange}
-                  required={!isEditMode} 
+                  required={!isEditMode}
                 />
               </div>
             </div>
