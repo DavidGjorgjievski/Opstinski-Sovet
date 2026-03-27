@@ -310,6 +310,24 @@
     "noUsersAvailable": "Nuk ka përdorues të disponueshëm.",
     "deleteError": "Nuk mund të fshihet ky përdorues sepse është i lidhur me të dhëna të tjera."
   },
+  "imageStorage": {
+    "pageTitle": "Ruajtja e Imazheve",
+    "button": "Ruajtja e Imazheve",
+    "totalUsers": "Totali i Përdoruesve",
+    "withImage": "Me Imazh",
+    "noImage": "Pa Imazh",
+    "totalSize": "Madhësia Totale",
+    "avgPerUser": "Mesatare për Përdorues",
+    "searchPlaceholder": "Kërko sipas emrit të përdoruesit, emrit, mbiemrit ose rolit…",
+    "colImage": "Foto",
+    "colUsername": "Përdoruesi",
+    "colName": "Emri",
+    "colSurname": "Mbiemri",
+    "colRole": "Roli",
+    "colFormat": "Formati",
+    "colSize": "Madhësia",
+    "noMatch": "Asnjë përdorues nuk përputhet me kërkimin tuaj."
+  },
   "adminpanel": {
     "image": "Foto",
     "username": "Përdoruesi",
@@ -589,5 +607,62 @@
     "sessionTitle": "Seanca",
     "pages": "Faqe",
     "pagesSaved": "Kopje të Kursyera"
+  },
+  "speakingPanel": {
+    "title": "Menaxhimi i fjalimeve",
+    "noActiveTopic": "Nuk ka temë aktive",
+    "currentSpeaker": "Folësi aktual",
+    "noActiveSpeaker": "Nuk ka folës aktiv",
+    "skip": "Pastro listën",
+    "queue": "Radhë",
+    "noRequests": "Nuk ka kërkesa",
+    "requestToSpeak": "Kërkesë për të folur",
+    "waitingForTopic": "Duke pritur temën aktive…",
+    "types": {
+      "speech": "Fjalim",
+      "reply": "Replikë",
+      "counter": "Kunër-replikë",
+      "counterFull": "Kunër-replikë"
+    },
+    "status": {
+      "approvedStandby": "Aprovuar, prisni…",
+      "pendingApproval": "Pret aprovim",
+      "yourRequest": "Kërkesa juaj:",
+      "youAreSpeaking": "Jeni duke folur tani"
+    },
+    "actions": {
+      "approve": "Aprovo",
+      "reject": "Refuzo",
+      "cancel": "Anulo",
+      "moveUp": "Lëviz lart",
+      "moveDown": "Lëviz poshtë",
+      "endSpeaking": "Mbaro fjalimin",
+      "pauseSpeaking": "Ndalo kohën",
+      "resumeSpeaking": "Vazhdo kohën",
+      "skipSpeaker": "Pastro listën"
+    },
+    "tooltips": {
+      "alreadyRequested": "Keni tashmë një kërkesë në pritje",
+      "currentlySpeaking": "Aktualisht jeni duke folur",
+      "cannotRequest": "Nuk mund të kërkoni fjalim tani",
+      "requestSpeech": "Kërkoni të flisni",
+      "noSpeaker": "Nuk ka folës aktiv",
+      "replyOnlySpeech": "Mund të replikoni vetëm gjatë fjalimit",
+      "cannotReplySelf": "Nuk mund të replikoni vetes",
+      "alreadyReplied": "Keni kërkuar tashmë një replikë",
+      "requestReply": "Kërkoni replikë",
+      "counterOnlyDuringReply": "E disponueshme vetëm gjatë replikës",
+      "counterNotAvailable": "Kunër-replika nuk është e disponueshme",
+      "requestCounter": "Kërkoni kunër-replikë (vetëm folësi origjinal)"
+    },
+    "ariaToggle": "Shfaq/fshih panelin e fjalimeve",
+    "settings": {
+      "title": "Kohëzgjatja",
+      "speech": "Fjalim",
+      "reply": "Replikë",
+      "counterReply": "Kundër-replikë",
+      "minutes": "min",
+      "seconds": "sek"
+    }
   }
 }

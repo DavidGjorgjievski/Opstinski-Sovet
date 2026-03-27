@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import '../styles/AdminPanel.css';
+import '../styles/UserImageStorage.css';
+import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserTable from '../components/UserTable';
 import ConfirmModal from '../components/ConfirmModal';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPlus,faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faChevronLeft, faImage } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 
 
@@ -104,6 +106,12 @@ function AdminPanel() {
                 });
 
                 setUsers(sortedUsers);
+
+                if (!isTermPopulated('admin')) {
+                    api.get('/api/admin/users/images')
+                        .then(res => storeTermImages('admin', res.data))
+                        .catch(() => {});
+                }
             } catch (error) {
                 console.error("Error fetching users:", error);
             } finally {
@@ -231,6 +239,11 @@ function AdminPanel() {
                     <h1 className="admin-title">{t("adminPanel.allUsers")}</h1>
                     <a href="/admin-panel/add-form">
                         <button className="entity-add-button">{t("common.add")} <FontAwesomeIcon icon={faPlus} /></button>
+                    </a>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+                    <a href="/admin-panel/image-storage" className="uis-admin-btn">
+                        <FontAwesomeIcon icon={faImage} /> {t('imageStorage.button')}
                     </a>
                 </div>
 

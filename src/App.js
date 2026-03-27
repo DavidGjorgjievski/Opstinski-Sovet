@@ -41,6 +41,7 @@ import SessionStatistics from './pages/SessionStatistics';
 import MunicipalityStatistics from './pages/MunicipalityStatistics';
 import GoGreen from './pages/GoGreen';
 import ProfileView from './pages/ProfileView'
+import UserImageStorage from './pages/UserImageStorage'
 import { SessionModalProvider } from './context/SessionModalContext';
 import SessionExpiredModal from './components/SessionExpiredModal';
 import './styles/Main.css';
@@ -201,6 +202,10 @@ function App() {
               <Route
                 path="/admin-panel/edit/:username"
                 element={<ProtectedRoute element={<AddUserForm />} allowedRoles={['ROLE_ADMIN']} />}
+              />
+              <Route
+                path="/admin-panel/image-storage"
+                element={<ProtectedRoute element={<UserImageStorage />} allowedRoles={['ROLE_ADMIN']} />}
               />
              
               <Route path="/municipalities/:municipalityId/sessions/:id?/topics/details/:idt" element={<ProtectedRoute element={<TopicDetails />} />} />

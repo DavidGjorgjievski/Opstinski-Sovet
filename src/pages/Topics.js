@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
 import TopicConfirmModal from '../components/TopicConfirmModal';
 import LiveUsersModal from '../components/LiveUsersModal';
+import SpeakingPanel from '../components/SpeakingPanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff, faBookmark, faFilePen } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -13,7 +14,8 @@ import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
-import api from '../api/axios'; 
+import api from '../api/axios';
+import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 
 function Topics() { 
     const [topics, setTopics] = useState([]);
@@ -206,6 +208,15 @@ function Topics() {
             fetchOnlineUsers();
         }
     }, [fetchOnlineUsers, showFixDiv]);
+
+    // Populate image cache once per mandate term
+    useEffect(() => {
+        if (!sessionMunicipalityTermId) return;
+        if (isTermPopulated(sessionMunicipalityTermId)) return;
+        api.get(`/api/municipality-terms/${sessionMunicipalityTermId}/user-images`)
+            .then(res => storeTermImages(sessionMunicipalityTermId, res.data))
+            .catch(() => {});
+    }, [sessionMunicipalityTermId]);
 
     useEffect(() => {
         fetchTopics();
@@ -1066,25 +1077,23 @@ useEffect(() => {
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </div>
 
-                    {showNumber && (
-                        <>
-                            <div className="tooltip-container" onClick={(e) => e.stopPropagation()}>
-                                <div onClick={handleToggle} className="toggle-topics">
-                                    <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
-                                </div>
-                                <span className="tooltip-text">{t("tooltip.easyMode")}</span>
+                    <div className="fpdiv-content">
+                        <div className="tooltip-container" onClick={(e) => e.stopPropagation()}>
+                            <div onClick={handleToggle} className="toggle-topics">
+                                <FontAwesomeIcon icon={isOn ? faToggleOn : faToggleOff} />
                             </div>
+                            <span className="tooltip-text">{t("tooltip.easyMode")}</span>
+                        </div>
 
-                            <div onClick={(e) => e.stopPropagation()}>
-                                <div className="number" onClick={() => setIsLiveModalOpen(true)}>
-                                    <p className="number-content">
-                                        <span className="number-content-span">{onlineUsersNumber}</span>
-                                        <FontAwesomeIcon icon={faUsers} />
-                                    </p>
-                                </div>
+                        <div onClick={(e) => e.stopPropagation()}>
+                            <div className="number" onClick={() => setIsLiveModalOpen(true)}>
+                                <p className="number-content">
+                                    <span className="number-content-span">{onlineUsersNumber}</span>
+                                    <FontAwesomeIcon icon={faUsers} />
+                                </p>
                             </div>
-                        </>
-                    )}
+                        </div>
+                    </div>
             </div>
             )}
 
@@ -1115,6 +1124,17 @@ useEffect(() => {
             municipalityId={municipalityId}
             canSeeAction={hasTopicPermissionsStatus}
         />
+
+        {showFixDiv && (
+            <SpeakingPanel
+                presentedTopicId={presentedTopicId}
+                userInfo={userInfo}
+                isPresidentOrAdmin={hasTopicPermissionsStatus}
+                canParticipate={canVote}
+                municipalityId={municipalityId}
+                sessionId={id}
+            />
+        )}
         </div>
     );
 }

@@ -8,6 +8,7 @@ import { faChevronLeft, faFilter, faFilePdf } from '@fortawesome/free-solid-svg-
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
+import UserAvatar from '../components/UserAvatar';
 
 function TopicDetails() {
     const navigate = useNavigate();
@@ -148,7 +149,7 @@ function TopicDetails() {
                 {[...(topicDetails.yesUsers || [])].map((user, index) => (
                         <tr key={`yes-${index}`}>
                             <td>
-                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
                             <td><span className="topic-detail-yes">{t("topicsDetails.yes")}</span></td>
@@ -158,7 +159,7 @@ function TopicDetails() {
                     {[...(topicDetails.noUsers || [])].map((user, index) => (
                         <tr key={`no-${index}`}>
                             <td>
-                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
                             <td><span className="topic-detail-no">{t("topicsDetails.no")}</span></td>
@@ -168,7 +169,7 @@ function TopicDetails() {
                     {[...(topicDetails.abstainedUsers || [])].map((user, index) => (
                         <tr key={`abstained-${index}`}>
                             <td>
-                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
                             <td><span className="topic-detail-abstained">{t("topicsDetails.abstained")}</span></td>
@@ -178,7 +179,7 @@ function TopicDetails() {
                     {[...(topicDetails.cantVoteUsers || [])].map((user, index) => (
                         <tr key={`cantVote-${index}`}>
                             <td>
-                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
                             <td><span className="topic-detail-cant-vote">{t("topicsDetails.cantVote")}</span></td>
@@ -188,7 +189,7 @@ function TopicDetails() {
                     {[...(topicDetails.haventVoteUsers || [])].map((user, index) => (
                         <tr key={`notVoted-${index}`}>
                             <td>
-                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
                             <td><span className="topic-detail-havent-vote">{t("topicsDetails.notVoted")}</span></td>
@@ -198,7 +199,7 @@ function TopicDetails() {
                     {[...(topicDetails.absentVoteUsers || [])].map((user, index) => (
                         <tr key={`absent-${index}`}>
                             <td>
-                                <img src={`data:image/jpeg;base64,${user.image}`} alt={`${user.name} ${user.surname}`} className="details-image" />
+                                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="details-image" />
                             </td>
                             <td>{user.name} {user.surname}</td>
                             <td><span className="topic-detail-absent">{t("topicsDetails.absent")}</span></td>

@@ -310,6 +310,24 @@
     "noUsersAvailable": "Keine Benutzer verfügbar.",
     "deleteError": "Der Benutzer kann nicht gelöscht werden, da er mit anderen Daten verknüpft ist."
   },
+  "imageStorage": {
+    "pageTitle": "Bildspeicher",
+    "button": "Bildspeicher",
+    "totalUsers": "Benutzer gesamt",
+    "withImage": "Mit Bild",
+    "noImage": "Ohne Bild",
+    "totalSize": "Gesamtgröße",
+    "avgPerUser": "Durchschnitt pro Benutzer",
+    "searchPlaceholder": "Suche nach Benutzername, Name, Nachname oder Rolle…",
+    "colImage": "Bild",
+    "colUsername": "Benutzername",
+    "colName": "Vorname",
+    "colSurname": "Nachname",
+    "colRole": "Rolle",
+    "colFormat": "Format",
+    "colSize": "Größe",
+    "noMatch": "Keine Benutzer entsprechen Ihrer Suche."
+  },
   "adminpanel": {
     "image": "Bild",
     "username": "Benutzername",
@@ -569,5 +587,62 @@
     "sessionTitle": "Sitzung",
     "pages": "Seiten",
     "pagesSaved": "Gesparte Kopien"
+  },
+  "speakingPanel": {
+    "title": "Rednerverwaltung",
+    "noActiveTopic": "Kein aktives Thema",
+    "currentSpeaker": "Aktueller Redner",
+    "noActiveSpeaker": "Kein aktiver Redner",
+    "skip": "Liste leeren",
+    "queue": "Warteschlange",
+    "noRequests": "Keine ausstehenden Anfragen",
+    "requestToSpeak": "Redebitte",
+    "waitingForTopic": "Warte auf aktives Thema…",
+    "types": {
+      "speech": "Rede",
+      "reply": "Erwiderung",
+      "counter": "Gegenerwiderung",
+      "counterFull": "Gegenerwiderung"
+    },
+    "status": {
+      "approvedStandby": "Genehmigt, bitte warten…",
+      "pendingApproval": "Wartet auf Genehmigung",
+      "yourRequest": "Ihre Anfrage:",
+      "youAreSpeaking": "Sie sprechen gerade"
+    },
+    "actions": {
+      "approve": "Genehmigen",
+      "reject": "Ablehnen",
+      "cancel": "Abbrechen",
+      "moveUp": "Nach oben",
+      "moveDown": "Nach unten",
+      "endSpeaking": "Rede beenden",
+      "pauseSpeaking": "Timer pausieren",
+      "resumeSpeaking": "Timer fortsetzen",
+      "skipSpeaker": "Liste leeren"
+    },
+    "tooltips": {
+      "alreadyRequested": "Sie haben bereits eine ausstehende Anfrage",
+      "currentlySpeaking": "Sie reden gerade",
+      "cannotRequest": "Redeanfrage jetzt nicht möglich",
+      "requestSpeech": "Um das Wort bitten",
+      "noSpeaker": "Kein aktiver Redner",
+      "replyOnlySpeech": "Erwiderung nur während einer Rede möglich",
+      "cannotReplySelf": "Kann sich nicht selbst erwidern",
+      "alreadyReplied": "Erwiderung bereits angefragt",
+      "requestReply": "Erwiderung beantragen",
+      "counterOnlyDuringReply": "Nur während einer Erwiderung verfügbar",
+      "counterNotAvailable": "Gegenerwiderung nicht verfügbar",
+      "requestCounter": "Gegenerwiderung beantragen (nur Originalredner)"
+    },
+    "ariaToggle": "Rednerpanel ein-/ausblenden",
+    "settings": {
+      "title": "Redezeit",
+      "speech": "Rede",
+      "reply": "Erwiderung",
+      "counterReply": "Gegenerwiderung",
+      "minutes": "Min",
+      "seconds": "Sek"
+    }
   }
 }

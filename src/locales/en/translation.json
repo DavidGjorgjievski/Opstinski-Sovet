@@ -310,6 +310,24 @@
     "noUsersAvailable": "No users available.",
     "deleteError": "Cannot delete this user because they are linked to other data."
   },
+  "imageStorage": {
+    "pageTitle": "Image Storage",
+    "button": "Image Storage",
+    "totalUsers": "Total Users",
+    "withImage": "With Image",
+    "noImage": "No Image",
+    "totalSize": "Total Size",
+    "avgPerUser": "Avg per User",
+    "searchPlaceholder": "Search by username, name, surname or role…",
+    "colImage": "Image",
+    "colUsername": "Username",
+    "colName": "Name",
+    "colSurname": "Surname",
+    "colRole": "Role",
+    "colFormat": "Format",
+    "colSize": "Size",
+    "noMatch": "No users match your search."
+  },
   "adminpanel": {
     "image": "Image",
     "username": "Username",
@@ -592,5 +610,62 @@
     "sessionTitle": "Session",
     "pages": "Pages",
     "pagesSaved": "Copies Saved"
+  },
+  "speakingPanel": {
+    "title": "Speaking Management",
+    "noActiveTopic": "No active topic",
+    "currentSpeaker": "Current Speaker",
+    "noActiveSpeaker": "No active speaker",
+    "skip": "Clear list",
+    "queue": "Queue",
+    "noRequests": "No pending requests",
+    "requestToSpeak": "Request to Speak",
+    "waitingForTopic": "Waiting for active topic…",
+    "types": {
+      "speech": "Speech",
+      "reply": "Reply",
+      "counter": "Counter-Reply",
+      "counterFull": "Counter-Reply"
+    },
+    "status": {
+      "approvedStandby": "Approved, stand by…",
+      "pendingApproval": "Pending approval",
+      "yourRequest": "Your request:",
+      "youAreSpeaking": "You are speaking now"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "cancel": "Cancel",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "endSpeaking": "End speaking",
+      "pauseSpeaking": "Pause timer",
+      "resumeSpeaking": "Resume timer",
+      "skipSpeaker": "Clear list"
+    },
+    "tooltips": {
+      "alreadyRequested": "You already have a pending request",
+      "currentlySpeaking": "You are currently speaking",
+      "cannotRequest": "Cannot request speech now",
+      "requestSpeech": "Request to speak",
+      "noSpeaker": "No active speaker",
+      "replyOnlySpeech": "Can only reply during a speech",
+      "cannotReplySelf": "Cannot reply to yourself",
+      "alreadyReplied": "Already requested a reply",
+      "requestReply": "Request to reply",
+      "counterOnlyDuringReply": "Only available when a reply is being given",
+      "counterNotAvailable": "Counter-reply not available",
+      "requestCounter": "Request counter-reply (only original speaker)"
+    },
+    "ariaToggle": "Toggle speaking panel",
+    "settings": {
+      "title": "Duration",
+      "speech": "Speech",
+      "reply": "Reply",
+      "counterReply": "Counter-reply",
+      "minutes": "min",
+      "seconds": "sec"
+    }
   }
 }

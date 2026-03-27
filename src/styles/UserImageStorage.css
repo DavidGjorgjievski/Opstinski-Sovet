@@ -1,0 +1,242 @@
+.uis-page { display: flex; flex-direction: column; height: 80vh; }
+
+.uis-main {
+    flex: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    width: 100%;
+}
+
+/* ── Top bar ── */
+.uis-top-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.uis-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+/* ── Summary cards ── */
+.uis-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.uis-stat-card {
+    flex: 1;
+    min-width: 120px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.uis-stat-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.uis-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+}
+
+.uis-stat-green  { border-color: #86efac; background: #f0fdf4; }
+.uis-stat-green .uis-stat-value  { color: #15803d; }
+
+.uis-stat-gray   { border-color: #e2e8f0; background: #f8fafc; }
+.uis-stat-gray .uis-stat-value   { color: #64748b; }
+
+.uis-stat-blue   { border-color: #93c5fd; background: #eff6ff; }
+.uis-stat-blue .uis-stat-value   { color: #1d4ed8; }
+
+.uis-stat-purple { border-color: #c4b5fd; background: #f5f3ff; }
+.uis-stat-purple .uis-stat-value { color: #7c3aed; }
+
+/* ── Search ── */
+.uis-search-wrap { margin-bottom: 16px; }
+
+.uis-search {
+    width: 100%;
+    max-width: 380px;
+    padding: 8px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fff;
+}
+
+.uis-search:focus { border-color: #94a3b8; }
+
+/* ── Table ── */
+.uis-table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+.uis-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.uis-th {
+    background: #f1f5f9;
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.uis-th-sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.uis-th-sortable:hover { background: #e8edf3; }
+
+.uis-th-img { width: 60px; text-align: center; }
+
+.uis-sort-icon { margin-left: 5px; color: #94a3b8; font-size: 10px; }
+.uis-sort-active { color: #3b82f6; }
+
+.uis-row { transition: background 0.15s; }
+.uis-row:hover { background: #f8fafc; }
+
+.uis-td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+}
+
+.uis-td-img { text-align: center; padding: 8px; }
+.uis-td-username { font-weight: 600; color: #1e293b; font-size: 13px; }
+
+.uis-row:last-child .uis-td { border-bottom: none; }
+
+/* ── Avatar ── */
+.uis-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    margin: 0 auto;
+}
+
+.uis-avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e2e8f0;
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+/* ── Badges ── */
+.uis-format-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.uis-size-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.uis-size-none   { background: #f1f5f9; color: #94a3b8; }
+.uis-size-small  { background: #dcfce7; color: #15803d; }
+.uis-size-medium { background: #fef9c3; color: #854d0e; }
+.uis-size-large  { background: #fee2e2; color: #dc2626; }
+
+.uis-role-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.uis-role-admin     { background: #fee2e2; color: #dc2626; }
+.uis-role-president { background: #fef9c3; color: #854d0e; }
+.uis-role-user      { background: #dbeafe; color: #1d4ed8; }
+.uis-role-editor    { background: #e0f2fe; color: #0369a1; }
+.uis-role-presenter { background: #f3e8ff; color: #7c3aed; }
+.uis-role-spectator { background: #f8fafc; color: #64748b; }
+.uis-role-mayor     { background: #dcfce7; color: #15803d; }
+
+.uis-none { color: #94a3b8; }
+
+.uis-empty {
+    text-align: center;
+    padding: 32px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* ── Image storage button in AdminPanel ── */
+.uis-admin-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-decoration: none;
+}
+
+.uis-admin-btn:hover {
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    border-color: #94a3b8;
+    color: #1e293b;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}

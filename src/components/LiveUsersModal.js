@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import api from "../api/axios";
+import UserAvatar from "./UserAvatar";
 
 const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -130,15 +131,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
               offlineUsers.map((user) => (
                 <tr key={user.username} className="offline">
                   <td>
-                    <img
-                      src={
-                        user.image
-                          ? `data:image/png;base64,${user.image}`
-                          : "/images/default-avatar.png"
-                      }
-                      alt={user.name}
-                      className="liv-user-avatar"
-                    />
+                    <UserAvatar username={user.username} name={user.name} surname={user.surname} className="liv-user-avatar" />
                   </td>
                   <td>{user.name} {user.surname}</td>
                   {canSeeAction && (
@@ -182,15 +175,7 @@ const LiveUsersModal = ({ isOpen, onClose, municipalityId, canSeeAction }) => {
               onlineUsers.map((user) => (
                 <tr key={user.username} className="online">
                   <td>
-                    <img
-                      src={
-                        user.image
-                          ? `data:image/png;base64,${user.image}`
-                          : "/images/default-avatar.png"
-                      }
-                      alt={user.name}
-                      className="liv-user-avatar"
-                    />
+                    <UserAvatar username={user.username} name={user.name} surname={user.surname} className="liv-user-avatar" />
                   </td>
                   <td>{user.name} {user.surname}</td>
                   {canSeeAction && (

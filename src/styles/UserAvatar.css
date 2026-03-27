@@ -1,0 +1,17 @@
+/* ── UserAvatar initials fallback ───────────────────────────────────────────
+   The parent's className (e.g. .details-image, .liv-user-avatar, .ut-avatar)
+   controls width, height, and border-radius.
+   This class only adds the visual treatment for the initials state.
+   ─────────────────────────────────────────────────────────────────────────── */
+.ua-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+  user-select: none;
+  flex-shrink: 0;
+  /* border-radius is inherited from the parent class (.details-image etc.) */
+}

@@ -310,6 +310,24 @@
     "noUsersAvailable": "Нема достапни корисници.",
     "deleteError": "Не може да се избрише корисникот затоа што е поврзан со други податоци."
   },
+  "imageStorage": {
+    "pageTitle": "Складиште на слики",
+    "button": "Складиште на слики",
+    "totalUsers": "Вкупно корисници",
+    "withImage": "Со слика",
+    "noImage": "Без слика",
+    "totalSize": "Вкупна големина",
+    "avgPerUser": "Просечно по корисник",
+    "searchPlaceholder": "Пребарај по корисничко име, име, презиме или улога…",
+    "colImage": "Слика",
+    "colUsername": "Корисничко име",
+    "colName": "Име",
+    "colSurname": "Презиме",
+    "colRole": "Улога",
+    "colFormat": "Формат",
+    "colSize": "Големина",
+    "noMatch": "Нема корисници кои одговараат на пребарувањето."
+  },
   "adminpanel": {
     "image": "Слика",
     "username": "Корисничко име",
@@ -592,5 +610,62 @@
     "sessionTitle": "Седница",
     "pages": "Страници",
     "pagesSaved": "Заштедени копии"
+  },
+  "speakingPanel": {
+    "title": "Управување со говори",
+    "noActiveTopic": "Нема активна точка",
+    "currentSpeaker": "Тековен говорник",
+    "noActiveSpeaker": "Нема активен говорник",
+    "skip": "Исчисти листа",
+    "queue": "Ред на чекање",
+    "noRequests": "Нема барања",
+    "requestToSpeak": "Барање за говор",
+    "waitingForTopic": "Се чека активна точка…",
+    "types": {
+      "speech": "Говор",
+      "reply": "Реплика",
+      "counter": "Контрареплика",
+      "counterFull": "Контрареплика"
+    },
+    "status": {
+      "approvedStandby": "Одобрено, почекајте…",
+      "pendingApproval": "Чека одобрување",
+      "yourRequest": "Вашето барање:",
+      "youAreSpeaking": "Вие зборувате"
+    },
+    "actions": {
+      "approve": "Одобри",
+      "reject": "Одбиј",
+      "cancel": "Откажи",
+      "moveUp": "Помести нагоре",
+      "moveDown": "Помести надолу",
+      "endSpeaking": "Заврши говор",
+      "pauseSpeaking": "Пауза",
+      "resumeSpeaking": "Продолжи",
+      "skipSpeaker": "Исчисти листа"
+    },
+    "tooltips": {
+      "alreadyRequested": "Веќе имате барање на чекање",
+      "currentlySpeaking": "Во моментов зборувате",
+      "cannotRequest": "Не може да се бара говор сега",
+      "requestSpeech": "Барај говор",
+      "noSpeaker": "Нема активен говорник",
+      "replyOnlySpeech": "Може да се реплицира само за време на говор",
+      "cannotReplySelf": "Не може да реплицирате на себе",
+      "alreadyReplied": "Веќе сте барале реплика",
+      "requestReply": "Барај реплика",
+      "counterOnlyDuringReply": "Достапно само за време на реплика",
+      "counterNotAvailable": "Контрареплика не е достапна",
+      "requestCounter": "Барај контрареплика (само оригинален говорник)"
+    },
+    "ariaToggle": "Прикажи/скриј панел за говори",
+    "settings": {
+      "title": "Времетраење",
+      "speech": "Говор",
+      "reply": "Реплика",
+      "counterReply": "Контрареплика",
+      "minutes": "мин",
+      "seconds": "сек"
+    }
   }
 }

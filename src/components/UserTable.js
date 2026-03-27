@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import UserAvatar from './UserAvatar';
 
 function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     const { t } = useTranslation();
@@ -9,17 +10,7 @@ function UserTable({ users, title, bgColor, onDeleteClick, onEditClick }) {
     const renderUserRow = (user) => (
         <tr className="ut-row" key={user.username}>
             <td className="ut-td ut-td-avatar">
-                {user.image ? (
-                    <img
-                        src={`data:image/jpeg;base64,${user.image}`}
-                        alt={`${user.name} ${user.surname}`}
-                        className="ut-avatar"
-                    />
-                ) : (
-                    <div className="ut-avatar-placeholder">
-                        <FontAwesomeIcon icon={faUser} />
-                    </div>
-                )}
+                <UserAvatar username={user.username} name={user.name} surname={user.surname} className="ut-avatar" />
             </td>
             <td className="ut-td ut-td-username">{user.username}</td>
             <td className="ut-td">{user.name}</td>
