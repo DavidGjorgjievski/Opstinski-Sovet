@@ -109,10 +109,12 @@
   flex-direction: column;
   overflow: hidden;
   visibility: hidden;
+  transition: visibility 0s linear 0.3s;
 }
 
 .sp-wrapper-open .sp-panel {
   visibility: visible;
+  transition: visibility 0s linear 0s;
 }
 
 /* ── Panel Header ─────────────────────────────────────────────────────── */
