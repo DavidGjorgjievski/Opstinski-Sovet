@@ -13,7 +13,6 @@ import {
   faPlay,
   faAngleUp,
   faAngleDown,
-  faChevronRight,
   faTrashCan,
   faGear,
 } from '@fortawesome/free-solid-svg-icons';
