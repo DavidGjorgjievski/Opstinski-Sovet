@@ -24,7 +24,7 @@ const [userData] = useState(() => {
   const storedUserInfo = localStorage.getItem("userInfo");
   return storedUserInfo ? JSON.parse(storedUserInfo) : {};
 });
-const [imagesReady, setImagesReady] = useState(false);
+const [, setImagesReady] = useState(false);
 
 // Fetch votable users using Axios
 useEffect(() => {

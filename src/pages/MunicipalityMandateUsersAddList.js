@@ -18,7 +18,7 @@ function MunicipalityMandateUsersAddList() {
   const [termUsers, setTermUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [termLoading, setTermLoading] = useState(true);
-  const [imagesReady, setImagesReady] = useState(false);
+  const [, setImagesReady] = useState(false);
 
   const fetchMunicipalityUsers = useCallback(async () => {
     setLoading(true);
