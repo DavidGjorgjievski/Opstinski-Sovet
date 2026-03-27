@@ -946,7 +946,7 @@
   /* Panel takes remaining height below header; trigger peeks at right edge */
   .sp-wrapper {
     /* width: calc(100vw - 47px); */
-    transform: translateX(calc(-(100vw - 47px)));
+    transform: translateX(calc(-1 * (100vw - 47px)));
   }
 
 
