@@ -83,7 +83,12 @@ function GoGreen() {
                 <div className="gogreen-content">
                 {loading ? (
                     <div className="gogreen-loading">
-                        <div className="gogreen-spinner"></div>
+                        <div className="gogreen-loading-inner">
+                            <div className="gogreen-badge gogreen-loading-badge">
+                                <FontAwesomeIcon icon={faLeaf} /> {t('goGreen.badge')}
+                            </div>
+                            <div className="gogreen-spinner"></div>
+                        </div>
                     </div>
                 ) : (<>
                     {/* Main impact cards */}
