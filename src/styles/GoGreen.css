@@ -366,11 +366,14 @@
     }
 
     .gogreen-impact-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        justify-items: center;
         gap: 10px;
     }
 
     .gogreen-impact-card {
+        width: 80%;
+        max-width: 240px;
         padding: 16px 12px;
         box-sizing: border-box;
     }
@@ -381,14 +384,17 @@
     }
 
     .gogreen-table-section {
-        padding: 12px 10px;
+        padding: 12px 20px;
+        width: 90%;
+        margin: 0 auto;
         box-sizing: border-box;
         overflow: hidden;
     }
 
     .gogreen-table-wrapper {
         overflow-x: auto;
-        width: 100%;
+        width: 95%;
+        margin: 0 auto;
         padding: 0 8px;
         box-sizing: border-box;
     }
