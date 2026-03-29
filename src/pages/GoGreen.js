@@ -37,8 +37,17 @@ function GoGreen() {
     const navigate = useNavigate();
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [municipalityName, setMunicipalityName] = useState('');
+    const [municipalityLogo, setMunicipalityLogo] = useState(null);
 
     useEffect(() => {
+        api.get(`/api/municipalities/${municipalityId}`)
+            .then(res => {
+                setMunicipalityName(res.data.name || '');
+                setMunicipalityLogo(res.data.logoImage || null);
+            })
+            .catch(console.error);
+
         api.get(`/api/municipalities/${municipalityId}/gogreen`)
             .then(res => setData(res.data))
             .catch(console.error)
@@ -64,14 +73,14 @@ function GoGreen() {
                         <span className="back-text">{t('common.back')}</span>
                     </button>
                     <div className="gogreen-hero-content">
-                        {data?.municipalityLogo && (
+                        {municipalityLogo && (
                             <img
-                                src={`data:image/jpeg;base64,${data.municipalityLogo}`}
-                                alt={data.municipalityName}
+                                src={`data:image/jpeg;base64,${municipalityLogo}`}
+                                alt={municipalityName}
                                 className="gogreen-municipality-logo"
                             />
                         )}
-                        <h1 className="gogreen-session-name">{data ? data.municipalityName : ''}</h1>
+                        <h1 className="gogreen-session-name">{municipalityName}</h1>
                         <div className="gogreen-badge">
                             <FontAwesomeIcon icon={faLeaf} /> {t('goGreen.badge')}
                         </div>
@@ -83,12 +92,7 @@ function GoGreen() {
                 <div className="gogreen-content">
                 {loading ? (
                     <div className="gogreen-loading">
-                        <div className="gogreen-loading-inner">
-                            <div className="gogreen-badge gogreen-loading-badge">
-                                <FontAwesomeIcon icon={faLeaf} /> {t('goGreen.badge')}
-                            </div>
-                            <div className="gogreen-spinner"></div>
-                        </div>
+                        <div className="gogreen-spinner"></div>
                     </div>
                 ) : (<>
                     {/* Main impact cards */}
