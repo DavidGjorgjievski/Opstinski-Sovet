@@ -388,15 +388,18 @@
         width: 90%;
         margin: 0 auto;
         box-sizing: border-box;
-        overflow: hidden;
     }
 
     .gogreen-table-wrapper {
         overflow-x: auto;
-        width: 95%;
-        margin: 0 auto;
-        padding: 0 8px;
+        width: 100%;
+        padding: 0 10px;
         box-sizing: border-box;
+    }
+
+    .gogreen-table {
+        min-width: 320px;
+        margin: 0 auto;
     }
 
     .gogreen-session-name { font-size: clamp(14px, 4.5vw, 17px); }
