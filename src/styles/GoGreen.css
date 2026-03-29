@@ -342,15 +342,56 @@
     .gogreen-content { padding: 12px 12px 40px; }
 }
 
-@media (max-width: 380px) {
-    .gogreen-impact-grid { grid-template-columns: 1fr; }
+@media (max-width: 420px) {
+    .gogreen-container-body {
+        overflow-x: hidden;
+    }
+
+    .gogreen-hero {
+        padding: 16px 5px 28px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .gogreen-hero-inner {
+        width: 100%;
+        padding: 0 5px;
+        box-sizing: border-box;
+    }
+
+    .gogreen-content {
+        padding: 8px 5px 32px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .gogreen-impact-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .gogreen-impact-card {
+        padding: 16px 10px;
+        box-sizing: border-box;
+    }
+
+    .gogreen-stats-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .gogreen-table-section {
+        padding: 12px 5px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .gogreen-table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+    }
+
     .gogreen-session-name { font-size: clamp(14px, 4.5vw, 17px); }
     .gogreen-subtitle { font-size: clamp(10px, 3.2vw, 13px); }
     .gogreen-badge { font-size: clamp(9px, 2.8vw, 11px); }
-}
-
-@media (max-width: 380px) {
-    .gogreen-hero-inner{
-        width: 90vw;
-    }
 }
