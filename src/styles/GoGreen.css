@@ -84,6 +84,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -133,11 +134,12 @@
 .gogreen-subtitle {
     color: #d1fae5;
     font-size: 15px;
-    margin: 0;
+    margin: 0 auto;
     opacity: 0.85;
     word-break: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%;
+    overflow-wrap: anywhere;
+    width: 80%;
+    white-space: normal;
 }
 
 .gogreen-content {
@@ -384,8 +386,8 @@
     }
 
     .gogreen-table-section {
-        padding: 12px 20px;
-        width: 90%;
+        padding: 12px 16px;
+        width: calc(100% - 32px);
         margin: 0 auto;
         box-sizing: border-box;
     }
@@ -408,37 +410,22 @@
 }
 
 @media (max-width: 380px) {
-    .gogreen-impact-grid {
-        grid-template-columns: 1fr;
-        justify-items: center;
-    }
-
-    .gogreen-impact-card {
-        width: 80%;
-        max-width: 240px;
-    }
-
-    .gogreen-hero {
-        padding: 16px 20px 28px;
-    }
-
-    .gogreen-hero-inner {
-        padding: 0 20px;
-    }
-
-    .gogreen-content {
-        padding: 8px 20px 32px;
-    }
-
     .gogreen-table-section {
-        padding: 12px 20px;
-        width: 90%;
+        width: 90vw;
         margin: 0 auto;
+        padding: 12px 10px;
+        box-sizing: border-box;
     }
 
     .gogreen-table-wrapper {
-        padding: 0 8px;
-        width: 95%;
-        margin: 0 auto;
+        overflow-x: auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .gogreen-table {
+        min-width: 260px;
+        width: 100%;
     }
 }
+
