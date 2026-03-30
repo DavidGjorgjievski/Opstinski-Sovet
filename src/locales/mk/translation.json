@@ -612,17 +612,17 @@
     "pagesSaved": "Заштедени копии"
   },
   "speakingPanel": {
-    "title": "Управување со говори",
+    "title": "Управување со зборови",
     "noActiveTopic": "Нема активна точка",
     "currentSpeaker": "Тековен говорник",
     "noActiveSpeaker": "Нема активен говорник",
     "skip": "Исчисти листа",
     "queue": "Ред на чекање",
     "noRequests": "Нема барања",
-    "requestToSpeak": "Барање за говор",
+    "requestToSpeak": "Барање за збор",
     "waitingForTopic": "Се чека активна точка…",
     "types": {
-      "speech": "Говор",
+      "speech": "Збор",
       "reply": "Реплика",
       "counter": "Контрареплика",
       "counterFull": "Контрареплика"
@@ -639,7 +639,7 @@
       "cancel": "Откажи",
       "moveUp": "Помести нагоре",
       "moveDown": "Помести надолу",
-      "endSpeaking": "Заврши говор",
+      "endSpeaking": "Заврши збор",
       "pauseSpeaking": "Пауза",
       "resumeSpeaking": "Продолжи",
       "skipSpeaker": "Исчисти листа"
@@ -647,10 +647,10 @@
     "tooltips": {
       "alreadyRequested": "Веќе имате барање на чекање",
       "currentlySpeaking": "Во моментов зборувате",
-      "cannotRequest": "Не може да се бара говор сега",
-      "requestSpeech": "Барај говор",
+      "cannotRequest": "Не може да се бара збор сега",
+      "requestSpeech": "Барај збор",
       "noSpeaker": "Нема активен говорник",
-      "replyOnlySpeech": "Може да се реплицира само за време на говор",
+      "replyOnlySpeech": "Може да се реплицира само за време на збор",
       "cannotReplySelf": "Не може да реплицирате на себе",
       "alreadyReplied": "Веќе сте барале реплика",
       "requestReply": "Барај реплика",
@@ -658,10 +658,10 @@
       "counterNotAvailable": "Контрареплика не е достапна",
       "requestCounter": "Барај контрареплика (само оригинален говорник)"
     },
-    "ariaToggle": "Прикажи/скриј панел за говори",
+    "ariaToggle": "Прикажи/скриј панел за зборови",
     "settings": {
       "title": "Времетраење",
-      "speech": "Говор",
+      "speech": "Збор",
       "reply": "Реплика",
       "counterReply": "Контрареплика",
       "minutes": "мин",

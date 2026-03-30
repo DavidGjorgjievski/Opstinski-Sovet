@@ -29,6 +29,24 @@ const DEFAULT_DURATIONS = {
   COUNTER_REPLY: 60,  // 1 minute
 };
 
+const durationsLsKey = (municipalityId) => `speaking_durations_${municipalityId}`;
+
+function loadDurationsFromStorage(municipalityId) {
+  try {
+    const raw = localStorage.getItem(durationsLsKey(municipalityId));
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    if (d.SPEECH && d.REPLY && d.COUNTER_REPLY) return d;
+  } catch { /* ignore */ }
+  return null;
+}
+
+function saveDurationsToStorage(municipalityId, durations) {
+  try {
+    localStorage.setItem(durationsLsKey(municipalityId), JSON.stringify(durations));
+  } catch { /* ignore */ }
+}
+
 const TYPE_CONFIG = {
   SPEECH: {
     label: 'Speech',
@@ -256,7 +274,7 @@ function CurrentSpeakerCard({
             >
               <FontAwesomeIcon icon={faBolt} />
               <span>{t('speakingPanel.types.counter')}</span>
-              <span className="sp-sa-duration">{durations.COUNTER_REPLY}s</span>
+              <span className="sp-sa-duration">{Math.round(durations.COUNTER_REPLY / 60)}m</span>
             </button>
           )}
         </div>
@@ -443,7 +461,7 @@ export default function SpeakingPanel({
   const [timeLeft, setTimeLeft] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const isPausedRef = useRef(false);
-  const [durations, setDurations] = useState(DEFAULT_DURATIONS);
+  const [durations, setDurations] = useState(() => loadDurationsFromStorage(municipalityId) || DEFAULT_DURATIONS);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const timerRef = useRef(null);
   const lastSpeakerIdRef = useRef(null);
@@ -455,11 +473,13 @@ export default function SpeakingPanel({
     api.get(`/api/speaking/municipality/${municipalityId}/durations`)
       .then(res => {
         const d = res.data;
-        setDurations({
+        const next = {
           SPEECH: d.speechSeconds,
           REPLY: d.replySeconds,
           COUNTER_REPLY: d.counterReplySeconds,
-        });
+        };
+        setDurations(next);
+        saveDurationsToStorage(municipalityId, next);
       })
       .catch(() => {});
   }, [municipalityId]);
@@ -468,16 +488,19 @@ export default function SpeakingPanel({
   useEffect(() => {
     if (!durationMessages.length) return;
     const d = durationMessages[durationMessages.length - 1];
-    setDurations({
+    const next = {
       SPEECH: d.speechSeconds,
       REPLY: d.replySeconds,
       COUNTER_REPLY: d.counterReplySeconds,
-    });
-  }, [durationMessages]);
+    };
+    setDurations(next);
+    saveDurationsToStorage(municipalityId, next);
+  }, [durationMessages, municipalityId]);
 
   // ── Save durations to backend (debounced 600ms) ────────────────────────────
   const saveDurationsRef = useRef(null);
   const persistDurations = useCallback((next) => {
+    saveDurationsToStorage(municipalityId, next);
     clearTimeout(saveDurationsRef.current);
     saveDurationsRef.current = setTimeout(() => {
       api.put(`/api/speaking/municipality/${municipalityId}/durations`, {
@@ -939,11 +962,12 @@ export default function SpeakingPanel({
             <div className="sp-section-label">
               <span className="sp-section-dot sp-dot-live" />
               {t('speakingPanel.currentSpeaker')}
-              {currentSpeaker && isPresidentOrAdmin && (
+              {isPresidentOrAdmin && (
                 <button
                   className="sp-skip-btn"
                   onClick={skipSpeaker}
                   title={t('speakingPanel.actions.skipSpeaker')}
+                  disabled={!currentSpeaker && visibleQueue.length === 0}
                 >
                   <FontAwesomeIcon icon={faTrashCan} />
                 </button>
@@ -1066,7 +1090,7 @@ export default function SpeakingPanel({
                   {[
                     { key: 'SPEECH',        unit: 'min', labelKey: 'speakingPanel.settings.speech',       min: 1,  max: 60,  step: 1,   toDisplay: (v) => Math.round(v / 60),  toSeconds: (v) => v * 60 },
                     { key: 'REPLY',         unit: 'min', labelKey: 'speakingPanel.settings.reply',        min: 1,  max: 30,  step: 1,   toDisplay: (v) => Math.round(v / 60),  toSeconds: (v) => v * 60 },
-                    { key: 'COUNTER_REPLY', unit: 'sec', labelKey: 'speakingPanel.settings.counterReply', min: 15, max: 300, step: 15,  toDisplay: (v) => v,                   toSeconds: (v) => v },
+                    { key: 'COUNTER_REPLY', unit: 'min', labelKey: 'speakingPanel.settings.counterReply', min: 1,  max: 5,   step: 1,   toDisplay: (v) => Math.round(v / 60),  toSeconds: (v) => v * 60 },
                   ].map(({ key, unit, labelKey, min, max, step, toDisplay, toSeconds }) => {
                     const cfg = TYPE_CONFIG[key];
                     return (

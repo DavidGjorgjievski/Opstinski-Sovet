@@ -472,6 +472,15 @@ function Topics() {
         userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
     );
 
+    const canParticipateInSpeaking = (
+        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_MAYOR') &&
+        userInfo.status === "ACTIVE" &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    );
+
     useEffect(() => {
         if (!presenterMessages.length) return;
 
@@ -1130,7 +1139,7 @@ useEffect(() => {
                 presentedTopicId={presentedTopicId}
                 userInfo={userInfo}
                 isPresidentOrAdmin={hasTopicPermissionsStatus}
-                canParticipate={canVote}
+                canParticipate={canParticipateInSpeaking}
                 municipalityId={municipalityId}
                 sessionId={id}
             />
