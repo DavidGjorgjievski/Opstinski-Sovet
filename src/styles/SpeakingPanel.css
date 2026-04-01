@@ -426,6 +426,13 @@
   color: #dc2626;
   transform: scale(1.05);
 }
+.sp-skip-btn:disabled {
+  background: #f3f4f6;
+  color: #d1d5db;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.55;
+}
 
 /* ── Quick Speech Request ─────────────────────────────────────────────── */
 .sp-quick-speech-wrap {

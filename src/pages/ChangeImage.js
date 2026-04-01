@@ -26,7 +26,7 @@ const ChangeImage = () => {
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
-            const validTypes = ['image/jpeg', 'image/png'];
+            const validTypes = ['image/webp'];
             if (!validTypes.includes(selectedFile.type)) {
                 setErrorKey('changeImage.invalidType');
                 setFile(null);
@@ -34,7 +34,7 @@ const ChangeImage = () => {
                 return;
             }
 
-            if (selectedFile.size > 35840) { // 50KB limit
+            if (selectedFile.size > 8192) { // 8KB limit
                 setFileSizeError(true);
                 setFile(null);
                 setFileName(t('changeImage.noFileSelected'));
@@ -74,6 +74,7 @@ const ChangeImage = () => {
                 const base64String = reader.result.split(',')[1];
                 const updatedUserInfo = { ...userInfo, image: base64String };
                 localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+                window.dispatchEvent(new Event('userInfoUpdated'));
                 setSuccessKey('changeImage.uploadSuccess');
             };
             reader.readAsDataURL(file);
@@ -111,7 +112,7 @@ const ChangeImage = () => {
                                         </>
                                     )}
                                 </p>
-                                <input type="file" onChange={handleFileChange} required />
+                                <input type="file" accept="image/webp" onChange={handleFileChange} required />
                             </div>
 
                             {fileSizeError && <p className="error-message">{t('changeImage.sizeLimit')}</p>}

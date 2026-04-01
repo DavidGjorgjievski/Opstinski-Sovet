@@ -35,9 +35,16 @@ function Header({ isSticky = false }) {
             setUserInfo(prev => ({ ...prev, image: imageData }));
         }
 
+        const handleUserInfoUpdated = () => {
+            const stored = localStorage.getItem('userInfo');
+            if (stored) setUserInfo(JSON.parse(stored));
+        };
+        window.addEventListener('userInfoUpdated', handleUserInfoUpdated);
+
         const cleanupMobileMenu = initializeMobileMenu();
-        
+
         return () => {
+            window.removeEventListener('userInfoUpdated', handleUserInfoUpdated);
             cleanupMobileMenu();
         };
     }, []);
