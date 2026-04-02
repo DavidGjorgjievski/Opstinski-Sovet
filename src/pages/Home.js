@@ -139,7 +139,7 @@ function Home() {
                                     <div className="home-green-card-icon">
                                         <FontAwesomeIcon icon={faTree} />
                                     </div>
-                                    <div className="home-green-card-number">{trees.toLocaleString()}</div>
+                                    <div className="home-green-card-number">{trees.toLocaleString('de-DE')}</div>
                                     <div className="home-green-card-label">{t('goGreen.treesSaved')}</div>
                                     <div className="home-green-card-fact">{t('goGreen.treesFact')}</div>
                                 </div>
@@ -148,7 +148,7 @@ function Home() {
                                         <FontAwesomeIcon icon={faCloud} />
                                     </div>
                                     <div className="home-green-card-number">
-                                        {co2.toLocaleString()} <span className="home-green-card-unit">kg</span>
+                                        {co2.toLocaleString('de-DE')} <span className="home-green-card-unit">kg</span>
                                     </div>
                                     <div className="home-green-card-label">{t('goGreen.co2Saved')}</div>
                                     <div className="home-green-card-fact">{t('goGreen.co2Fact')}</div>
@@ -158,7 +158,7 @@ function Home() {
                                         <FontAwesomeIcon icon={faDroplet} />
                                     </div>
                                     <div className="home-green-card-number">
-                                        {water.toLocaleString()} <span className="home-green-card-unit">L</span>
+                                        {water.toLocaleString('de-DE')} <span className="home-green-card-unit">L</span>
                                     </div>
                                     <div className="home-green-card-label">{t('goGreen.waterSaved')}</div>
                                     <div className="home-green-card-fact">{t('goGreen.waterFact')}</div>
@@ -167,7 +167,7 @@ function Home() {
                                     <div className="home-green-card-icon">
                                         <FontAwesomeIcon icon={faFileLines} />
                                     </div>
-                                    <div className="home-green-card-number">{pages.toLocaleString()}</div>
+                                    <div className="home-green-card-number">{pages.toLocaleString('de-DE')}</div>
                                     <div className="home-green-card-label">{t('goGreen.pagesPrinted')}</div>
                                     <div className="home-green-card-fact">{t('goGreen.pagesFact')}</div>
                                 </div>

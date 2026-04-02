@@ -101,7 +101,7 @@ function GoGreen() {
                             <div className="gogreen-impact-icon">
                                 <FontAwesomeIcon icon={faTree} />
                             </div>
-                            <div className="gogreen-impact-number">{trees.toLocaleString()}</div>
+                            <div className="gogreen-impact-number">{trees.toLocaleString('de-DE')}</div>
                             <div className="gogreen-impact-label">{t('goGreen.treesSaved')}</div>
                             <div className="gogreen-impact-fact">{t('goGreen.treesFact')}</div>
                         </div>
@@ -109,7 +109,7 @@ function GoGreen() {
                             <div className="gogreen-impact-icon">
                                 <FontAwesomeIcon icon={faCloud} />
                             </div>
-                            <div className="gogreen-impact-number">{co2.toLocaleString()} <span className="gogreen-unit">kg</span></div>
+                            <div className="gogreen-impact-number">{co2.toLocaleString('de-DE')} <span className="gogreen-unit">kg</span></div>
                             <div className="gogreen-impact-label">{t('goGreen.co2Saved')}</div>
                             <div className="gogreen-impact-fact">{t('goGreen.co2Fact')}</div>
                         </div>
@@ -117,7 +117,7 @@ function GoGreen() {
                             <div className="gogreen-impact-icon">
                                 <FontAwesomeIcon icon={faDroplet} />
                             </div>
-                            <div className="gogreen-impact-number">{water.toLocaleString()} <span className="gogreen-unit">L</span></div>
+                            <div className="gogreen-impact-number">{water.toLocaleString('de-DE')} <span className="gogreen-unit">L</span></div>
                             <div className="gogreen-impact-label">{t('goGreen.waterSaved')}</div>
                             <div className="gogreen-impact-fact">{t('goGreen.waterFact')}</div>
                         </div>
@@ -125,7 +125,7 @@ function GoGreen() {
                             <div className="gogreen-impact-icon">
                                 <FontAwesomeIcon icon={faFileLines} />
                             </div>
-                            <div className="gogreen-impact-number">{pagesPrinted.toLocaleString()}</div>
+                            <div className="gogreen-impact-number">{pagesPrinted.toLocaleString('de-DE')}</div>
                             <div className="gogreen-impact-label">{t('goGreen.pagesPrinted')}</div>
                             <div className="gogreen-impact-fact">{t('goGreen.pagesFact')}</div>
                         </div>
@@ -150,7 +150,7 @@ function GoGreen() {
                                             <td>{idx + 1}</td>
                                             <td>{session.name}</td>
                                             <td>{session.totalPages || '—'}</td>
-                                            <td>{session.totalPages ? session.pagesPrinted.toLocaleString() : '—'}</td>
+                                            <td>{session.totalPages ? session.pagesPrinted.toLocaleString('de-DE') : '—'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
