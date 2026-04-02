@@ -644,5 +644,14 @@
       "minutes": "Min",
       "seconds": "Sek"
     }
+  },
+  "homeGoGreen": {
+    "badge": "Gemeinsamer Umweltbeitrag",
+    "title": "Unser kollektiver grüner Fußabdruck",
+    "subtitle": "Gemeinsam haben alle Gemeinden durch Digitalisierung einen messbaren Unterschied gemacht.",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "refresh": "Aktualisieren",
+    "updating": "Wird aktualisiert...",
+    "viewAll": "Nach Gemeinde anzeigen"
   }
 }

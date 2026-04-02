@@ -667,5 +667,14 @@
       "minutes": "min",
       "seconds": "sec"
     }
+  },
+  "homeGoGreen": {
+    "badge": "Combined Environmental Impact",
+    "title": "Our Collective Green Footprint",
+    "subtitle": "Together, all municipalities have made a measurable difference by going digital.",
+    "lastUpdated": "Last updated",
+    "refresh": "Refresh",
+    "updating": "Updating...",
+    "viewAll": "View by Municipality"
   }
 }

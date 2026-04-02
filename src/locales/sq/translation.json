@@ -664,5 +664,14 @@
       "minutes": "min",
       "seconds": "sek"
     }
+  },
+  "homeGoGreen": {
+    "badge": "Ndikimi i Kombinuar Mjedisor",
+    "title": "Gjurma Jonë Kolektive e Gjelbër",
+    "subtitle": "Së bashku, të gjitha komunat kanë bërë një ndryshim të matshëm duke shkuar dixhitale.",
+    "lastUpdated": "Përditësuar më së fundi",
+    "refresh": "Rifresko",
+    "updating": "Duke përditësuar...",
+    "viewAll": "Shiko sipas komunës"
   }
 }
