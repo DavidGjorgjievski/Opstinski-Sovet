@@ -245,14 +245,14 @@
 }
 
 .sp-current-avatar {
-  width: 46px;
-  height: 46px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 22px;
   object-fit: cover;
   object-position: top;
 }
@@ -506,34 +506,90 @@
   text-align: center;
 }
 
+/* ── Queue item card ───────────────────────────────────────────────────── */
 .sp-queue-item {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px 12px 10px 10px;
+  border-radius: 12px;
   border-left: 3px solid #e2e8f0;
   background: #f8fafc;
-  transition: background 0.2s;
+  transition: background 0.2s, box-shadow 0.2s;
   animation: sp-fade-in 0.2s ease;
 }
 
-.sp-queue-item:hover { filter: brightness(0.96); }
+.sp-queue-item:hover {
+  background: #f1f5f9;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+/* Trash button — absolute top-right */
+.sp-qi-trash {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1px solid #fca5a5;
+  background: #fff;
+  color: #dc2626;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+}
+.sp-qi-trash:hover {
+  transform: scale(1.2);
+}
+
+/* Row 1 — identity */
+.sp-qi-identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 22px; /* leave room for trash btn */
+}
 
 .sp-queue-rank {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   min-width: 18px;
   text-align: center;
+  flex-shrink: 0;
+}
+
+.sp-qi-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .sp-queue-avatar {
-  width: 34px;
-  height: 34px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  flex-shrink: 0;
   object-fit: cover;
   object-position: top;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-qi-approved-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #16a34a;
+  border: 2px solid #fff;
+  color: #fff;
   font-size: 11px;
   display: flex;
   align-items: center;
@@ -548,29 +604,133 @@
 
 .sp-queue-name {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   color: #1e293b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+}
+
+.sp-qi-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .sp-queue-related {
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
   color: #94a3b8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 2px;
 }
 
-.sp-queue-right {
+/* Shared row style for rows 2 & 3 */
+.sp-qi-row {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0,0,0,0.06);
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0;
 }
+
+/* Row 2 — reply / counter */
+.sp-qi-reply-row {
+  flex-wrap: wrap;
+}
+
+.sp-qi-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.sp-qi-action-btn:hover { transform: translateY(-1px); }
+
+.sp-qi-reply {
+  color: #c2410c;
+  background: #fff7ed;
+  border-color: #fdba74;
+}
+.sp-qi-reply:hover { background: #ffedd5; }
+
+.sp-qi-counter {
+  color: #b91c1c;
+  background: #fff5f5;
+  border-color: #fca5a5;
+}
+.sp-qi-counter:hover { background: #fee2e2; }
+
+/* Row 3 — approve + reorder */
+.sp-qi-admin-row {
+  justify-content: space-between;
+}
+
+.sp-qi-approve-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  border: 1px solid #86efac;
+  background: #dcfce7;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.sp-qi-approve-btn:not(.sp-qi-approved):hover { background: #bbf7d0; transform: translateY(-1px); }
+
+.sp-qi-approved {
+  background: #fef9c3;
+  border-color: #fde047;
+  color: #a16207;
+}
+.sp-qi-approved:hover { background: #fef08a; transform: translateY(-1px); }
+
+.sp-qi-move-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.sp-qi-move-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.sp-qi-move-btn:not(:disabled):hover { background: #f1f5f9; border-color: #cbd5e1; }
+.sp-qi-move-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* keep for any remaining usages */
+.sp-queue-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
 .sp-status-dot {
   width: 8px;

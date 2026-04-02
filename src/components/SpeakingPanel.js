@@ -289,12 +289,16 @@ function QueueItem({
   isPresidentOrAdmin,
   myUsername,
   onApprove,
+  onUnapprove,
   onReject,
   onMoveUp,
   onMoveDown,
   isFirst,
   isLast,
   allEntries,
+  canParticipate,
+  onRequestReplyToEntry,
+  onRequestCounterToEntry,
 }) {
   const { t } = useTranslation();
   const cfg = TYPE_CONFIG[entry.type] || TYPE_CONFIG.SPEECH;
@@ -306,103 +310,145 @@ function QueueItem({
     return allEntries.find((e) => e.username === entry.replyToUsername) || null;
   }, [entry, allEntries]);
 
+  const canReplyToEntry = useMemo(() => {
+    if (!canParticipate || isOwner || entry.type !== 'SPEECH') return false;
+    return !allEntries.find(
+      (e) =>
+        e.username === myUsername &&
+        e.type === 'REPLY' &&
+        e.replyToUsername === entry.username &&
+        ['PENDING', 'APPROVED'].includes(e.status)
+    );
+  }, [canParticipate, isOwner, entry, allEntries, myUsername]);
+
+  const canCounterToEntry = useMemo(() => {
+    if (!canParticipate || isOwner || !['REPLY', 'COUNTER_REPLY'].includes(entry.type)) return false;
+    return !allEntries.find(
+      (e) =>
+        e.username === myUsername &&
+        e.type === 'COUNTER_REPLY' &&
+        e.replyToUsername === entry.username &&
+        ['PENDING', 'APPROVED'].includes(e.status)
+    );
+  }, [canParticipate, isOwner, entry, allEntries, myUsername]);
+
+  const canDelete =
+    (isOwner && !isPresidentOrAdmin && ['PENDING', 'APPROVED'].includes(entry.status)) ||
+    (isPresidentOrAdmin && ['PENDING', 'APPROVED'].includes(entry.status));
+
+  const showReplyRow = canReplyToEntry || canCounterToEntry;
+  const showAdminRow = isPresidentOrAdmin && ['PENDING', 'APPROVED'].includes(entry.status);
+
   return (
     <div
       className={`sp-queue-item sp-queue-${entry.status.toLowerCase()}`}
-      style={{ borderLeftColor: cfg.color, backgroundColor: cfg.bg, borderColor: cfg.border }}
+      style={{
+        borderLeftColor: cfg.color,
+        backgroundColor: cfg.bg,
+        borderColor: entry.status === 'APPROVED' ? cfg.color : cfg.border,
+      }}
     >
-      <div className="sp-queue-rank" style={{ color: cfg.color }}>
-        {displayIndex + 1}
-      </div>
+      {/* Trash button — top-right */}
+      {canDelete && (
+        <button
+          className="sp-qi-trash"
+          onClick={() => onReject(entry.id)}
+          title={isOwner && !isPresidentOrAdmin ? t('speakingPanel.actions.cancel') : entry.status === 'PENDING' ? t('speakingPanel.actions.reject') : t('speakingPanel.actions.cancel')}
+        >
+          <FontAwesomeIcon icon={faTrashCan} />
+        </button>
+      )}
 
-      <UserAvatar
-        username={entry.username}
-        name={entry.fullName.split(' ')[0]}
-        surname={entry.fullName.split(' ').slice(1).join(' ')}
-        className="sp-queue-avatar"
-      />
-
-      <div className="sp-queue-info">
-        <div className="sp-queue-name">{entry.fullName}</div>
-        <TypeBadge type={entry.type} size="xs" />
-        {(relatedEntry || entry.replyToUsername) && (
-          <div className="sp-queue-related">
-            {relatedEntry ? relatedEntry.fullName : (entry.replyToFullName || entry.replyToUsername)} <FontAwesomeIcon icon={faReply} />
-          </div>
-        )}
-      </div>
-
-      <div className="sp-queue-right">
-        {!['PENDING', 'APPROVED'].includes(entry.status) && (
-          <span
-            className="sp-status-dot"
-            style={{ background: statusColor }}
-            title={entry.status}
+      {/* Row 1 — identity */}
+      <div className="sp-qi-identity">
+        <div className="sp-queue-rank" style={{ color: cfg.color }}>{displayIndex + 1}</div>
+        <div className="sp-qi-avatar-wrap">
+          <UserAvatar
+            username={entry.username}
+            name={entry.fullName.split(' ')[0]}
+            surname={entry.fullName.split(' ').slice(1).join(' ')}
+            className="sp-queue-avatar"
           />
+          {entry.status === 'APPROVED' && (
+            <span className="sp-qi-approved-badge">
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+          )}
+        </div>
+        <div className="sp-queue-info">
+          <div className="sp-queue-name">{entry.fullName}</div>
+          <div className="sp-qi-meta">
+            <TypeBadge type={entry.type} size="sm" />
+            {(relatedEntry || entry.replyToUsername) && (
+              <span className="sp-queue-related">
+                <FontAwesomeIcon icon={faReply} />
+                {relatedEntry ? relatedEntry.fullName : (entry.replyToFullName || entry.replyToUsername)}
+              </span>
+            )}
+          </div>
+        </div>
+        {!['PENDING', 'APPROVED'].includes(entry.status) && (
+          <span className="sp-status-dot" style={{ background: statusColor }} title={entry.status} />
         )}
+      </div>
 
-        {isOwner && !isPresidentOrAdmin && ['PENDING', 'APPROVED'].includes(entry.status) && (
-          <div className="sp-queue-btns">
+      {/* Row 2 — reply / counter-reply (participants) */}
+      {showReplyRow && (
+        <div className="sp-qi-row sp-qi-reply-row">
+          {canReplyToEntry && (
             <button
-              className="sp-ib sp-ib-reject"
-              onClick={() => onReject(entry.id)}
-              title={t('speakingPanel.actions.cancel')}
+              className="sp-qi-action-btn sp-qi-reply"
+              onClick={() => onRequestReplyToEntry(entry)}
+              title={t('speakingPanel.tooltips.requestReply')}
             >
-              <FontAwesomeIcon icon={faXmark} />
+              <FontAwesomeIcon icon={faReply} />
+              <span>{t('speakingPanel.types.reply')}</span>
+            </button>
+          )}
+          {canCounterToEntry && (
+            <button
+              className="sp-qi-action-btn sp-qi-counter"
+              onClick={() => onRequestCounterToEntry(entry)}
+              title={t('speakingPanel.tooltips.requestCounter')}
+            >
+              <FontAwesomeIcon icon={faBolt} />
+              <span>{t('speakingPanel.types.counter')}</span>
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Row 3 — approve + reorder (president/admin) */}
+      {showAdminRow && (
+        <div className="sp-qi-row sp-qi-admin-row">
+          <button
+            className={`sp-qi-approve-btn${entry.status === 'APPROVED' ? ' sp-qi-approved' : ''}`}
+            onClick={() => entry.status === 'APPROVED' ? onUnapprove(entry.id) : onApprove(entry.id)}
+            title={entry.status === 'APPROVED' ? t('speakingPanel.actions.reject') : t('speakingPanel.actions.approve')}
+          >
+            <FontAwesomeIcon icon={entry.status === 'APPROVED' ? faXmark : faCheck} />
+            <span>{entry.status === 'APPROVED' ? t('speakingPanel.actions.cancel') : t('speakingPanel.actions.approve')}</span>
+          </button>
+          <div className="sp-qi-move-btns">
+            <button
+              className="sp-qi-move-btn"
+              onClick={() => !isFirst && onMoveUp(entry.id)}
+              disabled={isFirst}
+              title={t('speakingPanel.actions.moveUp')}
+            >
+              <FontAwesomeIcon icon={faAngleUp} />
+            </button>
+            <button
+              className="sp-qi-move-btn"
+              onClick={() => !isLast && onMoveDown(entry.id)}
+              disabled={isLast}
+              title={t('speakingPanel.actions.moveDown')}
+            >
+              <FontAwesomeIcon icon={faAngleDown} />
             </button>
           </div>
-        )}
-
-        {isPresidentOrAdmin && (
-          <div className="sp-queue-btns">
-            {entry.status === 'PENDING' && (
-              <>
-                <button
-                  className="sp-ib sp-ib-approve"
-                  onClick={() => onApprove(entry.id)}
-                  title={t('speakingPanel.actions.approve')}
-                >
-                  <FontAwesomeIcon icon={faCheck} />
-                </button>
-                <button
-                  className="sp-ib sp-ib-reject"
-                  onClick={() => onReject(entry.id)}
-                  title={t('speakingPanel.actions.reject')}
-                >
-                  <FontAwesomeIcon icon={faXmark} />
-                </button>
-              </>
-            )}
-            {entry.status === 'APPROVED' && (
-              <button
-                className="sp-ib sp-ib-reject"
-                onClick={() => onReject(entry.id)}
-                title={t('speakingPanel.actions.cancel')}
-              >
-                <FontAwesomeIcon icon={faXmark} />
-              </button>
-            )}
-            {!isFirst && (
-              <button
-                className="sp-ib sp-ib-move"
-                onClick={() => onMoveUp(entry.id)}
-                title={t('speakingPanel.actions.moveUp')}
-              >
-                <FontAwesomeIcon icon={faAngleUp} />
-              </button>
-            )}
-            {!isLast && (
-              <button
-                className="sp-ib sp-ib-move"
-                onClick={() => onMoveDown(entry.id)}
-                title={t('speakingPanel.actions.moveDown')}
-              >
-                <FontAwesomeIcon icon={faAngleDown} />
-              </button>
-            )}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -791,6 +837,34 @@ export default function SpeakingPanel({
     }
   }, [canRequestCounterReply, currentSpeaker, myUsername, userInfo, municipalityId]);
 
+  const requestReplyToEntry = useCallback(async (entry) => {
+    try {
+      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+        username: myUsername,
+        fullName: getFullName(userInfo),
+        type: 'REPLY',
+        replyToUsername: entry.username,
+        replyToFullName: entry.fullName,
+      });
+    } catch (e) {
+      console.error('Failed to request reply to queued entry', e);
+    }
+  }, [myUsername, userInfo, municipalityId]);
+
+  const requestCounterReplyToEntry = useCallback(async (entry) => {
+    try {
+      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+        username: myUsername,
+        fullName: getFullName(userInfo),
+        type: 'COUNTER_REPLY',
+        replyToUsername: entry.username,
+        replyToFullName: entry.fullName,
+      });
+    } catch (e) {
+      console.error('Failed to request counter reply to queued entry', e);
+    }
+  }, [myUsername, userInfo, municipalityId]);
+
   const approveRequest = useCallback(async (entryId) => {
     const hasCurrent = currentSpeakerRef.current !== null;
     const body = hasCurrent
@@ -803,6 +877,17 @@ export default function SpeakingPanel({
       );
     } catch (e) {
       console.error('Failed to approve', e);
+    }
+  }, [municipalityId]);
+
+  const unapproveRequest = useCallback(async (entryId) => {
+    try {
+      await api.patch(
+        `/api/speaking/municipality/${municipalityId}/items/${entryId}/status`,
+        { status: 'PENDING' }
+      );
+    } catch (e) {
+      console.error('Failed to unapprove', e);
     }
   }, [municipalityId]);
 
@@ -1037,12 +1122,16 @@ export default function SpeakingPanel({
                     isPresidentOrAdmin={isPresidentOrAdmin}
                     myUsername={myUsername}
                     onApprove={approveRequest}
+                    onUnapprove={unapproveRequest}
                     onReject={rejectRequest}
                     onMoveUp={moveEntryUp}
                     onMoveDown={moveEntryDown}
                     isFirst={idx === 0}
                     isLast={idx === visibleQueue.length - 1}
                     allEntries={queue}
+                    canParticipate={canParticipate}
+                    onRequestReplyToEntry={requestReplyToEntry}
+                    onRequestCounterToEntry={requestCounterReplyToEntry}
                   />
                 ))}
               </div>
