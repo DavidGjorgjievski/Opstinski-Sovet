@@ -28,10 +28,12 @@ function SessionStatistics() {
             .finally(() => setLoading(false));
     }, [municipalityId, sessionId]);
 
+    const formatNum = (n) => n.toLocaleString('de-DE');
+
     const formatSize = (bytes) => {
         if (bytes == null) return '—';
-        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-        return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1).replace('.', ',')} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(2).replace('.', ',')} MB`;
     };
 
     const topicsWithPdf = topics.filter(t => t.pdfFileName != null && t.pdfFileName !== '');
@@ -79,15 +81,15 @@ function SessionStatistics() {
                     <>
                         <div className="stats-summary-row">
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{topics.length}</span>
+                                <span className="stats-summary-value">{formatNum(topics.length)}</span>
                                 <span className="stats-summary-label">{t('statistics.totalTopics')}</span>
                             </div>
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{topicsWithPdf.length}</span>
+                                <span className="stats-summary-value">{formatNum(topicsWithPdf.length)}</span>
                                 <span className="stats-summary-label">{t('statistics.topicsWithPdf')}</span>
                             </div>
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{totalPages}</span>
+                                <span className="stats-summary-value">{formatNum(totalPages)}</span>
                                 <span className="stats-summary-label">{t('statistics.totalPages')}</span>
                             </div>
                             <div className="stats-summary-card">
@@ -124,7 +126,7 @@ function SessionStatistics() {
                                             </td>
                                             <td className="stats-td stats-td-center">
                                                 {topic.pdfPageCount != null ? (
-                                                    <span className="stats-pages-badge">{topic.pdfPageCount}</span>
+                                                    <span className="stats-pages-badge">{formatNum(topic.pdfPageCount)}</span>
                                                 ) : '—'}
                                             </td>
                                             <td className="stats-td stats-td-center">

@@ -32,10 +32,12 @@ function MunicipalityStatistics() {
             .finally(() => setLoading(false));
     }, [municipalityId]);
 
+    const formatNum = (n) => n.toLocaleString('de-DE');
+
     const formatSize = (bytes) => {
         if (!bytes) return '—';
-        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-        return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1).replace('.', ',')} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(2).replace('.', ',')} MB`;
     };
 
     const formatDate = (dateStr) => {
@@ -89,19 +91,19 @@ function MunicipalityStatistics() {
                     <>
                         <div className="stats-summary-row">
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{sessions.length}</span>
+                                <span className="stats-summary-value">{formatNum(sessions.length)}</span>
                                 <span className="stats-summary-label">{t('municipalityStatistics.totalSessions')}</span>
                             </div>
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{totalTopics}</span>
+                                <span className="stats-summary-value">{formatNum(totalTopics)}</span>
                                 <span className="stats-summary-label">{t('statistics.totalTopics')}</span>
                             </div>
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{totalWithPdf}</span>
+                                <span className="stats-summary-value">{formatNum(totalWithPdf)}</span>
                                 <span className="stats-summary-label">{t('statistics.topicsWithPdf')}</span>
                             </div>
                             <div className="stats-summary-card">
-                                <span className="stats-summary-value">{totalPages}</span>
+                                <span className="stats-summary-value">{formatNum(totalPages)}</span>
                                 <span className="stats-summary-label">{t('statistics.totalPages')}</span>
                             </div>
                             <div className="stats-summary-card">
@@ -135,14 +137,14 @@ function MunicipalityStatistics() {
                                             <td className="stats-td stats-td-title">{session.sessionName}</td>
                                             <td className="stats-td stats-td-center">{formatDate(session.date)}</td>
                                             <td className="stats-td stats-td-center">
-                                                <span className="stats-pages-badge">{session.topicCount}</span>
+                                                <span className="stats-pages-badge">{formatNum(session.topicCount)}</span>
                                             </td>
                                             <td className="stats-td stats-td-center">
-                                                <span className="stats-pages-badge">{session.topicsWithPdf}</span>
+                                                <span className="stats-pages-badge">{formatNum(session.topicsWithPdf)}</span>
                                             </td>
                                             <td className="stats-td stats-td-center">
                                                 {session.totalPages > 0
-                                                    ? <span className="stats-pages-badge">{session.totalPages}</span>
+                                                    ? <span className="stats-pages-badge">{formatNum(session.totalPages)}</span>
                                                     : '—'}
                                             </td>
                                             <td className="stats-td stats-td-center">
