@@ -606,7 +606,9 @@
     "sessionBreakdown": "Ndarja sipas seancave",
     "sessionTitle": "Seanca",
     "pages": "Faqe",
-    "pagesSaved": "Kopje të Kursyera"
+    "pagesSaved": "Kopje të Kursyera",
+    "pagesExplain": "Numri total i faqeve nga të gjitha dokumentet PDF në të gjitha temat e një seance.",
+    "pagesSavedExplain": "Numri total i faqeve të paprintuara, i llogaritur si faqe × numri i këshilltªrve."
   },
   "speakingPanel": {
     "title": "Menaxhimi i fjalimeve",

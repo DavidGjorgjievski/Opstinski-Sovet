@@ -609,7 +609,9 @@
     "sessionBreakdown": "Session Breakdown",
     "sessionTitle": "Session",
     "pages": "Pages",
-    "pagesSaved": "Copies Saved"
+    "pagesSaved": "Copies Saved",
+    "pagesExplain": "Total number of pages from all PDFs across all topics in a session.",
+    "pagesSavedExplain": "Total number of pages not printed, calculated as pages × number of council members."
   },
   "speakingPanel": {
     "title": "Speaking Management",

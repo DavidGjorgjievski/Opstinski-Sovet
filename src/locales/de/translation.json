@@ -586,7 +586,9 @@
     "sessionBreakdown": "Sitzungsaufschlüsselung",
     "sessionTitle": "Sitzung",
     "pages": "Seiten",
-    "pagesSaved": "Gesparte Kopien"
+    "pagesSaved": "Gesparte Kopien",
+    "pagesExplain": "Gesamtanzahl der Seiten aus allen PDF-Dokumenten aller Themen in einer Sitzung.",
+    "pagesSavedExplain": "Gesamtanzahl der nicht gedruckten Seiten, berechnet als Seiten × Anzahl der Ratsmitglieder."
   },
   "speakingPanel": {
     "title": "Rednerverwaltung",
