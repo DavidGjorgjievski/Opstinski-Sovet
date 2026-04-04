@@ -163,7 +163,7 @@
 .home-green-section {
     width: 100%;
     background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
-    padding: 72px 24px 64px;
+    padding: 110px 24px 64px;
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
@@ -206,37 +206,41 @@
     margin-bottom: 52px;
 }
 
-.home-green-badge--admin {
-    cursor: pointer;
+.home-green-title {
+    display: block;
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 900;
+    margin: 0 0 12px;
+    letter-spacing: -0.5px;
+    color: #fff;
 }
 
-.home-green-badge--admin:hover {
-    background: rgba(34, 197, 94, 0.35);
-    border-color: rgba(34, 197, 94, 0.7);
+.home-green-title-text {
+    color: #fff;
 }
 
-.home-green-badge {
+.home-green-title-icon {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    background: rgba(34, 197, 94, 0.22);
-    border: 1px solid rgba(34, 197, 94, 0.45);
-    color: #86efac;
-    padding: 6px 18px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    margin-bottom: 18px;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
+    justify-content: center;
+    vertical-align: middle;
+    margin-right: 10px;
+    position: relative;
+    top: -2px;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    color: #4ade80;
 }
 
-.home-green-title {
-    color: #fff;
-    font-size: 2.1rem;
-    font-weight: 800;
-    margin: 0 0 14px;
-    letter-spacing: -0.3px;
+.home-green-title-icon--admin {
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.home-green-title-icon--admin:hover {
+    color: #86efac;
+    transform: rotate(20deg) scale(1.15);
 }
 
 .home-green-subtitle {
@@ -279,13 +283,14 @@
 }
 
 .home-green-card {
-    background: #fff;
-    border-radius: 22px;
-    padding: 36px 22px 28px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 28px 22px 24px;
     text-align: center;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
-    border-top: 5px solid transparent;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     position: relative;
     overflow: hidden;
 }
@@ -296,59 +301,68 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(255,255,255,0) 70%, rgba(248,250,252,0.5) 100%);
-    pointer-events: none;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
 }
+
+.home-green-card.trees::before { background: linear-gradient(90deg, #22c55e, #86efac); }
+.home-green-card.co2::before   { background: linear-gradient(90deg, #3b82f6, #93c5fd); }
+.home-green-card.water::before { background: linear-gradient(90deg, #06b6d4, #67e8f9); }
+.home-green-card.pages::before { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
 
 .home-green-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 56px rgba(0, 0, 0, 0.22);
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
-.home-green-card.trees { border-top-color: #22c55e; }
-.home-green-card.co2   { border-top-color: #3b82f6; }
-.home-green-card.water { border-top-color: #06b6d4; }
-.home-green-card.pages { border-top-color: #f59e0b; }
+.home-green-card.trees:hover { box-shadow: 0 16px 48px rgba(34, 197, 94, 0.2); }
+.home-green-card.co2:hover   { box-shadow: 0 16px 48px rgba(59, 130, 246, 0.2); }
+.home-green-card.water:hover { box-shadow: 0 16px 48px rgba(6, 182, 212, 0.2); }
+.home-green-card.pages:hover { box-shadow: 0 16px 48px rgba(245, 158, 11, 0.2); }
 
 .home-green-card-icon {
-    font-size: 42px;
-    margin-bottom: 16px;
+    font-size: 28px;
+    margin-bottom: 14px;
+    opacity: 0.9;
 }
 
-.home-green-card.trees .home-green-card-icon { color: #16a34a; }
-.home-green-card.co2   .home-green-card-icon { color: #2563eb; }
-.home-green-card.water .home-green-card-icon { color: #0891b2; }
-.home-green-card.pages .home-green-card-icon { color: #d97706; }
+.home-green-card.trees .home-green-card-icon { color: #4ade80; }
+.home-green-card.co2   .home-green-card-icon { color: #60a5fa; }
+.home-green-card.water .home-green-card-icon { color: #22d3ee; }
+.home-green-card.pages .home-green-card-icon { color: #fbbf24; }
 
 .home-green-card-number {
     font-size: 46px;
-    font-weight: 800;
-    color: #111827;
+    font-weight: 900;
     line-height: 1;
-    margin-bottom: 10px;
-    letter-spacing: -1px;
+    margin-bottom: 8px;
+    letter-spacing: -2px;
 }
 
+.home-green-card.trees .home-green-card-number { color: #4ade80; }
+.home-green-card.co2   .home-green-card-number { color: #60a5fa; }
+.home-green-card.water .home-green-card-number { color: #22d3ee; }
+.home-green-card.pages .home-green-card-number { color: #fbbf24; }
+
 .home-green-card-unit {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
-    color: #6b7280;
+    opacity: 0.9;
     letter-spacing: 0;
 }
 
 .home-green-card-label {
-    font-size: 12px;
+    font-size: 14.5px;
     font-weight: 700;
-    color: #374151;
+    color: #fff;
     text-transform: uppercase;
-    letter-spacing: 0.7px;
+    letter-spacing: 1px;
     margin-bottom: 8px;
 }
 
 .home-green-card-fact {
-    font-size: 12px;
-    color: #9ca3af;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.82);
     line-height: 1.5;
 }
 
@@ -419,10 +433,11 @@
 
 @media (max-width: 640px) {
     .home-green-section { padding: 48px 16px 48px; }
-    .home-green-title { font-size: 1.55rem; }
-    .home-green-card-number { font-size: 34px; }
-    .home-green-card { padding: 24px 14px 20px; }
-    .home-green-card-icon { font-size: 32px; }
+    .home-green-title { font-size: 1.55rem; gap: 10px; }
+    .home-green-title-icon { font-size: 1.3rem; }
+    .home-green-card-number { font-size: 32px; }
+    .home-green-card { padding: 22px 14px 18px; }
+    .home-green-card-icon { font-size: 22px; }
     .home-green-header { margin-bottom: 36px; }
 }
 
@@ -431,11 +446,10 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
-    .home-green-card-number { font-size: 28px; }
-    .home-green-card { border-radius: 16px; padding: 20px 10px 16px; }
+    .home-green-title { font-size: 1.35rem; }
+    .home-green-card-number { font-size: 26px; letter-spacing: -1px; }
+    .home-green-card { border-radius: 16px; padding: 18px 10px 14px; }
 }
-
-
 
 
 

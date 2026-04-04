@@ -114,18 +114,17 @@ function Home() {
 
                         {/* Header block */}
                         <div className="home-green-header">
-                            <div
-                                className={`home-green-badge${role === 'ROLE_ADMIN' ? ' home-green-badge--admin' : ''}`}
-                                onClick={role === 'ROLE_ADMIN' ? handleRefresh : undefined}
-                                title={role === 'ROLE_ADMIN' ? t('homeGoGreen.refresh') : undefined}
-                            >
-                                <FontAwesomeIcon icon={isRefreshing ? faArrowsRotate : faLeaf} spin={isRefreshing} />
-                                {isRefreshing ? t('homeGoGreen.updating') : t('homeGoGreen.badge')}
-                            </div>
-                            <h2 className="home-green-title">{t('homeGoGreen.title')}</h2>
-                            <p className="home-green-subtitle">
-                                {t('homeGoGreen.subtitle')}
-                            </p>
+                            <h2 className="home-green-title">
+                                <span
+                                    className={`home-green-title-icon${role === 'ROLE_ADMIN' ? ' home-green-title-icon--admin' : ''}`}
+                                    onClick={role === 'ROLE_ADMIN' ? handleRefresh : undefined}
+                                    title={role === 'ROLE_ADMIN' ? t('homeGoGreen.refresh') : undefined}
+                                >
+                                    <FontAwesomeIcon icon={isRefreshing ? faArrowsRotate : faLeaf} spin={isRefreshing} />
+                                </span>
+                                <span className="home-green-title-text">{t('homeGoGreen.title')}</span>
+                            </h2>
+                            <p className="home-green-subtitle">{t('homeGoGreen.subtitle')}</p>
                         </div>
 
                         {/* Stat cards */}
