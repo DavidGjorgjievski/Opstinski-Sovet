@@ -887,7 +887,7 @@ export default function SpeakingPanel({
     const hasCurrent = currentSpeakerRef.current !== null;
     const body = hasCurrent
       ? { status: 'APPROVED' }
-      : { status: 'SPEAKING', speakerStartTime: Date.now() };
+      : { status: 'SPEAKING' };
     try {
       await api.patch(
         `/api/speaking/municipality/${municipalityId}/items/${entryId}/status`,
