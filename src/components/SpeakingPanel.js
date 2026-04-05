@@ -515,6 +515,7 @@ export default function SpeakingPanel({
   const lastSpeakerIdRef = useRef(null);
   const skipTimerRemoveRef = useRef(false);
   const currentSpeakerRef = useRef(null);
+  const clockOffsetRef = useRef(0); // client ms ahead of server (positive = client faster)
 
   // ── Load durations from backend ────────────────────────────────────────────
   useEffect(() => {
@@ -694,7 +695,8 @@ export default function SpeakingPanel({
     (speaker) => {
       const duration = durations[speaker.type] || durations.SPEECH;
       if (speaker.speakerStartTime) {
-        const elapsed = Math.floor((Date.now() - speaker.speakerStartTime) / 1000);
+        const correctedNow = Date.now() - clockOffsetRef.current;
+        const elapsed = Math.floor((correctedNow - speaker.speakerStartTime) / 1000);
         const remaining = Math.max(0, duration - elapsed);
         startTimerAt(remaining);
       } else {
@@ -765,7 +767,9 @@ export default function SpeakingPanel({
     api
       .get(`/api/speaking/municipality/${municipalityId}/items`)
       .then((res) => {
-        const items = res.data.map(mapDtoToEntry);
+        const { serverNow, items: dtoItems } = res.data;
+        clockOffsetRef.current = Date.now() - serverNow;
+        const items = dtoItems.map(mapDtoToEntry);
         setQueue(items);
         const speaker = items.find((e) => e.status === 'SPEAKING');
         if (speaker) {
@@ -780,16 +784,23 @@ export default function SpeakingPanel({
   useEffect(() => {
     if (!speakingMessages.length) return;
     const last = speakingMessages[speakingMessages.length - 1];
-    if (!Array.isArray(last)) return;
+    if (!last || !last.items) return;
 
-    const items = last.map(mapDtoToEntry);
+    clockOffsetRef.current = Date.now() - last.serverNow;
+    const items = last.items.map(mapDtoToEntry);
     setQueue(items);
 
     const speaker = items.find((e) => e.status === 'SPEAKING');
-    if (speaker && speaker.id !== lastSpeakerIdRef.current) {
-      lastSpeakerIdRef.current = speaker.id;
-      startTimerFor(speaker);
-    } else if (!speaker) {
+    if (speaker) {
+      if (speaker.id !== lastSpeakerIdRef.current) {
+        // New speaker — start fresh
+        lastSpeakerIdRef.current = speaker.id;
+        startTimerFor(speaker);
+      } else {
+        // Same speaker still speaking — re-sync timer to correct any drift
+        startTimerFor(speaker);
+      }
+    } else {
       stopTimer();
       setTimeLeft(0);
       setIsPaused(false);
