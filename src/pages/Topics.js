@@ -1077,7 +1077,7 @@ useEffect(() => {
             {topics.length > 0 && <Footer />}
 
 
-            {showFixDiv && (
+            {showFixDiv && !isSessionLocked && (
                 <div
                 className={`fixed-position-div ${showNumber ? 'show-number' : 'div-bigger'}`}
                 onClick={toggleVisibility}
@@ -1134,7 +1134,7 @@ useEffect(() => {
             canSeeAction={hasTopicPermissionsStatus}
         />
 
-        {showFixDiv && (
+        {showFixDiv && !isSessionLocked && (
             <SpeakingPanel
                 presentedTopicId={presentedTopicId}
                 userInfo={userInfo}
