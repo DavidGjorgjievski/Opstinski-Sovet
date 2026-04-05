@@ -565,10 +565,17 @@ export default function SpeakingPanel({
 
   useEffect(() => { currentSpeakerRef.current = currentSpeaker; }, [currentSpeaker]);
 
-  const visibleQueue = useMemo(
-    () => queue.filter((e) => ['PENDING', 'APPROVED'].includes(e.status)),
-    [queue]
-  );
+  const TYPE_PRIORITY = { COUNTER_REPLY: 0, REPLY: 1, SPEECH: 2 };
+
+  const visibleQueue = useMemo(() => {
+    const filtered = queue.filter((e) => ['PENDING', 'APPROVED'].includes(e.status));
+    return [...filtered].sort((a, b) => {
+      const pa = TYPE_PRIORITY[a.type] ?? 3;
+      const pb = TYPE_PRIORITY[b.type] ?? 3;
+      if (pa !== pb) return pa - pb;
+      return filtered.indexOf(a) - filtered.indexOf(b);
+    });
+  }, [queue]);
 
 
   const myUsername = userInfo?.username;
@@ -1129,7 +1136,7 @@ export default function SpeakingPanel({
                     isFirst={idx === 0}
                     isLast={idx === visibleQueue.length - 1}
                     allEntries={queue}
-                    canParticipate={canParticipate}
+                    canParticipate={false}
                     onRequestReplyToEntry={requestReplyToEntry}
                     onRequestCounterToEntry={requestCounterReplyToEntry}
                   />
