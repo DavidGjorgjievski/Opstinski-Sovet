@@ -47,6 +47,8 @@ function saveDurationsToStorage(municipalityId, durations) {
   } catch { /* ignore */ }
 }
 
+const TYPE_PRIORITY = { COUNTER_REPLY: 0, REPLY: 1, SPEECH: 2 };
+
 const TYPE_CONFIG = {
   SPEECH: {
     label: 'Speech',
@@ -564,8 +566,6 @@ export default function SpeakingPanel({
   );
 
   useEffect(() => { currentSpeakerRef.current = currentSpeaker; }, [currentSpeaker]);
-
-  const TYPE_PRIORITY = { COUNTER_REPLY: 0, REPLY: 1, SPEECH: 2 };
 
   const visibleQueue = useMemo(() => {
     const filtered = queue.filter((e) => ['PENDING', 'APPROVED'].includes(e.status));
