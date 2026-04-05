@@ -156,7 +156,6 @@ function GoGreen() {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
                         <div className="gogreen-table-legend">
                             <div className="gogreen-table-legend-item">
                                 <span className="gogreen-table-legend-label">{t('goGreen.pages')}</span>
@@ -167,6 +166,7 @@ function GoGreen() {
                                 <span className="gogreen-table-legend-text">{t('goGreen.pagesSavedExplain')}</span>
                             </div>
                         </div>
+                    </div>
                 </>)}
                 </div>
             </main>
