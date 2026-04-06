@@ -66,11 +66,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
-    color: white;
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #1a1a1a;
     font-size: 30px;
     font-weight: 700;
-    padding: 14px 40px;
+    padding: 8px 24px;
     border-radius: 999px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
