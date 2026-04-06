@@ -56,6 +56,15 @@ function AmendmentDetails() {
         navigate(`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}#amendment-${amendmentId}`);
     };
 
+    const getTitleFontSize = (title) => {
+        const len = title?.length || 0;
+        if (len > 400) return '16px';
+        if (len > 250) return '18px';
+        if (len > 150) return '22px';
+        if (len > 80)  return '26px';
+        return null; // use CSS default (29px)
+    };
+
     return (
         <div className="topic-details-container">
             <HelmetProvider>
@@ -92,7 +101,7 @@ function AmendmentDetails() {
                                 </h1>
                             </div>
                             <div>
-                                <p className="detail-title">{details.title}</p>
+                                <p className="detail-title" style={getTitleFontSize(details.title) ? { fontSize: getTitleFontSize(details.title) } : undefined}>{details.title}</p>
 
                                 {details.status === 'CREATED' && (
                                     <div>

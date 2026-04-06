@@ -72,6 +72,15 @@ function TopicDetails() {
         navigate(`/municipalities/${municipalityId}/sessions/${id}/topics#topic-${idt}`);
     };
 
+    const getTitleFontSize = (title) => {
+        const len = title?.length || 0;
+        if (len > 400) return '16px';
+        if (len > 250) return '18px';
+        if (len > 150) return '22px';
+        if (len > 80)  return '26px';
+        return null; // use CSS default (29px)
+    };
+
     return (
         <div className="topic-details-container">
             <HelmetProvider>
@@ -109,7 +118,7 @@ function TopicDetails() {
                         </div>
                       <div>
                         <div>
-                            <p className='detail-title'>{topicDetails.title}</p>
+                            <p className='detail-title' style={getTitleFontSize(topicDetails.title) ? { fontSize: getTitleFontSize(topicDetails.title) } : undefined}>{topicDetails.title}</p>
                         </div>
                         {topicDetails && topicDetails.status === "CREATED" && (
                             <div>

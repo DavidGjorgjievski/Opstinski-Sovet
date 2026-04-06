@@ -46,9 +46,11 @@
 .presented-topic-header {
     text-align: center;
     font-weight: bolder;
-    font-size: 50px;
+    font-size: 55px;
     margin-top: 50px;
     padding: 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -126,6 +128,81 @@
 
 .finished-topic {
     background-color: #cdcaca;
+}
+
+.presenter-speaker-card {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    border-left: 6px solid;
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.13);
+    z-index: 200;
+    min-width: 280px;
+    max-width: 400px;
+    animation: sp-fade-in 0.25s ease;
+}
+
+.presenter-speaker-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    flex-shrink: 0;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.presenter-speaker-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.presenter-speaker-card-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.presenter-speaker-card-type {
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.presenter-speaker-card-time {
+    font-size: 30px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: #1e293b;
+    margin-top: 4px;
+}
+
+.presenter-speaker-time-low {
+    color: #f97316;
+}
+
+.presenter-speaker-time-critical {
+    color: #ef4444;
+    animation: sp-pulse-text 0.9s infinite alternate;
+}
+
+@keyframes sp-pulse-text {
+    from { opacity: 1; }
+    to   { opacity: 0.55; }
 }
 
 .toggle-label-refresh {
@@ -206,7 +283,7 @@
     }
 
     .presented-topic-header{
-        font-size: 40px;
+        font-size: 45px;
     }
 }
 
@@ -221,7 +298,7 @@
     }
 
     .presented-topic-header {
-        font-size: 35px;
+        font-size: 40px;
     }
 }
 
@@ -247,7 +324,7 @@
     }
 
     .presented-topic-header {
-        font-size: 27px;
+        font-size: 32px;
         margin-top: 60px;
     }
 
@@ -268,7 +345,7 @@
     }
 
     .presented-topic-header {
-        font-size: 23px;
+        font-size: 28px;
     }
 }
 
@@ -294,7 +371,7 @@
     }
 
     .presented-topic-header {
-        font-size: 20px;
+        font-size: 25px;
     }
 }
 
@@ -305,7 +382,7 @@
     }
 
     .presented-topic-header {
-        font-size: 20px;
+        font-size: 25px;
     }
 }
 

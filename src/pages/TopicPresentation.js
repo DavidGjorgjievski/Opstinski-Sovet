@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/TopicPresentation.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -8,11 +8,22 @@ import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import api from '../api/axios'; 
+import api from '../api/axios';
+import useSpeakingWebSocket from '../hooks/useSpeakingWebSocket';
+import UserAvatar from '../components/UserAvatar';
+import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const [currentSpeaker, setCurrentSpeaker] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [, setDurations] = useState({ SPEECH: 300, REPLY: 180, COUNTER_REPLY: 60 });
+  const durationsRef = useRef({ SPEECH: 300, REPLY: 180, COUNTER_REPLY: 60 });
+  const timerRef = useRef(null);
+  const clockOffsetRef = useRef(0);
+  const lastSpeakerIdRef = useRef(null);
+  const isPausedRef = useRef(false);
   const { id, municipalityId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -20,15 +31,29 @@ const TopicPresentation = () => {
   const { messages: voteMessages } = useVoteWebSocket(id);
   const { messages: presenterMessages } = usePresenterWebSocket(id);
   const { messages: newTopicMessages } = useNewTopicWebSocket(id);
+  const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(municipalityId);
 
   let municipalityImage = null;
+  let sessionMunicipalityTermId = null;
   if (municipalityId) {
     const municipalities = JSON.parse(localStorage.getItem("municipalities") || "[]");
     const municipality = municipalities.find((m) => m.id === Number(municipalityId));
     if (municipality) {
       municipalityImage = municipality.logoImage;
     }
+    const cachedSessions = JSON.parse(localStorage.getItem(`sessions_${municipalityId}`) || "[]");
+    const session = cachedSessions.find(s => s.id === parseInt(id));
+    if (session) sessionMunicipalityTermId = session.municipalityMandateId;
   }
+
+  // Populate image cache once per mandate term
+  useEffect(() => {
+    if (!sessionMunicipalityTermId) return;
+    if (isTermPopulated(sessionMunicipalityTermId)) return;
+    api.get(`/api/municipality-terms/${sessionMunicipalityTermId}/user-images`)
+      .then(res => storeTermImages(sessionMunicipalityTermId, res.data))
+      .catch(() => {});
+  }, [sessionMunicipalityTermId]);
 
   // Fetch the current topic
   const fetchPresenterTopic = useCallback(async () => {
@@ -89,6 +114,138 @@ const TopicPresentation = () => {
       return prev;
     });
   }, [voteMessages, autoRefresh]);
+
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const startTimerAt = useCallback((seconds) => {
+    stopTimer();
+    setTimeLeft(seconds);
+    if (seconds <= 0) return;
+    timerRef.current = setInterval(() => {
+      if (isPausedRef.current) return;
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, [stopTimer]);
+
+  const applyDurations = useCallback((d) => {
+    const mapped = { SPEECH: d.speechSeconds, REPLY: d.replySeconds, COUNTER_REPLY: d.counterReplySeconds };
+    durationsRef.current = mapped;
+    setDurations(mapped);
+  }, []);
+
+  const startTimerForSpeaker = useCallback((speaker) => {
+    const duration = durationsRef.current[speaker.type] || 300;
+    if (speaker.speakerStartTime) {
+      const correctedNow = Date.now() - clockOffsetRef.current;
+      const elapsed = Math.floor((correctedNow - speaker.speakerStartTime) / 1000);
+      startTimerAt(Math.max(0, duration - elapsed));
+    } else {
+      startTimerAt(duration);
+    }
+  }, [startTimerAt]);
+
+  // Fetch durations + items together so timer starts with correct durations
+  useEffect(() => {
+    if (!municipalityId) return;
+    Promise.all([
+      api.get(`/api/speaking/municipality/${municipalityId}/durations`),
+      api.get(`/api/speaking/municipality/${municipalityId}/items`),
+    ]).then(([durRes, itemsRes]) => {
+      applyDurations(durRes.data);
+      clockOffsetRef.current = Date.now() - (itemsRes.data.serverNow || Date.now());
+      const speaking = (itemsRes.data.items || []).find(i => i.status === 'SPEAKING') || null;
+      setCurrentSpeaker(speaking);
+      if (speaking) {
+        lastSpeakerIdRef.current = speaking.id;
+        const duration = durationsRef.current[speaking.type] || 300;
+        const correctedNow = Date.now() - clockOffsetRef.current;
+        const elapsed = speaking.speakerStartTime
+          ? Math.floor((correctedNow - speaking.speakerStartTime) / 1000)
+          : 0;
+        startTimerAt(Math.max(0, duration - elapsed));
+      }
+    }).catch(() => {});
+  }, [municipalityId, applyDurations, startTimerAt]);
+
+  // Live updates for current speaker via WebSocket
+  useEffect(() => {
+    if (!speakingMessages.length) return;
+    const last = speakingMessages.at(-1);
+    clockOffsetRef.current = Date.now() - (last.serverNow || Date.now());
+    const speaking = (last.items || []).find(i => i.status === 'SPEAKING') || null;
+    setCurrentSpeaker(speaking);
+  }, [speakingMessages]);
+
+  // Sync durations from WebSocket
+  useEffect(() => {
+    if (!durationMessages.length) return;
+    applyDurations(durationMessages.at(-1));
+  }, [durationMessages, applyDurations]);
+
+  // Sync pause from WebSocket
+  useEffect(() => {
+    if (!pauseMessages.length) return;
+    isPausedRef.current = !!pauseMessages.at(-1).paused;
+  }, [pauseMessages]);
+
+  // Start/reset timer when speaker changes via WebSocket
+  useEffect(() => {
+    if (!currentSpeaker) {
+      if (lastSpeakerIdRef.current !== null) {
+        stopTimer();
+        setTimeLeft(0);
+        lastSpeakerIdRef.current = null;
+      }
+      return;
+    }
+    if (currentSpeaker.id === lastSpeakerIdRef.current) return;
+    lastSpeakerIdRef.current = currentSpeaker.id;
+    startTimerForSpeaker(currentSpeaker);
+  }, [currentSpeaker, startTimerForSpeaker, stopTimer]);
+
+  // Cleanup timer on unmount
+  useEffect(() => () => stopTimer(), [stopTimer]);
+
+  const getTitleFontSize = (title) => {
+    const len = title?.length || 0;
+    if (len > 450) return '25px';
+    if (len > 400) return '27px';
+    if (len > 250) return '30px';
+    if (len > 150) return '35px';
+    if (len > 80)  return '45px';
+    return null; // use CSS default (55px)
+  };
+
+  const formatTime = (secs) => {
+    if (secs <= 0) return '00:00';
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  };
+
+  const SPEAKER_TYPE_COLORS = {
+    SPEECH: { color: '#2563eb', bg: '#dbeafe' },
+    REPLY: { color: '#ea580c', bg: '#ffedd5' },
+    COUNTER_REPLY: { color: '#dc2626', bg: '#fee2e2' },
+  };
+
+  const SPEAKER_TYPE_KEYS = {
+    SPEECH: 'speakingPanel.types.speech',
+    REPLY: 'speakingPanel.types.reply',
+    COUNTER_REPLY: 'speakingPanel.types.counterFull',
+  };
 
   return (
     <div
@@ -157,7 +314,12 @@ const TopicPresentation = () => {
         <h1 className="text-center">{t("topicsPage.noTopicsPresent")}</h1>
       ) : (
         <>
-          <h1 className="presented-topic-header">{topic.title}</h1>
+          <h1
+            className="presented-topic-header"
+            style={getTitleFontSize(topic.title) ? { fontSize: getTitleFontSize(topic.title) } : undefined}
+          >
+            {topic.title}
+          </h1>
           <div className="presented-topic-body">
             {!(
               topic.topicStatus === "CREATED" ||
@@ -213,6 +375,29 @@ const TopicPresentation = () => {
           )}
         </>
       )}
+      {currentSpeaker && (() => {
+        const cfg = SPEAKER_TYPE_COLORS[currentSpeaker.type] || SPEAKER_TYPE_COLORS.SPEECH;
+        return (
+          <div className="presenter-speaker-card" style={{ borderLeftColor: cfg.color, backgroundColor: cfg.bg }}>
+            <UserAvatar
+              username={currentSpeaker.username}
+              name={currentSpeaker.fullName.split(' ')[0]}
+              surname={currentSpeaker.fullName.split(' ').slice(1).join(' ')}
+              className="presenter-speaker-avatar"
+              termId={sessionMunicipalityTermId}
+            />
+            <div className="presenter-speaker-card-body">
+              <div className="presenter-speaker-card-name">{currentSpeaker.fullName}</div>
+              <div className="presenter-speaker-card-type" style={{ color: cfg.color }}>
+                {t(SPEAKER_TYPE_KEYS[currentSpeaker.type] || SPEAKER_TYPE_KEYS.SPEECH)}
+              </div>
+              <div className={`presenter-speaker-card-time ${timeLeft < (durationsRef.current[currentSpeaker.type] || 300) * 0.2 ? 'presenter-speaker-time-critical' : timeLeft < (durationsRef.current[currentSpeaker.type] || 300) * 0.4 ? 'presenter-speaker-time-low' : ''}`}>
+                {formatTime(timeLeft)}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 };
