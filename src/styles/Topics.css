@@ -569,6 +569,49 @@ html {
     border: 2px solid #c5c4c4;
 }
 
+.topic-status-badge-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 10px auto;
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    padding: 10px 0;
+}
+
+.topic-list-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.15s ease;
+}
+
+.topic-list-status-badge--information {
+    background: linear-gradient(135deg, #93c5fd, #60a5fa);
+    color: #1e3a5f;
+}
+
+.topic-list-status-badge--withdrawn {
+    background: linear-gradient(135deg, #fca5a5, #f87171);
+    color: #7f1d1d;
+}
+
+.topic-list-status-badge--information:hover,
+.topic-list-status-badge--withdrawn:hover {
+    transform: scale(1.03);
+    transition: transform 0.15s ease;
+}
+
 .menu-list {
     position: absolute;
     top: 100%;

@@ -992,14 +992,16 @@ useEffect(() => {
                                 </div>
                              )}
 
-                        <div>
-                            {topic.topicStatus === "INFORMATION" && (
-                                <h4 className='topic-status-text'>{t("topicsPage.information")}</h4>
-                            )}
-                            {topic.topicStatus === "WITHDRAWN" && (
-                                <h4 className='topic-status-text'>{t("topicsPage.withdrawn")}</h4>
-                            )}
-                        </div>
+                        {(topic.topicStatus === "INFORMATION" || topic.topicStatus === "WITHDRAWN") && (
+                            <div className="topic-status-badge-wrapper">
+                                {topic.topicStatus === "INFORMATION" && (
+                                    <span className="topic-list-status-badge topic-list-status-badge--information">{t("topicsPage.information")}</span>
+                                )}
+                                {topic.topicStatus === "WITHDRAWN" && (
+                                    <span className="topic-list-status-badge topic-list-status-badge--withdrawn">{t("topicsPage.withdrawn")}</span>
+                                )}
+                            </div>
+                        )}
 
 
                                         <div className="topic-item-body-detail-footer">

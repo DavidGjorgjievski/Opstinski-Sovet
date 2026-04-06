@@ -392,16 +392,16 @@ const TopicPresentation = () => {
 
           {topic.topicStatus === "INFORMATION" && (
             <div className="d-flex justify-content-center w-100">
-              <h1 className="text-center fw-bold topic-status-info">
+              <div className="topic-status-badge topic-status-badge--information">
                 {t("topicsPage.information")}
-              </h1>
+              </div>
             </div>
           )}
           {topic.topicStatus === "WITHDRAWN" && (
             <div className="d-flex justify-content-center w-100">
-              <h1 className="text-center fw-bold topic-status-info">
+              <div className="topic-status-badge topic-status-badge--withdrawn">
                 {t("topicsPage.withdrawn")}
-              </h1>
+              </div>
             </div>
           )}
         </>
