@@ -16,6 +16,7 @@ import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 const TopicPresentation = () => {
   const [topic, setTopic] = useState(null);
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [currentSpeaker, setCurrentSpeaker] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [, setDurations] = useState({ SPEECH: 300, REPLY: 180, COUNTER_REPLY: 60 });
@@ -218,14 +219,39 @@ const TopicPresentation = () => {
   // Cleanup timer on unmount
   useEffect(() => () => stopTimer(), [stopTimer]);
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const getTitleFontSize = (title) => {
     const len = title?.length || 0;
+    const w = windowWidth;
+
+    if (w <= 500) {
+      if (len > 450) return '13px';
+      if (len > 400) return '15px';
+      if (len > 250) return '17px';
+      if (len > 150) return '19px';
+      if (len > 80)  return '22px';
+      return null; // CSS default ~25px
+    }
+    if (w <= 768) {
+      if (len > 450) return '16px';
+      if (len > 400) return '18px';
+      if (len > 250) return '21px';
+      if (len > 150) return '24px';
+      if (len > 80)  return '28px';
+      return null; // CSS default ~32px
+    }
+    // desktop
     if (len > 450) return '25px';
     if (len > 400) return '27px';
     if (len > 250) return '30px';
     if (len > 150) return '35px';
     if (len > 80)  return '45px';
-    return null; // use CSS default (55px)
+    return null; // CSS default 55px
   };
 
   const formatTime = (secs) => {
@@ -320,6 +346,11 @@ const TopicPresentation = () => {
           >
             {topic.title}
           </h1>
+          {topic.amount && (
+            <div className="presented-topic-amount-wrapper">
+              <span className="presented-topic-amount">{topic.amount} {t("topicsPage.currency")}</span>
+            </div>
+          )}
           <div className="presented-topic-body">
             {!(
               topic.topicStatus === "CREATED" ||
