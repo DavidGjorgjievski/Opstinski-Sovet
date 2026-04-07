@@ -528,23 +528,26 @@
 /* Trash button — absolute top-right */
 .sp-qi-trash {
   position: absolute;
-  top: 7px;
-  right: 7px;
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  border: 1px solid #fca5a5;
-  background: #fff;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
   color: #dc2626;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
 }
 .sp-qi-trash:hover {
-  transform: scale(1.2);
+  background: #dc2626;
+  color: #fff;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 /* Row 1 — identity */
