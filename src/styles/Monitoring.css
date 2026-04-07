@@ -441,6 +441,26 @@
     line-height: 1.4;
 }
 
+/* ===== Today divider ===== */
+.monitoring-divider-item {
+    list-style: none;
+    padding: 0;
+    margin: 6px auto;
+    width: 500px;
+}
+
+.monitoring-divider-line {
+    border: none;
+    border-top: 2px dashed #6b7280;
+    margin: 0;
+}
+
+@media (max-width: 510px) {
+    .monitoring-divider-item {
+        width: 75vw;
+    }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .monitoring-header-title {

@@ -211,7 +211,13 @@ function Monitoring() {
                                     </div>
                                 )}
                                 <ul className="monitoring-list-ul" ref={listRef}>
-                                    {users.map(user => {
+                                    {(() => {
+                                        const todayStart = new Date(now);
+                                        todayStart.setHours(0, 0, 0, 0);
+                                        const isToday = u => u.onlineSessions > 0 || (u.lastSeen && new Date(u.lastSeen) >= todayStart);
+                                        const sortedUsers = [...users.filter(isToday), ...users.filter(u => !isToday(u))];
+                                        const splitIdx = sortedUsers.findIndex(u => !isToday(u));
+                                        return sortedUsers.map((user, idx) => {
                                         const isOnline = user.onlineSessions > 0;
                                         const isIdle = isOnline && user.lastSeen && (now - new Date(user.lastSeen).getTime()) > 3 * 60 * 1000;
                                         const statusClass = !isOnline ? 'offline' : isIdle ? 'idle' : 'online';
@@ -219,7 +225,13 @@ function Monitoring() {
                                         const isExpanded = expandedUsers[user.username];
 
                                         return (
-                                            <li key={user.username} className="monitoring-item">
+                                            <React.Fragment key={user.username}>
+                                            {idx === splitIdx && (
+                                                <li className="monitoring-divider-item">
+                                                    <hr className="monitoring-divider-line" />
+                                                </li>
+                                            )}
+                                            <li className="monitoring-item">
                                                 {/* User row */}
                                                 <div
                                                     className={`monitoring-content ${hasSessions ? 'monitoring-content-clickable' : ''}`}
@@ -312,8 +324,10 @@ function Monitoring() {
                                                     </div>
                                                 )}
                                             </li>
+                                            </React.Fragment>
                                         );
-                                    })}
+                                        });
+                                    })()}
                                 </ul>
                             </div>
                         )}
