@@ -474,16 +474,6 @@ export default function SpeakingPanel({
   const [isOpen, setIsOpen] = useState(false);
   const [isPopupDismissed, setIsPopupDismissed] = useState(false);
 
-  // Reset dismissed state when panel closes or a new speaker starts
-  const prevSpeakerIdRef = useRef(null);
-  useEffect(() => {
-    const newId = currentSpeaker?.id ?? null;
-    if (newId !== prevSpeakerIdRef.current) {
-      prevSpeakerIdRef.current = newId;
-      if (newId !== null) setIsPopupDismissed(false);
-    }
-  });
-
   useEffect(() => {
     if (!isOpen) setIsPopupDismissed(false);
   }, [isOpen]);
@@ -610,6 +600,11 @@ export default function SpeakingPanel({
   );
 
   useEffect(() => { currentSpeakerRef.current = currentSpeaker; }, [currentSpeaker]);
+
+  // Reset dismissed state when a new speaker starts
+  useEffect(() => {
+    if (currentSpeaker?.id != null) setIsPopupDismissed(false);
+  }, [currentSpeaker?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const visibleQueue = useMemo(() => {
     const filtered = queue.filter((e) => ['PENDING', 'APPROVED'].includes(e.status));
