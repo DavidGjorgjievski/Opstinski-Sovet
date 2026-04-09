@@ -493,13 +493,16 @@ export default function SpeakingPanel({
   const [popupPos, setPopupPos] = useState({ x: 4, y: 200 });
   const popupElRef = useRef(null);
   const hasDraggedRef = useRef(false);
+  const lastPointerPos = useRef({ x: 0, y: 0 }); // tracks last known position (fixes iOS pointerup coords = 0)
   const [isDraggingPopup, setIsDraggingPopup] = useState(false);
   const [isNearCloseZone, setIsNearCloseZone] = useState(false);
 
   // Returns distance of pointer from the close-zone center
   const distToCloseZone = useCallback((clientX, clientY) => {
+    const vp = window.visualViewport;
+    const vh = vp ? vp.height : window.innerHeight;
     const cx = window.innerWidth / 2;
-    const cy = window.innerHeight - 48 - 28; // center of the 56px zone
+    const cy = vh - 48 - 28; // center of the 56px zone
     return Math.hypot(clientX - cx, clientY - cy);
   }, []);
 
@@ -508,14 +511,19 @@ export default function SpeakingPanel({
     const startX = e.clientX - popupPos.x;
     const startY = e.clientY - popupPos.y;
     hasDraggedRef.current = false;
+    lastPointerPos.current = { x: e.clientX, y: e.clientY };
 
     const onMove = (me) => {
       const el = popupElRef.current;
+      const vp = window.visualViewport;
+      const vw = vp ? vp.width : window.innerWidth;
+      const vh = vp ? vp.height : window.innerHeight;
       const w = el ? el.offsetWidth : 80;
       const h = el ? el.offsetHeight : 110;
-      const nx = Math.min(Math.max(me.clientX - startX, 0), window.innerWidth - w);
-      const ny = Math.min(Math.max(me.clientY - startY, HEADER_HEIGHT), window.innerHeight - h);
+      const nx = Math.min(Math.max(me.clientX - startX, 0), vw - w);
+      const ny = Math.min(Math.max(me.clientY - startY, HEADER_HEIGHT), vh - h);
       hasDraggedRef.current = true;
+      lastPointerPos.current = { x: me.clientX, y: me.clientY };
       setIsDraggingPopup(true);
       setIsNearCloseZone(distToCloseZone(me.clientX, me.clientY) < 90);
       setPopupPos({ x: nx, y: ny });
@@ -525,7 +533,10 @@ export default function SpeakingPanel({
       window.removeEventListener('pointerup', onUp);
       setIsDraggingPopup(false);
       setIsNearCloseZone(false);
-      if (hasDraggedRef.current && distToCloseZone(ue.clientX, ue.clientY) < 90) {
+      // Use last known position as fallback — iOS Safari fires pointerup with clientX/Y = 0
+      const cx = ue.clientX || lastPointerPos.current.x;
+      const cy = ue.clientY || lastPointerPos.current.y;
+      if (hasDraggedRef.current && distToCloseZone(cx, cy) < 90) {
         setIsPopupDismissed(true);
         setPopupPos({ x: 4, y: 200 });
       }
@@ -757,6 +768,17 @@ export default function SpeakingPanel({
 
   // Cleanup on unmount
   useEffect(() => () => stopTimer(), [stopTimer]);
+
+  // Re-sync timer when tab becomes visible again (browser throttles intervals when hidden)
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && currentSpeakerRef.current && !isPausedRef.current) {
+        startTimerFor(currentSpeakerRef.current);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, [startTimerFor]);
 
   // ── Auto-end when timer hits 0 ─────────────────────────────────────────────
 
