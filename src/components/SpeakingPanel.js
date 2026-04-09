@@ -736,12 +736,26 @@ export default function SpeakingPanel({
         const correctedNow = Date.now() - clockOffsetRef.current;
         const elapsed = Math.floor((correctedNow - speaker.speakerStartTime) / 1000);
         const remaining = Math.max(0, duration - elapsed);
+        if (remaining === 0) {
+          // Time already expired while tab was hidden/away — end directly.
+          // Cannot rely on the useEffect because setTimeLeft(0) when already 0
+          // won't trigger a re-render.
+          if (!skipTimerRemoveRef.current) {
+            skipTimerRemoveRef.current = true;
+            stopTimer();
+            setTimeLeft(0);
+            api
+              .post(`/api/speaking/municipality/${municipalityId}/items/${speaker.id}/end`)
+              .catch(() => { skipTimerRemoveRef.current = false; });
+          }
+          return;
+        }
         startTimerAt(remaining);
       } else {
         startTimerAt(duration);
       }
     },
-    [durations, startTimerAt]
+    [durations, startTimerAt, stopTimer, municipalityId]
   );
 
   // Start/reset timer when the current speaker changes
