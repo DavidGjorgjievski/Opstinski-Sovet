@@ -472,12 +472,36 @@ export default function SpeakingPanel({
 
   // ── UI State ──────────────────────────────────────────────────────────────
   const [isOpen, setIsOpen] = useState(false);
+  const [isPopupDismissed, setIsPopupDismissed] = useState(false);
+
+  // Reset dismissed state when panel closes or a new speaker starts
+  const prevSpeakerIdRef = useRef(null);
+  useEffect(() => {
+    const newId = currentSpeaker?.id ?? null;
+    if (newId !== prevSpeakerIdRef.current) {
+      prevSpeakerIdRef.current = newId;
+      if (newId !== null) setIsPopupDismissed(false);
+    }
+  });
+
+  useEffect(() => {
+    if (!isOpen) setIsPopupDismissed(false);
+  }, [isOpen]);
 
   // ── Draggable popup ───────────────────────────────────────────────────────
   const HEADER_HEIGHT = 80;
   const [popupPos, setPopupPos] = useState({ x: 4, y: 200 });
   const popupElRef = useRef(null);
   const hasDraggedRef = useRef(false);
+  const [isDraggingPopup, setIsDraggingPopup] = useState(false);
+  const [isNearCloseZone, setIsNearCloseZone] = useState(false);
+
+  // Returns distance of pointer from the close-zone center
+  const distToCloseZone = useCallback((clientX, clientY) => {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight - 48 - 28; // center of the 56px zone
+    return Math.hypot(clientX - cx, clientY - cy);
+  }, []);
 
   const onPopupPointerDown = useCallback((e) => {
     e.preventDefault();
@@ -492,15 +516,23 @@ export default function SpeakingPanel({
       const nx = Math.min(Math.max(me.clientX - startX, 0), window.innerWidth - w);
       const ny = Math.min(Math.max(me.clientY - startY, HEADER_HEIGHT), window.innerHeight - h);
       hasDraggedRef.current = true;
+      setIsDraggingPopup(true);
+      setIsNearCloseZone(distToCloseZone(me.clientX, me.clientY) < 90);
       setPopupPos({ x: nx, y: ny });
     };
-    const onUp = () => {
+    const onUp = (ue) => {
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
+      setIsDraggingPopup(false);
+      setIsNearCloseZone(false);
+      if (hasDraggedRef.current && distToCloseZone(ue.clientX, ue.clientY) < 90) {
+        setIsPopupDismissed(true);
+        setPopupPos({ x: 4, y: 200 });
+      }
     };
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
-  }, [popupPos]);
+  }, [popupPos, distToCloseZone]);
 
   // ── Queue State ───────────────────────────────────────────────────────────
   const [queue, setQueue] = useState([]);
@@ -993,10 +1025,10 @@ export default function SpeakingPanel({
     )}
 
     {/* Messenger-style popup: visible only when panel is closed and someone is speaking */}
-    {!isOpen && currentSpeaker && (
+    {!isOpen && currentSpeaker && !isPopupDismissed && (
       <div
         ref={popupElRef}
-        className="sp-floating-popup"
+        className={`sp-floating-popup${isNearCloseZone ? ' sp-popup-near-close' : ''}`}
         style={{ left: popupPos.x, top: popupPos.y }}
         onPointerDown={onPopupPointerDown}
         onClick={() => { if (!hasDraggedRef.current) setIsOpen(true); }}
@@ -1024,6 +1056,13 @@ export default function SpeakingPanel({
         >
           {formatTime(timeLeft)}
         </span>
+      </div>
+    )}
+
+    {/* Bottom-center close zone — visible while dragging the popup */}
+    {!isOpen && currentSpeaker && !isPopupDismissed && isDraggingPopup && (
+      <div className={`sp-close-zone${isNearCloseZone ? ' sp-close-zone-active' : ''}`} aria-hidden="true">
+        <FontAwesomeIcon icon={faXmark} />
       </div>
     )}
 
