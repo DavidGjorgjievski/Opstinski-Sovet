@@ -44,9 +44,15 @@ import ProfileView from './pages/ProfileView'
 import UserImageStorage from './pages/UserImageStorage'
 import { SessionModalProvider } from './context/SessionModalContext';
 import SessionExpiredModal from './components/SessionExpiredModal';
+import useHeartbeat from './hooks/useHeartbeat';
 import './styles/Main.css';
 
-import "./i18n"; 
+import "./i18n";
+
+function Heartbeat() {
+  useHeartbeat();
+  return null;
+}
 
 function App() {
   return (
@@ -55,6 +61,7 @@ function App() {
       <HelmetProvider>
         <Router>
           <HeadLinks />
+          <Heartbeat />
           <div className="App">
             <Routes>
               {/* Public routes */}

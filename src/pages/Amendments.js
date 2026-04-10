@@ -8,17 +8,20 @@ import RestartAmendmentStatusModal from '../components/RestartAmendmentStatusMod
 import AmendmentConfirmModal from '../components/AmendmentConfirmModal';
 import useAmendmentVoteWebSocket from "../hooks/useAmendmentVoteWebSocket";
 import useNewAmendmentWebSocket from "../hooks/useNewAmendmentWebSocket";
+import useAmendmentPresenterWebSocket from "../hooks/useAmendmentPresenterWebSocket";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-    faChevronLeft, 
-    faPlus, 
-    faEllipsisV, 
-    faPenToSquare, 
+import {
+    faChevronLeft,
+    faPlus,
+    faEllipsisV,
+    faPenToSquare,
     faTrash,
     faCircleStop,
     faRotateLeft,
     faCirclePlay,
-    faSquarePollVertical
+    faSquarePollVertical,
+    faDesktop,
+    faBookmark
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 
@@ -44,6 +47,7 @@ function Amendments() {
     const [deleteAmendmentId, setDeleteAmendmentId] = useState(null);
     const [deleteAmendmentTitle, setDeleteAmendmentTitle] = useState("");
     const [loadingPdfId, setLoadingPdfId] = useState(null);
+    const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
 
@@ -55,7 +59,10 @@ function Amendments() {
     const { messages: amendmentMessages, sendVote: sendAmendmentVote } =
     useAmendmentVoteWebSocket(idt);
 
-    const { messages: newAmendmentMessages, sendNewAmendment } = useNewAmendmentWebSocket(idt);
+    const { messages: newAmendmentMessages, sendNewAmendment } = useNewAmendmentWebSocket(id);
+
+    const { messages: presenterMessages, sendAmendmentPresenterUpdate } =
+        useAmendmentPresenterWebSocket(id);
 
     const toggleMenu = (amendmentId) => {
     setOpenMenus(prev => ({
@@ -107,6 +114,9 @@ const fetchAmendments = useCallback(async () => {
         setTopicTitle(data.topicTitle || "");
         setLoaded(true);
         setTopics(Array.isArray(data.topics) ? data.topics : []); // for progress
+        if (data.presentedAmendmentId != null) {
+            setPresentedAmendmentId(data.presentedAmendmentId);
+        }
         return amendmentsArray; // ✅ return for WebSocket
     } catch (error) {
         console.error("Error fetching amendments:", error);
@@ -280,8 +290,9 @@ const startAmendmentVoting = async (amendmentId, topicId) => {
             }));
         }
 
-        // Send WebSocket update
+        // Send WebSocket updates
         sendAmendmentVote(amendmentId);
+        sendAmendmentPresenterUpdate(amendmentId);
 
     } catch (error) {
         console.error('Error starting amendment voting:', error);
@@ -312,8 +323,9 @@ const finishAmendmentVoting = async (amendmentId, topicId) => {
             }));
         }
 
-        // Send WebSocket update
+        // Send WebSocket updates
         sendAmendmentVote(amendmentId);
+        sendAmendmentPresenterUpdate(amendmentId);
 
     } catch (error) {
         console.error('Error finishing amendment voting:', error);
@@ -438,6 +450,22 @@ const hasAmendmentPermissionsStatus = (
     ) || userInfo.role === 'ROLE_ADMIN'
 );
 
+const handlePresentAmendmentClick = async (amendmentId) => {
+    try {
+        await api.get(`/api/topics/${idt}/amendments/present/${amendmentId}`);
+        setPresentedAmendmentId(amendmentId);
+        sendAmendmentPresenterUpdate(amendmentId);
+    } catch (error) {
+        console.error("Failed to present amendment:", error);
+    }
+};
+
+useEffect(() => {
+    if (!presenterMessages.length) return;
+    const lastAmendmentId = Number(presenterMessages[presenterMessages.length - 1]);
+    setPresentedAmendmentId(lastAmendmentId);
+}, [presenterMessages]);
+
 const closeRestartAmendmentModal = () => {
     setIsRestartAmendmentModalOpen(false);
     setRestartAmendmentId(null);
@@ -546,14 +574,21 @@ const handleRestartAmendmentConfirm = () => {
                             .map(amendment => (
 
                                 <div key={amendment.id} className='topic-div-rel'>
+                                    {amendment.id === presentedAmendmentId && userInfo?.role !== "ROLE_GUEST" && (
+                                        <FontAwesomeIcon
+                                            icon={faBookmark}
+                                            className="topic-bookmark-icon"
+                                            title={t("topicsPage.presentBadge")}
+                                        />
+                                    )}
 
                                     <span
                                         id={`amendment-${amendment.id}`}
                                         className="topic-span-id"
                                     ></span>
 
-                                    <div className={`topic-item 
-                                        ${(amendment.status === 'FINISHED' || amendment.status === 'WITHDRAWN' || amendment.status === 'INFORMATION') ? 'finished-topic' : ''} 
+                                    <div className={`topic-item
+                                        ${(amendment.status === 'FINISHED' || amendment.status === 'WITHDRAWN' || amendment.status === 'INFORMATION') ? 'finished-topic' : ''}
                                         topic-item-size`}
                                     >
                                         <div className="topic-header-div">
@@ -592,7 +627,7 @@ const handleRestartAmendmentConfirm = () => {
                                             </h3>
                                            
                                             <div className='menu-wrapper'>
-                                            {hasAmendmentPermission && !isSessionLocked && (userInfo.role === 'ROLE_ADMIN' || amendment.createdBy === userInfo.username) && (
+                                            {(['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) || (hasAmendmentPermission && !isSessionLocked && amendment.createdBy === userInfo.username)) && (
                                                 <div className="menu-container" ref={(el) => (menuRefs.current[amendment.id] = el)}>
                                                     
                                                     {/* Menu Dots */}
@@ -607,8 +642,22 @@ const handleRestartAmendmentConfirm = () => {
                                                     {openMenus[amendment.id] && (
                                                         <ul className="menu-list">
 
-                                                            {/* Edit Amendment - for admin/president/editor/user */}
-                                                            {['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_EDITOR', 'ROLE_USER'].includes(userInfo.role) && (
+                                                            {/* Present Amendment - for admin/president */}
+                                                            {['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && (
+                                                                <li>
+                                                                    <span
+                                                                        onClick={() => {
+                                                                            handlePresentAmendmentClick(amendment.id);
+                                                                            toggleMenu(amendment.id);
+                                                                        }}
+                                                                    >
+                                                                        {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
+                                                                    </span>
+                                                                </li>
+                                                            )}
+
+                                                    {/* Edit Amendment - for admin/president/editor/user */}
+                                                            {['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_EDITOR', 'ROLE_USER'].includes(userInfo.role) && !isSessionLocked && (amendment.createdBy === userInfo.username || ['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role)) && (
                                                                 <li>
                                                                     <Link
                                                                         to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${idt}/edit/${amendment.id}`}
@@ -623,7 +672,7 @@ const handleRestartAmendmentConfirm = () => {
                                                             )}
 
                                                             {/* Delete Amendment - for admin/president, or user who created it */}
-                                                            {(['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) ||
+                                                            {!isSessionLocked && (['ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) ||
                                                               (userInfo.role === 'ROLE_USER' && amendment.createdBy === userInfo.username)) && (
                                                                 <li className="topic-delete-button">
                                                                     <span

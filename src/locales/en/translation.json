@@ -546,7 +546,8 @@
     "confirmDeleteMessage": "Are you sure you want to delete this amendment?",
     "confirmDeleteButton": "Delete",
     "cancelButton": "Cancel",
-    "amendmentFrom": "Amendment from"
+    "amendmentFrom": "Amendment from",
+    "amendment": "Amendment"
   },
   "addAmendmentForm": {
     "addTitle": "Add Amendment",

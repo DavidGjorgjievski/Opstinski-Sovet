@@ -5,16 +5,19 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
+import useAmendmentPresenterWebSocket from "../hooks/useAmendmentPresenterWebSocket";
+import useAmendmentVoteWebSocket from "../hooks/useAmendmentVoteWebSocket";
+import useNewAmendmentWebSocket from "../hooks/useNewAmendmentWebSocket";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faToggleOn, faToggleOff, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faToggleOn, faToggleOff, faChevronLeft, faFilePen } from "@fortawesome/free-solid-svg-icons";
 import api from '../api/axios';
 import useSpeakingWebSocket from '../hooks/useSpeakingWebSocket';
 import UserAvatar from '../components/UserAvatar';
 import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 
 const TopicPresentation = () => {
-  const [topic, setTopic] = useState(null);
+  const [presenterItem, setPresenterItem] = useState(null);
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [currentSpeaker, setCurrentSpeaker] = useState(null);
@@ -32,6 +35,11 @@ const TopicPresentation = () => {
   const { messages: voteMessages } = useVoteWebSocket(id);
   const { messages: presenterMessages } = usePresenterWebSocket(id);
   const { messages: newTopicMessages } = useNewTopicWebSocket(id);
+  const { messages: amendmentPresenterMessages } = useAmendmentPresenterWebSocket(id);
+  const { messages: amendmentVoteMessages } = useAmendmentVoteWebSocket(
+    presenterItem?.type === 'AMENDMENT' ? presenterItem?.topicId : null
+  );
+  const { messages: newAmendmentMessages } = useNewAmendmentWebSocket(id);
   const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(municipalityId);
 
   let municipalityImage = null;
@@ -56,19 +64,19 @@ const TopicPresentation = () => {
       .catch(() => {});
   }, [sessionMunicipalityTermId]);
 
-  // Fetch the current topic
+  // Fetch the current presenter item (topic or amendment)
   const fetchPresenterTopic = useCallback(async () => {
-    if (fetchPresenterTopic.isFetching) return; // skip if already fetching
+    if (fetchPresenterTopic.isFetching) return;
     fetchPresenterTopic.isFetching = true;
 
     try {
-      const response = await api.get(`/api/sessions/${id}/topics/presenter`);
-      setTopic(response.data);
+      const response = await api.get(`/api/sessions/${id}/presenter`);
+      setPresenterItem(response.data);
     } catch (error) {
       if (error.response) {
-        console.error(`Failed to fetch topic. Status: ${error.response.status}`);
+        console.error(`Failed to fetch presenter. Status: ${error.response.status}`);
       } else {
-        console.error("Error fetching topic:", error);
+        console.error("Error fetching presenter:", error);
       }
     } finally {
       fetchPresenterTopic.isFetching = false;
@@ -89,17 +97,18 @@ const TopicPresentation = () => {
     return () => clearInterval(interval);
   }, [autoRefresh, fetchPresenterTopic]);
 
-  // 🧠 WebSocket updates
+  // 🧠 WebSocket updates — re-fetch on any presenter/topic change
   useEffect(() => {
     if (autoRefresh) return;
     fetchPresenterTopic();
-  }, [voteMessages, presenterMessages, newTopicMessages, fetchPresenterTopic, autoRefresh]);
+  }, [voteMessages, presenterMessages, amendmentPresenterMessages, newTopicMessages, newAmendmentMessages, fetchPresenterTopic, autoRefresh]);
 
+  // Live topic vote updates (avoid round trip)
   useEffect(() => {
     if (autoRefresh || voteMessages.length === 0) return;
     const lastResult = voteMessages.at(-1);
-    setTopic((prev) => {
-      if (!prev) return lastResult;
+    setPresenterItem((prev) => {
+      if (!prev || prev.type !== 'TOPIC') return prev;
       if (prev.id === lastResult.topicId) {
         return {
           ...prev,
@@ -109,12 +118,34 @@ const TopicPresentation = () => {
           cantVote: lastResult.cantVote,
           haveNotVoted: lastResult.haveNotVoted,
           absent: lastResult.absent,
-          topicStatus: lastResult.status,
+          status: lastResult.status,
         };
       }
       return prev;
     });
   }, [voteMessages, autoRefresh]);
+
+  // Live amendment vote updates (avoid round trip)
+  useEffect(() => {
+    if (autoRefresh || amendmentVoteMessages.length === 0) return;
+    const lastResult = amendmentVoteMessages.at(-1);
+    setPresenterItem((prev) => {
+      if (!prev || prev.type !== 'AMENDMENT') return prev;
+      if (prev.id === lastResult.amendmentId) {
+        return {
+          ...prev,
+          yes: lastResult.yes,
+          no: lastResult.no,
+          abstained: lastResult.abstained,
+          cantVote: lastResult.cantVote,
+          haveNotVoted: lastResult.haveNotVoted,
+          absent: lastResult.absent,
+          status: lastResult.status,
+        };
+      }
+      return prev;
+    });
+  }, [amendmentVoteMessages, autoRefresh]);
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) {
@@ -276,10 +307,10 @@ const TopicPresentation = () => {
   return (
     <div
       className={`topic-presentar-container ${
-        topic &&
-        (topic.topicStatus === "FINISHED" ||
-          topic.topicStatus === "WITHDRAWN" ||
-          topic.topicStatus === "INFORMATION")
+        presenterItem &&
+        (presenterItem.status === "FINISHED" ||
+          presenterItem.status === "WITHDRAWN" ||
+          presenterItem.status === "INFORMATION")
           ? "finished-topic"
           : ""
       }`}
@@ -301,7 +332,7 @@ const TopicPresentation = () => {
           className="logo-img-presenter"
           alt="Logo"
           onClick={() => window.location.reload()}
-        />        
+        />
 
         <button
           className="back-button"
@@ -336,68 +367,79 @@ const TopicPresentation = () => {
         </div>
       </div>
 
-      {!topic ? (
+      {!presenterItem ? (
         <h1 className="text-center">{t("topicsPage.noTopicsPresent")}</h1>
       ) : (
         <>
+          {presenterItem.type === 'AMENDMENT' && (
+            <div className="d-flex justify-content-center">
+              <div className="presenter-amendment-badge">
+                <FontAwesomeIcon icon={faFilePen} />
+                {(presenterItem.createdByName || presenterItem.createdBySurname)
+                  ? <span>{t("amendments.amendmentFrom")} {presenterItem.createdByName} {presenterItem.createdBySurname}</span>
+                  : <span>{t("amendments.amendment")}</span>
+                }
+              </div>
+            </div>
+          )}
           <h1
             className="presented-topic-header"
-            style={getTitleFontSize(topic.title) ? { fontSize: getTitleFontSize(topic.title) } : undefined}
+            style={getTitleFontSize(presenterItem.title) ? { fontSize: getTitleFontSize(presenterItem.title) } : undefined}
           >
-            {topic.title}
+            {presenterItem.title}
           </h1>
-          {topic.amount && (
+          {presenterItem.amount && (
             <div className="presented-topic-amount-wrapper">
-              <span className="presented-topic-amount">{topic.amount} {t("topicsPage.currency")}</span>
+              <span className="presented-topic-amount">{presenterItem.amount} {t("topicsPage.currency")}</span>
             </div>
           )}
           <div className="presented-topic-body">
             {!(
-              topic.topicStatus === "CREATED" ||
-              topic.topicStatus === "INFORMATION" ||
-              topic.topicStatus === "WITHDRAWN"
+              presenterItem.status === "CREATED" ||
+              presenterItem.status === "INFORMATION" ||
+              presenterItem.status === "WITHDRAWN"
             ) && (
               <>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.yes")}</p>
-                  <h1 className="presented-number yes">{topic.yes}</h1>
+                  <h1 className="presented-number yes">{presenterItem.yes}</h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.no")}</p>
-                  <h1 className="presented-number no">{topic.no}</h1>
+                  <h1 className="presented-number no">{presenterItem.no}</h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.abstained")}</p>
-                  <h1 className="presented-number abstained">{topic.abstained}</h1>
+                  <h1 className="presented-number abstained">{presenterItem.abstained}</h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.cantVote")}</p>
                   <h1 className="presented-number cant-vote">
-                    {topic.cantVote}
+                    {presenterItem.cantVote}
                   </h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.notVoted")}</p>
                   <h1 className="presented-number havent-vote">
-                    {topic.haveNotVoted}
+                    {presenterItem.haveNotVoted}
                   </h1>
                 </div>
                 <div className="presented-topic-body-div">
                   <p className="presented-text">{t("topicsPage.absent")}</p>
-                  <h1 className="presented-number absent">{topic.absent}</h1>
+                  <h1 className="presented-number absent">{presenterItem.absent}</h1>
                 </div>
               </>
             )}
           </div>
 
-          {topic.topicStatus === "INFORMATION" && (
+          {presenterItem.status === "INFORMATION" && (
             <div className="d-flex justify-content-center w-100">
               <div className="topic-status-badge topic-status-badge--information">
                 {t("topicsPage.information")}
               </div>
             </div>
           )}
-          {topic.topicStatus === "WITHDRAWN" && (
+          {presenterItem.status === "WITHDRAWN" && (
             <div className="d-flex justify-content-center w-100">
               <div className="topic-status-badge topic-status-badge--withdrawn">
                 {t("topicsPage.withdrawn")}

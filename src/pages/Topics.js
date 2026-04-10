@@ -852,8 +852,10 @@ useEffect(() => {
                                             <Link
                                                 to={`/municipalities/${municipalityId}/sessions/${id}/topics/amendments/${topic.id}`}
                                                 onClick={saveScrollPosition}
+                                                className="amendments-button-link"
                                             >
                                                 <div className="amendments-button">
+                                                    <FontAwesomeIcon icon={faFilePen} />
                                                     {t("topicsPage.amendments")}
                                                 </div>
                                             </Link>

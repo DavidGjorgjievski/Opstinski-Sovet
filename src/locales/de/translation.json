@@ -546,7 +546,8 @@
     "confirmDeleteMessage": "Sind Sie sicher, dass Sie diese Änderung löschen möchten?",
     "confirmDeleteButton": "Löschen",
     "cancelButton": "Abbrechen",
-    "amendmentFrom": "Änderungsantrag von"
+    "amendmentFrom": "Änderungsantrag von",
+    "amendment": "Änderungsantrag"
   },
   "municipalityStatistics": {
     "title": "Statistik",

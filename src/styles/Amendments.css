@@ -5,18 +5,21 @@
 }
 
 .amendment-created-by {
-    display: inline-block;
-    font-size: 1.1rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #fde68a, #f59e0b);
     color: #000;
-    background-color: #fdf6e3;
-    padding: 6px 18px;
-    border-radius: 14px;
-    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 30px;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    user-select: none;
     position: relative;
     overflow: hidden;
     transition: transform 0.15s ease, box-shadow 0.2s ease;
-    margin-top: 5px;
 }
 
 .amendment-created-by::after {
@@ -57,27 +60,30 @@
 .topic-subtitle-wrapper {
     max-width: 850px;
     margin: 10px auto;
-    padding: 10px 15px;
-    background-color: #f1f1f1;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     word-break: break-word;
 }
 
 .topic-subtitle {
-    font-size: 1.3rem;
-    line-height: 1.4;
+    font-size: 1.2rem;
+    line-height: 1.5;
     margin: 0;
     text-align: center;
+    color: #374151;
 }
 
 @media (max-width: 870px) {
     .topic-subtitle-wrapper {
         max-width: 95%;
-        /* almost full width on mobile */
     }
 
     .topic-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
     }
 }

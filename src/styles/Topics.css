@@ -1365,30 +1365,30 @@ html {
     left: 130%;
 }
 
+.amendments-button-link {
+    text-decoration: none;
+}
+
 .amendments-button {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-
-    /* Gray gradient background */
-    background: linear-gradient(135deg, #d1d1d1, #a8a8a8);
+    gap: 7px;
+    background: linear-gradient(135deg, #fde68a, #f59e0b);
     color: #1a1a1a;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 14px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 7px 18px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(245, 158, 11, 0.35);
     white-space: nowrap;
     line-height: 1;
     cursor: pointer;
-
+    user-select: none;
     position: relative;
     overflow: hidden;
-
     transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-/* Shine effect */
 .amendments-button::after {
     content: "";
     position: absolute;
@@ -1398,19 +1398,17 @@ html {
     height: 100%;
     background: linear-gradient(120deg,
             rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0.25),
+            rgba(255, 255, 255, 0.35),
             rgba(255, 255, 255, 0));
     transform: skewX(-20deg);
     transition: 0.6s;
 }
 
-/* Hover effect */
 .amendments-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 14px rgba(245, 158, 11, 0.5);
 }
 
-/* Shine animation on hover */
 .amendments-button:hover::after {
     left: 130%;
 }

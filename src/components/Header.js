@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import { initializeMobileMenu } from './mobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,8 +11,6 @@ import mkFlag from '../assets/flags/mk.png';
 import enFlag from '../assets/flags/en.png'; 
 import deFlag from '../assets/flags/de.png';
 import sqFlag from '../assets/flags/sq.png';
-import api from '../api/axios';
-import { buildCurrentPageLabel } from '../utils/pageKeyFromPath';
 
 function Header({ isSticky = false }) {
     const { t } = useTranslation();
@@ -93,28 +91,6 @@ function Header({ isSticky = false }) {
         localStorage.setItem('selectedLanguage', lang);
         setOpenLang(false);
     };
-
-    const location = useLocation();
-
-    useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        if (!token || userInfo?.role === 'ROLE_GUEST') return;
-
-        const interval = setInterval(() => {
-            api.post('/api/heartbeat').catch(() => {});
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, [userInfo]);
-
-    // Fire heartbeat immediately on every navigation to update currentPage instantly
-    useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        if (!token || userInfo?.role === 'ROLE_GUEST') return;
-        const label = buildCurrentPageLabel(location.pathname, t);
-        localStorage.setItem('currentPageLabel', label);
-        api.post('/api/heartbeat').catch(() => {});
-    }, [location.pathname, userInfo, t]);
 
     return (
         <header

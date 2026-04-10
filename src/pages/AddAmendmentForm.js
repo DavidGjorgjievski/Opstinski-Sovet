@@ -40,7 +40,7 @@ const AddAmendmentForm = () => {
     const maxRows = 10;
     const lineHeight = 24;
 
-    const { sendNewAmendment } = useNewAmendmentWebSocket(idt);
+    const { sendNewAmendment } = useNewAmendmentWebSocket(id);
 
     const isEditing = !!amendmentId;
 
