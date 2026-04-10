@@ -345,6 +345,39 @@
     to   { opacity: 0.55; }
 }
 
+@media (max-width: 640px) {
+    .presenter-speaker-card {
+        top: 6px;
+        right: 6px;
+        gap: 8px;
+        padding: 8px 10px;
+        border-left-width: 4px;
+        border-radius: 10px;
+        min-width: 0;
+        max-width: 190px;
+    }
+
+    .presenter-speaker-avatar {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .presenter-speaker-card-name {
+        font-size: 13px;
+    }
+
+    .presenter-speaker-card-type {
+        font-size: 9px;
+        padding: 2px 7px;
+    }
+
+    .presenter-speaker-card-time {
+        font-size: 22px;
+        margin-top: 2px;
+    }
+}
+
 .toggle-label-refresh {
     cursor: pointer;
     font-weight: bold;
