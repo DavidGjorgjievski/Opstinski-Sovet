@@ -455,24 +455,37 @@
    }
 
    .presented-text {
-       font-size: 29px;
+       font-size: 28px;
    }
 }
 
-@media (max-width: 1220px) {
-    .presented-topic-body-div {
-        width: 14vw;
+@media (max-width: 1350px) {
+    .presented-text {
+        font-size: 27px;
     }
+}
 
+
+@media (max-width: 1300px) {
+    .presented-text {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 1260px) {
     .presented-text {
         font-size: 24px;
     }
 }
 
-@media (max-width: 1100px) {
-    .presented-topic-body-div {
-        width: 14vw;
+
+@media (max-width: 1160px) {
+    .presented-text {
+        font-size: 23px;
     }
+}
+
+@media (max-width: 1100px) {
 
     .presented-text {
         font-size: 20px;
@@ -489,7 +502,7 @@
     }
 }
 
-@media (max-width: 930px) {
+@media (max-width: 960px) {
     .presented-number {
         font-size: 60px;
     }
