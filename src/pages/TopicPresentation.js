@@ -322,155 +322,164 @@ const TopicPresentation = () => {
       </HelmetProvider>
 
       <div className="presenter-header">
-        <img
-          id="logo-img"
-          src={
-            municipalityImage
-              ? `data:image/png;base64,${municipalityImage}`
-              : `${process.env.PUBLIC_URL}/images/grb.png`
-          }
-          className="logo-img-presenter"
-          alt="Logo"
-          onClick={() => window.location.reload()}
-        />
+        <div className="presenter-header-controls">
+          <img
+            id="logo-img"
+            src={
+              municipalityImage
+                ? `data:image/png;base64,${municipalityImage}`
+                : `${process.env.PUBLIC_URL}/images/grb.png`
+            }
+            className="logo-img-presenter"
+            alt="Logo"
+            onClick={() => window.location.reload()}
+          />
 
-        <button
-          className="back-button"
-          onClick={() =>
-            navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)
-          }
-        >
-          <span className="back-icon">
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </span>
-          <span className="back-text">
-            {t("common.back")}
-          </span>
-        </button>
-
-        <div className="toggle-container">
-          <span
-            className="toggle-label-refresh"
-            onClick={() => setAutoRefresh((prev) => !prev)}
-            title={autoRefresh ? "Switch to WebSocket Mode" : "Switch to Auto-Refresh"}
+          <button
+            className="back-button"
+            onClick={() =>
+              navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)
+            }
           >
-            <FontAwesomeIcon
-              icon={autoRefresh ? faToggleOn : faToggleOff}
-              size="2x"
-              color={autoRefresh ? "#4CAF50" : "#ddd"}
-              className="toggle-refresh"
-            />
-           <span className="toggle-text">
-              {autoRefresh ? t("topicsPage.autoRefreshOn") : t("topicsPage.webSocketMode")}
+            <span className="back-icon">
+              <FontAwesomeIcon icon={faChevronLeft} />
             </span>
-          </span>
+            <span className="back-text">
+              {t("common.back")}
+            </span>
+          </button>
+
+          <div className="toggle-container">
+            <span
+              className="toggle-label-refresh"
+              onClick={() => setAutoRefresh((prev) => !prev)}
+              title={autoRefresh ? "Switch to WebSocket Mode" : "Switch to Auto-Refresh"}
+            >
+              <FontAwesomeIcon
+                icon={autoRefresh ? faToggleOn : faToggleOff}
+                size="2x"
+                color={autoRefresh ? "#4CAF50" : "#ddd"}
+                className="toggle-refresh"
+              />
+              <span className="toggle-text">
+                {autoRefresh ? t("topicsPage.autoRefreshOn") : t("topicsPage.webSocketMode")}
+              </span>
+            </span>
+          </div>
         </div>
+
+        {presenterItem?.type === 'AMENDMENT' && (
+          <div className="presenter-header-badge">
+            <div className="presenter-amendment-badge">
+              <FontAwesomeIcon icon={faFilePen} />
+              {(presenterItem.createdByName || presenterItem.createdBySurname)
+                ? <span>{t("amendments.amendmentFrom")} {presenterItem.createdByName} {presenterItem.createdBySurname}</span>
+                : <span>{t("amendments.amendment")}</span>
+              }
+            </div>
+          </div>
+        )}
+
+        {(() => {
+          const cfg = SPEAKER_TYPE_COLORS[currentSpeaker?.type] || SPEAKER_TYPE_COLORS.SPEECH;
+          return (
+            <div
+              className="presenter-speaker-card"
+              style={{ borderLeftColor: cfg.color, backgroundColor: cfg.bg, visibility: currentSpeaker ? 'visible' : 'hidden' }}
+            >
+              <UserAvatar
+                username={currentSpeaker?.username || ''}
+                name={(currentSpeaker?.fullName || '').split(' ')[0]}
+                surname={(currentSpeaker?.fullName || '').split(' ').slice(1).join(' ')}
+                className="presenter-speaker-avatar"
+                termId={sessionMunicipalityTermId}
+              />
+              <div className="presenter-speaker-card-body">
+                <div className="presenter-speaker-card-name">{currentSpeaker?.fullName || '\u00A0'}</div>
+                <div className="presenter-speaker-card-type" style={{ color: cfg.color }}>
+                  {t(SPEAKER_TYPE_KEYS[currentSpeaker?.type] || SPEAKER_TYPE_KEYS.SPEECH)}
+                </div>
+                <div className={`presenter-speaker-card-time ${timeLeft < (durationsRef.current[currentSpeaker?.type] || 300) * 0.2 ? 'presenter-speaker-time-critical' : timeLeft < (durationsRef.current[currentSpeaker?.type] || 300) * 0.4 ? 'presenter-speaker-time-low' : ''}`}>
+                  {formatTime(timeLeft)}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
-      {!presenterItem ? (
-        <h1 className="text-center">{t("topicsPage.noTopicsPresent")}</h1>
-      ) : (
-        <>
-          {presenterItem.type === 'AMENDMENT' && (
-            <div className="d-flex justify-content-center">
-              <div className="presenter-amendment-badge">
-                <FontAwesomeIcon icon={faFilePen} />
-                {(presenterItem.createdByName || presenterItem.createdBySurname)
-                  ? <span>{t("amendments.amendmentFrom")} {presenterItem.createdByName} {presenterItem.createdBySurname}</span>
-                  : <span>{t("amendments.amendment")}</span>
-                }
+      <div className="presenter-content">
+        {!presenterItem ? (
+          <h1 className="text-center">{t("topicsPage.noTopicsPresent")}</h1>
+        ) : (
+          <>
+            <h1
+              className="presented-topic-header"
+              style={getTitleFontSize(presenterItem.title) ? { fontSize: getTitleFontSize(presenterItem.title) } : undefined}
+            >
+              {presenterItem.title}
+            </h1>
+            {presenterItem.amount && (
+              <div className="presented-topic-amount-wrapper">
+                <span className="presented-topic-amount">{presenterItem.amount} {t("topicsPage.currency")}</span>
               </div>
-            </div>
-          )}
-          <h1
-            className="presented-topic-header"
-            style={getTitleFontSize(presenterItem.title) ? { fontSize: getTitleFontSize(presenterItem.title) } : undefined}
-          >
-            {presenterItem.title}
-          </h1>
-          {presenterItem.amount && (
-            <div className="presented-topic-amount-wrapper">
-              <span className="presented-topic-amount">{presenterItem.amount} {t("topicsPage.currency")}</span>
-            </div>
-          )}
-          <div className="presented-topic-body">
-            {!(
-              presenterItem.status === "CREATED" ||
-              presenterItem.status === "INFORMATION" ||
-              presenterItem.status === "WITHDRAWN"
-            ) && (
-              <>
-                <div className="presented-topic-body-div">
-                  <p className="presented-text">{t("topicsPage.yes")}</p>
-                  <h1 className="presented-number yes">{presenterItem.yes}</h1>
-                </div>
-                <div className="presented-topic-body-div">
-                  <p className="presented-text">{t("topicsPage.no")}</p>
-                  <h1 className="presented-number no">{presenterItem.no}</h1>
-                </div>
-                <div className="presented-topic-body-div">
-                  <p className="presented-text">{t("topicsPage.abstained")}</p>
-                  <h1 className="presented-number abstained">{presenterItem.abstained}</h1>
-                </div>
-                <div className="presented-topic-body-div">
-                  <p className="presented-text">{t("topicsPage.cantVote")}</p>
-                  <h1 className="presented-number cant-vote">
-                    {presenterItem.cantVote}
-                  </h1>
-                </div>
-                <div className="presented-topic-body-div">
-                  <p className="presented-text">{t("topicsPage.notVoted")}</p>
-                  <h1 className="presented-number havent-vote">
-                    {presenterItem.haveNotVoted}
-                  </h1>
-                </div>
-                <div className="presented-topic-body-div">
-                  <p className="presented-text">{t("topicsPage.absent")}</p>
-                  <h1 className="presented-number absent">{presenterItem.absent}</h1>
-                </div>
-              </>
             )}
-          </div>
+            <div className="presented-topic-body">
+              {!(
+                presenterItem.status === "CREATED" ||
+                presenterItem.status === "INFORMATION" ||
+                presenterItem.status === "WITHDRAWN"
+              ) && (
+                <>
+                  <div className="presented-topic-body-div">
+                    <p className="presented-text">{t("topicsPage.yes")}</p>
+                    <h1 className="presented-number yes">{presenterItem.yes}</h1>
+                  </div>
+                  <div className="presented-topic-body-div">
+                    <p className="presented-text">{t("topicsPage.no")}</p>
+                    <h1 className="presented-number no">{presenterItem.no}</h1>
+                  </div>
+                  <div className="presented-topic-body-div">
+                    <p className="presented-text">{t("topicsPage.abstained")}</p>
+                    <h1 className="presented-number abstained">{presenterItem.abstained}</h1>
+                  </div>
+                  <div className="presented-topic-body-div">
+                    <p className="presented-text">{t("topicsPage.cantVote")}</p>
+                    <h1 className="presented-number cant-vote">
+                      {presenterItem.cantVote}
+                    </h1>
+                  </div>
+                  <div className="presented-topic-body-div">
+                    <p className="presented-text">{t("topicsPage.notVoted")}</p>
+                    <h1 className="presented-number havent-vote">
+                      {presenterItem.haveNotVoted}
+                    </h1>
+                  </div>
+                  <div className="presented-topic-body-div">
+                    <p className="presented-text">{t("topicsPage.absent")}</p>
+                    <h1 className="presented-number absent">{presenterItem.absent}</h1>
+                  </div>
+                </>
+              )}
+            </div>
 
-          {presenterItem.status === "INFORMATION" && (
-            <div className="d-flex justify-content-center w-100">
-              <div className="topic-status-badge topic-status-badge--information">
-                {t("topicsPage.information")}
+            {presenterItem.status === "INFORMATION" && (
+              <div className="d-flex justify-content-center w-100">
+                <div className="topic-status-badge topic-status-badge--information">
+                  {t("topicsPage.information")}
+                </div>
               </div>
-            </div>
-          )}
-          {presenterItem.status === "WITHDRAWN" && (
-            <div className="d-flex justify-content-center w-100">
-              <div className="topic-status-badge topic-status-badge--withdrawn">
-                {t("topicsPage.withdrawn")}
+            )}
+            {presenterItem.status === "WITHDRAWN" && (
+              <div className="d-flex justify-content-center w-100">
+                <div className="topic-status-badge topic-status-badge--withdrawn">
+                  {t("topicsPage.withdrawn")}
+                </div>
               </div>
-            </div>
-          )}
-        </>
-      )}
-      {currentSpeaker && (() => {
-        const cfg = SPEAKER_TYPE_COLORS[currentSpeaker.type] || SPEAKER_TYPE_COLORS.SPEECH;
-        return (
-          <div className="presenter-speaker-card" style={{ borderLeftColor: cfg.color, backgroundColor: cfg.bg }}>
-            <UserAvatar
-              username={currentSpeaker.username}
-              name={currentSpeaker.fullName.split(' ')[0]}
-              surname={currentSpeaker.fullName.split(' ').slice(1).join(' ')}
-              className="presenter-speaker-avatar"
-              termId={sessionMunicipalityTermId}
-            />
-            <div className="presenter-speaker-card-body">
-              <div className="presenter-speaker-card-name">{currentSpeaker.fullName}</div>
-              <div className="presenter-speaker-card-type" style={{ color: cfg.color }}>
-                {t(SPEAKER_TYPE_KEYS[currentSpeaker.type] || SPEAKER_TYPE_KEYS.SPEECH)}
-              </div>
-              <div className={`presenter-speaker-card-time ${timeLeft < (durationsRef.current[currentSpeaker.type] || 300) * 0.2 ? 'presenter-speaker-time-critical' : timeLeft < (durationsRef.current[currentSpeaker.type] || 300) * 0.4 ? 'presenter-speaker-time-low' : ''}`}>
-                {formatTime(timeLeft)}
-              </div>
-            </div>
-          </div>
-        );
-      })()}
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
