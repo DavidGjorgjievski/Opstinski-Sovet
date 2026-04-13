@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px;
+    padding: 10px;
     flex-shrink: 0;
     box-sizing: border-box;
 }
@@ -75,7 +75,6 @@
     font-weight: bolder;
     font-size: 55px;
     margin-top: 0;
-    padding: 10px;
     word-break: break-word;
     overflow-wrap: break-word;
     user-select: none;
@@ -165,9 +164,12 @@
 }
 
 .presented-text {
-    font-size: 40px;
+    font-size: 30px;
     margin-bottom: 0px;
-    color: black;
+    color: #666;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -301,6 +303,9 @@
     flex-shrink: 0;
     order: 3;
     animation: sp-fade-in 0.25s ease;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
 }
 
 .presenter-speaker-avatar {
@@ -330,6 +335,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
 }
 
 .presenter-speaker-card-type {
@@ -343,6 +351,9 @@
     border: 2px solid currentColor;
     background-color: transparent;
     align-self: center;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
 }
 
 .presenter-speaker-card-time {
@@ -351,6 +362,9 @@
     font-variant-numeric: tabular-nums;
     color: #1e293b;
     margin-top: 4px;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
 }
 
 .presenter-speaker-time-low {
@@ -441,7 +455,7 @@
    }
 
    .presented-text {
-       font-size: 35px;
+       font-size: 29px;
    }
 }
 
@@ -451,7 +465,7 @@
     }
 
     .presented-text {
-        font-size: 29px;
+        font-size: 24px;
     }
 }
 
@@ -461,7 +475,7 @@
     }
 
     .presented-text {
-        font-size: 25px;
+        font-size: 20px;
     }
 }
 
@@ -471,7 +485,7 @@
     }
 
     .presented-text {
-        font-size: 25px;
+        font-size: 20px;
     }
 }
 
@@ -481,7 +495,7 @@
     }
 
     .presented-text {
-        font-size: 23px;
+        font-size: 18px;
     }
 }
 
@@ -491,7 +505,7 @@
     }
 
     .presented-text {
-        font-size: 21.5px;
+        font-size: 16px;
     }
 
     .presented-topic-header{
@@ -506,7 +520,7 @@
     }
 
     .presented-text {
-        font-size: 20px;
+        font-size: 15px;
     }
 
     .presented-topic-header {
@@ -532,7 +546,7 @@
     }
 
     .presented-text {
-        font-size: 18px;
+        font-size: 13px;
     }
 
     .presented-topic-header {
@@ -545,9 +559,9 @@
 }
 
 @media (max-width: 600px) {
-   
+
     .presented-text {
-        font-size: 15px;
+        font-size: 10px;
     }
 
     .presented-number {
@@ -563,7 +577,7 @@
 @media (max-width: 500px) {
 
     .presented-text {
-        font-size: 13px;
+        font-size: 8px;
     }
 
     .topic-status-info {
@@ -578,7 +592,7 @@
     }
 
     .presented-text {
-        font-size: 12px;
+        font-size: 7px;
     }
 
     .presented-topic-header {
@@ -589,7 +603,7 @@
 @media (max-width: 350px) {
 
     .presented-text {
-        font-size: 12px;
+        font-size: 7px;
     }
 
     .presented-topic-header {
