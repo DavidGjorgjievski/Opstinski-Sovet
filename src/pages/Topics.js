@@ -275,7 +275,7 @@ function Topics() {
             // Navigate to the direct PDF URL with the filename in the path.
             // The browser uses the last path segment as the tab title.
             if (newTab && !newTab.closed) {
-                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${token}`;
+                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
             }
         } catch (error) {
             console.error('Error fetching PDF:', error);
