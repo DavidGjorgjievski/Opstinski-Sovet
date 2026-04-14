@@ -45,7 +45,6 @@ function Topics() {
     const [showNumber, setShowNumber] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
-    const [loadingPdfId, setLoadingPdfId] = useState(null);
     const votingInProgressRef = useRef(new Set());
     // WEB SOCKETS
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
@@ -263,22 +262,24 @@ function Topics() {
   
 
     const handlePdfFetch = async (pdfId) => {
-        if (loadingPdfId === pdfId) return;
-        setLoadingPdfId(pdfId);
+        // Open blank tab synchronously — Safari requires window.open before any await
+        const newTab = window.open('', '_blank');
+
         try {
-            const response = await api.get(`/api/topics/pdf/${pdfId}`, {
-                responseType: "blob",
-                headers: { Accept: "application/pdf" },
-            });
+            const { data } = await api.get(`/api/topics/pdf/${pdfId}/name`);
+            const fileName = data.fileName || 'document.pdf';
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const encoded = encodeURIComponent(fileName);
 
-            const url = URL.createObjectURL(response.data);
-            window.open(url, "_blank");
-
-            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            // Navigate to the direct PDF URL with the filename in the path.
+            // The browser uses the last path segment as the tab title.
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${token}`;
+            }
         } catch (error) {
-            console.error("Error fetching PDF:", error);
-        } finally {
-            setLoadingPdfId(null);
+            console.error('Error fetching PDF:', error);
+            if (newTab && !newTab.closed) newTab.close();
         }
     };
 
@@ -717,13 +718,9 @@ useEffect(() => {
                                                             ? "guest-width"
                                                             : ""
                                                     }
-                                                    ${loadingPdfId === topic.pdfFileId ? "pdf-loading" : ""}
                                                 `}
                                             >
                                                 {topic.title}
-                                                {loadingPdfId === topic.pdfFileId && (
-                                                    <span className="pdf-spinner" aria-label="Loading PDF" />
-                                                )}
                                             </span>
                                         ) : (
                                             <span
