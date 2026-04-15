@@ -188,7 +188,7 @@ const AddTopicForm = () => {
 
         return true;
     }).map(file => {
-        const cleanName = file.name.replace(/;/g, '');
+        const cleanName = file.name.replace(/[;"'\r\n]/g, '');
         return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
     });
 

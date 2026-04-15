@@ -2,7 +2,7 @@ export const MAX_FILE_SIZE_MB = 35;
 export const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 const sanitizePdfFile = (file) => {
-    const cleanName = file.name.replace(/;/g, '');
+    const cleanName = file.name.replace(/[;"'\r\n]/g, '');
     return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
 };
 
