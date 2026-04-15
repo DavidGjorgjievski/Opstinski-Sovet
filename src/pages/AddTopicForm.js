@@ -187,6 +187,9 @@ const AddTopicForm = () => {
         if (isDuplicate) return false;
 
         return true;
+    }).map(file => {
+        const cleanName = file.name.replace(/;/g, '');
+        return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
     });
 
     const newFiles = [...files, ...validFiles];

@@ -1,6 +1,11 @@
 export const MAX_FILE_SIZE_MB = 35;
 export const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
+const sanitizePdfFile = (file) => {
+    const cleanName = file.name.replace(/;/g, '');
+    return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
+};
+
 export const handleDragOver = (event, dropArea) => {
     event.preventDefault();
     dropArea.classList.add('is-active');
@@ -27,7 +32,7 @@ export const handleDrop = (event, setFiles, updateFileName, setFileError, setFil
             return false;
         }
         return true;
-    });
+    }).map(sanitizePdfFile);
 
     const totalSize = [...existingFiles, ...validFiles].reduce((acc, f) => acc + f.size, 0);
 
@@ -59,7 +64,7 @@ export const handlePaste = (event, setFiles, updateFileName, setFileError, setFi
         const item = items[i];
         if (item.kind === "file" && item.type === "application/pdf") {
             const file = item.getAsFile();
-            pastedFiles.push(file);
+            pastedFiles.push(sanitizePdfFile(file));
         }
     }
 
