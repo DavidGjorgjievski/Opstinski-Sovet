@@ -47,6 +47,9 @@ function TopicDetails() {
 
     const handlePdfFetch = async (pdfId) => {
         if (isPdfLoading) return;
+
+        // Open blank tab synchronously — Safari requires window.open before any await
+        const newTab = window.open('', '_blank');
         setIsPdfLoading(true);
 
         try {
@@ -56,9 +59,12 @@ function TopicDetails() {
             const baseUrl = process.env.REACT_APP_API_URL || '';
             const encoded = encodeURIComponent(fileName);
 
-            window.open(`${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`, '_blank');
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
+            }
         } catch (error) {
             console.error('Error fetching PDF:', error);
+            if (newTab && !newTab.closed) newTab.close();
         } finally {
             setIsPdfLoading(false);
         }
