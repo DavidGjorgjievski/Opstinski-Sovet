@@ -42,6 +42,7 @@ function Topics() {
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
     const [topicsLoaded, setTopicsLoaded] = useState(false);
+    const [loadingPdfId, setLoadingPdfId] = useState(null);
     const [showNumber, setShowNumber] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
@@ -262,8 +263,8 @@ function Topics() {
   
 
     const handlePdfFetch = async (pdfId) => {
-        // Open blank tab synchronously — Safari requires window.open before any await
-        const newTab = window.open('', '_blank');
+        if (loadingPdfId === pdfId) return;
+        setLoadingPdfId(pdfId);
 
         try {
             const { data } = await api.get(`/api/topics/pdf/${pdfId}/name`);
@@ -272,14 +273,11 @@ function Topics() {
             const baseUrl = process.env.REACT_APP_API_URL || '';
             const encoded = encodeURIComponent(fileName);
 
-            // Navigate to the direct PDF URL with the filename in the path.
-            // The browser uses the last path segment as the tab title.
-            if (newTab && !newTab.closed) {
-                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
-            }
+            window.open(`${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`, '_blank');
         } catch (error) {
             console.error('Error fetching PDF:', error);
-            if (newTab && !newTab.closed) newTab.close();
+        } finally {
+            setLoadingPdfId(null);
         }
     };
 
@@ -718,9 +716,13 @@ useEffect(() => {
                                                             ? "guest-width"
                                                             : ""
                                                     }
+                                                    ${loadingPdfId === topic.pdfFileId ? "pdf-loading" : ""}
                                                 `}
                                             >
                                                 {topic.title}
+                                                {loadingPdfId === topic.pdfFileId && (
+                                                    <span className="pdf-spinner" aria-label="Loading PDF" />
+                                                )}
                                             </span>
                                         ) : (
                                             <span

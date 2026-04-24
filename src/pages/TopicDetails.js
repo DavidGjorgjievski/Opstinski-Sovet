@@ -17,6 +17,7 @@ function TopicDetails() {
     const [topicDetails, setTopicDetails] = useState(null);
     const [loading, setLoading] = useState(true); // Add loading state
     const [showVotes, setShowVotes] = useState(null);
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -45,21 +46,21 @@ function TopicDetails() {
     }, [idt]);
 
     const handlePdfFetch = async (pdfId) => {
+        if (isPdfLoading) return;
+        setIsPdfLoading(true);
+
         try {
-            const response = await api.get(`/api/topics/pdf/${pdfId}`, {
-            responseType: "blob",
-            headers: {
-                Accept: "application/pdf",
-            },
-            });
+            const { data } = await api.get(`/api/topics/pdf/${pdfId}/name`);
+            const fileName = data.fileName || 'document.pdf';
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const encoded = encodeURIComponent(fileName);
 
-            const url = URL.createObjectURL(response.data);
-            window.open(url, "_blank");
-
-            // Prevent memory leaks
-            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            window.open(`${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`, '_blank');
         } catch (error) {
-            console.error("Error fetching PDF:", error);
+            console.error('Error fetching PDF:', error);
+        } finally {
+            setIsPdfLoading(false);
         }
     };
 
@@ -127,8 +128,12 @@ function TopicDetails() {
                         )}
                         {topicDetails.pdfFileId != null && (
                             <div>
-                                <button className='button-pdf' onClick={() => handlePdfFetch(topicDetails.pdfFileId)}>
-                                    {t("topicsDetails.viewDocument")} <FontAwesomeIcon icon={faFilePdf} />
+                                <button className='button-pdf' onClick={() => handlePdfFetch(topicDetails.pdfFileId)} disabled={isPdfLoading}>
+                                    {isPdfLoading ? (
+                                        <span className="pdf-spinner" aria-label="Loading PDF" />
+                                    ) : (
+                                        <>{t("topicsDetails.viewDocument")} <FontAwesomeIcon icon={faFilePdf} /></>
+                                    )}
                                 </button>
                             </div>
                         )}

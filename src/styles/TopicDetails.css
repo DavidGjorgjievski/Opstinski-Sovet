@@ -229,6 +229,26 @@
     transform: scale(1.03);
 }
 
+.button-pdf:disabled {
+    cursor: wait;
+    opacity: 0.8;
+}
+
+.button-pdf .pdf-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 0.13em solid rgba(0, 0, 0, 0.18);
+    border-top-color: #444;
+    border-radius: 50%;
+    animation: pdf-spin 0.7s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes pdf-spin {
+    to { transform: rotate(360deg); }
+}
+
 @media (max-width: 900px) {
     .detailed-result-header {
         margin-right: 0px;

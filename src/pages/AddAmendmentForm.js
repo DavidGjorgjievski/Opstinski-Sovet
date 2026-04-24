@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import {
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    handlePaste,
     MAX_FILE_SIZE_BYTES,
 } from '../util/fileUpload';
 import '../styles/AddTopicForm.css';
@@ -143,6 +147,9 @@ const AddAmendmentForm = () => {
             }
             const duplicate = files.some(f => f.name === file.name && f.size === file.size);
             return !duplicate;
+        }).map(file => {
+            const cleanName = file.name.replace(/[;"'\r\n]/g, '');
+            return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
         });
 
         const newFiles = [...files, ...validFiles];
@@ -154,6 +161,28 @@ const AddAmendmentForm = () => {
 
         setFiles(newFiles);
     };
+
+    useEffect(() => {
+        const fileDropArea = document.querySelector('.file-drop-area');
+        if (!fileDropArea) return;
+
+        const dragOverHandler = (e) => handleDragOver(e, fileDropArea);
+        const dragLeaveHandler = () => handleDragLeave(fileDropArea);
+        const dropHandler = (e) => handleDrop(e, setFiles, null, setFileError, setFileTypeError, files);
+        const pasteHandler = (e) => handlePaste(e, setFiles, null, setFileError, setFileTypeError, files);
+
+        fileDropArea.addEventListener('dragover', dragOverHandler);
+        fileDropArea.addEventListener('dragleave', dragLeaveHandler);
+        fileDropArea.addEventListener('drop', dropHandler);
+        document.addEventListener('paste', pasteHandler);
+
+        return () => {
+            fileDropArea.removeEventListener('dragover', dragOverHandler);
+            fileDropArea.removeEventListener('dragleave', dragLeaveHandler);
+            fileDropArea.removeEventListener('drop', dropHandler);
+            document.removeEventListener('paste', pasteHandler);
+        };
+    }, [files]);
 
     const handleFileInputChange = (e) => {
         const selectedFiles = Array.from(e.target.files);

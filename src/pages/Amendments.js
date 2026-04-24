@@ -46,8 +46,8 @@ function Amendments() {
     const [isDeleteAmendmentModalOpen, setIsDeleteAmendmentModalOpen] = useState(false);
     const [deleteAmendmentId, setDeleteAmendmentId] = useState(null);
     const [deleteAmendmentTitle, setDeleteAmendmentTitle] = useState("");
-    const [loadingPdfId, setLoadingPdfId] = useState(null);
     const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
+    const [loadingPdfId, setLoadingPdfId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
 
@@ -165,18 +165,17 @@ const fetchAmendments = useCallback(async () => {
     const handleAmendmentPdfFetch = async (pdfId) => {
         if (loadingPdfId === pdfId) return;
         setLoadingPdfId(pdfId);
+
         try {
-            const response = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}`, {
-                responseType: "blob",
-                headers: { Accept: "application/pdf" },
-            });
+            const { data } = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}/name`);
+            const fileName = data.fileName || 'document.pdf';
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const encoded = encodeURIComponent(fileName);
 
-            const url = URL.createObjectURL(response.data);
-            window.open(url, "_blank");
-
-            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            window.open(`${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`, '_blank');
         } catch (error) {
-            console.error("Error fetching amendment PDF:", error);
+            console.error('Error fetching amendment PDF:', error);
         } finally {
             setLoadingPdfId(null);
         }
