@@ -16,6 +16,7 @@ function SessionStatistics() {
     const [topics, setTopics] = useState([]);
     const [sessionName, setSessionName] = useState('');
     const [loading, setLoading] = useState(true);
+    const [loadingPdfId, setLoadingPdfId] = useState(null);
 
     useEffect(() => {
         const cached = JSON.parse(localStorage.getItem(`sessions_${municipalityId}`) || '[]');
@@ -38,16 +39,27 @@ function SessionStatistics() {
 
     const topicsWithPdf = topics.filter(t => t.pdfFileName != null && t.pdfFileName !== '');
 
-    const handlePdfView = async (pdfFileId) => {
+    const handlePdfFetch = async (pdfId) => {
+        if (loadingPdfId === pdfId) return;
+
+        const newTab = window.open('', '_blank');
+        setLoadingPdfId(pdfId);
+
         try {
-            const response = await api.get(`/api/topics/pdf/${pdfFileId}`, {
-                responseType: 'blob',
-                headers: { Accept: 'application/pdf' },
-            });
-            const url = URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-            window.open(url, '_blank');
-        } catch (err) {
-            console.error('Error fetching PDF:', err);
+            const { data } = await api.get(`/api/topics/pdf/${pdfId}/name`);
+            const fileName = data.fileName || 'document.pdf';
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const encoded = encodeURIComponent(fileName);
+
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
+            }
+        } catch (error) {
+            console.error('Error fetching PDF:', error);
+            if (newTab && !newTab.closed) newTab.close();
+        } finally {
+            setLoadingPdfId(null);
         }
     };
     const totalSize = topics.reduce((sum, t) => sum + (t.pdfSizeBytes || 0), 0);
@@ -116,7 +128,7 @@ function SessionStatistics() {
                                             <td className="stats-td stats-td-title">{topic.title}</td>
                                             <td className="stats-td stats-td-center">
                                                 {topic.pdfFileName ? (
-                                                    <span className="stats-pdf-badge stats-pdf-clickable" onClick={() => handlePdfView(topic.pdfFileId)}>
+                                                    <span className="stats-pdf-badge stats-pdf-clickable" onClick={() => handlePdfFetch(topic.pdfFileId)}>
                                                         <FontAwesomeIcon icon={faFilePdf} className="stats-pdf-icon" />
                                                         {topic.pdfFileName}
                                                     </span>
