@@ -6,3 +6,12 @@ export function openPdfTab() {
     }
     return newTab;
 }
+
+export function sanitizeFilenameForUrl(fileName) {
+    // eslint-disable-next-line no-control-regex
+    let name = (fileName || 'document.pdf').replace(/[:"'/\\?#%*|<>\x00-\x1F]/g, '');
+    if (name.length > 100) {
+        name = name.slice(0, 96) + '.pdf';
+    }
+    return name || 'document.pdf';
+}

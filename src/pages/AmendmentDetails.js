@@ -8,7 +8,7 @@ import { faChevronLeft, faFilter, faFilePdf, faDownload, faSpinner } from '@fort
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
-import { openPdfTab } from '../utils/pdfTab';
+import { openPdfTab, sanitizeFilenameForUrl } from '../utils/pdfTab';
 import UserAvatar from '../components/UserAvatar';
 
 function AmendmentDetails() {
@@ -39,12 +39,19 @@ function AmendmentDetails() {
         }
     }, [idt, amendmentId]);
 
-    const handlePdfFetch = (pdfId) => {
+    const handlePdfFetch = async (pdfId) => {
         const newTab = openPdfTab();
-        const token = localStorage.getItem('jwtToken');
-        const baseUrl = process.env.REACT_APP_API_URL || '';
-        if (newTab) {
-            newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}?token=${encodeURIComponent(token)}`;
+        try {
+            const { data } = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}/name`);
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const safeName = sanitizeFilenameForUrl(data.fileName);
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}/${encodeURIComponent(safeName)}?token=${encodeURIComponent(token)}`;
+            }
+        } catch (error) {
+            console.error('Error fetching PDF:', error);
+            if (newTab && !newTab.closed) newTab.close();
         }
     };
 

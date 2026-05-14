@@ -24,7 +24,7 @@ import {
     faBookmark
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
-import { openPdfTab } from '../utils/pdfTab';
+import { openPdfTab, sanitizeFilenameForUrl } from '../utils/pdfTab';
 
 
 function Amendments() {
@@ -162,12 +162,19 @@ const fetchAmendments = useCallback(async () => {
         return Math.min((finishedCount / amendments.length) * 100, 100);
     };
 
-    const handleAmendmentPdfFetch = (pdfId) => {
+    const handleAmendmentPdfFetch = async (pdfId) => {
         const newTab = openPdfTab();
-        const token = localStorage.getItem('jwtToken');
-        const baseUrl = process.env.REACT_APP_API_URL || '';
-        if (newTab) {
-            newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}?token=${encodeURIComponent(token)}`;
+        try {
+            const { data } = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}/name`);
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const safeName = sanitizeFilenameForUrl(data.fileName);
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}/${encodeURIComponent(safeName)}?token=${encodeURIComponent(token)}`;
+            }
+        } catch (error) {
+            console.error('Error fetching amendment PDF:', error);
+            if (newTab && !newTab.closed) newTab.close();
         }
     };
 
