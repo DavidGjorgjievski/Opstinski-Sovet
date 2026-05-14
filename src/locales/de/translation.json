@@ -462,7 +462,7 @@
     "topicTitle": "Thema Titel:",
     "placeholder": "Thementitel",
     "uploadPdf": "PDF-Datei hochladen:",
-    "maxSizeError": "Die maximale Größe der PDF-Datei/Dateien beträgt 35MB!",
+    "maxSizeError": "Die maximale Größe der PDF-Datei/Dateien beträgt 15MB!",
     "typeError": "Bitte nur PDF-Dateien hochladen!",
     "selectedFiles": "Ausgewählte Dateien",
     "currentPdf": "Aktuelle PDF-Datei",
