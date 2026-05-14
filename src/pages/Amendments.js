@@ -166,7 +166,6 @@ const fetchAmendments = useCallback(async () => {
     const handleAmendmentPdfFetch = async (pdfId) => {
         if (loadingPdfId === pdfId) return;
 
-        // Open blank tab synchronously — Safari requires window.open before any await
         const newTab = openPdfTab();
         setLoadingPdfId(pdfId);
 

@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+import { openPdfTab } from '../utils/pdfTab';
 import useNewAmendmentWebSocket from '../hooks/useNewAmendmentWebSocket';
 
 const AddAmendmentForm = () => {
@@ -191,16 +192,21 @@ const AddAmendmentForm = () => {
     };
 
     const handlePdfFetch = async (pdfId) => {
+        const newTab = openPdfTab();
+
         try {
-            const response = await api.get(`/api/topics/amendments/pdf/${pdfId}`, {
-                responseType: 'blob',
-                headers: { Accept: 'application/pdf' },
-            });
-            const url = URL.createObjectURL(response.data);
-            window.open(url, "_blank");
-            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            const { data } = await api.get(`/api/topics/amendments/pdf/${pdfId}/name`);
+            const fileName = data.fileName || 'document.pdf';
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const encoded = encodeURIComponent(fileName);
+
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/amendments/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
+            }
         } catch (err) {
-            console.error("Error fetching PDF:", err);
+            console.error('Error fetching PDF:', err);
+            if (newTab && !newTab.closed) newTab.close();
         }
     };
 

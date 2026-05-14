@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+import { openPdfTab } from '../utils/pdfTab';
 
 
 const AddTopicForm = () => {
@@ -212,21 +213,21 @@ const AddTopicForm = () => {
     };
 
     const handlePdfFetch = async (pdfId) => {
+        const newTab = openPdfTab();
+
         try {
-            const response = await api.get(`/api/topics/pdf/${pdfId}`, {
-            responseType: "blob", 
-            headers: {
-                Accept: "application/pdf",
-            },
-            });
+            const { data } = await api.get(`/api/topics/pdf/${pdfId}/name`);
+            const fileName = data.fileName || 'document.pdf';
+            const token = localStorage.getItem('jwtToken');
+            const baseUrl = process.env.REACT_APP_API_URL || '';
+            const encoded = encodeURIComponent(fileName);
 
-            const url = URL.createObjectURL(response.data);
-            window.open(url, "_blank");
-
-            // Free memory after some time
-            setTimeout(() => URL.revokeObjectURL(url), 10000);
+            if (newTab && !newTab.closed) {
+                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
+            }
         } catch (error) {
-            console.error("Error fetching PDF:", error);
+            console.error('Error fetching PDF:', error);
+            if (newTab && !newTab.closed) newTab.close();
         }
     };
 
