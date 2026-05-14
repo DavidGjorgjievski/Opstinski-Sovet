@@ -1,9 +1,13 @@
 export const MAX_FILE_SIZE_MB = 35;
 export const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
-const sanitizePdfFile = (file) => {
-    const cleanName = file.name.replace(/[;"'\r\n]/g, '');
-    return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
+export const sanitizePdfFile = (file) => {
+    // eslint-disable-next-line no-control-regex
+    let name = file.name.replace(/[;"'/\\:?#%*|<>\x00-\x1F]/g, '');
+    if (name.length > 999) {
+        name = name.slice(0, 995) + '.pdf';
+    }
+    return name === file.name ? file : new File([file], name, { type: file.type });
 };
 
 export const handleDragOver = (event, dropArea) => {

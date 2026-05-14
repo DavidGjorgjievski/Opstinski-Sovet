@@ -8,6 +8,7 @@ import {
     handleDrop,
     handlePaste,
     MAX_FILE_SIZE_BYTES,
+    sanitizePdfFile,
 } from '../util/fileUpload';
 import '../styles/AddTopicForm.css';
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
@@ -189,8 +190,7 @@ const AddTopicForm = () => {
 
         return true;
     }).map(file => {
-        const cleanName = file.name.replace(/[;"'\r\n]/g, '');
-        return cleanName === file.name ? file : new File([file], cleanName, { type: file.type });
+        return sanitizePdfFile(file);
     });
 
     const newFiles = [...files, ...validFiles];
