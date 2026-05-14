@@ -188,6 +188,22 @@ const TopicPresentation = () => {
     }
   }, [startTimerAt]);
 
+  useEffect(() => {
+    if (!autoRefresh || !municipalityId) return;
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await api.get(`/api/speaking/municipality/${municipalityId}/items`);
+        clockOffsetRef.current = Date.now() - (data.serverNow || Date.now());
+        const speaking = (data.items || []).find(i => i.status === 'SPEAKING') || null;
+        setCurrentSpeaker(speaking);
+        if (speaking && speaking.id === lastSpeakerIdRef.current) {
+          startTimerForSpeaker(speaking);
+        }
+      } catch {}
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [autoRefresh, municipalityId, startTimerForSpeaker]);
+
   // Fetch durations + items together so timer starts with correct durations
   useEffect(() => {
     if (!municipalityId) return;
@@ -213,24 +229,24 @@ const TopicPresentation = () => {
 
   // Live updates for current speaker via WebSocket
   useEffect(() => {
-    if (!speakingMessages.length) return;
+    if (autoRefresh || !speakingMessages.length) return;
     const last = speakingMessages.at(-1);
     clockOffsetRef.current = Date.now() - (last.serverNow || Date.now());
     const speaking = (last.items || []).find(i => i.status === 'SPEAKING') || null;
     setCurrentSpeaker(speaking);
-  }, [speakingMessages]);
+  }, [speakingMessages, autoRefresh]);
 
   // Sync durations from WebSocket
   useEffect(() => {
-    if (!durationMessages.length) return;
+    if (autoRefresh || !durationMessages.length) return;
     applyDurations(durationMessages.at(-1));
-  }, [durationMessages, applyDurations]);
+  }, [durationMessages, applyDurations, autoRefresh]);
 
   // Sync pause from WebSocket
   useEffect(() => {
-    if (!pauseMessages.length) return;
+    if (autoRefresh || !pauseMessages.length) return;
     isPausedRef.current = !!pauseMessages.at(-1).paused;
-  }, [pauseMessages]);
+  }, [pauseMessages, autoRefresh]);
 
   // Start/reset timer when speaker changes via WebSocket
   useEffect(() => {
