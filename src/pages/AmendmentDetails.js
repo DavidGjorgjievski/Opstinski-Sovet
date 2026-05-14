@@ -17,7 +17,6 @@ function AmendmentDetails() {
     const [details, setDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showVotes, setShowVotes] = useState(false);
-    const [isPdfLoading, setIsPdfLoading] = useState(false);
     const [isPdfDownloading, setIsPdfDownloading] = useState(false);
     const { t } = useTranslation();
 
@@ -40,28 +39,12 @@ function AmendmentDetails() {
         }
     }, [idt, amendmentId]);
 
-    const handlePdfFetch = async (pdfId) => {
-        if (isPdfLoading) return;
-
-        // Open blank tab synchronously — Safari requires window.open before any await
+    const handlePdfFetch = (pdfId) => {
         const newTab = openPdfTab();
-        setIsPdfLoading(true);
-
-        try {
-            const { data } = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}/name`);
-            const fileName = data.fileName || 'document.pdf';
-            const token = localStorage.getItem('jwtToken');
-            const baseUrl = process.env.REACT_APP_API_URL || '';
-            const encoded = encodeURIComponent(fileName);
-
-            if (newTab && !newTab.closed) {
-                newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
-            }
-        } catch (error) {
-            console.error('Error fetching PDF:', error);
-            if (newTab && !newTab.closed) newTab.close();
-        } finally {
-            setIsPdfLoading(false);
+        const token = localStorage.getItem('jwtToken');
+        const baseUrl = process.env.REACT_APP_API_URL || '';
+        if (newTab) {
+            newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}?token=${encodeURIComponent(token)}`;
         }
     };
 
@@ -153,7 +136,7 @@ function AmendmentDetails() {
                                             className="pdf-action-btn pdf-action-btn--view"
                                             onClick={() => handlePdfFetch(details.pdfFileId)}
                                         >
-                                            <FontAwesomeIcon icon={isPdfLoading ? faSpinner : faFilePdf} spin={isPdfLoading} />
+                                            <FontAwesomeIcon icon={faFilePdf} />
                                             {t('topicsDetails.viewDocument')}
                                         </button>
                                         <div className="pdf-actions-divider" />

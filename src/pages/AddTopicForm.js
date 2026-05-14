@@ -212,22 +212,12 @@ const AddTopicForm = () => {
         }
     };
 
-    const handlePdfFetch = async (pdfId) => {
+    const handlePdfFetch = (pdfId) => {
         const newTab = openPdfTab();
-
-        try {
-            const { data } = await api.get(`/api/topics/pdf/${pdfId}/name`);
-            const fileName = data.fileName || 'document.pdf';
-            const token = localStorage.getItem('jwtToken');
-            const baseUrl = process.env.REACT_APP_API_URL || '';
-            const encoded = encodeURIComponent(fileName);
-
-            if (newTab && !newTab.closed) {
-                newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
-            }
-        } catch (error) {
-            console.error('Error fetching PDF:', error);
-            if (newTab && !newTab.closed) newTab.close();
+        const token = localStorage.getItem('jwtToken');
+        const baseUrl = process.env.REACT_APP_API_URL || '';
+        if (newTab) {
+            newTab.location.href = `${baseUrl}/api/topics/pdf/${pdfId}?token=${encodeURIComponent(token)}`;
         }
     };
 

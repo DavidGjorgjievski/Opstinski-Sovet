@@ -191,22 +191,12 @@ const AddAmendmentForm = () => {
         if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
-    const handlePdfFetch = async (pdfId) => {
+    const handlePdfFetch = (pdfId) => {
         const newTab = openPdfTab();
-
-        try {
-            const { data } = await api.get(`/api/topics/amendments/pdf/${pdfId}/name`);
-            const fileName = data.fileName || 'document.pdf';
-            const token = localStorage.getItem('jwtToken');
-            const baseUrl = process.env.REACT_APP_API_URL || '';
-            const encoded = encodeURIComponent(fileName);
-
-            if (newTab && !newTab.closed) {
-                newTab.location.href = `${baseUrl}/api/topics/amendments/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
-            }
-        } catch (err) {
-            console.error('Error fetching PDF:', err);
-            if (newTab && !newTab.closed) newTab.close();
+        const token = localStorage.getItem('jwtToken');
+        const baseUrl = process.env.REACT_APP_API_URL || '';
+        if (newTab) {
+            newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}?token=${encodeURIComponent(token)}`;
         }
     };
 

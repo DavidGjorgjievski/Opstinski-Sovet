@@ -48,7 +48,6 @@ function Amendments() {
     const [deleteAmendmentId, setDeleteAmendmentId] = useState(null);
     const [deleteAmendmentTitle, setDeleteAmendmentTitle] = useState("");
     const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
-    const [loadingPdfId, setLoadingPdfId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
 
@@ -163,27 +162,12 @@ const fetchAmendments = useCallback(async () => {
         return Math.min((finishedCount / amendments.length) * 100, 100);
     };
 
-    const handleAmendmentPdfFetch = async (pdfId) => {
-        if (loadingPdfId === pdfId) return;
-
+    const handleAmendmentPdfFetch = (pdfId) => {
         const newTab = openPdfTab();
-        setLoadingPdfId(pdfId);
-
-        try {
-            const { data } = await api.get(`/api/topics/${idt}/amendments/pdf/${pdfId}/name`);
-            const fileName = data.fileName || 'document.pdf';
-            const token = localStorage.getItem('jwtToken');
-            const baseUrl = process.env.REACT_APP_API_URL || '';
-            const encoded = encodeURIComponent(fileName);
-
-            if (newTab && !newTab.closed) {
-                newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}/${encoded}?token=${encodeURIComponent(token)}`;
-            }
-        } catch (error) {
-            console.error('Error fetching amendment PDF:', error);
-            if (newTab && !newTab.closed) newTab.close();
-        } finally {
-            setLoadingPdfId(null);
+        const token = localStorage.getItem('jwtToken');
+        const baseUrl = process.env.REACT_APP_API_URL || '';
+        if (newTab) {
+            newTab.location.href = `${baseUrl}/api/topics/${idt}/amendments/pdf/${pdfId}?token=${encodeURIComponent(token)}`;
         }
     };
 
@@ -609,13 +593,9 @@ const handleRestartAmendmentConfirm = () => {
                                                             ${["ROLE_ADMIN", "ROLE_EDITOR", "ROLE_PRESIDENT", "ROLE_USER"].includes(userInfo?.role) ? "ape-width" : ""}
                                                             ${["ROLE_MAYOR", "ROLE_SPECTATOR"].includes(userInfo?.role) ? "user-width" : ""}
                                                             ${userInfo?.role === "ROLE_GUEST" ? "guest-width" : ""}
-                                                            ${loadingPdfId === amendment.pdfFileId ? "pdf-loading" : ""}
                                                         `}
                                                     >
                                                         {amendment.title}
-                                                        {loadingPdfId === amendment.pdfFileId && (
-                                                            <span className="pdf-spinner" aria-label="Loading PDF" />
-                                                        )}
                                                     </span>
                                                 ) : (
                                                     <span
