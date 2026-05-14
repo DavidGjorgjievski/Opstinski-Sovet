@@ -213,40 +213,70 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.button-pdf{
-    padding: 5px 15px;
-    background-color: #fbe64e;
-    color: black;
+.pdf-actions-container {
+    display: inline-flex;
+    align-items: stretch;
+    margin: 14px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    max-width: 100%;
+}
+
+.pdf-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 22px;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.1s, transform 0.1s;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: background-color 0.15s;
+    white-space: nowrap;
+    flex: 1;
 }
 
-.button-pdf:hover {
+.pdf-action-btn--view {
+    background-color: #fbe64e;
+    color: #1a1a1a;
+}
+
+.pdf-action-btn--view:hover {
     background-color: #f7db2c;
-    transform: scale(1.03);
 }
 
-.button-pdf:disabled {
-    cursor: wait;
-    opacity: 0.8;
+.pdf-actions-divider {
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.12);
+    flex-shrink: 0;
 }
 
-.button-pdf .pdf-spinner {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    border: 0.13em solid rgba(0, 0, 0, 0.18);
-    border-top-color: #444;
-    border-radius: 50%;
-    animation: pdf-spin 0.7s linear infinite;
-    vertical-align: middle;
+.pdf-action-btn--download {
+    background-color: #f0f0f0;
+    color: #3a3a3a;
 }
 
-@keyframes pdf-spin {
-    to { transform: rotate(360deg); }
+.pdf-action-btn--download:hover {
+    background-color: #e2e2e2;
+}
+
+@media (max-width: 480px) {
+    .pdf-actions-container {
+        flex-direction: column;
+    }
+
+    .pdf-actions-divider {
+        width: 100%;
+        height: 1px;
+    }
+
+    .pdf-action-btn {
+        padding: 11px 16px;
+        font-size: 14px;
+        flex: unset;
+    }
 }
 
 @media (max-width: 900px) {

@@ -15,6 +15,7 @@ import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
+import { openPdfTab } from '../utils/pdfTab';
 import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 
 function Topics() { 
@@ -266,7 +267,7 @@ function Topics() {
         if (loadingPdfId === pdfId) return;
 
         // Open blank tab synchronously — Safari requires window.open before any await
-        const newTab = window.open('', '_blank');
+        const newTab = openPdfTab();
         setLoadingPdfId(pdfId);
 
         try {

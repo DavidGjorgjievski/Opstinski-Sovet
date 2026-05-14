@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faFilePdf, faFileCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+import { openPdfTab } from '../utils/pdfTab';
 import '../styles/SessionStatistics.css';
 
 function SessionStatistics() {
@@ -42,7 +43,7 @@ function SessionStatistics() {
     const handlePdfFetch = async (pdfId) => {
         if (loadingPdfId === pdfId) return;
 
-        const newTab = window.open('', '_blank');
+        const newTab = openPdfTab();
         setLoadingPdfId(pdfId);
 
         try {

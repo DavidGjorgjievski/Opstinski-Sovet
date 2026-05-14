@@ -4,10 +4,11 @@ import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faChevronLeft, faFilter, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faFilter, faFilePdf, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
+import { openPdfTab } from '../utils/pdfTab';
 import UserAvatar from '../components/UserAvatar';
 
 function TopicDetails() {
@@ -18,6 +19,7 @@ function TopicDetails() {
     const [loading, setLoading] = useState(true); // Add loading state
     const [showVotes, setShowVotes] = useState(null);
     const [isPdfLoading, setIsPdfLoading] = useState(false);
+    const [isPdfDownloading, setIsPdfDownloading] = useState(false);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -49,7 +51,7 @@ function TopicDetails() {
         if (isPdfLoading) return;
 
         // Open blank tab synchronously — Safari requires window.open before any await
-        const newTab = window.open('', '_blank');
+        const newTab = openPdfTab();
         setIsPdfLoading(true);
 
         try {
@@ -67,6 +69,30 @@ function TopicDetails() {
             if (newTab && !newTab.closed) newTab.close();
         } finally {
             setIsPdfLoading(false);
+        }
+    };
+
+    const handlePdfDownload = async (pdfId) => {
+        if (isPdfDownloading) return;
+        setIsPdfDownloading(true);
+        try {
+            const { data: nameData } = await api.get(`/api/topics/pdf/${pdfId}/name`);
+            const fileName = nameData.fileName || 'document.pdf';
+            const response = await api.get(`/api/topics/pdf/${pdfId}/${encodeURIComponent(fileName)}`, {
+                responseType: 'blob',
+            });
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+        } finally {
+            setIsPdfDownloading(false);
         }
     };
 
@@ -133,13 +159,21 @@ function TopicDetails() {
                             </div>
                         )}
                         {topicDetails.pdfFileId != null && (
-                            <div>
-                                <button className='button-pdf' onClick={() => handlePdfFetch(topicDetails.pdfFileId)} disabled={isPdfLoading}>
-                                    {isPdfLoading ? (
-                                        <span className="pdf-spinner" aria-label="Loading PDF" />
-                                    ) : (
-                                        <>{t("topicsDetails.viewDocument")} <FontAwesomeIcon icon={faFilePdf} /></>
-                                    )}
+                            <div className="pdf-actions-container">
+                                <button
+                                    className="pdf-action-btn pdf-action-btn--view"
+                                    onClick={() => handlePdfFetch(topicDetails.pdfFileId)}
+                                >
+                                    <FontAwesomeIcon icon={isPdfLoading ? faSpinner : faFilePdf} spin={isPdfLoading} />
+                                    {t("topicsDetails.viewDocument")}
+                                </button>
+                                <div className="pdf-actions-divider" />
+                                <button
+                                    className="pdf-action-btn pdf-action-btn--download"
+                                    onClick={() => handlePdfDownload(topicDetails.pdfFileId)}
+                                >
+                                    <FontAwesomeIcon icon={isPdfDownloading ? faSpinner : faDownload} spin={isPdfDownloading} />
+                                    {t("topicsDetails.downloadDocument")}
                                 </button>
                             </div>
                         )}

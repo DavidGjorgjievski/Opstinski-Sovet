@@ -24,6 +24,7 @@ import {
     faBookmark
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+import { openPdfTab } from '../utils/pdfTab';
 
 
 function Amendments() {
@@ -166,7 +167,7 @@ const fetchAmendments = useCallback(async () => {
         if (loadingPdfId === pdfId) return;
 
         // Open blank tab synchronously — Safari requires window.open before any await
-        const newTab = window.open('', '_blank');
+        const newTab = openPdfTab();
         setLoadingPdfId(pdfId);
 
         try {
