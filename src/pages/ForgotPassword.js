@@ -34,12 +34,10 @@ function ForgotPassword() {
                 }
             );
 
-            const data = await response.json();
-
             if (response.ok) {
-                setMessage(data.message || t("forgot.success"));
+                setMessage(t("forgot.success"));
             } else {
-                setError(data.message || t("forgot.error"));
+                setError(t("forgot.error"));
             }
 
             setEmail("");

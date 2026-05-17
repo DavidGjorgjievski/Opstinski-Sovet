@@ -6,6 +6,11 @@
     "add": "Add",
     "edit": "Edit"
   },
+  "passwordValidation": {
+    "tooShort": "Password must be at least 8 characters.",
+    "tooLong": "Password cannot exceed 72 bytes.",
+    "invalidChars": "Password cannot contain the characters: ' \" \\ ` or control characters."
+  },
   "login": {
     "title": "Please log in:",
     "username": "Username",

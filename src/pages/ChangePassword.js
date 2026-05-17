@@ -15,16 +15,35 @@ const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordErrorKey, setPasswordErrorKey] = useState(null); // string | null
   const [successMessage, setSuccessMessage] = useState(null);     // string | null
+  const [newPasswordError, setNewPasswordError] = useState("");
   const navigate = useNavigate();
 
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // eslint-disable-next-line no-control-regex
+  const PASSWORD_REGEX = /^[^\x00-\x1F\x7F'"\\`]+$/;
+
+  const validatePassword = (value) => {
+    if (value.length > 0 && new TextEncoder().encode(value).length > 72) return t("passwordValidation.tooLong");
+    if (value.length > 0 && !PASSWORD_REGEX.test(value)) return t("passwordValidation.invalidChars");
+    return "";
+  };
+
+  const handleNewPasswordChange = (e) => {
+    const val = e.target.value;
+    setNewPassword(val);
+    setNewPasswordError(validatePassword(val));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setPasswordErrorKey(null);
     setSuccessMessage(null);
+
+    const pwErr = validatePassword(newPassword);
+    if (pwErr) { setNewPasswordError(pwErr); return; }
 
     if (newPassword !== confirmPassword) {
       setPasswordErrorKey('changePassword.passwordMismatch');
@@ -32,13 +51,12 @@ const ChangePassword = () => {
     }
 
     try {
-      const { data } = await api.post("/api/change-password", {
+      await api.post("/api/change-password", {
         currentPassword,
         newPassword
       });
 
-      // Use backend message if available
-      setSuccessMessage(data?.message || t('changePassword.success'));
+      setSuccessMessage(t('changePassword.success'));
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
@@ -105,7 +123,7 @@ const ChangePassword = () => {
                   type={showNew ? "text" : "password"}
                   id="newPassword"
                   value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  onChange={handleNewPasswordChange}
                   required
                   className="change-password-input-field"
                 />
@@ -137,6 +155,7 @@ const ChangePassword = () => {
               </div>
             </div>
 
+            {newPasswordError && <p className="error-message">{newPasswordError}</p>}
             {passwordErrorKey && <p className="error-message">{t(passwordErrorKey)}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
 

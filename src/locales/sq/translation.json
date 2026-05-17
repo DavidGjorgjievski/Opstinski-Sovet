@@ -6,6 +6,11 @@
     "add": "Shto",
     "edit": "Ndrysho"
   },
+  "passwordValidation": {
+    "tooShort": "Fjalëkalimi duhet të ketë të paktën 8 karaktere.",
+    "tooLong": "Fjalëkalimi nuk mund të kalojë 72 bajt.",
+    "invalidChars": "Fjalëkalimi nuk mund të përmbajë karakteret: ' \" \\ ` ose karaktere kontrolli."
+  },
   "login": {
     "title": "Ju lutem identifikohuni:",
     "username": "Emri i përdoruesit",

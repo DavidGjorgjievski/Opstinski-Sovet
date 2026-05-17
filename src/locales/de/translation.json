@@ -6,6 +6,11 @@
     "add": "Hinzufügen",
     "edit": "Bearbeiten"
   },
+  "passwordValidation": {
+    "tooShort": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+    "tooLong": "Das Passwort darf 72 Byte nicht überschreiten.",
+    "invalidChars": "Das Passwort darf folgende Zeichen nicht enthalten: ' \" \\ ` oder Steuerzeichen."
+  },
   "login": {
     "title": "Melden Sie sich an:",
     "username": "Benutzername",

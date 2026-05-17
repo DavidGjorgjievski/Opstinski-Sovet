@@ -33,6 +33,16 @@ function AddUserForm() {
   const [fileName, setFileName] = useState(t("addUserForm.noFileSelected"));
   const [fileSizeError, setFileSizeError] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+  const [passwordError, setPasswordError] = useState("");
+
+  // eslint-disable-next-line no-control-regex
+  const PASSWORD_REGEX = /^[^\x00-\x1F\x7F'"\\`]+$/;
+
+  const validatePassword = (value) => {
+    if (value.length > 0 && new TextEncoder().encode(value).length > 72) return t("passwordValidation.tooLong");
+    if (value.length > 0 && !PASSWORD_REGEX.test(value)) return t("passwordValidation.invalidChars");
+    return "";
+  };
 
   // Dropdown control
   const [openRole, setOpenRole] = useState(false);
@@ -122,6 +132,7 @@ function AddUserForm() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    if (name === "password") setPasswordError(validatePassword(value));
   };
 
   const handleFileChange = (e) => {
@@ -153,6 +164,11 @@ function AddUserForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (fileError || fileSizeError) return;
+
+    if (formData.password) {
+      const pwErr = validatePassword(formData.password);
+      if (pwErr) { setPasswordError(pwErr); return; }
+    }
 
     const submissionData = new FormData();
     if (!isEditMode) submissionData.append("username", formData.username.trim().toLowerCase());
@@ -262,6 +278,7 @@ function AddUserForm() {
                   onClick={() => setShowPassword(!showPassword)}
                 />
               </div>
+              {passwordError && <div className="error-message">{passwordError}</div>}
 
               {/* Custom Dropdowns */}
               {/* Role */}
