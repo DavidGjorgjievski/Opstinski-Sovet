@@ -388,3 +388,33 @@
     box-shadow:
         0 0 0 3px rgba(255, 77, 79, 0.3);
 }
+
+.btn-warning-modal {
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #333;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.btn-warning-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(247, 219, 44, 0.45);
+}
+
+.btn-warning-modal:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.btn-warning-modal:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(247, 219, 44, 0.45);
+}

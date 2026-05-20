@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import RestartAmendmentStatusModal from '../components/RestartAmendmentStatusModal';
 import AmendmentConfirmModal from '../components/AmendmentConfirmModal';
+import ActiveTopicWarningModal from '../components/ActiveTopicWarningModal';
 import useAmendmentVoteWebSocket from "../hooks/useAmendmentVoteWebSocket";
 import useNewAmendmentWebSocket from "../hooks/useNewAmendmentWebSocket";
 import useAmendmentPresenterWebSocket from "../hooks/useAmendmentPresenterWebSocket";
@@ -47,6 +48,10 @@ function Amendments() {
     const [isDeleteAmendmentModalOpen, setIsDeleteAmendmentModalOpen] = useState(false);
     const [deleteAmendmentId, setDeleteAmendmentId] = useState(null);
     const [deleteAmendmentTitle, setDeleteAmendmentTitle] = useState("");
+    const [isActiveAmendmentWarningOpen, setIsActiveAmendmentWarningOpen] = useState(false);
+    const [activeAmendmentWarningTitle, setActiveAmendmentWarningTitle] = useState('');
+    const [activeAmendmentWarningId, setActiveAmendmentWarningId] = useState(null);
+    const [pendingVotingAmendmentId, setPendingVotingAmendmentId] = useState(null);
     const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
@@ -268,6 +273,26 @@ const handleAmendmentVote = async (amendmentId, voteType) => {
     }
 };
 
+
+const handleStartAmendmentVotingClick = (amendmentId) => {
+    const activeAmendment = amendments.find(a => a.status === 'ACTIVE');
+    if (activeAmendment) {
+        setActiveAmendmentWarningTitle(activeAmendment.title);
+        setActiveAmendmentWarningId(activeAmendment.id);
+        setPendingVotingAmendmentId(amendmentId);
+        setIsActiveAmendmentWarningOpen(true);
+    } else {
+        startAmendmentVoting(amendmentId, idt);
+    }
+};
+
+const handleActiveAmendmentWarningConfirm = async () => {
+    setIsActiveAmendmentWarningOpen(false);
+    if (activeAmendmentWarningId) await finishAmendmentVoting(activeAmendmentWarningId, idt);
+    if (pendingVotingAmendmentId) await startAmendmentVoting(pendingVotingAmendmentId, idt);
+    setActiveAmendmentWarningId(null);
+    setPendingVotingAmendmentId(null);
+};
 
 const startAmendmentVoting = async (amendmentId, topicId) => {
     try {
@@ -929,7 +954,7 @@ const handleRestartAmendmentConfirm = () => {
                                                         {amendment.status === "CREATED" && (
                                                             <div className="command-buttons">
                                                                 <button
-                                                                    onClick={() => startAmendmentVoting(amendment.id, idt)}
+                                                                    onClick={() => handleStartAmendmentVotingClick(amendment.id)}
                                                                     className={`change-topic-status-button ${selectedLang}`}
                                                                 >
                                                                     {t("topicsPage.startVoting")}{" "}
@@ -995,6 +1020,19 @@ const handleRestartAmendmentConfirm = () => {
                 />
             )}
 
+            {isActiveAmendmentWarningOpen && (
+                <ActiveTopicWarningModal
+                    isOpen={isActiveAmendmentWarningOpen}
+                    onClose={() => {
+                        setIsActiveAmendmentWarningOpen(false);
+                        setPendingVotingAmendmentId(null);
+                        setActiveAmendmentWarningId(null);
+                    }}
+                    onConfirm={handleActiveAmendmentWarningConfirm}
+                    activeTopicTitle={activeAmendmentWarningTitle}
+                    keyPrefix="activeAmendmentWarning"
+                />
+            )}
 
         </div>
     );

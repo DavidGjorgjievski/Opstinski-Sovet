@@ -5,6 +5,7 @@ import '../styles/Topics.css';
 import Header from '../components/Header';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal'
 import TopicConfirmModal from '../components/TopicConfirmModal';
+import ActiveTopicWarningModal from '../components/ActiveTopicWarningModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import SpeakingPanel from '../components/SpeakingPanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
@@ -42,6 +43,10 @@ function Topics() {
     const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
     const [restartTopicId, setRestartTopicId] = useState(null);
     const [restartTopicTitle, setRestartTopicTitle] = useState('');
+    const [isActiveWarningModalOpen, setIsActiveWarningModalOpen] = useState(false);
+    const [activeWarningTopicTitle, setActiveWarningTopicTitle] = useState('');
+    const [activeWarningTopicId, setActiveWarningTopicId] = useState(null);
+    const [pendingVotingTopicId, setPendingVotingTopicId] = useState(null);
     const [topicsLoaded, setTopicsLoaded] = useState(false);
     const [showNumber, setShowNumber] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
@@ -276,6 +281,26 @@ function Topics() {
             console.error('Error fetching PDF:', error);
             if (newTab && !newTab.closed) newTab.close();
         }
+    };
+
+    const handleStartVotingClick = (topicId) => {
+        const activeTopic = topics.find(t => t.topicStatus === 'ACTIVE');
+        if (activeTopic) {
+            setActiveWarningTopicTitle(activeTopic.title);
+            setActiveWarningTopicId(activeTopic.id);
+            setPendingVotingTopicId(topicId);
+            setIsActiveWarningModalOpen(true);
+        } else {
+            startVoting(topicId);
+        }
+    };
+
+    const handleActiveWarningConfirm = async () => {
+        setIsActiveWarningModalOpen(false);
+        if (activeWarningTopicId) await finishVoting(activeWarningTopicId);
+        if (pendingVotingTopicId) await startVoting(pendingVotingTopicId);
+        setActiveWarningTopicId(null);
+        setPendingVotingTopicId(null);
     };
 
     const startVoting = async (topicId) => {
@@ -1021,7 +1046,7 @@ useEffect(() => {
                                                         {topic.topicStatus === "CREATED" && (
                                                             <div className="command-buttons">
                                                                 <button
-                                                                    onClick={() => startVoting(topic.id, token)}
+                                                                    onClick={() => handleStartVotingClick(topic.id)}
                                                                     className={`change-topic-status-button ${selectedLang}`}
                                                                 >
                                                                     {t("topicsPage.startVoting")} <FontAwesomeIcon icon={faCirclePlay} />
@@ -1118,6 +1143,19 @@ useEffect(() => {
                     onClose={closeRestartModal}
                     topicTitle={restartTopicTitle}
                     onConfirm={handleRestartConfirm}
+                />
+            )}
+
+            {isActiveWarningModalOpen && (
+                <ActiveTopicWarningModal
+                    isOpen={isActiveWarningModalOpen}
+                    onClose={() => {
+                        setIsActiveWarningModalOpen(false);
+                        setPendingVotingTopicId(null);
+                        setActiveWarningTopicId(null);
+                    }}
+                    onConfirm={handleActiveWarningConfirm}
+                    activeTopicTitle={activeWarningTopicTitle}
                 />
             )}
 
