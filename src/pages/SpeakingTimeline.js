@@ -76,7 +76,6 @@ function SpeakingTimeline() {
   const [sessionName, setSessionName] = useState('');
   const [pendingDeleteId, setPendingDeleteId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
-  const [currentSession, setCurrentSession] = useState(null);
   const [topicTitles, setTopicTitles] = useState({});
   const [amendmentTitles, setAmendmentTitles] = useState({});
 
@@ -86,26 +85,12 @@ function SpeakingTimeline() {
   }, []);
 
   useEffect(() => {
-    // Fast first paint from localStorage cache.
     const cached = JSON.parse(localStorage.getItem(`sessions_${municipalityId}`) || '[]');
     const cachedSession = cached.find((s) => String(s.id) === String(sessionId));
-    if (cachedSession) {
-      if (cachedSession.name) setSessionName(cachedSession.name);
-      setCurrentSession(cachedSession);
-    }
+    if (cachedSession?.name) setSessionName(cachedSession.name);
 
-    // Authoritative fetch — fills in name/mandate even if cache is stale or missing.
     api.get(`/api/sessions/${sessionId}`)
-      .then((res) => {
-        if (res?.data) {
-          if (res.data.name) setSessionName(res.data.name);
-          setCurrentSession((prev) => ({
-            ...prev,
-            ...res.data,
-            municipalityMandateId: res.data.municipalityMandateId ?? prev?.municipalityMandateId ?? null,
-          }));
-        }
-      })
+      .then((res) => { if (res?.data?.name) setSessionName(res.data.name); })
       .catch((err) => console.error('Failed to load session info', err));
 
     api.get(`/api/speaking/session/${sessionId}/history`)
@@ -143,14 +128,7 @@ function SpeakingTimeline() {
       .catch((err) => console.error('Failed to load topic titles', err));
   }, [municipalityId, sessionId]);
 
-  const canDelete = useMemo(() => {
-    if (userInfo?.role === 'ROLE_ADMIN') return true;
-    if (userInfo?.role !== 'ROLE_PRESIDENT') return false;
-    if (userInfo.status !== 'ACTIVE') return false;
-    if (Number(municipalityId) !== Number(userInfo.municipalityId)) return false;
-    if (!Array.isArray(userInfo.municipalityTermIds) || !currentSession) return false;
-    return userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId));
-  }, [userInfo, municipalityId, currentSession]);
+  const canDelete = useMemo(() => userInfo?.role === 'ROLE_ADMIN', [userInfo]);
 
   const handleDelete = useCallback(async (id) => {
     setDeletingId(id);
