@@ -666,6 +666,7 @@
     },
     "tooltips": {
       "alreadyRequested": "Веќе имате барање на чекање",
+      "speechLimitReached": "Го достигнавте максималниот број зборови (2) за оваа точка",
       "currentlySpeaking": "Во моментов зборувате",
       "cannotRequest": "Не може да се бара збор сега",
       "requestSpeech": "Барај збор",
@@ -686,7 +687,20 @@
       "counterReply": "Контрареплика",
       "minutes": "мин",
       "seconds": "сек"
-    }
+    },
+    "timeline": "Хронологија на зборови",
+    "timelineEmpty": "Сè уште нема снимени зборови за оваа седница.",
+    "timelineLoading": "Се вчитува…",
+    "timelineTotal": "Вкупно",
+    "timelineTotalTime": "Вкупно време",
+    "timelineStart": "Почеток",
+    "timelineEnd": "Крај",
+    "timelineDuration": "Времетраење",
+    "timelineTopic": "Точка",
+    "timelineAmendment": "Амандман",
+    "timelineDelete": "Избриши",
+    "timelineDeleteConfirm": "Да се избрише овој збор од историјата?",
+    "timelineNoTopic": "(без точка)"
   },
   "homeGoGreen": {
     "badge": "Заедничко влијание врз животната средина",

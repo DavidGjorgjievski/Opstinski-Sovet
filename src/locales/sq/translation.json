@@ -663,6 +663,7 @@
     },
     "tooltips": {
       "alreadyRequested": "Keni tashmë një kërkesë në pritje",
+      "speechLimitReached": "Keni arritur numrin maksimal të fjalimeve (2) për këtë pikë",
       "currentlySpeaking": "Aktualisht jeni duke folur",
       "cannotRequest": "Nuk mund të kërkoni fjalim tani",
       "requestSpeech": "Kërkoni të flisni",
@@ -683,7 +684,20 @@
       "counterReply": "Kundër-replikë",
       "minutes": "min",
       "seconds": "sek"
-    }
+    },
+    "timeline": "Kronologjia e fjalimeve",
+    "timelineEmpty": "Asnjë fjalim i regjistruar për këtë seancë ende.",
+    "timelineLoading": "Po ngarkohet…",
+    "timelineTotal": "Gjithsej",
+    "timelineTotalTime": "Koha gjithsej",
+    "timelineStart": "Fillimi",
+    "timelineEnd": "Mbarimi",
+    "timelineDuration": "Kohëzgjatja",
+    "timelineTopic": "Tema",
+    "timelineAmendment": "Amendament",
+    "timelineDelete": "Fshi",
+    "timelineDeleteConfirm": "Të fshihet ky fjalim nga historiku?",
+    "timelineNoTopic": "(pa temë)"
   },
   "homeGoGreen": {
     "badge": "Ndikimi i Kombinuar Mjedisor",

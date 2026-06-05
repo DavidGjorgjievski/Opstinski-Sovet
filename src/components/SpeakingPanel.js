@@ -15,8 +15,10 @@ import {
   faAngleDown,
   faTrashCan,
   faGear,
+  faClockRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import useSpeakingWebSocket from '../hooks/useSpeakingWebSocket';
 import api from '../api/axios';
 import UserAvatar from './UserAvatar';
@@ -46,6 +48,8 @@ function saveDurationsToStorage(municipalityId, durations) {
     localStorage.setItem(durationsLsKey(municipalityId), JSON.stringify(durations));
   } catch { /* ignore */ }
 }
+
+const MAX_SPEECHES_PER_TOPIC = 2;
 
 const TYPE_PRIORITY = { COUNTER_REPLY: 0, REPLY: 1, SPEECH: 2 };
 
@@ -105,6 +109,7 @@ const mapDtoToEntry = (dto) => ({
   status: dto.status,
   replyToUsername: dto.replyToUsername || null,
   replyToFullName: dto.replyToFullName || null,
+  topicId: dto.topicId || null,
   speakerStartTime: dto.speakerStartTime || null,
   requestedAt: dto.createdAt,
 });
@@ -459,16 +464,18 @@ function QueueItem({
 
 export default function SpeakingPanel({
   presentedTopicId,
+  presentedAmendmentId,
   userInfo,
   isPresidentOrAdmin,
   canParticipate,
   municipalityId,
-  sessionId, // eslint-disable-line no-unused-vars
+  sessionId,
 }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // ── WebSocket ─────────────────────────────────────────────────────────────
-  const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(municipalityId);
+  const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(sessionId, municipalityId);
 
   // ── UI State ──────────────────────────────────────────────────────────────
   const [isOpen, setIsOpen] = useState(false);
@@ -543,12 +550,14 @@ export default function SpeakingPanel({
   const [isPaused, setIsPaused] = useState(false);
   const isPausedRef = useRef(false);
   const [durations, setDurations] = useState(() => loadDurationsFromStorage(municipalityId) || DEFAULT_DURATIONS);
+  // sessionId scopes the queue; municipalityId scopes the durations
   const [settingsOpen, setSettingsOpen] = useState(false);
   const timerRef = useRef(null);
   const lastSpeakerIdRef = useRef(null);
   const skipTimerRemoveRef = useRef(false);
   const currentSpeakerRef = useRef(null);
   const clockOffsetRef = useRef(0); // client ms ahead of server (positive = client faster)
+  const endRetryRef = useRef(null);
 
   // ── Load durations from backend ────────────────────────────────────────────
   useEffect(() => {
@@ -620,6 +629,43 @@ export default function SpeakingPanel({
   const myUsername = userInfo?.username;
   const isCurrentlySpeaking = currentSpeaker?.username === myUsername;
 
+  // ── Speech-per-topic limit ────────────────────────────────────────────────
+  const [myTopicSpeechCount, setMyTopicSpeechCount] = useState(0);
+  const prevSpeakerIdForCountRef = useRef(null);
+
+  const fetchMyTopicSpeechCount = useCallback(async () => {
+    if (!sessionId || !myUsername || !presentedTopicId) {
+      setMyTopicSpeechCount(0);
+      return;
+    }
+    try {
+      const res = await api.get(`/api/speaking/session/${sessionId}/history`);
+      const data = res.data || [];
+      const count = data.filter(e =>
+        e.username === myUsername &&
+        e.type === 'SPEECH' &&
+        e.topicId === presentedTopicId &&
+        (presentedAmendmentId != null
+          ? e.amendmentId === presentedAmendmentId
+          : e.amendmentId == null)
+      ).length;
+      setMyTopicSpeechCount(count);
+    } catch {}
+  }, [sessionId, myUsername, presentedTopicId, presentedAmendmentId]);
+
+  useEffect(() => {
+    fetchMyTopicSpeechCount();
+  }, [fetchMyTopicSpeechCount]);
+
+  // Refetch count when a speech ends (speaker goes from active to null)
+  useEffect(() => {
+    const prev = prevSpeakerIdForCountRef.current;
+    prevSpeakerIdForCountRef.current = currentSpeaker?.id ?? null;
+    if (prev !== null && currentSpeaker === null) {
+      fetchMyTopicSpeechCount();
+    }
+  }, [currentSpeaker, fetchMyTopicSpeechCount]);
+
   const myActiveEntries = useMemo(
     () =>
       queue.filter(
@@ -647,8 +693,9 @@ export default function SpeakingPanel({
       canParticipate &&
       !!presentedTopicId &&
       !myActiveSpeechEntry &&
-      !isCurrentlySpeaking,
-    [canParticipate, presentedTopicId, myActiveSpeechEntry, isCurrentlySpeaking]
+      !isCurrentlySpeaking &&
+      myTopicSpeechCount < MAX_SPEECHES_PER_TOPIC,
+    [canParticipate, presentedTopicId, myActiveSpeechEntry, isCurrentlySpeaking, myTopicSpeechCount]
   );
 
   const canRequestReply = useMemo(() => {
@@ -714,11 +761,11 @@ export default function SpeakingPanel({
   const togglePause = useCallback(async () => {
     const next = !isPausedRef.current;
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/pause`, { paused: next });
+      await api.post(`/api/speaking/session/${sessionId}/pause`, { paused: next });
     } catch (e) {
       console.error('Failed to toggle pause', e);
     }
-  }, [municipalityId]);
+  }, [sessionId]);
 
   // React to pause broadcasts from any client
   useEffect(() => {
@@ -744,9 +791,19 @@ export default function SpeakingPanel({
             skipTimerRemoveRef.current = true;
             stopTimer();
             setTimeLeft(0);
-            api
-              .post(`/api/speaking/municipality/${municipalityId}/items/${speaker.id}/end`)
-              .catch(() => { skipTimerRemoveRef.current = false; });
+            const sid = speaker.id;
+            const tryEnd = () => {
+              api
+                .post(`/api/speaking/session/${sessionId}/items/${sid}/end`)
+                .catch(() => {
+                  skipTimerRemoveRef.current = false;
+                  if (currentSpeakerRef.current?.id === sid) {
+                    skipTimerRemoveRef.current = true;
+                    endRetryRef.current = setTimeout(tryEnd, 4000);
+                  }
+                });
+            };
+            tryEnd();
           }
           return;
         }
@@ -755,7 +812,7 @@ export default function SpeakingPanel({
         startTimerAt(duration);
       }
     },
-    [durations, startTimerAt, stopTimer, municipalityId]
+    [durations, startTimerAt, stopTimer, sessionId]
   );
 
   // Start/reset timer when the current speaker changes
@@ -764,6 +821,7 @@ export default function SpeakingPanel({
       if (lastSpeakerIdRef.current !== null) {
         stopTimer();
         setTimeLeft(0);
+        clearTimeout(endRetryRef.current);
         lastSpeakerIdRef.current = null;
       }
       return;
@@ -799,36 +857,49 @@ export default function SpeakingPanel({
       }
       skipTimerRemoveRef.current = true;
       const id = currentSpeakerRef.current.id;
-      api
-        .post(`/api/speaking/municipality/${municipalityId}/items/${id}/end`)
-        .catch(() => { skipTimerRemoveRef.current = false; });
+      const tryEnd = () => {
+        api
+          .post(`/api/speaking/session/${sessionId}/items/${id}/end`)
+          .catch(() => {
+            skipTimerRemoveRef.current = false;
+            if (currentSpeakerRef.current?.id === id) {
+              skipTimerRemoveRef.current = true;
+              endRetryRef.current = setTimeout(tryEnd, 4000);
+            }
+          });
+      };
+      tryEnd();
     }
   }, [timeLeft]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Reset when presented topic CHANGES ────────────────────────────────────
-  const prevTopicIdRef = useRef(undefined);
-  useEffect(() => {
-    const prev = prevTopicIdRef.current;
-    prevTopicIdRef.current = presentedTopicId;
+  // Cancel pending end-retry on unmount
+  useEffect(() => () => clearTimeout(endRetryRef.current), []);
 
-    if (prev === undefined) return;
-    if (prev === null || prev === undefined) return;
-    if (prev === presentedTopicId) return;
+  // ── Reset when presented topic OR amendment CHANGES ───────────────────────
+  const prevContextKeyRef = useRef(undefined);
+  useEffect(() => {
+    const key = `${presentedTopicId ?? 'null'}_${presentedAmendmentId ?? 'null'}`;
+    const prev = prevContextKeyRef.current;
+    prevContextKeyRef.current = key;
+
+    if (prev === undefined) return; // first render — nothing to clear
+    if (prev === key) return;       // no change
 
     stopTimer();
     setQueue([]);
     setTimeLeft(0);
     lastSpeakerIdRef.current = null;
-    if (municipalityId) {
-      api.delete(`/api/speaking/municipality/${municipalityId}/items`).catch(() => {});
+    clearTimeout(endRetryRef.current);
+    if (sessionId) {
+      api.delete(`/api/speaking/session/${sessionId}/items`).catch(() => {});
     }
-  }, [presentedTopicId, stopTimer]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [presentedTopicId, presentedAmendmentId, stopTimer]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Fetch from server on mount ────────────────────────────────────────────
   useEffect(() => {
-    if (!municipalityId) return;
+    if (!sessionId) return;
     api
-      .get(`/api/speaking/municipality/${municipalityId}/items`)
+      .get(`/api/speaking/session/${sessionId}/items`)
       .then((res) => {
         const { serverNow, items: dtoItems } = res.data;
         clockOffsetRef.current = Date.now() - serverNow;
@@ -841,7 +912,7 @@ export default function SpeakingPanel({
         }
       })
       .catch(() => {});
-  }, [municipalityId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Receive WS broadcasts from backend ───────────────────────────────────
   useEffect(() => {
@@ -877,74 +948,84 @@ export default function SpeakingPanel({
   const requestSpeech = useCallback(async () => {
     if (!canRequestSpeech) return;
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+      await api.post(`/api/speaking/session/${sessionId}/items`, {
         username: myUsername,
         fullName: getFullName(userInfo),
         type: 'SPEECH',
         replyToUsername: null,
+        topicId: presentedTopicId,
+        amendmentId: presentedAmendmentId ?? null,
       });
     } catch (e) {
       console.error('Failed to request speech', e);
     }
-  }, [canRequestSpeech, myUsername, userInfo, municipalityId]);
+  }, [canRequestSpeech, myUsername, userInfo, sessionId, presentedTopicId, presentedAmendmentId]);
 
   const requestReply = useCallback(async () => {
     if (!canRequestReply || !currentSpeaker) return;
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+      await api.post(`/api/speaking/session/${sessionId}/items`, {
         username: myUsername,
         fullName: getFullName(userInfo),
         type: 'REPLY',
         replyToUsername: currentSpeaker.username,
         replyToFullName: currentSpeaker.fullName,
+        topicId: presentedTopicId,
+        amendmentId: presentedAmendmentId ?? null,
       });
     } catch (e) {
       console.error('Failed to request reply', e);
     }
-  }, [canRequestReply, currentSpeaker, myUsername, userInfo, municipalityId]);
+  }, [canRequestReply, currentSpeaker, myUsername, userInfo, sessionId, presentedTopicId, presentedAmendmentId]);
 
   const requestCounterReply = useCallback(async () => {
     if (!canRequestCounterReply || !currentSpeaker) return;
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+      await api.post(`/api/speaking/session/${sessionId}/items`, {
         username: myUsername,
         fullName: getFullName(userInfo),
         type: 'COUNTER_REPLY',
         replyToUsername: currentSpeaker.username,
         replyToFullName: currentSpeaker.fullName,
+        topicId: presentedTopicId,
+        amendmentId: presentedAmendmentId ?? null,
       });
     } catch (e) {
       console.error('Failed to request counter reply', e);
     }
-  }, [canRequestCounterReply, currentSpeaker, myUsername, userInfo, municipalityId]);
+  }, [canRequestCounterReply, currentSpeaker, myUsername, userInfo, sessionId, presentedTopicId, presentedAmendmentId]);
 
   const requestReplyToEntry = useCallback(async (entry) => {
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+      await api.post(`/api/speaking/session/${sessionId}/items`, {
         username: myUsername,
         fullName: getFullName(userInfo),
         type: 'REPLY',
         replyToUsername: entry.username,
         replyToFullName: entry.fullName,
+        topicId: presentedTopicId,
+        amendmentId: presentedAmendmentId ?? null,
       });
     } catch (e) {
       console.error('Failed to request reply to queued entry', e);
     }
-  }, [myUsername, userInfo, municipalityId]);
+  }, [myUsername, userInfo, sessionId, presentedTopicId, presentedAmendmentId]);
 
   const requestCounterReplyToEntry = useCallback(async (entry) => {
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items`, {
+      await api.post(`/api/speaking/session/${sessionId}/items`, {
         username: myUsername,
         fullName: getFullName(userInfo),
         type: 'COUNTER_REPLY',
         replyToUsername: entry.username,
         replyToFullName: entry.fullName,
+        topicId: presentedTopicId,
+        amendmentId: presentedAmendmentId ?? null,
       });
     } catch (e) {
       console.error('Failed to request counter reply to queued entry', e);
     }
-  }, [myUsername, userInfo, municipalityId]);
+  }, [myUsername, userInfo, sessionId, presentedTopicId, presentedAmendmentId]);
 
   const approveRequest = useCallback(async (entryId) => {
     const hasCurrent = currentSpeakerRef.current !== null;
@@ -953,32 +1034,32 @@ export default function SpeakingPanel({
       : { status: 'SPEAKING' };
     try {
       await api.patch(
-        `/api/speaking/municipality/${municipalityId}/items/${entryId}/status`,
+        `/api/speaking/session/${sessionId}/items/${entryId}/status`,
         body
       );
     } catch (e) {
       console.error('Failed to approve', e);
     }
-  }, [municipalityId]);
+  }, [sessionId]);
 
   const unapproveRequest = useCallback(async (entryId) => {
     try {
       await api.patch(
-        `/api/speaking/municipality/${municipalityId}/items/${entryId}/status`,
+        `/api/speaking/session/${sessionId}/items/${entryId}/status`,
         { status: 'PENDING' }
       );
     } catch (e) {
       console.error('Failed to unapprove', e);
     }
-  }, [municipalityId]);
+  }, [sessionId]);
 
   const rejectRequest = useCallback(async (entryId) => {
     try {
-      await api.delete(`/api/speaking/municipality/${municipalityId}/items/${entryId}`);
+      await api.delete(`/api/speaking/session/${sessionId}/items/${entryId}`);
     } catch (e) {
       console.error('Failed to reject/cancel', e);
     }
-  }, [municipalityId]);
+  }, [sessionId]);
 
   const endCurrentSpeaker = useCallback(async () => {
     if (!currentSpeakerRef.current) return;
@@ -989,12 +1070,12 @@ export default function SpeakingPanel({
     isPausedRef.current = false;
     const id = currentSpeakerRef.current.id;
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items/${id}/end`);
+      await api.post(`/api/speaking/session/${sessionId}/items/${id}/end`);
     } catch (e) {
       console.error('Failed to end speaker', e);
       skipTimerRemoveRef.current = false;
     }
-  }, [stopTimer, municipalityId]);
+  }, [stopTimer, sessionId]);
 
   const skipSpeaker = useCallback(async () => {
     stopTimer();
@@ -1002,21 +1083,21 @@ export default function SpeakingPanel({
     setTimeLeft(0);
     lastSpeakerIdRef.current = null;
     try {
-      await api.delete(`/api/speaking/municipality/${municipalityId}/items`);
+      await api.delete(`/api/speaking/session/${sessionId}/items`);
     } catch (e) {
       console.error('Failed to clear queue', e);
       skipTimerRemoveRef.current = false;
     }
-  }, [stopTimer, municipalityId]);
+  }, [stopTimer, sessionId]);
 
   const reorderQueue = useCallback(async (reordered) => {
     const ids = reordered.map((e) => e.id);
     try {
-      await api.post(`/api/speaking/municipality/${municipalityId}/items/reorder`, ids);
+      await api.post(`/api/speaking/session/${sessionId}/items/reorder`, ids);
     } catch (e) {
       console.error('Failed to reorder queue', e);
     }
-  }, [municipalityId]);
+  }, [sessionId]);
 
   const moveEntryUp = useCallback((entryId) => {
     setQueue((prev) => {
@@ -1127,6 +1208,17 @@ export default function SpeakingPanel({
           {!presentedTopicId && (
             <span className="sp-no-topic-hint">{t('speakingPanel.noActiveTopic')}</span>
           )}
+          {municipalityId && sessionId && (
+            <button
+              type="button"
+              className="sp-header-timeline-btn"
+              onClick={() => navigate(`/municipalities/${municipalityId}/sessions/${sessionId}/speaking-history`)}
+              title={t('speakingPanel.timeline')}
+              aria-label={t('speakingPanel.timeline')}
+            >
+              <FontAwesomeIcon icon={faClockRotateLeft} />
+            </button>
+          )}
         </div>
 
         <div className="sp-panel-body">
@@ -1174,7 +1266,9 @@ export default function SpeakingPanel({
                 disabled={!canRequestSpeech}
                 title={
                   !canRequestSpeech
-                    ? myActiveSpeechEntry
+                    ? myTopicSpeechCount >= MAX_SPEECHES_PER_TOPIC
+                      ? t('speakingPanel.tooltips.speechLimitReached')
+                      : myActiveSpeechEntry
                       ? t('speakingPanel.tooltips.alreadyRequested')
                       : isCurrentlySpeaking
                       ? t('speakingPanel.tooltips.currentlySpeaking')
@@ -1186,6 +1280,11 @@ export default function SpeakingPanel({
                 <span>{t('speakingPanel.types.speech')}</span>
                 <span className="sp-quick-speech-duration">{Math.floor(durations.SPEECH / 60)}m</span>
               </button>
+              {myTopicSpeechCount >= MAX_SPEECHES_PER_TOPIC && (
+                <div className="sp-speech-limit-msg">
+                  {t('speakingPanel.tooltips.speechLimitReached')}
+                </div>
+              )}
             </div>
           )}
 

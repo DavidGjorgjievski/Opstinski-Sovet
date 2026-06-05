@@ -13,6 +13,7 @@ import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChe
 import Footer from '../components/Footer';
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
+import useAmendmentPresenterWebSocket from "../hooks/useAmendmentPresenterWebSocket";
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import { useTranslation } from "react-i18next";
 import api from '../api/axios';
@@ -22,6 +23,8 @@ import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 function Topics() { 
     const [topics, setTopics] = useState([]);
     const [presentedTopicId, setPresentedTopicId] = useState(null);
+    const [amendmentIsPresented, setAmendmentIsPresented] = useState(false);
+    const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
     const { id } = useParams();
     const { municipalityId } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,6 +58,7 @@ function Topics() {
     // WEB SOCKETS
     const { messages: voteMessages, sendVote } = useVoteWebSocket(id);
     const { messages: presenterMessages, sendPresenterUpdate } = usePresenterWebSocket(id);
+    const { messages: amendmentPresenterMessages } = useAmendmentPresenterWebSocket(id);
     const { messages: newTopicMessages, sendNewTopic } = useNewTopicWebSocket(id);
 
     useEffect(() => {
@@ -156,6 +160,8 @@ function Topics() {
         const response = await api.get(`/api/sessions/${id}/topics`);
         setTopics(response.data.topics);
         setPresentedTopicId(response.data.presentedTopicId);
+        setPresentedAmendmentId(response.data.presentedAmendmentId ?? null);
+        setAmendmentIsPresented(!!response.data.presentedAmendmentId);
         setTopicsLoaded(true);
         return response.data.topics; // return the topics
     } catch (error) {
@@ -504,13 +510,18 @@ function Topics() {
 
     useEffect(() => {
         if (!presenterMessages.length) return;
-
         const lastTopicId = Number(presenterMessages[presenterMessages.length - 1]);
-
-        // Optionally update local state if needed
-        setPresentedTopicId(lastTopicId); // just update locally
+        setPresentedTopicId(lastTopicId);
+        setPresentedAmendmentId(null);
+        setAmendmentIsPresented(false);
     }, [presenterMessages]);
 
+    useEffect(() => {
+        if (!amendmentPresenterMessages.length) return;
+        const lastAmendmentId = Number(amendmentPresenterMessages[amendmentPresenterMessages.length - 1]);
+        setPresentedAmendmentId(lastAmendmentId || null);
+        setAmendmentIsPresented(true);
+    }, [amendmentPresenterMessages]);
 
 useEffect(() => {
   if (newTopicMessages.length > 0) {
@@ -703,7 +714,7 @@ useEffect(() => {
                     .sort((a, b) => a.order_id - b.order_id)
                     .map(topic => (
                         <div key={topic.id} className='topic-div-rel'>
-                           {topic.id === presentedTopicId && userInfo?.role !== "ROLE_GUEST" && !isOn && (
+                           {topic.id === presentedTopicId && !amendmentIsPresented && userInfo?.role !== "ROLE_GUEST" && !isOn && (
                                 <FontAwesomeIcon 
                                     icon={faBookmark} 
                                     className="topic-bookmark-icon" 
@@ -1171,6 +1182,7 @@ useEffect(() => {
         {showFixDiv && !isSessionLocked && (
             <SpeakingPanel
                 presentedTopicId={presentedTopicId}
+                presentedAmendmentId={presentedAmendmentId}
                 userInfo={userInfo}
                 isPresidentOrAdmin={hasTopicPermissionsStatus}
                 canParticipate={canParticipateInSpeaking}

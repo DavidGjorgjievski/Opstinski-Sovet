@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 
-export default function useSpeakingWebSocket(municipalityId) {
+export default function useSpeakingWebSocket(sessionId, municipalityId) {
   const [messages, setMessages] = useState([]);
   const [durationMessages, setDurationMessages] = useState([]);
   const [pauseMessages, setPauseMessages] = useState([]);
@@ -24,7 +24,7 @@ export default function useSpeakingWebSocket(municipalityId) {
         reconnectLock.current = false;
         setIsConnected(true);
 
-        client.subscribe(`/topic/speaking/municipality/${municipalityId}`, (msg) => {
+        client.subscribe(`/topic/speaking/session/${sessionId}`, (msg) => {
           try {
             const data = JSON.parse(msg.body);
             setMessages((prev) => [...prev, data]);
@@ -33,16 +33,7 @@ export default function useSpeakingWebSocket(municipalityId) {
           }
         });
 
-        client.subscribe(`/topic/speaking/municipality/${municipalityId}/durations`, (msg) => {
-          try {
-            const data = JSON.parse(msg.body);
-            setDurationMessages((prev) => [...prev, data]);
-          } catch (e) {
-            console.error("Failed to parse durations WS message:", e);
-          }
-        });
-
-        client.subscribe(`/topic/speaking/municipality/${municipalityId}/pause`, (msg) => {
+        client.subscribe(`/topic/speaking/session/${sessionId}/pause`, (msg) => {
           try {
             const data = JSON.parse(msg.body);
             setPauseMessages((prev) => [...prev, data]);
@@ -50,6 +41,17 @@ export default function useSpeakingWebSocket(municipalityId) {
             console.error("Failed to parse pause WS message:", e);
           }
         });
+
+        if (municipalityId) {
+          client.subscribe(`/topic/speaking/municipality/${municipalityId}/durations`, (msg) => {
+            try {
+              const data = JSON.parse(msg.body);
+              setDurationMessages((prev) => [...prev, data]);
+            } catch (e) {
+              console.error("Failed to parse durations WS message:", e);
+            }
+          });
+        }
       },
       onStompError: (frame) =>
         console.error("Speaking WS STOMP error:", frame),
@@ -62,7 +64,7 @@ export default function useSpeakingWebSocket(municipalityId) {
     client.activate();
     stompClientRef.current = client;
     return client;
-  }, [municipalityId]);
+  }, [sessionId, municipalityId]);
 
   const tryReconnect = useCallback(() => {
     if (stompClientRef.current?.connected || reconnectLock.current) return;
@@ -73,7 +75,7 @@ export default function useSpeakingWebSocket(municipalityId) {
   }, [connect]);
 
   useEffect(() => {
-    if (!municipalityId) return;
+    if (!sessionId) return;
 
     connect();
 
@@ -89,7 +91,7 @@ export default function useSpeakingWebSocket(municipalityId) {
       clearInterval(interval);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [municipalityId, connect, tryReconnect]);
+  }, [sessionId, municipalityId, connect, tryReconnect]);
 
   return { messages, durationMessages, pauseMessages, isConnected };
 }

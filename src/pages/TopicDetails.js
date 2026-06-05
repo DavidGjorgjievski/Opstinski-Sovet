@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faFilter, faFilePdf, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from "react-i18next";
@@ -117,7 +117,7 @@ function TopicDetails() {
             </HelmetProvider>
             <Header />
             <main className='topic-details-body-container'>
-                {loading ? ( 
+                {loading ? (
                     <div className="loading-spinner">
                         <img src={`${process.env.PUBLIC_URL}/images/loading.svg`} alt="Loading..." />
                     </div>
@@ -253,7 +253,7 @@ function TopicDetails() {
             </table>
          </div>
         )}
-       
+
     </div>
                     </>
                     )

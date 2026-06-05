@@ -643,6 +643,7 @@
     },
     "tooltips": {
       "alreadyRequested": "Sie haben bereits eine ausstehende Anfrage",
+      "speechLimitReached": "Sie haben die maximale Anzahl an Reden (2) für dieses Thema erreicht",
       "currentlySpeaking": "Sie reden gerade",
       "cannotRequest": "Redeanfrage jetzt nicht möglich",
       "requestSpeech": "Um das Wort bitten",
@@ -663,7 +664,20 @@
       "counterReply": "Gegenerwiderung",
       "minutes": "Min",
       "seconds": "Sek"
-    }
+    },
+    "timeline": "Rede-Verlauf",
+    "timelineEmpty": "Für diese Sitzung wurden noch keine Reden aufgezeichnet.",
+    "timelineLoading": "Wird geladen…",
+    "timelineTotal": "Gesamt",
+    "timelineTotalTime": "Gesamtzeit",
+    "timelineStart": "Beginn",
+    "timelineEnd": "Ende",
+    "timelineDuration": "Dauer",
+    "timelineTopic": "Thema",
+    "timelineAmendment": "Änderungsantrag",
+    "timelineDelete": "Löschen",
+    "timelineDeleteConfirm": "Diese Rede aus dem Verlauf löschen?",
+    "timelineNoTopic": "(kein Thema)"
   },
   "homeGoGreen": {
     "badge": "Gemeinsamer Umweltbeitrag",

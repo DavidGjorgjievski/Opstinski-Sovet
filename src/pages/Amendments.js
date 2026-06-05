@@ -10,6 +10,7 @@ import ActiveTopicWarningModal from '../components/ActiveTopicWarningModal';
 import useAmendmentVoteWebSocket from "../hooks/useAmendmentVoteWebSocket";
 import useNewAmendmentWebSocket from "../hooks/useNewAmendmentWebSocket";
 import useAmendmentPresenterWebSocket from "../hooks/useAmendmentPresenterWebSocket";
+import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faChevronLeft,
@@ -26,6 +27,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 import { openPdfTab, sanitizeFilenameForUrl } from '../utils/pdfTab';
+import SpeakingPanel from '../components/SpeakingPanel';
 
 
 function Amendments() {
@@ -53,8 +55,27 @@ function Amendments() {
     const [activeAmendmentWarningId, setActiveAmendmentWarningId] = useState(null);
     const [pendingVotingAmendmentId, setPendingVotingAmendmentId] = useState(null);
     const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
+    const [presentedTopicId, setPresentedTopicId] = useState(null);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
+
+    const showSpeakingPanel = useMemo(() => {
+        if (userInfo.role === 'ROLE_GUEST') return false;
+        if (!currentSession || !municipalityId) return false;
+        const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
+        if (mandates.length === 0) return false;
+        const newestMandateId = Math.max(...mandates.map(m => m.id));
+        return Number(currentSession.municipalityMandateId) === newestMandateId;
+    }, [currentSession, municipalityId, userInfo.role]);
+
+    const canParticipateInSpeaking = (
+        (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_MAYOR') &&
+        userInfo.status === 'ACTIVE' &&
+        Number(municipalityId) === Number(userInfo.municipalityId) &&
+        Array.isArray(userInfo.municipalityTermIds) &&
+        currentSession &&
+        userInfo.municipalityTermIds.includes(Number(currentSession.municipalityMandateId))
+    );
 
     const twoMonthsAgo = new Date();
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
@@ -68,6 +89,8 @@ function Amendments() {
 
     const { messages: presenterMessages, sendAmendmentPresenterUpdate } =
         useAmendmentPresenterWebSocket(id);
+
+    const { messages: topicPresenterMessages } = usePresenterWebSocket(id);
 
     const toggleMenu = (amendmentId) => {
     setOpenMenus(prev => ({
@@ -136,6 +159,13 @@ const fetchAmendments = useCallback(async () => {
     useEffect(() => {
         fetchAmendments();
     }, [fetchAmendments]);
+
+    useEffect(() => {
+        if (!id) return;
+        api.get(`/api/sessions/${id}/topics`)
+            .then(res => setPresentedTopicId(res.data.presentedTopicId))
+            .catch(() => {});
+    }, [id]);
 
     const hasAmendmentAccess = (
         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER') &&
@@ -475,6 +505,7 @@ const handlePresentAmendmentClick = async (amendmentId) => {
     try {
         await api.get(`/api/topics/${idt}/amendments/present/${amendmentId}`);
         setPresentedAmendmentId(amendmentId);
+        setPresentedTopicId(null);
         sendAmendmentPresenterUpdate(amendmentId);
     } catch (error) {
         console.error("Failed to present amendment:", error);
@@ -485,7 +516,13 @@ useEffect(() => {
     if (!presenterMessages.length) return;
     const lastAmendmentId = Number(presenterMessages[presenterMessages.length - 1]);
     setPresentedAmendmentId(lastAmendmentId);
+    setPresentedTopicId(null);
 }, [presenterMessages]);
+
+useEffect(() => {
+    if (!topicPresenterMessages.length) return;
+    setPresentedAmendmentId(null);
+}, [topicPresenterMessages]);
 
 const closeRestartAmendmentModal = () => {
     setIsRestartAmendmentModalOpen(false);
@@ -1031,6 +1068,18 @@ const handleRestartAmendmentConfirm = () => {
                     onConfirm={handleActiveAmendmentWarningConfirm}
                     activeTopicTitle={activeAmendmentWarningTitle}
                     keyPrefix="activeAmendmentWarning"
+                />
+            )}
+
+            {showSpeakingPanel && !isSessionLocked && (
+                <SpeakingPanel
+                    presentedTopicId={presentedTopicId ?? (presentedAmendmentId ? Number(idt) : null)}
+                    presentedAmendmentId={presentedAmendmentId}
+                    userInfo={userInfo}
+                    isPresidentOrAdmin={hasAmendmentPermissionsStatus}
+                    canParticipate={canParticipateInSpeaking}
+                    municipalityId={municipalityId}
+                    sessionId={id}
                 />
             )}
 

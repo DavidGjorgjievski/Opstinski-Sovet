@@ -666,6 +666,7 @@
     },
     "tooltips": {
       "alreadyRequested": "You already have a pending request",
+      "speechLimitReached": "You have reached the maximum number of speeches (2) for this topic",
       "currentlySpeaking": "You are currently speaking",
       "cannotRequest": "Cannot request speech now",
       "requestSpeech": "Request to speak",
@@ -686,7 +687,20 @@
       "counterReply": "Counter-reply",
       "minutes": "min",
       "seconds": "sec"
-    }
+    },
+    "timeline": "Speaking Timeline",
+    "timelineEmpty": "No speeches recorded for this session yet.",
+    "timelineLoading": "Loading…",
+    "timelineTotal": "Total",
+    "timelineTotalTime": "Total time",
+    "timelineStart": "Start",
+    "timelineEnd": "End",
+    "timelineDuration": "Duration",
+    "timelineTopic": "Topic",
+    "timelineAmendment": "Amendment",
+    "timelineDelete": "Delete",
+    "timelineDeleteConfirm": "Delete this speech from the history?",
+    "timelineNoTopic": "(no topic)"
   },
   "homeGoGreen": {
     "badge": "Combined Environmental Impact",

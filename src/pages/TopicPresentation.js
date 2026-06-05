@@ -40,7 +40,7 @@ const TopicPresentation = () => {
     presenterItem?.type === 'AMENDMENT' ? presenterItem?.topicId : null
   );
   const { messages: newAmendmentMessages } = useNewAmendmentWebSocket(id);
-  const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(municipalityId);
+  const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(id, municipalityId);
 
   let municipalityImage = null;
   let sessionMunicipalityTermId = null;
@@ -189,10 +189,10 @@ const TopicPresentation = () => {
   }, [startTimerAt]);
 
   useEffect(() => {
-    if (!autoRefresh || !municipalityId) return;
+    if (!autoRefresh || !id) return;
     const interval = setInterval(async () => {
       try {
-        const { data } = await api.get(`/api/speaking/municipality/${municipalityId}/items`);
+        const { data } = await api.get(`/api/speaking/session/${id}/items`);
         clockOffsetRef.current = Date.now() - (data.serverNow || Date.now());
         const speaking = (data.items || []).find(i => i.status === 'SPEAKING') || null;
         setCurrentSpeaker(speaking);
@@ -202,16 +202,16 @@ const TopicPresentation = () => {
       } catch {}
     }, 2000);
     return () => clearInterval(interval);
-  }, [autoRefresh, municipalityId, startTimerForSpeaker]);
+  }, [autoRefresh, id, startTimerForSpeaker]);
 
-  // Fetch durations + items together so timer starts with correct durations
+  // Fetch durations (municipality-scoped) + items (session-scoped) so timer starts with correct durations
   useEffect(() => {
-    if (!municipalityId) return;
+    if (!id) return;
     Promise.all([
-      api.get(`/api/speaking/municipality/${municipalityId}/durations`),
-      api.get(`/api/speaking/municipality/${municipalityId}/items`),
+      municipalityId ? api.get(`/api/speaking/municipality/${municipalityId}/durations`) : Promise.resolve(null),
+      api.get(`/api/speaking/session/${id}/items`),
     ]).then(([durRes, itemsRes]) => {
-      applyDurations(durRes.data);
+      if (durRes) applyDurations(durRes.data);
       clockOffsetRef.current = Date.now() - (itemsRes.data.serverNow || Date.now());
       const speaking = (itemsRes.data.items || []).find(i => i.status === 'SPEAKING') || null;
       setCurrentSpeaker(speaking);
@@ -225,7 +225,7 @@ const TopicPresentation = () => {
         startTimerAt(Math.max(0, duration - elapsed));
       }
     }).catch(() => {});
-  }, [municipalityId, applyDurations, startTimerAt]);
+  }, [id, municipalityId, applyDurations, startTimerAt]);
 
   // Live updates for current speaker via WebSocket
   useEffect(() => {
