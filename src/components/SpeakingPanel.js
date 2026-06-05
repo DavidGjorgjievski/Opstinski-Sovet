@@ -884,6 +884,7 @@ export default function SpeakingPanel({
 
     if (prev === undefined) return; // first render — nothing to clear
     if (prev === key) return;       // no change
+    if (prev === 'null_null') return; // initial data load (null → real topic) — nothing to clear
 
     stopTimer();
     setQueue([]);
