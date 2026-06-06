@@ -654,7 +654,8 @@
       "requestReply": "Erwiderung beantragen",
       "counterOnlyDuringReply": "Nur während einer Erwiderung verfügbar",
       "counterNotAvailable": "Gegenerwiderung nicht verfügbar",
-      "requestCounter": "Gegenerwiderung beantragen (nur Originalredner)"
+      "requestCounter": "Gegenerwiderung beantragen (nur Originalredner)",
+      "topicFinished": "Thema ist abgeschlossen — Redeanfrage nicht möglich"
     },
     "ariaToggle": "Rednerpanel ein-/ausblenden",
     "settings": {

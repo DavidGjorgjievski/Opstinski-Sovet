@@ -677,7 +677,8 @@
       "requestReply": "Request to reply",
       "counterOnlyDuringReply": "Only available when a reply is being given",
       "counterNotAvailable": "Counter-reply not available",
-      "requestCounter": "Request counter-reply (only original speaker)"
+      "requestCounter": "Request counter-reply (only original speaker)",
+      "topicFinished": "Topic is finished — speech cannot be added"
     },
     "ariaToggle": "Toggle speaking panel",
     "settings": {

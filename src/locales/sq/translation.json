@@ -674,7 +674,8 @@
       "requestReply": "Kërkoni replikë",
       "counterOnlyDuringReply": "E disponueshme vetëm gjatë replikës",
       "counterNotAvailable": "Kunër-replika nuk është e disponueshme",
-      "requestCounter": "Kërkoni kunër-replikë (vetëm folësi origjinal)"
+      "requestCounter": "Kërkoni kunër-replikë (vetëm folësi origjinal)",
+      "topicFinished": "Pika është e përfunduar — nuk mund të shtohet fjalim"
     },
     "ariaToggle": "Shfaq/fshih panelin e fjalimeve",
     "settings": {

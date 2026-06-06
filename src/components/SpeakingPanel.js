@@ -465,6 +465,7 @@ function QueueItem({
 export default function SpeakingPanel({
   presentedTopicId,
   presentedAmendmentId,
+  isPresentedFinished = false,
   userInfo,
   isPresidentOrAdmin,
   canParticipate,
@@ -692,10 +693,11 @@ export default function SpeakingPanel({
     () =>
       canParticipate &&
       !!presentedTopicId &&
+      !isPresentedFinished &&
       !myActiveSpeechEntry &&
       !isCurrentlySpeaking &&
       myTopicSpeechCount < MAX_SPEECHES_PER_TOPIC,
-    [canParticipate, presentedTopicId, myActiveSpeechEntry, isCurrentlySpeaking, myTopicSpeechCount]
+    [canParticipate, presentedTopicId, isPresentedFinished, myActiveSpeechEntry, isCurrentlySpeaking, myTopicSpeechCount]
   );
 
   const canRequestReply = useMemo(() => {
@@ -895,6 +897,33 @@ export default function SpeakingPanel({
       api.delete(`/api/speaking/session/${sessionId}/items`).catch(() => {});
     }
   }, [presentedTopicId, presentedAmendmentId, stopTimer]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Clear queue + end speech when presented topic/amendment is finished ──
+  const prevFinishedRef = useRef(undefined);
+  useEffect(() => {
+    const wasFinished = prevFinishedRef.current;
+    prevFinishedRef.current = isPresentedFinished;
+
+    // Only act on false → true transition (not on initial load)
+    if (wasFinished !== false || !isPresentedFinished) return;
+
+    stopTimer();
+    setQueue([]);
+    setTimeLeft(0);
+    isPausedRef.current = false;
+    setIsPaused(false);
+    lastSpeakerIdRef.current = null;
+    skipTimerRemoveRef.current = true;
+    clearTimeout(endRetryRef.current);
+
+    const doCleanup = async () => {
+      if (currentSpeakerRef.current) {
+        try { await api.post(`/api/speaking/session/${sessionId}/items/${currentSpeakerRef.current.id}/end`); } catch {}
+      }
+      try { await api.delete(`/api/speaking/session/${sessionId}/items`); } catch {}
+    };
+    doCleanup();
+  }, [isPresentedFinished, stopTimer, sessionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Fetch from server on mount ────────────────────────────────────────────
   useEffect(() => {
@@ -1267,7 +1296,9 @@ export default function SpeakingPanel({
                 disabled={!canRequestSpeech}
                 title={
                   !canRequestSpeech
-                    ? myTopicSpeechCount >= MAX_SPEECHES_PER_TOPIC
+                    ? isPresentedFinished
+                      ? t('speakingPanel.tooltips.topicFinished')
+                      : myTopicSpeechCount >= MAX_SPEECHES_PER_TOPIC
                       ? t('speakingPanel.tooltips.speechLimitReached')
                       : myActiveSpeechEntry
                       ? t('speakingPanel.tooltips.alreadyRequested')
@@ -1281,7 +1312,12 @@ export default function SpeakingPanel({
                 <span>{t('speakingPanel.types.speech')}</span>
                 <span className="sp-quick-speech-duration">{Math.floor(durations.SPEECH / 60)}m</span>
               </button>
-              {myTopicSpeechCount >= MAX_SPEECHES_PER_TOPIC && (
+              {isPresentedFinished && (
+                <div className="sp-speech-limit-msg">
+                  {t('speakingPanel.tooltips.topicFinished')}
+                </div>
+              )}
+              {!isPresentedFinished && myTopicSpeechCount >= MAX_SPEECHES_PER_TOPIC && (
                 <div className="sp-speech-limit-msg">
                   {t('speakingPanel.tooltips.speechLimitReached')}
                 </div>

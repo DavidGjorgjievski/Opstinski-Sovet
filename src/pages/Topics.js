@@ -1183,6 +1183,10 @@ useEffect(() => {
             <SpeakingPanel
                 presentedTopicId={presentedTopicId}
                 presentedAmendmentId={presentedAmendmentId}
+                isPresentedFinished={
+                    !amendmentIsPresented &&
+                    topics.find(t => t.id === presentedTopicId)?.topicStatus === 'FINISHED'
+                }
                 userInfo={userInfo}
                 isPresidentOrAdmin={hasTopicPermissionsStatus}
                 canParticipate={canParticipateInSpeaking}

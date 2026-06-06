@@ -77,7 +77,10 @@ function SpeakingTimeline() {
   const [pendingDeleteId, setPendingDeleteId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
   const [topicTitles, setTopicTitles] = useState({});
+  const [topicAmounts, setTopicAmounts] = useState({});
   const [amendmentTitles, setAmendmentTitles] = useState({});
+  const [amendmentAmounts, setAmendmentAmounts] = useState({});
+  const [amendmentCreatedBy, setAmendmentCreatedBy] = useState({});
 
   const userInfo = useMemo(() => {
     try { return JSON.parse(localStorage.getItem('userInfo')) || {}; }
@@ -107,13 +110,22 @@ function SpeakingTimeline() {
         });
         if (amendmentsByTopic.size > 0) {
           const titleMap = {};
+          const amountMap = {};
+          const createdByMap = {};
           await Promise.all(Array.from(amendmentsByTopic.entries()).map(async ([topicId]) => {
             try {
               const r = await api.get(`/api/topics/${topicId}/amendments`);
-              (r.data?.amendments || []).forEach((a) => { titleMap[a.id] = a.title; });
+              (r.data?.amendments || []).forEach((a) => {
+                titleMap[a.id] = a.title;
+                if (a.amount) amountMap[a.id] = a.amount;
+                const fullName = [a.createdByName, a.createdBySurname].filter(Boolean).join(' ');
+                createdByMap[a.id] = fullName || a.createdBy || '';
+              });
             } catch {}
           }));
           setAmendmentTitles(titleMap);
+          setAmendmentAmounts(amountMap);
+          setAmendmentCreatedBy(createdByMap);
         }
       })
       .catch((err) => console.error('Failed to load speech history', err))
@@ -121,9 +133,14 @@ function SpeakingTimeline() {
 
     api.get(`/api/sessions/${sessionId}/topics`)
       .then((res) => {
-        const map = {};
-        (res.data?.topics || []).forEach((t) => { map[t.id] = t.title; });
-        setTopicTitles(map);
+        const titleMap = {};
+        const amountMap = {};
+        (res.data?.topics || []).forEach((t) => {
+          titleMap[t.id] = t.title;
+          if (t.amount) amountMap[t.id] = t.amount;
+        });
+        setTopicTitles(titleMap);
+        setTopicAmounts(amountMap);
       })
       .catch((err) => console.error('Failed to load topic titles', err));
   }, [municipalityId, sessionId]);
@@ -180,25 +197,29 @@ function SpeakingTimeline() {
 
         {!loading && entries.length > 0 && (
           <div className="st-summary">
-            <div className="st-summary-item">
-              <span className="st-summary-label">{t('speakingPanel.timelineTotal')}</span>
-              <span className="st-summary-value">{totals.total}</span>
+            <div className="st-summary-plain-group">
+              <div className="st-summary-item">
+                <span className="st-summary-label">{t('speakingPanel.timelineTotal')}</span>
+                <span className="st-summary-value">{totals.total}</span>
+              </div>
+              <div className="st-summary-item">
+                <span className="st-summary-label">
+                  <FontAwesomeIcon icon={faHourglassHalf} /> {t('speakingPanel.timelineTotalTime')}
+                </span>
+                <span className="st-summary-value">{formatDuration(totals.totalSeconds)}</span>
+              </div>
             </div>
-            <div className="st-summary-item">
-              <span className="st-summary-label">
-                <FontAwesomeIcon icon={faHourglassHalf} /> {t('speakingPanel.timelineTotalTime')}
-              </span>
-              <span className="st-summary-value">{formatDuration(totals.totalSeconds)}</span>
+            <div className="st-summary-typed-group">
+              {Object.entries(TYPE_CONFIG).map(([type, cfg]) => {
+                const count = totals.counts[type] ?? 0;
+                return (
+                  <div key={type} className="st-summary-item st-summary-item-typed" style={{ color: cfg.color, background: cfg.bg, borderColor: cfg.border }}>
+                    <span className="st-summary-label">{t(cfg.labelKey)}</span>
+                    <span className="st-summary-value">{count}</span>
+                  </div>
+                );
+              })}
             </div>
-            {Object.entries(TYPE_CONFIG).map(([type, cfg]) => {
-              const count = totals.counts[type] ?? 0;
-              return (
-                <div key={type} className="st-summary-item" style={{ color: cfg.color }}>
-                  <span className="st-summary-label">{t(cfg.labelKey)}</span>
-                  <span className="st-summary-value">{count}</span>
-                </div>
-              );
-            })}
           </div>
         )}
 
@@ -215,6 +236,11 @@ function SpeakingTimeline() {
                   <span className="st-group-header-title">
                     {(g.topicId != null ? topicTitles[g.topicId] : null) || t('speakingPanel.timelineNoTopic')}
                   </span>
+                  {g.topicId != null && topicAmounts[g.topicId] && (
+                    <span className="st-group-header-creator">
+                      {topicAmounts[g.topicId]} {t('topicsPage.currency')}
+                    </span>
+                  )}
                   <span className="st-group-header-count">{g.totalItems}</span>
                 </div>
                 {g.subGroups.map((sg) => (
@@ -225,6 +251,16 @@ function SpeakingTimeline() {
                         <span className="st-group-header-title">
                           {amendmentTitles[sg.amendmentId] || `#${sg.amendmentId}`}
                         </span>
+                        {amendmentAmounts[sg.amendmentId] && (
+                          <span className="st-group-header-creator">
+                            {amendmentAmounts[sg.amendmentId]} {t('topicsPage.currency')}
+                          </span>
+                        )}
+                        {amendmentCreatedBy[sg.amendmentId] && (
+                          <span className="st-group-header-creator">
+                            {amendmentCreatedBy[sg.amendmentId]}
+                          </span>
+                        )}
                         <span className="st-group-header-count">{sg.items.length}</span>
                       </div>
                     )}

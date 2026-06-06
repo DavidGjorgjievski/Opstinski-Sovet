@@ -78,15 +78,34 @@
   gap: 2px;
   min-width: 60px;
   align-items: center;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+.st-summary-plain-group {
+  display: flex;
+  gap: 8px;
+}
+.st-summary-typed-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.st-summary-item-typed {
+  border-color: inherit;
 }
 .st-summary-label {
   font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #6b7280;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+.st-summary-item-typed .st-summary-label {
+  color: inherit;
 }
 .st-summary-value {
   font-size: 18px;
@@ -226,6 +245,13 @@
   border-radius: 999px;
   letter-spacing: 0;
 }
+.st-group-header-creator {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: inherit;
+  opacity: 0.8;
+}
 
 /* ── Type-based indentation (visual conversation hierarchy) ──────────── */
 .st-item-type-REPLY         { margin-left: 36px; }
@@ -310,7 +336,7 @@
 
 .st-item-card {
   position: relative;
-  flex: 1;
+  flex: 0 0 auto;
   background: #fff;
   border: 1px solid var(--accent-border);
   border-left: 4px solid var(--accent);
@@ -318,6 +344,7 @@
   padding: 12px 14px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s ease;
+  min-width: 260px;
 }
 
 /* delete button (top-right) */
@@ -452,6 +479,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 .st-item-meta {
   display: flex;
@@ -564,7 +592,11 @@
   .st-item-index { width: 22px; height: 22px; font-size: 11px; }
   .st-item-top { flex-wrap: wrap; }
   .st-item-avatar { width: 56px; height: 56px; }
-  .st-item-card { overflow: hidden; min-width: 0; }
+  .st-item { display: flex; }
+  .st-item-card { overflow: hidden; min-width: 0; flex: 1; }
+  .st-summary { flex-direction: column; align-items: stretch; }
+  .st-summary-plain-group { justify-content: center; }
+  .st-summary-typed-group { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .st-item-times { display: flex; flex-wrap: wrap; width: 100%; border-radius: 10px; }
   .st-item-times-segment { flex: 1; }
   .st-item-duration { flex: 1; }
@@ -584,4 +616,12 @@
     width: 52px;
   }
   .st-group-header-title { font-size: 14px; white-space: normal; }
+}
+
+@media (max-width: 400px) {
+  .st-summary-plain-group { align-self: center; }
+  .st-summary-typed-group {
+    grid-template-columns: max-content;
+    align-self: center;
+  }
 }

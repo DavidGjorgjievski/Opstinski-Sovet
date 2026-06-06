@@ -1075,6 +1075,9 @@ const handleRestartAmendmentConfirm = () => {
                 <SpeakingPanel
                     presentedTopicId={presentedTopicId ?? (presentedAmendmentId ? Number(idt) : null)}
                     presentedAmendmentId={presentedAmendmentId}
+                    isPresentedFinished={
+                        amendments.find(a => a.id === presentedAmendmentId)?.status === 'FINISHED'
+                    }
                     userInfo={userInfo}
                     isPresidentOrAdmin={hasAmendmentPermissionsStatus}
                     canParticipate={canParticipateInSpeaking}
