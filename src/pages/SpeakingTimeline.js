@@ -56,11 +56,15 @@ const groupByTopic = (entries) => {
   });
   return Array.from(map.entries())
     .map(([key, g]) => {
-      const subGroups = Array.from(g.subGroups.values())
+      const topicSubGroup = g.subGroups.get('topic') || null;
+      const amendmentSubGroups = Array.from(g.subGroups.entries())
+        .filter(([k]) => k !== 'topic')
+        .map(([, sg]) => sg)
         .sort((a, b) => (a.items[0]?.startedAt || 0) - (b.items[0]?.startedAt || 0));
+      const subGroups = [...(topicSubGroup ? [topicSubGroup] : []), ...amendmentSubGroups];
       const firstAt = subGroups[0]?.items[0]?.startedAt || 0;
-      const totalItems = subGroups.reduce((s, sg) => s + sg.items.length, 0);
-      return { key, topicId: g.topicId, subGroups, firstAt, totalItems };
+      const topicItemCount = topicSubGroup ? topicSubGroup.items.length : 0;
+      return { key, topicId: g.topicId, subGroups, firstAt, topicItemCount };
     })
     .sort((a, b) => a.firstAt - b.firstAt);
 };
@@ -241,7 +245,7 @@ function SpeakingTimeline() {
                       {topicAmounts[g.topicId]} {t('topicsPage.currency')}
                     </span>
                   )}
-                  <span className="st-group-header-count">{g.totalItems}</span>
+                  <span className="st-group-header-count">{g.topicItemCount}</span>
                 </div>
                 {g.subGroups.map((sg) => (
                   <div key={sg.amendmentId ?? 'topic'}>
@@ -264,8 +268,8 @@ function SpeakingTimeline() {
                         <span className="st-group-header-count">{sg.items.length}</span>
                       </div>
                     )}
-                <ol className="st-timeline">
-                  {sg.items.map((e, idx) => {
+                    <ol className="st-timeline">
+                      {sg.items.map((e, idx) => {
                     const cfg = TYPE_CONFIG[e.type] || TYPE_CONFIG.SPEECH;
                     const fullName = e.fullName || e.username;
                     return (
@@ -365,7 +369,7 @@ function SpeakingTimeline() {
                       </li>
                     );
                   })}
-                </ol>
+                    </ol>
                   </div>
                 ))}
               </section>
