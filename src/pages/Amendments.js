@@ -521,6 +521,8 @@ useEffect(() => {
 
 useEffect(() => {
     if (!topicPresenterMessages.length) return;
+    const lastTopicId = Number(topicPresenterMessages[topicPresenterMessages.length - 1]);
+    setPresentedTopicId(lastTopicId || null);
     setPresentedAmendmentId(null);
 }, [topicPresenterMessages]);
 
