@@ -38,8 +38,7 @@ api.interceptors.response.use(
   error => {
     const status = error.response?.status;
     if (status === 401 || status === 403) {
-      // Only trigger once per session
-      if (!window.sessionExpiredTriggered) {
+      if (!window.sessionExpiredTriggered && !window.isLoggingOut) {
         window.sessionExpiredTriggered = true;
         triggerSessionExpired();
       }

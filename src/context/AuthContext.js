@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         if (logoutInProgress.current) return; // Prevent multiple calls
         logoutInProgress.current = true;
+        window.isLoggingOut = true;
 
         const token = localStorage.getItem('jwtToken');
 
