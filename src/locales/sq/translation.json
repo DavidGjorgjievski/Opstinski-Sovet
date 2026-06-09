@@ -182,6 +182,7 @@
     "statusActive": "Aktiv",
     "statusInactive": "Joaktiv",
     "email": "Email",
+    "phoneNumber": "Numri i telefonit",
     "notAvailable": "Nuk ka",
     "edit": "Ndrysho",
     "add": "Shto",
@@ -212,6 +213,7 @@
     "municipality": "Komuna",
     "details": "Detaje",
     "email": "Email",
+    "phoneNumber": "Numri i telefonit",
     "municipalityTerm": "Mandati",
     "status": "Statusi",
     "statusActive": "Aktiv",
@@ -245,6 +247,15 @@
     "generalError": "Diçka shkoi keq gjatë ndryshimit të fjalëkalimit.",
     "success": "Fjalëkalimi u ndryshua me sukses.",
     "submit": "Ndrysho"
+  },
+  "changePhone": {
+    "title": "Ndrysho numrin e telefonit",
+    "header": "Ndrysho numrin tuaj të telefonit",
+    "new": "Numri i telefonit",
+    "phonePlaceholder": "Shkruaj numrin e telefonit",
+    "submit": "Ruaj",
+    "generalError": "Ndodhi një gabim",
+    "success": "Numri i telefonit u përditësua me sukses"
   },
   "changeEmail": {
     "title": "Ndrysho Email",
@@ -365,6 +376,8 @@
     "enterSurname": "Shkruaj mbiemrin",
     "email": "Email",
     "enterEmail": "Shkruaj email",
+    "phoneNumber": "Numri i telefonit:",
+    "enterPhoneNumber": "Shkruaj numrin e telefonit",
     "password": "Fjalëkalimi:",
     "enterPassword": "Shkruaj fjalëkalimin",
     "role": "Roli:",

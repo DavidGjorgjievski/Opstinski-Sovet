@@ -182,6 +182,7 @@
     "statusActive": "Aktiv",
     "statusInactive": "Inaktiv",
     "email": "E-Mail",
+    "phoneNumber": "Telefonnummer",
     "notAvailable": "Nicht verfügbar",
     "edit": "Bearbeiten",
     "add": "Hinzufügen",
@@ -212,6 +213,7 @@
     "municipality": "Gemeinde",
     "details": "Details",
     "email": "E-Mail",
+    "phoneNumber": "Telefonnummer",
     "municipalityTerm": "Mandat",
     "status": "Status",
     "statusActive": "Aktiv",
@@ -245,6 +247,15 @@
     "generalError": "Beim Ändern des Passworts ist ein Fehler aufgetreten.",
     "success": "Passwort erfolgreich geändert.",
     "submit": "Ändern"
+  },
+  "changePhone": {
+    "title": "Telefonnummer ändern",
+    "header": "Ändern Sie Ihre Telefonnummer",
+    "new": "Telefonnummer",
+    "phonePlaceholder": "Telefonnummer eingeben",
+    "submit": "Speichern",
+    "generalError": "Ein Fehler ist aufgetreten",
+    "success": "Telefonnummer erfolgreich aktualisiert"
   },
   "changeEmail": {
     "title": "E-Mail ändern",
@@ -365,6 +376,8 @@
     "enterSurname": "Nachnamen eingeben",
     "email": "E-Mail",
     "enterEmail": "E-Mail eingeben",
+    "phoneNumber": "Telefonnummer:",
+    "enterPhoneNumber": "Telefonnummer eingeben",
     "password": "Passwort:",
     "enterPassword": "Passwort eingeben",
     "role": "Rolle:",

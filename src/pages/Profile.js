@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Profile.css';
+import { stripCountryCode } from '../utils/countryCodes';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -106,11 +107,23 @@ function Profile() {
 
                             <div className="email-inline">
                                 <span className="value email-value">
-                                    {userData.email || t("profile.notAvailable")}
+                                    {userData.email || <span className="value-empty">—</span>}
                                 </span>
 
                                 <Link className="edit-email-btn" to="/profile/change-email-form">
                                     <FontAwesomeIcon icon={userData.email ? faPenToSquare : faPlus} />
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="detail-row email-row">
+                            <span className="label">{t("profile.phoneNumber")}:</span>
+                            <div className="email-inline">
+                                <span className="value email-value">
+                                    {userData.phoneNumber ? stripCountryCode(userData.phoneNumber) : <span className="value-empty">—</span>}
+                                </span>
+                                <Link className="edit-email-btn" to="/profile/change-phone-form">
+                                    <FontAwesomeIcon icon={userData.phoneNumber ? faPenToSquare : faPlus} />
                                 </Link>
                             </div>
                         </div>
@@ -123,7 +136,7 @@ function Profile() {
                         <div className="detail-row">
                             <span className="label">{t("profile.municipality")}:</span>
                             <span className="value">
-                                {userData.municipalityName || t("profile.notAvailable")}
+                                {userData.municipalityName || <span className="value-empty">—</span>}
                             </span>
                         </div>
                         <div className="detail-row">
@@ -140,8 +153,7 @@ function Profile() {
                                         </div>
                                     ))
                                 ) : (
-                                    t("profile.notAvailable")
-                                    
+                                    <span className="value-empty">—</span>
                                 )}
                             </span>
                         </div>
@@ -153,7 +165,7 @@ function Profile() {
                                     ? t("profile.statusActive")
                                     : userData.status === "INACTIVE"
                                         ? t("profile.statusInactive")
-                                        : t("profile.notAvailable")}
+                                        : <span className="value-empty">—</span>}
                             </span>
                         </div>
 

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
+import { stripCountryCode } from '../utils/countryCodes';
 
 function ProfileView() {
     const { t } = useTranslation();
@@ -195,7 +196,14 @@ function ProfileView() {
                             <div className="detail-row">
                                 <span className="label">{t("profileView.email")}:</span>
                                 <span className="value">
-                                    {userData.email || t("profileView.notAvailable")}
+                                    {userData.email || <span className="value-empty">—</span>}
+                                </span>
+                            </div>
+
+                            <div className="detail-row">
+                                <span className="label">{t("profileView.phoneNumber")}:</span>
+                                <span className="value">
+                                    {userData.phoneNumber ? stripCountryCode(userData.phoneNumber) : <span className="value-empty">—</span>}
                                 </span>
                             </div>
                         </div>

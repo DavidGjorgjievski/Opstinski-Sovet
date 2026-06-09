@@ -182,6 +182,7 @@
     "statusActive": "Активен",
     "statusInactive": "Неактивен",
     "email": "Е-пошта",
+    "phoneNumber": "Телефон",
     "notAvailable": "Нема",
     "edit": "Измени",
     "add": "Додај",
@@ -212,6 +213,7 @@
     "municipality": "Општина",
     "details": "Детали",
     "email": "Е-пошта",
+    "phoneNumber": "Телефон",
     "municipalityTerm": "Мандат",
     "status": "Статус",
     "statusActive": "Активен",
@@ -245,6 +247,15 @@
     "generalError": "Нешто не е во ред при промената на лозинката.",
     "success": "Лозинката е променета успешно.",
     "submit": "Промени"
+  },
+  "changePhone": {
+    "title": "Промени телефонски број",
+    "header": "Промени го вашиот телефонски број",
+    "new": "Телефонски број",
+    "phonePlaceholder": "Внеси телефонски број",
+    "submit": "Зачувај",
+    "generalError": "Се појави грешка",
+    "success": "Телефонскиот број е успешно променет"
   },
   "changeEmail": {
     "title": "Промени е-пошта",
@@ -365,6 +376,8 @@
     "enterSurname": "Внеси презиме",
     "email": "Е-пошта",
     "enterEmail": "Внеси е-пошта",
+    "phoneNumber": "Телефон:",
+    "enterPhoneNumber": "Внеси телефонски број",
     "password": "Лозинка:",
     "enterPassword": "Внеси лозинка",
     "role": "Роља:",

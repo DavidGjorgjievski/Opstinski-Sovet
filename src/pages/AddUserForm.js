@@ -7,6 +7,7 @@ import { faEye, faEyeSlash, faUserPlus, faChevronLeft } from "@fortawesome/free-
 import { useTranslation } from "react-i18next";
 import "../styles/AddUserForm.css";
 import api from '../api/axios';
+import COUNTRY_CODES from '../utils/countryCodes';
 
 function AddUserForm() {
   const { t } = useTranslation();
@@ -21,6 +22,8 @@ function AddUserForm() {
     name: "",
     surname: "",
     email: "",
+    phoneCountryCode: "+389",
+    phoneNumber: "",
     password: "",
     role: "ROLE_USER",
     status: "ACTIVE",
@@ -48,10 +51,12 @@ function AddUserForm() {
   const [openRole, setOpenRole] = useState(false);
   const [openStatus, setOpenStatus] = useState(false);
   const [openMunicipality, setOpenMunicipality] = useState(false);
+  const [openCountryCode, setOpenCountryCode] = useState(false);
 
   const roleRef = useRef(null);
   const statusRef = useRef(null);
   const municipalityRef = useRef(null);
+  const countryCodeRef = useRef(null);
 
   const roles = React.useMemo(() => {
     const baseRoles = [
@@ -87,10 +92,12 @@ function AddUserForm() {
           name: user.name || "",
           surname: user.surname || "",
           email: user.email || "",
+          phoneCountryCode: user.phoneCountryCode || "+389",
+          phoneNumber: user.phoneNumber || "",
           role: user.role || "ROLE_USER",
           status: user.status || "ACTIVE",
           municipalityId: user.municipalityId || "",
-          password: "", // always empty
+          password: "",
           file: null,
         });
 
@@ -124,6 +131,7 @@ function AddUserForm() {
       if (roleRef.current && !roleRef.current.contains(e.target)) setOpenRole(false);
       if (statusRef.current && !statusRef.current.contains(e.target)) setOpenStatus(false);
       if (municipalityRef.current && !municipalityRef.current.contains(e.target)) setOpenMunicipality(false);
+      if (countryCodeRef.current && !countryCodeRef.current.contains(e.target)) setOpenCountryCode(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -175,6 +183,10 @@ function AddUserForm() {
     submissionData.append("name", formData.name);
     submissionData.append("surname", formData.surname);
     submissionData.append("email", formData.email);
+    if (formData.phoneNumber.trim()) {
+      submissionData.append("phoneCountryCode", formData.phoneCountryCode);
+      submissionData.append("phoneNumber", formData.phoneNumber.trim());
+    }
     if (formData.password) submissionData.append("password", formData.password.trim());
     submissionData.append("role", formData.role);
     submissionData.append("status", formData.status);
@@ -258,6 +270,50 @@ function AddUserForm() {
                 onChange={handleInputChange}
                 required={false} 
               />
+
+              <label htmlFor="phoneNumber" className="label-add">{t("addUserForm.phoneNumber")}</label>
+              <div className="phone-input-row mb-2">
+                <div className="phone-code-wrapper" ref={countryCodeRef}>
+                  <div
+                    className="phone-code-trigger"
+                    onClick={() => setOpenCountryCode(!openCountryCode)}
+                  >
+                    <img
+                      src={`https://flagcdn.com/w20/${COUNTRY_CODES.find(c => c.code === formData.phoneCountryCode)?.iso || "mk"}.png`}
+                      alt=""
+                      className="phone-flag-img"
+                    />
+                    <span>{formData.phoneCountryCode}</span>
+                    <span className="phone-code-arrow">▾</span>
+                  </div>
+                  {openCountryCode && (
+                    <div className="phone-code-options">
+                      {COUNTRY_CODES.map(({ code, iso, name }) => (
+                        <div
+                          key={code}
+                          className={`phone-code-option ${formData.phoneCountryCode === code ? "selected" : ""}`}
+                          onClick={() => {
+                            setFormData({ ...formData, phoneCountryCode: code });
+                            setOpenCountryCode(false);
+                          }}
+                        >
+                          <img src={`https://flagcdn.com/w20/${iso}.png`} alt="" className="phone-flag-img" />
+                          <span>{code}</span>
+                          <span className="phone-code-name">{name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  className="add-user-input-field"
+                  placeholder={t("addUserForm.enterPhoneNumber")}
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+                />
+              </div>
 
               <label htmlFor="password" className="label-add">
                 {t("addUserForm.password")}

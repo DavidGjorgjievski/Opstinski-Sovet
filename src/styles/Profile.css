@@ -272,6 +272,11 @@ background-color: #fbe64e;
     color: #555;
 }
 
+.value-empty {
+    color: #aaa;
+    letter-spacing: 2px;
+}
+
 .detail-row {
     display: flex;
     justify-content: space-between;

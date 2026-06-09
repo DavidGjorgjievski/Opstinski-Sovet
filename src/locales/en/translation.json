@@ -182,6 +182,7 @@
     "statusActive": "Active",
     "statusInactive": "Inactive",
     "email": "Email",
+    "phoneNumber": "Phone Number",
     "notAvailable": "Not available",
     "edit": "Edit",
     "add": "Add",
@@ -212,6 +213,7 @@
     "municipality": "Municipality",
     "details": "Details",
     "email": "Email",
+    "phoneNumber": "Phone Number",
     "municipalityTerm": "Mandate",
     "status": "Status",
     "statusActive": "Active",
@@ -245,6 +247,15 @@
     "generalError": "Something went wrong while changing the password.",
     "success": "Password changed successfully.",
     "submit": "Change"
+  },
+  "changePhone": {
+    "title": "Change Phone Number",
+    "header": "Change Your Phone Number",
+    "new": "Phone Number",
+    "phonePlaceholder": "Write the phone number",
+    "submit": "Save",
+    "generalError": "An error occurred",
+    "success": "Phone number successfully updated"
   },
   "changeEmail": {
     "title": "Change Email",
@@ -365,6 +376,8 @@
     "enterSurname": "Enter surname",
     "email": "Email",
     "enterEmail": "Enter email",
+    "phoneNumber": "Phone Number:",
+    "enterPhoneNumber": "Enter phone number",
     "password": "Password:",
     "enterPassword": "Enter password",
     "role": "Role:",
