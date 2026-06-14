@@ -30,6 +30,9 @@ function Sessions() {
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
+    const cachedMunicipalities = JSON.parse(localStorage.getItem('municipalities')) || [];
+    const currentMunicipality = cachedMunicipalities.find(m => String(m.id) === String(municipalityId));
+
     // Fetch Municipality Terms
    useEffect(() => {
     const fetchMunicipalityTerms = async () => {
@@ -250,7 +253,16 @@ function Sessions() {
                         <span className="back-text">{t('common.back')}</span>
                     </button>
                 </div>
-                    <h1 className="session-header-title">{t('session.title')}</h1>
+                    <div className="session-title-with-flag">
+                        <h1 className="session-header-title">{t('session.title')}</h1>
+                        {currentMunicipality?.flagImage && (
+                            <img
+                                src={`data:image/png;base64,${currentMunicipality.flagImage}`}
+                                alt="flag"
+                                className="session-municipality-flag"
+                            />
+                        )}
+                    </div>
                     <p>{t('session.subtitle')}</p>
                 </div>
 

@@ -69,11 +69,35 @@ html{
     position: absolute;
 }
 
+.session-title-with-flag {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
 .session-header-title {
     font-size: 3rem;
     color: black;
     font-weight: 500;
-    margin-bottom: 0px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.session-municipality-flag {
+    width: auto;
+    height: auto;
+    max-width: 56px;
+    max-height: 56px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.22));
+    transition: transform 0.2s ease;
+}
+
+.session-municipality-flag:hover {
+    transform: scale(1.03);
 }
 
 .session-header-div{
@@ -295,14 +319,23 @@ html{
     }
 
     .session-header-div p {
-        width: 95%;   
+        width: 95%;
     }
-    
+
     .session-header-div {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    .session-title-with-flag {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .session-municipality-flag {
+        display: none;
     }
 }
 
