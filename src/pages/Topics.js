@@ -53,6 +53,7 @@ function Topics() {
     const [topicsLoaded, setTopicsLoaded] = useState(false);
     const [showNumber, setShowNumber] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
+    const [hasSpeakingHistory, setHasSpeakingHistory] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
     const votingInProgressRef = useRef(new Set());
     // WEB SOCKETS
@@ -219,6 +220,13 @@ function Topics() {
             fetchOnlineUsers();
         }
     }, [fetchOnlineUsers, showFixDiv]);
+
+    useEffect(() => {
+        if (!id) return;
+        api.get(`/api/speaking/session/${id}/history`)
+            .then(res => setHasSpeakingHistory((res.data || []).length > 0))
+            .catch(() => {});
+    }, [id]);
 
     // Populate image cache once per mandate term
     useEffect(() => {
@@ -606,6 +614,12 @@ useEffect(() => {
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
     const isSessionLocked = userInfo.role !== 'ROLE_ADMIN' &&
         currentSession && new Date(currentSession.date) < twoMonthsAgo;
+
+    const now = new Date();
+    const sessionDate = currentSession ? new Date(currentSession.date) : null;
+    const isSpeakingLocked = userInfo.role !== 'ROLE_ADMIN' &&
+        sessionDate &&
+        (sessionDate.getMonth() !== now.getMonth() || sessionDate.getFullYear() !== now.getFullYear());
 
     const hasTopicPermissionsPlusUser = (
     (
@@ -1179,7 +1193,7 @@ useEffect(() => {
             canSeeAction={hasTopicPermissionsStatus}
         />
 
-        {showFixDiv && !isSessionLocked && (
+        {userInfo.role !== 'ROLE_GUEST' && (!isSpeakingLocked || hasSpeakingHistory) && (
             <SpeakingPanel
                 presentedTopicId={presentedTopicId}
                 presentedAmendmentId={presentedAmendmentId}

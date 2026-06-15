@@ -132,7 +132,8 @@
   "MunicipalityMandateUsers": {
     "title": "Këshilltarët",
     "noUsers": "Nuk u gjetën përdorues për këtë mandat.",
-    "president": "Kryetar"
+    "president": "Kryetar",
+    "mayor": "Kryetar Bashkie"
   },
   "MunicipalityMandateUsersList": {
     "title": "Ndrysho Këshilltarin",

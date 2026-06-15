@@ -132,7 +132,8 @@
   "MunicipalityMandateUsers": {
     "title": "Councillors",
     "noUsers": "No users found for this mandate.",
-    "president": "President"
+    "president": "President",
+    "mayor": "Mayor"
   },
   "MunicipalityMandateUsersList": {
     "title": "Edit Councillors",

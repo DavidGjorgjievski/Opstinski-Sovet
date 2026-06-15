@@ -132,7 +132,8 @@
   "MunicipalityMandateUsers": {
     "title": "Советници",
     "noUsers": "Нема корисници за овој мандат.",
-    "president": "Претседател"
+    "president": "Претседател",
+    "mayor": "Градоначалник"
   },
   "MunicipalityMandateUsersList": {
     "title": "Уреди Советници",

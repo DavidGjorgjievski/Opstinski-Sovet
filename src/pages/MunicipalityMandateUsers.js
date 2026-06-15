@@ -25,6 +25,30 @@ const [userData] = useState(() => {
   return storedUserInfo ? JSON.parse(storedUserInfo) : {};
 });
 const [, setImagesReady] = useState(false);
+const [municipalityImages, setMunicipalityImages] = useState({ logo: null, flag: null, name: null });
+
+useEffect(() => {
+  const cached = JSON.parse(localStorage.getItem('municipalities') || '[]');
+  const found = cached.find(m => String(m.id) === String(municipalityId));
+  if (found) {
+    setMunicipalityImages({
+      logo: found.logoImage ? `data:image/png;base64,${found.logoImage}` : null,
+      flag: found.flagImage ? `data:image/png;base64,${found.flagImage}` : null,
+      name: found.name || null,
+    });
+    return;
+  }
+  api.get(`/api/municipalities/${municipalityId}`)
+    .then(res => {
+      const d = res.data;
+      setMunicipalityImages({
+        logo: d.logoImage ? `data:image/png;base64,${d.logoImage}` : null,
+        flag: d.flagImage ? `data:image/png;base64,${d.flagImage}` : null,
+        name: d.name || null,
+      });
+    })
+    .catch(() => {});
+}, [municipalityId]);
 
 // Fetch votable users using Axios
 useEffect(() => {
@@ -95,10 +119,25 @@ useEffect(() => {
                     onClick={() => navigate(`/municipalities/${municipalityId}/mandates/users/${mandateId}/add-list`)}
                   >
                     {t('common.edit')} <FontAwesomeIcon icon={faUserPen} />
-                  </button> 
+                  </button>
                 )}
           </div>
         </div>
+
+        {/* Flag, Municipality Name & Coat of Arms banner */}
+        {(municipalityImages.flag || municipalityImages.logo || municipalityImages.name) && (
+          <div className="mmu-emblem-banner">
+            {municipalityImages.flag && (
+              <img src={municipalityImages.flag} alt="flag" className="mmu-flag-img" />
+            )}
+            {municipalityImages.name && (
+              <span className="mmu-municipality-name">{municipalityImages.name}</span>
+            )}
+            {municipalityImages.logo && (
+              <img src={municipalityImages.logo} alt="coat of arms" className="mmu-logo-img" />
+            )}
+          </div>
+        )}
 
         {/* Spinner */}
         {loading && (
@@ -113,9 +152,8 @@ useEffect(() => {
         {!loading && president && (
   <div className="municipality-mandate-president-section">
     <div className="municipality-mandate-president-card"
-    onClick={() => navigate(`/profile-view/${president.username}`)}>
+      onClick={() => navigate(`/profile-view/${president.username}`)}>
       <UserAvatar username={president.username} name={president.name} surname={president.surname} className="municipality-mandate-users-avatar" termId={mandateId} />
-
       <p className="municipality-mandate-users-name">
         {president.name} {president.surname}
       </p>
@@ -130,9 +168,9 @@ useEffect(() => {
        {!loading && regularUsers.length > 0 && (
   <div className="municipality-mandate-users-grid">
     {regularUsers.map((user) => (
-      <div 
-          key={user.username} 
-          className="municipality-mandate-users-card" 
+      <div
+          key={user.username}
+          className="municipality-mandate-users-card"
           onClick={() => navigate(`/profile-view/${user.username}`)}
       >
         <UserAvatar username={user.username} name={user.name} surname={user.surname} className="municipality-mandate-users-avatar" termId={mandateId} />

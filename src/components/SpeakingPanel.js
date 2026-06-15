@@ -1157,8 +1157,7 @@ export default function SpeakingPanel({
 
   // ── Render ────────────────────────────────────────────────────────────────
 
-  const showPanel = isPresidentOrAdmin || canParticipate;
-  if (!showPanel) return null;
+  // All non-guest roles can view the panel; canParticipate / isPresidentOrAdmin gate interactive features internally.
 
   return (
     <>

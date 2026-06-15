@@ -132,7 +132,8 @@
   "MunicipalityMandateUsers": {
     "title": "Ratsmitglieder",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden.",
-    "president": "Präsident"
+    "president": "Präsident",
+    "mayor": "Bürgermeister"
   },
   "MunicipalityMandateUsersList": {
     "title": "Ratsmitglied Bearbeiten",
