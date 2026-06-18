@@ -147,6 +147,7 @@
     "view": "Ansehen",
     "options": "Optionen",
     "mandates": "Amtszeiten",
+    "commissions": "Kommissionen",
     "delete": "Löschen",
     "noMunicipalities": "Keine Gemeinden verfügbar",
     "loading": "Wird geladen..."
@@ -702,5 +703,24 @@
     "refresh": "Aktualisieren",
     "updating": "Wird aktualisiert...",
     "viewAll": "Nach Gemeinde anzeigen"
+  },
+  "commissions": {
+    "title": "Kommissionen",
+    "subtitle": "Gemeinde {{name}}",
+    "addCommission": "Hinzufügen",
+    "noTerms": "Keine Mandate für diese Gemeinde.",
+    "noCommissions": "Keine Kommissionen für dieses Mandat.",
+    "noMembers": "Keine Mitglieder",
+    "rolePresident": "Vorsitzender",
+    "roleMember": "Mitglied",
+    "newCommission": "Neue Kommission",
+    "namePlaceholder": "Kommissionsname eingeben...",
+    "cancel": "Abbrechen",
+    "addMember": "Mitglied hinzufügen",
+    "userLabel": "Benutzer",
+    "selectUser": "-- Benutzer auswählen --",
+    "roleLabel": "Rolle",
+    "deleteCommission": "Kommission löschen",
+    "removeMember": "Mitglied entfernen"
   }
 }

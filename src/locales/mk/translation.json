@@ -147,6 +147,7 @@
     "view": "Преглед",
     "options": "Опции",
     "mandates": "Мандати",
+    "commissions": "Комисии",
     "delete": "Избриши",
     "noMunicipalities": "Нема достапни општини",
     "loading": "Се вчитува..."
@@ -725,5 +726,24 @@
     "refresh": "Освежи",
     "updating": "Се ажурира...",
     "viewAll": "Прегледај по општини"
+  },
+  "commissions": {
+    "title": "Комисии",
+    "subtitle": "Општина {{name}}",
+    "addCommission": "Додади",
+    "noTerms": "Нема мандати за оваа општина.",
+    "noCommissions": "Нема комисии за овој мандат.",
+    "noMembers": "Нема членови",
+    "rolePresident": "Претседател",
+    "roleMember": "Член",
+    "newCommission": "Нова комисија",
+    "namePlaceholder": "Внеси ime на комисијата...",
+    "cancel": "Откажи",
+    "addMember": "Додади член",
+    "userLabel": "Корисник",
+    "selectUser": "-- Избери корисник --",
+    "roleLabel": "Улога",
+    "deleteCommission": "Избриши комисија",
+    "removeMember": "Отстрани член"
   }
 }

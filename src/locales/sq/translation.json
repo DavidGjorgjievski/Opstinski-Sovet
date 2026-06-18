@@ -147,6 +147,7 @@
     "view": "Shiko",
     "options": "Opsione",
     "mandates": "Mandatet",
+    "commissions": "Komisione",
     "delete": "Fshi",
     "noMunicipalities": "Nuk ka komuna të disponueshme",
     "loading": "Po ngarkohet..."
@@ -722,5 +723,24 @@
     "refresh": "Rifresko",
     "updating": "Duke përditësuar...",
     "viewAll": "Shiko sipas komunës"
+  },
+  "commissions": {
+    "title": "Komisione",
+    "subtitle": "Komuna {{name}}",
+    "addCommission": "Shto",
+    "noTerms": "Nuk ka mandate për këtë komunë.",
+    "noCommissions": "Nuk ka komisione për këtë mandat.",
+    "noMembers": "Nuk ka anëtarë",
+    "rolePresident": "Kryetar",
+    "roleMember": "Anëtar",
+    "newCommission": "Komision i ri",
+    "namePlaceholder": "Shkruaj emrin e komisionit...",
+    "cancel": "Anulo",
+    "addMember": "Shto anëtar",
+    "userLabel": "Përdoruesi",
+    "selectUser": "-- Zgjidh përdoruesin --",
+    "roleLabel": "Roli",
+    "deleteCommission": "Fshi komisionin",
+    "removeMember": "Hiq anëtarin"
   }
 }

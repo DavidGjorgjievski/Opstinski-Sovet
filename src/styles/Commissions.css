@@ -1,0 +1,369 @@
+.commissions-container {
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+}
+
+.commissions-body {
+    margin-top: 80px;
+    width: 90%;
+    max-width: 1200px;
+    padding-bottom: 60px;
+}
+
+/* ── Header ── */
+.commissions-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 0 8px;
+    gap: 4px;
+}
+
+.commissions-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.commissions-title {
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1;
+    color: black;
+}
+
+.commissions-flag {
+    width: auto;
+    height: auto;
+    max-width: 52px;
+    max-height: 52px;
+    border-radius: 4px;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.22));
+}
+
+.commissions-subtitle {
+    color: #717173;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ── Term group ── */
+.commissions-term-group {
+    margin-top: 32px;
+}
+
+.commissions-term-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.commissions-term-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.commissions-divider {
+    margin: 10px 0 20px;
+    border: none;
+    border-top: 1.5px solid #ccc;
+}
+
+.commissions-empty-state {
+    color: #888;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+/* ── Grid ── */
+.commissions-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+}
+
+@media (max-width: 360px) {
+    .commission-card {
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .commission-member-item {
+        padding: 4px 6px;
+    }
+}
+
+@media (min-width: 900px) {
+    .commissions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .commissions-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ── Commission card ── */
+.commission-card {
+    border: 2px solid #ddd;
+    border-radius: 16px;
+    padding: 18px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.commission-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.commission-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1a2a4a;
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* ── Icon buttons ── */
+.commission-icon-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+}
+
+.commission-icon-btn--delete {
+    color: #c0392b;
+}
+
+.commission-icon-btn--delete:hover {
+    background: #fdecea;
+}
+
+.commission-icon-btn--remove {
+    color: #888;
+}
+
+.commission-icon-btn--remove:hover {
+    background: #f0f0f0;
+    color: #c0392b;
+}
+
+/* ── Members list ── */
+.commission-members-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.commission-no-members {
+    font-size: 0.85rem;
+    color: #aaa;
+    font-style: italic;
+}
+
+.commission-member-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 5px 8px;
+    border-radius: 8px;
+    background: #f8f8f8;
+}
+
+.commission-member-item--mine {
+    background: rgba(234, 179, 8, 0.12);
+    border: 1.5px solid rgba(234, 179, 8, 0.45);
+}
+
+.commission-member-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.commission-member-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Role badges ── */
+.commission-role-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.badge-president {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge-member {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+/* ── Add member button ── */
+.commission-add-member-btn {
+    width: 100%;
+    padding: 7px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background: transparent;
+    color: #555;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    margin-top: auto;
+}
+
+.commission-add-member-btn:hover {
+    border-color: #999;
+    background: #f8f8f8;
+    color: #333;
+}
+
+/* ── Modal ── */
+.commission-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.commission-modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.commission-modal-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1a2a4a;
+}
+
+.commission-modal-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: -8px;
+}
+
+.commission-modal-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+}
+
+.commission-modal-input:focus {
+    border-color: #999;
+}
+
+.commission-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .commissions-body {
+        width: 95%;
+    }
+
+    .commissions-flag {
+        display: none;
+    }
+
+    .commissions-title-row {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .commissions-title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .commissions-subtitle {
+        width: 100%;
+        text-align: center;
+    }
+
+    .commissions-term-group {
+        margin-top: 12px;
+    }
+
+    .commissions-term-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .commissions-term-title {
+        order: 2;
+    }
+
+    .commissions-term-header .entity-add-button {
+        order: 1;
+    }
+
+
+.commission-modal {
+        padding: 22px 20px;
+        max-width: 94vw;
+    }
+}

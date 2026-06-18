@@ -147,6 +147,7 @@
     "view": "View",
     "options": "Options",
     "mandates": "Mandates",
+    "commissions": "Commissions",
     "delete": "Delete",
     "noMunicipalities": "No municipalities available",
     "loading": "Loading..."
@@ -725,5 +726,24 @@
     "refresh": "Refresh",
     "updating": "Updating...",
     "viewAll": "View by Municipality"
+  },
+  "commissions": {
+    "title": "Commissions",
+    "subtitle": "Municipality {{name}}",
+    "addCommission": "Add",
+    "noTerms": "No mandates for this municipality.",
+    "noCommissions": "No commissions for this mandate.",
+    "noMembers": "No members",
+    "rolePresident": "President",
+    "roleMember": "Member",
+    "newCommission": "New commission",
+    "namePlaceholder": "Enter commission name...",
+    "cancel": "Cancel",
+    "addMember": "Add member",
+    "userLabel": "User",
+    "selectUser": "-- Select user --",
+    "roleLabel": "Role",
+    "deleteCommission": "Delete commission",
+    "removeMember": "Remove member"
   }
 }

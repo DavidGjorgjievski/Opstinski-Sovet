@@ -41,6 +41,7 @@ import Monitoring from './pages/Monitoring';
 import SessionStatistics from './pages/SessionStatistics';
 import MunicipalityStatistics from './pages/MunicipalityStatistics';
 import GoGreen from './pages/GoGreen';
+import Commissions from './pages/Commissions';
 import ProfileView from './pages/ProfileView'
 import UserImageStorage from './pages/UserImageStorage'
 import SpeakingTimeline from './pages/SpeakingTimeline';
@@ -142,6 +143,7 @@ function App() {
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/statistics" element={<ProtectedRoute element={<SessionStatistics />} />} />
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/speaking-history" element={<ProtectedRoute element={<SpeakingTimeline />} />} />
               <Route path="/municipalities/:municipalityId/gogreen" element={<ProtectedRoute element={<GoGreen />} />} />
+              <Route path="/municipalities/:municipalityId/commissions" element={<ProtectedRoute element={<Commissions />} />} />
               <Route path="/municipalities/:municipalityId/statistics" element={<ProtectedRoute element={<MunicipalityStatistics />} />} />
 
 
