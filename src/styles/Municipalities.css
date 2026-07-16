@@ -54,7 +54,11 @@
 }
 
 .grid-container.admin-padding {
-    padding-bottom: 140px;
+    padding-bottom: 280px;
+}
+
+.highlight-grid-container.admin-padding {
+    padding-bottom: 280px !important;
 }
 
 .grid-container.size-4up {
