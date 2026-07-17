@@ -17,8 +17,9 @@ const navigate = useNavigate();
 const [users, setUsers] = useState([]);
 const [loading, setLoading] = useState(true);
 
+const mayor = users.find(u => u.role === "ROLE_MAYOR");
 const president = users.find(u => u.role === "ROLE_PRESIDENT");
-const regularUsers = users.filter(u => u.role !== "ROLE_PRESIDENT");
+const regularUsers = users.filter(u => u.role !== "ROLE_PRESIDENT" && u.role !== "ROLE_MAYOR");
 
 const [userData] = useState(() => {
   const storedUserInfo = localStorage.getItem("userInfo");
@@ -149,18 +150,33 @@ useEffect(() => {
           </div>
         )}
 
-        {!loading && president && (
-  <div className="municipality-mandate-president-section">
-    <div className="municipality-mandate-president-card"
-      onClick={() => navigate(`/profile-view/${president.username}`)}>
-      <UserAvatar username={president.username} name={president.name} surname={president.surname} className="municipality-mandate-users-avatar" termId={mandateId} />
-      <p className="municipality-mandate-users-name">
-        {president.name} {president.surname}
-      </p>
-      <span className="municipality-mandate-president-label">
-        {t("MunicipalityMandateUsers.president")}
-      </span>
-    </div>
+        {!loading && (mayor || president) && (
+  <div className="municipality-mandate-leadership-bar">
+    {mayor && (
+      <div className="municipality-mandate-leadership-half mayor"
+        onClick={() => navigate(`/profile-view/${mayor.username}`)}>
+        <UserAvatar username={mayor.username} name={mayor.name} surname={mayor.surname} className="municipality-mandate-users-avatar" termId={mandateId} />
+        <p className="municipality-mandate-users-name">
+          {mayor.name} {mayor.surname}
+        </p>
+        <span className="municipality-mandate-mayor-label">
+          {t("MunicipalityMandateUsers.mayor")}
+        </span>
+      </div>
+    )}
+    {mayor && president && <div className="municipality-mandate-leadership-divider" />}
+    {president && (
+      <div className="municipality-mandate-leadership-half president"
+        onClick={() => navigate(`/profile-view/${president.username}`)}>
+        <UserAvatar username={president.username} name={president.name} surname={president.surname} className="municipality-mandate-users-avatar" termId={mandateId} />
+        <p className="municipality-mandate-users-name">
+          {president.name} {president.surname}
+        </p>
+        <span className="municipality-mandate-president-label">
+          {t("MunicipalityMandateUsers.president")}
+        </span>
+      </div>
+    )}
   </div>
 )}
 
