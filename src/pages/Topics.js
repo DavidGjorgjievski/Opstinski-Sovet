@@ -1193,7 +1193,7 @@ useEffect(() => {
             canSeeAction={hasTopicPermissionsStatus}
         />
 
-        {userInfo.role !== 'ROLE_GUEST' && (!isSpeakingLocked || hasSpeakingHistory) && (
+        {(!isSpeakingLocked || hasSpeakingHistory) && (
             <SpeakingPanel
                 presentedTopicId={presentedTopicId}
                 presentedAmendmentId={presentedAmendmentId}

@@ -1157,7 +1157,7 @@ export default function SpeakingPanel({
 
   // ── Render ────────────────────────────────────────────────────────────────
 
-  // All non-guest roles can view the panel; canParticipate / isPresidentOrAdmin gate interactive features internally.
+  // All roles (including guests) can view the panel and history; canParticipate / isPresidentOrAdmin gate interactive features internally.
 
   return (
     <>
