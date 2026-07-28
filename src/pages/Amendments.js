@@ -148,9 +148,7 @@ const fetchAmendments = useCallback(async () => {
         setTopicTitle(data.topicTitle || "");
         setLoaded(true);
         setTopics(Array.isArray(data.topics) ? data.topics : []); // for progress
-        if (data.presentedAmendmentId != null) {
-            setPresentedAmendmentId(data.presentedAmendmentId);
-        }
+        setPresentedAmendmentId(data.presentedAmendmentId ?? null);
         return amendmentsArray; // ✅ return for WebSocket
     } catch (error) {
         console.error("Error fetching amendments:", error);
