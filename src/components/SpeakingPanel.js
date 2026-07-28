@@ -304,6 +304,7 @@ function QueueItem({
   isLast,
   allEntries,
   canParticipate,
+  isLocked,
   onRequestReplyToEntry,
   onRequestCounterToEntry,
 }) {
@@ -340,7 +341,7 @@ function QueueItem({
   }, [canParticipate, isOwner, entry, allEntries, myUsername]);
 
   const canDelete =
-    (isOwner && !isPresidentOrAdmin && ['PENDING', 'APPROVED'].includes(entry.status)) ||
+    (isOwner && !isPresidentOrAdmin && !isLocked && ['PENDING', 'APPROVED'].includes(entry.status)) ||
     (isPresidentOrAdmin && ['PENDING', 'APPROVED'].includes(entry.status));
 
   const showReplyRow = canReplyToEntry || canCounterToEntry;
@@ -467,13 +468,18 @@ export default function SpeakingPanel({
   presentedAmendmentId,
   isPresentedFinished = false,
   userInfo,
-  isPresidentOrAdmin,
-  canParticipate,
+  isPresidentOrAdmin: isPresidentOrAdminProp,
+  canParticipate: canParticipateProp,
+  isLocked = false,
   municipalityId,
   sessionId,
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  // Locked sessions (viewed for their history) stay read-only for everyone.
+  const isPresidentOrAdmin = isPresidentOrAdminProp && !isLocked;
+  const canParticipate = canParticipateProp && !isLocked;
 
   // ── WebSocket ─────────────────────────────────────────────────────────────
   const { messages: speakingMessages, durationMessages, pauseMessages } = useSpeakingWebSocket(sessionId, municipalityId);
@@ -1158,6 +1164,7 @@ export default function SpeakingPanel({
   // ── Render ────────────────────────────────────────────────────────────────
 
   // All roles (including guests) can view the panel and history; canParticipate / isPresidentOrAdmin gate interactive features internally.
+  // isLocked (session from a past month, kept visible only because it has history) forces those two flags off above, making the view read-only.
 
   return (
     <>
@@ -1349,6 +1356,7 @@ export default function SpeakingPanel({
                     onReject={rejectRequest}
                     onMoveUp={moveEntryUp}
                     onMoveDown={moveEntryDown}
+                    isLocked={isLocked}
                     isFirst={idx === 0}
                     isLast={idx === visibleQueue.length - 1}
                     allEntries={queue}

@@ -56,17 +56,17 @@ function Amendments() {
     const [pendingVotingAmendmentId, setPendingVotingAmendmentId] = useState(null);
     const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
     const [presentedTopicId, setPresentedTopicId] = useState(null);
+    const [hasSpeakingHistory, setHasSpeakingHistory] = useState(false);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
 
     const showSpeakingPanel = useMemo(() => {
-        if (userInfo.role === 'ROLE_GUEST') return false;
         if (!currentSession || !municipalityId) return false;
         const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
         if (mandates.length === 0) return false;
         const newestMandateId = Math.max(...mandates.map(m => m.id));
         return Number(currentSession.municipalityMandateId) === newestMandateId;
-    }, [currentSession, municipalityId, userInfo.role]);
+    }, [currentSession, municipalityId]);
 
     const canParticipateInSpeaking = (
         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_MAYOR') &&
@@ -81,6 +81,12 @@ function Amendments() {
     twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
     const isSessionLocked = userInfo.role !== 'ROLE_ADMIN' &&
         currentSession && new Date(currentSession.date) < twoMonthsAgo;
+
+    const speakingNow = new Date();
+    const speakingSessionDate = currentSession ? new Date(currentSession.date) : null;
+    const isSpeakingLocked = userInfo.role !== 'ROLE_ADMIN' &&
+        speakingSessionDate &&
+        (speakingSessionDate.getMonth() !== speakingNow.getMonth() || speakingSessionDate.getFullYear() !== speakingNow.getFullYear());
 
     const { messages: amendmentMessages, sendVote: sendAmendmentVote } =
     useAmendmentVoteWebSocket(idt);
@@ -164,6 +170,13 @@ const fetchAmendments = useCallback(async () => {
         if (!id) return;
         api.get(`/api/sessions/${id}/topics`)
             .then(res => setPresentedTopicId(res.data.presentedTopicId))
+            .catch(() => {});
+    }, [id]);
+
+    useEffect(() => {
+        if (!id) return;
+        api.get(`/api/speaking/session/${id}/history`)
+            .then(res => setHasSpeakingHistory((res.data || []).length > 0))
             .catch(() => {});
     }, [id]);
 
@@ -1073,7 +1086,7 @@ const handleRestartAmendmentConfirm = () => {
                 />
             )}
 
-            {showSpeakingPanel && !isSessionLocked && (
+            {showSpeakingPanel && (!isSpeakingLocked || hasSpeakingHistory) && (
                 <SpeakingPanel
                     presentedTopicId={presentedTopicId ?? (presentedAmendmentId ? Number(idt) : null)}
                     presentedAmendmentId={presentedAmendmentId}
@@ -1083,6 +1096,7 @@ const handleRestartAmendmentConfirm = () => {
                     userInfo={userInfo}
                     isPresidentOrAdmin={hasAmendmentPermissionsStatus}
                     canParticipate={canParticipateInSpeaking}
+                    isLocked={isSpeakingLocked}
                     municipalityId={municipalityId}
                     sessionId={id}
                 />

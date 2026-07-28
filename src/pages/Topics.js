@@ -1204,6 +1204,7 @@ useEffect(() => {
                 userInfo={userInfo}
                 isPresidentOrAdmin={hasTopicPermissionsStatus}
                 canParticipate={canParticipateInSpeaking}
+                isLocked={isSpeakingLocked}
                 municipalityId={municipalityId}
                 sessionId={id}
             />
