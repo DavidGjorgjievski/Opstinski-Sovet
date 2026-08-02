@@ -56,17 +56,8 @@ function Amendments() {
     const [pendingVotingAmendmentId, setPendingVotingAmendmentId] = useState(null);
     const [presentedAmendmentId, setPresentedAmendmentId] = useState(null);
     const [presentedTopicId, setPresentedTopicId] = useState(null);
-    const [hasSpeakingHistory, setHasSpeakingHistory] = useState(false);
     const currentSession = (JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [])
         .find(s => s.id === parseInt(id));
-
-    const showSpeakingPanel = useMemo(() => {
-        if (!currentSession || !municipalityId) return false;
-        const mandates = JSON.parse(localStorage.getItem(`municipalityMandates_${municipalityId}`)) || [];
-        if (mandates.length === 0) return false;
-        const newestMandateId = Math.max(...mandates.map(m => m.id));
-        return Number(currentSession.municipalityMandateId) === newestMandateId;
-    }, [currentSession, municipalityId]);
 
     const canParticipateInSpeaking = (
         (userInfo.role === 'ROLE_PRESIDENT' || userInfo.role === 'ROLE_USER' || userInfo.role === 'ROLE_MAYOR') &&
@@ -168,13 +159,6 @@ const fetchAmendments = useCallback(async () => {
         if (!id) return;
         api.get(`/api/sessions/${id}/topics`)
             .then(res => setPresentedTopicId(res.data.presentedTopicId))
-            .catch(() => {});
-    }, [id]);
-
-    useEffect(() => {
-        if (!id) return;
-        api.get(`/api/speaking/session/${id}/history`)
-            .then(res => setHasSpeakingHistory((res.data || []).length > 0))
             .catch(() => {});
     }, [id]);
 
@@ -1084,21 +1068,19 @@ const handleRestartAmendmentConfirm = () => {
                 />
             )}
 
-            {showSpeakingPanel && (!isSpeakingLocked || hasSpeakingHistory) && (
-                <SpeakingPanel
-                    presentedTopicId={presentedTopicId ?? (presentedAmendmentId ? Number(idt) : null)}
-                    presentedAmendmentId={presentedAmendmentId}
-                    isPresentedFinished={
-                        amendments.find(a => a.id === presentedAmendmentId)?.status === 'FINISHED'
-                    }
-                    userInfo={userInfo}
-                    isPresidentOrAdmin={hasAmendmentPermissionsStatus}
-                    canParticipate={canParticipateInSpeaking}
-                    isLocked={isSpeakingLocked}
-                    municipalityId={municipalityId}
-                    sessionId={id}
-                />
-            )}
+            <SpeakingPanel
+                presentedTopicId={presentedTopicId ?? (presentedAmendmentId ? Number(idt) : null)}
+                presentedAmendmentId={presentedAmendmentId}
+                isPresentedFinished={
+                    amendments.find(a => a.id === presentedAmendmentId)?.status === 'FINISHED'
+                }
+                userInfo={userInfo}
+                isPresidentOrAdmin={hasAmendmentPermissionsStatus}
+                canParticipate={canParticipateInSpeaking}
+                isLocked={isSpeakingLocked}
+                municipalityId={municipalityId}
+                sessionId={id}
+            />
 
         </div>
     );

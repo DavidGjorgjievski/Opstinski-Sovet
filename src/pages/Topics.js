@@ -53,7 +53,6 @@ function Topics() {
     const [topicsLoaded, setTopicsLoaded] = useState(false);
     const [showNumber, setShowNumber] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
-    const [hasSpeakingHistory, setHasSpeakingHistory] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
     const votingInProgressRef = useRef(new Set());
     // WEB SOCKETS
@@ -220,13 +219,6 @@ function Topics() {
             fetchOnlineUsers();
         }
     }, [fetchOnlineUsers, showFixDiv]);
-
-    useEffect(() => {
-        if (!id) return;
-        api.get(`/api/speaking/session/${id}/history`)
-            .then(res => setHasSpeakingHistory((res.data || []).length > 0))
-            .catch(() => {});
-    }, [id]);
 
     // Populate image cache once per mandate term
     useEffect(() => {
@@ -1193,22 +1185,20 @@ useEffect(() => {
             canSeeAction={hasTopicPermissionsStatus}
         />
 
-        {(!isSpeakingLocked || hasSpeakingHistory) && (
-            <SpeakingPanel
-                presentedTopicId={presentedTopicId}
-                presentedAmendmentId={presentedAmendmentId}
-                isPresentedFinished={
-                    !amendmentIsPresented &&
-                    topics.find(t => t.id === presentedTopicId)?.topicStatus === 'FINISHED'
-                }
-                userInfo={userInfo}
-                isPresidentOrAdmin={hasTopicPermissionsStatus}
-                canParticipate={canParticipateInSpeaking}
-                isLocked={isSpeakingLocked}
-                municipalityId={municipalityId}
-                sessionId={id}
-            />
-        )}
+        <SpeakingPanel
+            presentedTopicId={presentedTopicId}
+            presentedAmendmentId={presentedAmendmentId}
+            isPresentedFinished={
+                !amendmentIsPresented &&
+                topics.find(t => t.id === presentedTopicId)?.topicStatus === 'FINISHED'
+            }
+            userInfo={userInfo}
+            isPresidentOrAdmin={hasTopicPermissionsStatus}
+            canParticipate={canParticipateInSpeaking}
+            isLocked={isSpeakingLocked}
+            municipalityId={municipalityId}
+            sessionId={id}
+        />
         </div>
     );
 }
