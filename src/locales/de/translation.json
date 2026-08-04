@@ -4,7 +4,8 @@
     "backToLogin": "Zurück zum Login",
     "backToHomepage": "Zur Startseite",
     "add": "Hinzufügen",
-    "edit": "Bearbeiten"
+    "edit": "Bearbeiten",
+    "close": "Schließen"
   },
   "passwordValidation": {
     "tooShort": "Das Passwort muss mindestens 8 Zeichen lang sein.",
@@ -133,7 +134,22 @@
     "title": "Ratsmitglieder",
     "noUsers": "Keine Benutzer für dieses Mandat gefunden.",
     "president": "Präsident",
-    "mayor": "Bürgermeister"
+    "mayor": "Bürgermeister",
+    "statisticsButton": "Statistik",
+    "statisticsTitle": "Mandatsstatistik",
+    "totalSessions": "Sitzungen insgesamt",
+    "totalTopics": "Themen insgesamt",
+    "totalAmendments": "Änderungsanträge insgesamt",
+    "totalSpeeches": "Wortmeldungen insgesamt",
+    "totalReplies": "Repliken insgesamt",
+    "totalCounterReplies": "Gegenrepliken insgesamt",
+    "loadingStatistics": "Statistik wird geladen...",
+    "rankingsTitle": "Rangliste der Ratsmitglieder nach Wortmeldungen",
+    "rankingsName": "Ratsmitglied",
+    "rankingsSpeeches": "Wortmeldungen",
+    "rankingsReplies": "Repliken",
+    "rankingsCounterReplies": "Gegenrepliken",
+    "noRankings": "Noch keine Aktivität erfasst"
   },
   "MunicipalityMandateUsersList": {
     "title": "Ratsmitglied Bearbeiten",

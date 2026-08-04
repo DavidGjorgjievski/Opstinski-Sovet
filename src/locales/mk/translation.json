@@ -4,7 +4,8 @@
     "backToLogin": "Назад кон најава",
     "backToHomepage": "Одете на почетната страница",
     "add": "Додади",
-    "edit": "Уреди"
+    "edit": "Уреди",
+    "close": "Затвори"
   },
   "passwordValidation": {
     "tooShort": "Лозинката мора да содржи најмалку 8 знаци.",
@@ -133,7 +134,22 @@
     "title": "Советници",
     "noUsers": "Нема корисници за овој мандат.",
     "president": "Претседател",
-    "mayor": "Градоначалник"
+    "mayor": "Градоначалник",
+    "statisticsButton": "Статистика",
+    "statisticsTitle": "Статистика за мандатот",
+    "totalSessions": "Вкупно седници",
+    "totalTopics": "Вкупно точки",
+    "totalAmendments": "Вкупно амандмани",
+    "totalSpeeches": "Вкупно говори",
+    "totalReplies": "Вкупно реплики",
+    "totalCounterReplies": "Вкупно контра-реплики",
+    "loadingStatistics": "Се вчитува статистиката...",
+    "rankingsTitle": "Рангирање на советници по говори",
+    "rankingsName": "Советник",
+    "rankingsSpeeches": "Говори",
+    "rankingsReplies": "Реплики",
+    "rankingsCounterReplies": "Контра-реплики",
+    "noRankings": "Сè уште нема евидентирана активност"
   },
   "MunicipalityMandateUsersList": {
     "title": "Уреди Советници",

@@ -4,7 +4,8 @@
     "backToLogin": "Kthehu tek hyrja",
     "backToHomepage": "Shko te faqja kryesore",
     "add": "Shto",
-    "edit": "Ndrysho"
+    "edit": "Ndrysho",
+    "close": "Mbyll"
   },
   "passwordValidation": {
     "tooShort": "Fjalëkalimi duhet të ketë të paktën 8 karaktere.",
@@ -133,7 +134,22 @@
     "title": "Këshilltarët",
     "noUsers": "Nuk u gjetën përdorues për këtë mandat.",
     "president": "Kryetar",
-    "mayor": "Kryetar Bashkie"
+    "mayor": "Kryetar Bashkie",
+    "statisticsButton": "Statistika",
+    "statisticsTitle": "Statistikat e mandatit",
+    "totalSessions": "Seancat gjithsej",
+    "totalTopics": "Pikat gjithsej",
+    "totalAmendments": "Amendamentet gjithsej",
+    "totalSpeeches": "Fjalimet gjithsej",
+    "totalReplies": "Replikat gjithsej",
+    "totalCounterReplies": "Kundërreplikat gjithsej",
+    "loadingStatistics": "Duke ngarkuar statistikat...",
+    "rankingsTitle": "Renditja e këshilltarëve sipas fjalimeve",
+    "rankingsName": "Këshilltari",
+    "rankingsSpeeches": "Fjalime",
+    "rankingsReplies": "Replika",
+    "rankingsCounterReplies": "Kundërreplika",
+    "noRankings": "Ende nuk ka aktivitet të regjistruar"
   },
   "MunicipalityMandateUsersList": {
     "title": "Ndrysho Këshilltarin",

@@ -32,6 +32,12 @@
     width: 125px;
 }
 
+.header-section.title-section {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+}
+
 .municipalaty-mandate-users-view-button {
     display: inline-flex;
     align-items: center;
@@ -145,6 +151,71 @@
     letter-spacing: 0.5px;
     color: #1a1a1a;
     line-height: 1.2;
+}
+
+.mmu-statistics-button-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.mmu-statistics-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 22px;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #fbe64e, #f7db2c);
+    color: #111;
+
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.mmu-statistics-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+.mmu-statistics-button:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.15),
+        0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mmu-statistics-button:hover::after {
+    left: 130%;
+}
+
+.mmu-statistics-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ✅ Users displayed in multiple rows */

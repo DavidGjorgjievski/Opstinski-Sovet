@@ -35,6 +35,7 @@ import Amendments from './pages/Amendments';
 import AddAmendmentForm from './pages/AddAmendmentForm';
 import MunicipalityMandateUsers from './pages/MunicipalityMandateUsers'
 import MunicipalityMandateUsersAddList from './pages/MunicipalityMandateUsersAddList'
+import MunicipalityMandateStatistics from './pages/MunicipalityMandateStatistics'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import Monitoring from './pages/Monitoring';
@@ -117,6 +118,11 @@ function App() {
               <Route
                 path="/municipalities/:municipalityId/mandates/users/:mandateId"
                 element={ <ProtectedRoute element={<MunicipalityMandateUsers />} />}
+              />
+
+              <Route
+                path="/municipalities/:municipalityId/mandates/users/:mandateId/statistics"
+                element={ <ProtectedRoute element={<MunicipalityMandateStatistics />} />}
               />
 
               <Route

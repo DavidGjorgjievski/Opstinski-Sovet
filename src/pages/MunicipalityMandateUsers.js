@@ -5,7 +5,7 @@ import "../styles/MunicipalityMandateUsers.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faUserPen, faChartPie } from "@fortawesome/free-solid-svg-icons";
 import api from '../api/axios';
 import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 import UserAvatar from '../components/UserAvatar';
@@ -139,6 +139,15 @@ useEffect(() => {
             )}
           </div>
         )}
+
+        <div className="mmu-statistics-button-wrap">
+          <button
+            className="mmu-statistics-button"
+            onClick={() => navigate(`/municipalities/${municipalityId}/mandates/users/${mandateId}/statistics`)}
+          >
+            {t('MunicipalityMandateUsers.statisticsButton')} <FontAwesomeIcon icon={faChartPie} />
+          </button>
+        </div>
 
         {/* Spinner */}
         {loading && (

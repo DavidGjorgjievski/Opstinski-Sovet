@@ -4,7 +4,8 @@
     "backToLogin": "Back to Login",
     "backToHomepage": "Go to homepage",
     "add": "Add",
-    "edit": "Edit"
+    "edit": "Edit",
+    "close": "Close"
   },
   "passwordValidation": {
     "tooShort": "Password must be at least 8 characters.",
@@ -133,7 +134,22 @@
     "title": "Councillors",
     "noUsers": "No users found for this mandate.",
     "president": "President",
-    "mayor": "Mayor"
+    "mayor": "Mayor",
+    "statisticsButton": "Statistics",
+    "statisticsTitle": "Mandate statistics",
+    "totalSessions": "Total sessions",
+    "totalTopics": "Total topics",
+    "totalAmendments": "Total amendments",
+    "totalSpeeches": "Total speeches",
+    "totalReplies": "Total replies",
+    "totalCounterReplies": "Total counter-replies",
+    "loadingStatistics": "Loading statistics...",
+    "rankingsTitle": "Councillor ranking by speeches",
+    "rankingsName": "Councillor",
+    "rankingsSpeeches": "Speeches",
+    "rankingsReplies": "Replies",
+    "rankingsCounterReplies": "Counter-replies",
+    "noRankings": "No speaking activity recorded yet"
   },
   "MunicipalityMandateUsersList": {
     "title": "Edit Councillors",
