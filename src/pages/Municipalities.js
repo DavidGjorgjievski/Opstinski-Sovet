@@ -5,7 +5,7 @@ import '../styles/Municipalities.css';
 import Header from '../components/Header';
 import MunicipalityConfirmModal from '../components/MunicipalityConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar, faChartBar, faLeaf, faPeopleLine } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus, faChevronDown, faChevronUp, faMagnifyingGlass, faCalendar, faChartBar, faLeaf, faLandmarkFlag } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
@@ -161,7 +161,7 @@ function Municipalities() {
                                 className="dropdown-item"
                                 to={`/municipalities/${municipality.id}/commissions`}
                             >
-                                <FontAwesomeIcon icon={faPeopleLine} /> {t('Municipality.commissions')}
+                                <FontAwesomeIcon icon={faLandmarkFlag} /> {t('Municipality.commissions')}
                             </Link>
 
                             {userInfo.role === 'ROLE_ADMIN' && (
@@ -308,7 +308,7 @@ function Municipalities() {
                                                                 className="dropdown-item"
                                                                 to={`/municipalities/${municipality.id}/commissions`}
                                                             >
-                                                                <FontAwesomeIcon icon={faPeopleLine} /> {t('Municipality.commissions')}
+                                                                <FontAwesomeIcon icon={faLandmarkFlag} /> {t('Municipality.commissions')}
                                                             </Link>
 
                                                             {userInfo.role === 'ROLE_ADMIN' && (
