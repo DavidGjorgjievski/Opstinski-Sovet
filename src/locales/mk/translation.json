@@ -293,6 +293,7 @@
     "delete": "Избриши",
     "options": "Опции",
     "export": "Експорт",
+    "commissions": "Комисии",
     "noSessions": "Нема достапни седници",
     "loading": "Се вчитуваат седниците...",
     "exportLoading": "Се генерира PDF...",
@@ -442,6 +443,7 @@
     "newTopicBefore": "Нова точка",
     "newTopicAfter": "Нова точка",
     "amendments": "Амандмани",
+    "addToCommission": "Додади во комисија",
     "delete": "Избриши",
     "details": "Детали",
     "detailedResults": "Резултати",
@@ -527,7 +529,17 @@
     "removePdf": "Избриши",
     "amount": "Износ:",
     "amountPlaceholder": "Внесете износ",
-    "optional": "(опционално)"
+    "optional": "(опционално)",
+    "commissions": "Комисии",
+    "removeCommissionTitle": "Потврда за отстранување на комисија",
+    "removeCommissionMessage": "Оваа комисија веќе започнала или завршила гласање за оваа точка. Дали сте сигурни дека сакате да ја отстраните? Сите гласови ќе бидат изгубени.",
+    "removeCommissionConfirm": "Отстрани",
+    "removeCommissionCancel": "Откажи"
+  },
+  "topicPresidentCommissions": {
+    "pageTitle": "Доделување на комисии",
+    "header": "Додади во комисија",
+    "noCommissions": "Нема достапни комисии за мандатот на оваа точка."
   },
   "restartTopicModal": {
     "title": "Потврда за повторно гласање",
@@ -746,9 +758,12 @@
   "commissions": {
     "title": "Комисии",
     "subtitle": "Општина {{name}}",
+    "subtitleSession": "Седница: {{name}}",
     "addCommission": "Додади",
     "noTerms": "Нема мандати за оваа општина.",
     "noCommissions": "Нема комисии за овој мандат.",
+    "noCommissionTopics": "Нема точки доделени на оваа комисија за оваа седница.",
+    "noCommissionsWithTopics": "Ниту една комисија сè уште нема доделено точки за оваа седница.",
     "noMembers": "Нема членови",
     "rolePresident": "Претседател",
     "roleMember": "Член",

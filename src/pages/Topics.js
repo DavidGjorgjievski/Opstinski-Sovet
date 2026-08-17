@@ -9,7 +9,7 @@ import ActiveTopicWarningModal from '../components/ActiveTopicWarningModal';
 import LiveUsersModal from '../components/LiveUsersModal';
 import SpeakingPanel from '../components/SpeakingPanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff, faBookmark, faFilePen } from '@fortawesome/free-solid-svg-icons';
+import { faDesktop, faPenToSquare, faTrash, faArrowUp, faArrowDown, faPlus,faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faUsers, faSquarePollVertical, faEllipsisV, faToggleOn, faToggleOff, faBookmark, faFilePen, faLandmarkFlag } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
 import useVoteWebSocket from "../hooks/useVoteWebSocket";
 import usePresenterWebSocket from "../hooks/usePresenterWebSocket";
@@ -37,7 +37,8 @@ function Topics() {
     const { t } = useTranslation();
     const selectedLang = localStorage.getItem("selectedLanguage") || "mk";
     const [sessionMunicipalityTermId, setSessionMunicipalityTermId] = useState(null);
-    const [showFixDiv, setshowFixDiv] = useState(false); 
+    const [presidentCommissionsCount, setPresidentCommissionsCount] = useState(0);
+    const [showFixDiv, setshowFixDiv] = useState(false);
     const userInfo = useMemo(() => JSON.parse(localStorage.getItem('userInfo')), []);
     const token = localStorage.getItem('jwtToken');
     const navigate = useNavigate();
@@ -228,6 +229,17 @@ function Topics() {
             .then(res => storeTermImages(sessionMunicipalityTermId, res.data))
             .catch(() => {});
     }, [sessionMunicipalityTermId]);
+
+    // Check whether the current user presides over any commission in this term
+    // (admins always get the commission-assignment option, regardless of this)
+    useEffect(() => {
+        if (!sessionMunicipalityTermId) return;
+        if (userInfo.role !== 'ROLE_PRESIDENT') return;
+
+        api.get(`/api/municipality-terms/${sessionMunicipalityTermId}/commissions/my-president`)
+            .then(res => setPresidentCommissionsCount(res.data.length))
+            .catch(() => setPresidentCommissionsCount(0));
+    }, [sessionMunicipalityTermId, userInfo.role]);
 
     useEffect(() => {
         fetchTopics();
@@ -817,6 +829,19 @@ useEffect(() => {
                                                                 >
                                                                     {t("topicsPage.present")} <FontAwesomeIcon icon={faDesktop} />
                                                                 </span>
+                                                            </li>
+                                                        )}
+                                                    {(userInfo.role === 'ROLE_ADMIN' || (userInfo.role === 'ROLE_PRESIDENT' && presidentCommissionsCount > 0)) && (
+                                                            <li>
+                                                                <Link
+                                                                    to={`/municipalities/${municipalityId}/sessions/${id}/topics/commissions/${topic.id}`}
+                                                                    onClick={saveScrollPosition}
+                                                                >
+                                                                    <span>
+                                                                        {t("topicsPage.addToCommission")}{" "}
+                                                                        <FontAwesomeIcon icon={faLandmarkFlag} />
+                                                                    </span>
+                                                                </Link>
                                                             </li>
                                                         )}
                                                     {['ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && !isSessionLocked && (

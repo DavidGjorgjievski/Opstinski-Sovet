@@ -293,6 +293,7 @@
     "delete": "Delete",
     "options": "Options",
     "export": "Export",
+    "commissions": "Commissions",
     "noSessions": "No available sessions",
     "loading": "Loading sessions...",
     "exportLoading": "Generating PDF...",
@@ -442,6 +443,7 @@
     "newTopicBefore": "New Topic",
     "newTopicAfter": "New Topic",
     "amendments": "Amendments",
+    "addToCommission": "Add to Commission",
     "delete": "Delete",
     "details": "Details",
     "detailedResults": "Results",
@@ -539,7 +541,17 @@
     "removePdf": "Remove",
     "amount": "Amount",
     "amountPlaceholder": "Enter amount",
-    "optional": "(optional)"
+    "optional": "(optional)",
+    "commissions": "Commissions",
+    "removeCommissionTitle": "Confirm Commission Removal",
+    "removeCommissionMessage": "This commission has already started or finished voting on this topic. Are you sure you want to remove it? All votes will be lost.",
+    "removeCommissionConfirm": "Remove",
+    "removeCommissionCancel": "Cancel"
+  },
+  "topicPresidentCommissions": {
+    "pageTitle": "Commission Assignment",
+    "header": "Add to Commission",
+    "noCommissions": "There are no commissions available for this topic's term."
   },
   "topicsDetails": {
     "detailedResults": "Results",
@@ -746,9 +758,12 @@
   "commissions": {
     "title": "Commissions",
     "subtitle": "Municipality {{name}}",
+    "subtitleSession": "Session: {{name}}",
     "addCommission": "Add",
     "noTerms": "No mandates for this municipality.",
     "noCommissions": "No commissions for this mandate.",
+    "noCommissionTopics": "No topics assigned to this commission for this session.",
+    "noCommissionsWithTopics": "No commissions have topics assigned for this session yet.",
     "noMembers": "No members",
     "rolePresident": "President",
     "roleMember": "Member",

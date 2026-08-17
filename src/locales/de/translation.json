@@ -293,6 +293,7 @@
     "delete": "Löschen",
     "options": "Optionen",
     "export": "Exportieren",
+    "commissions": "Kommissionen",
     "noSessions": "Keine verfügbaren Sitzungen",
     "loading": "Sitzungen werden geladen...",
     "exportLoading": "PDF wird generiert...",
@@ -442,6 +443,7 @@
     "newTopicBefore": "Neues Thema",
     "newTopicAfter": "Neues Thema",
     "amendments": "Änderungsanträge",
+    "addToCommission": "Zur Kommission hinzufügen",
     "delete": "Löschen",
     "details": "Details",
     "detailedResults": "Ergebnisse",
@@ -527,7 +529,17 @@
     "removePdf": "Löschen",
     "amount": "Betrag:",
     "amountPlaceholder": "Betrag eingeben",
-    "optional": "(optional)"
+    "optional": "(optional)",
+    "commissions": "Kommissionen",
+    "removeCommissionTitle": "Entfernung der Kommission bestätigen",
+    "removeCommissionMessage": "Diese Kommission hat die Abstimmung über dieses Thema bereits begonnen oder beendet. Möchten Sie sie wirklich entfernen? Alle Stimmen gehen verloren.",
+    "removeCommissionConfirm": "Entfernen",
+    "removeCommissionCancel": "Abbrechen"
+  },
+  "topicPresidentCommissions": {
+    "pageTitle": "Kommissionszuweisung",
+    "header": "Zur Kommission hinzufügen",
+    "noCommissions": "Für die Mandatsperiode dieses Themas sind keine Kommissionen verfügbar."
   },
   "restartTopicModal": {
     "title": "Bestätigung für erneute Abstimmung",
@@ -723,9 +735,12 @@
   "commissions": {
     "title": "Kommissionen",
     "subtitle": "Gemeinde {{name}}",
+    "subtitleSession": "Sitzung: {{name}}",
     "addCommission": "Hinzufügen",
     "noTerms": "Keine Mandate für diese Gemeinde.",
     "noCommissions": "Keine Kommissionen für dieses Mandat.",
+    "noCommissionTopics": "Keine Themen für diese Kommission in dieser Sitzung zugewiesen.",
+    "noCommissionsWithTopics": "Noch keiner Kommission wurden Themen für diese Sitzung zugewiesen.",
     "noMembers": "Keine Mitglieder",
     "rolePresident": "Vorsitzender",
     "roleMember": "Mitglied",

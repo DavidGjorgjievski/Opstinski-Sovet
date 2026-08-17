@@ -293,6 +293,7 @@
     "delete": "Fshi",
     "options": "Opsione",
     "export": "Eksporto",
+    "commissions": "Komisionet",
     "noSessions": "Nuk ka seanca të disponueshme",
     "loading": "Duke ngarkuar seancat...",
     "exportLoading": "Po gjenerohet PDF...",
@@ -442,6 +443,7 @@
     "newTopicBefore": "Pikë e re",
     "newTopicAfter": "Pikë e re",
     "amendments": "Amendamente",
+    "addToCommission": "Shto në komision",
     "delete": "Fshij",
     "details": "Detajet",
     "detailedResults": "Rezultate",
@@ -527,7 +529,17 @@
     "removePdf": "Fshi",
     "amount": "Shuma:",
     "amountPlaceholder": "Shkruani shumën",
-    "optional": "(opsionale)"
+    "optional": "(opsionale)",
+    "commissions": "Komisionet",
+    "removeCommissionTitle": "Konfirmo Heqjen e Komisionit",
+    "removeCommissionMessage": "Ky komision ka filluar ose përfunduar tashmë votimin për këtë temë. Jeni i sigurt që doni ta hiqni? Të gjitha votat do të humbasin.",
+    "removeCommissionConfirm": "Hiq",
+    "removeCommissionCancel": "Anulo"
+  },
+  "topicPresidentCommissions": {
+    "pageTitle": "Caktimi i komisioneve",
+    "header": "Shto në komision",
+    "noCommissions": "Nuk ka komisione të disponueshme për mandatin e kësaj teme."
   },
   "restartTopicModal": {
     "title": "Konfirmo Rivotimin",
@@ -743,9 +755,12 @@
   "commissions": {
     "title": "Komisione",
     "subtitle": "Komuna {{name}}",
+    "subtitleSession": "Seanca: {{name}}",
     "addCommission": "Shto",
     "noTerms": "Nuk ka mandate për këtë komunë.",
     "noCommissions": "Nuk ka komisione për këtë mandat.",
+    "noCommissionTopics": "Nuk ka tema të caktuara për këtë komision në këtë seancë.",
+    "noCommissionsWithTopics": "Asnjë komision nuk ka ende tema të caktuara për këtë seancë.",
     "noMembers": "Nuk ka anëtarë",
     "rolePresident": "Kryetar",
     "roleMember": "Anëtar",

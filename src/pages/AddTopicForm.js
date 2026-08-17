@@ -13,9 +13,10 @@ import {
 import '../styles/AddTopicForm.css';
 import useNewTopicWebSocket from "../hooks/useNewTopicWebSocket";
 import PDFConfirmModal from "../components/PDFConfirmModal";
+import RemoveCommissionConfirmModal from "../components/RemoveCommissionConfirmModal";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPenToSquare, faPlus, faChevronLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faPlus, faChevronLeft, faTrash, faCheck, faChevronDown, faLandmarkFlag } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 import { openPdfTab, sanitizeFilenameForUrl } from '../utils/pdfTab';
 
@@ -44,6 +45,11 @@ const AddTopicForm = () => {
     const { sendNewTopic } = useNewTopicWebSocket(id);
 
     const [topicStatus, setTopicStatus] = useState('');
+    const [availableCommissions, setAvailableCommissions] = useState([]);
+    const [selectedCommissionIds, setSelectedCommissionIds] = useState([]);
+    const [commissionsExpanded, setCommissionsExpanded] = useState(false);
+    const [commissionStatuses, setCommissionStatuses] = useState({});
+    const [commissionPendingRemoval, setCommissionPendingRemoval] = useState(null);
 
     const isEditing = !!idt && !isAddAfter && !isAddBefore;
 
@@ -95,6 +101,79 @@ const AddTopicForm = () => {
     fetchTopic();
     }, [idt, id, isAddAfter, isAddBefore]);
 
+    // fetch commissions available for this session's municipality term
+    useEffect(() => {
+        const fetchCommissions = async () => {
+            try {
+                let termId = null;
+                const cachedSessions = JSON.parse(localStorage.getItem(`sessions_${municipalityId}`)) || [];
+                const cachedSession = cachedSessions.find(s => String(s.id) === String(id));
+
+                if (cachedSession) {
+                    termId = cachedSession.municipalityMandateId;
+                } else {
+                    const { data } = await api.get(`/api/sessions/${id}`);
+                    termId = data.municipalityMandateId;
+                }
+
+                if (!termId) return;
+
+                const { data: commissions } = await api.get(`/api/municipality-terms/${termId}/commissions`);
+                setAvailableCommissions(commissions);
+            } catch (error) {
+                console.error('Error fetching commissions:', error);
+            }
+        };
+
+        if (id) fetchCommissions();
+    }, [id, municipalityId]);
+
+    // fetch commissions already assigned to this topic when editing
+    useEffect(() => {
+        if (!isEditing) return;
+
+        const fetchTopicCommissions = async () => {
+            try {
+                const { data } = await api.get(`/api/topics/${idt}/commissions`);
+                setSelectedCommissionIds(data.map(c => String(c.commissionId)));
+                setCommissionStatuses(
+                    data.reduce((acc, c) => {
+                        acc[String(c.commissionId)] = c.status;
+                        return acc;
+                    }, {})
+                );
+                if (data.length > 0) setCommissionsExpanded(true);
+            } catch (error) {
+                console.error('Error fetching topic commissions:', error);
+            }
+        };
+
+        fetchTopicCommissions();
+    }, [isEditing, idt]);
+
+    const removeCommission = (idStr) => {
+        setSelectedCommissionIds(prev => prev.filter(c => c !== idStr));
+    };
+
+    const toggleCommission = (commissionId) => {
+        const idStr = String(commissionId);
+
+        if (selectedCommissionIds.includes(idStr)) {
+            const status = commissionStatuses[idStr];
+            if (status === 'ACTIVE' || status === 'FINISHED') {
+                setCommissionPendingRemoval(idStr);
+                return;
+            }
+            removeCommission(idStr);
+        } else {
+            setSelectedCommissionIds(prev => [...prev, idStr]);
+        }
+    };
+
+    const pendingRemovalCommissionName = commissionPendingRemoval
+        ? availableCommissions.find(c => String(c.id) === commissionPendingRemoval)?.name
+        : '';
+
     // handle submit
    const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,6 +188,7 @@ const AddTopicForm = () => {
     }
 
     files.forEach(file => formData.append("files", file));
+    selectedCommissionIds.forEach(cid => formData.append("commissionIds", cid));
 
     try {
         let endpoint;
@@ -498,6 +578,63 @@ useEffect(() => {
 
                                     </div>
 
+                                    {availableCommissions.length > 0 && (
+                                        <div className="form-group mt-3 topic-commissions-section">
+                                            <button
+                                                type="button"
+                                                className="topic-commissions-toggle"
+                                                onClick={() => setCommissionsExpanded(prev => !prev)}
+                                                aria-expanded={commissionsExpanded}
+                                            >
+                                                <span className="topic-commissions-toggle-left">
+                                                    <FontAwesomeIcon icon={faLandmarkFlag} className="topic-commissions-toggle-icon" />
+                                                    <span className="topic-commissions-toggle-label">
+                                                        {t("addTopicForm.commissions")}
+                                                    </span>
+                                                    <span className="optional-text topic-commissions-toggle-optional">
+                                                        {t("addTopicForm.optional")}
+                                                    </span>
+                                                    {selectedCommissionIds.length > 0 && (
+                                                        <span className="topic-commissions-count-badge">
+                                                            {selectedCommissionIds.length}
+                                                        </span>
+                                                    )}
+                                                </span>
+                                                <FontAwesomeIcon
+                                                    icon={faChevronDown}
+                                                    className={`topic-commissions-chevron ${commissionsExpanded ? 'topic-commissions-chevron--open' : ''}`}
+                                                />
+                                            </button>
+
+                                            <div className={`topic-commissions-accordion ${commissionsExpanded ? 'topic-commissions-accordion--open' : ''}`}>
+                                                <div className="topic-commissions-accordion-inner">
+                                                    <div className="topic-commissions-grid">
+                                                        {availableCommissions.map(commission => {
+                                                            const checked = selectedCommissionIds.includes(String(commission.id));
+                                                            return (
+                                                                <label
+                                                                    key={commission.id}
+                                                                    className={`topic-commission-chip ${checked ? 'topic-commission-chip--checked' : ''}`}
+                                                                >
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="topic-commission-chip-input"
+                                                                        checked={checked}
+                                                                        onChange={() => toggleCommission(commission.id)}
+                                                                    />
+                                                                    <span className="topic-commission-chip-box">
+                                                                        <FontAwesomeIcon icon={faCheck} className="topic-commission-chip-check" />
+                                                                    </span>
+                                                                    <span className="topic-commission-chip-label">{commission.name}</span>
+                                                                </label>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="mt-3 d-flex flex-start">
                                         <button
                                             type="submit"
@@ -555,6 +692,16 @@ useEffect(() => {
                     onConfirm={async () => {
                         await handleRemovePdf();
                         setIsPdfModalOpen(false);
+                    }}
+                />
+
+                <RemoveCommissionConfirmModal
+                    isOpen={!!commissionPendingRemoval}
+                    commissionName={pendingRemovalCommissionName}
+                    onClose={() => setCommissionPendingRemoval(null)}
+                    onConfirm={() => {
+                        removeCommission(commissionPendingRemoval);
+                        setCommissionPendingRemoval(null);
                     }}
                 />
             </div>
