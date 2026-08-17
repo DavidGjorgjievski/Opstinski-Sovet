@@ -1322,6 +1322,7 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
 
     background: linear-gradient(135deg, #fbe64e, #f7db2c);
     color: #1a1a1a;
@@ -1375,12 +1376,14 @@ html {
 .amendments-button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
+    min-width: 160px;
     background: linear-gradient(135deg, #fde68a, #f59e0b);
     color: #1a1a1a;
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 7px 18px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
     border-radius: 999px;
     box-shadow: 0 3px 8px rgba(245, 158, 11, 0.35);
     white-space: nowrap;
@@ -1416,13 +1419,87 @@ html {
     left: 130%;
 }
 
+.topic-commissions-button-link {
+    text-decoration: none;
+}
+
+.topic-commissions-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 160px;
+    background: linear-gradient(135deg, #7dd3fc, #0ea5e9);
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(14, 165, 233, 0.35);
+    white-space: nowrap;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.topic-commissions-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0));
+    transform: skewX(-20deg);
+    transition: 0.6s;
+}
+
+.topic-commissions-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 14px rgba(14, 165, 233, 0.5);
+}
+
+.topic-commissions-button:hover::after {
+    left: 130%;
+}
+
 .topic-pill-container {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
     align-items: center;
+    justify-content: center;
     width: 100%;
     margin: 10px 0;
+}
+
+.topic-pill-container--multi {
+    justify-content: space-evenly;
+}
+
+.topic-commission-group {
+    padding: 16px 0;
+    border-top: 1px solid #ececec;
+}
+
+.topic-commission-group:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.topic-commission-group-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2a2e35;
+    margin: 0 0 8px;
+    text-align: center;
 }
 
 .topic-item:has(.topic-pill-container) .topic-item-body {

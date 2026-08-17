@@ -17,7 +17,7 @@ import AddSessionForm from './pages/AddSessionForm';
 import Topics from './pages/Topics';
 import Municipalities from './pages/Municipalities'
 import AddTopicForm from './pages/AddTopicForm';
-import TopicPresidentCommissions from './pages/TopicPresidentCommissions';
+import TopicCommissionsView from './pages/TopicCommissionsView';
 import TopicDetails from './pages/TopicDetails';
 import AmendmentDetails from './pages/AmendmentDetails';
 import Unauthorized from './pages/Unauthorized';
@@ -193,7 +193,7 @@ function App() {
 
               <Route
                 path="/municipalities/:municipalityId/sessions/:id?/topics/commissions/:idt"
-                element={<ProtectedRoute element={<TopicPresidentCommissions />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN']} />}
+                element={<ProtectedRoute element={<TopicCommissionsView />} />}
               />
 
               <Route

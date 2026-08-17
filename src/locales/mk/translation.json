@@ -443,7 +443,7 @@
     "newTopicBefore": "Нова точка",
     "newTopicAfter": "Нова точка",
     "amendments": "Амандмани",
-    "addToCommission": "Додади во комисија",
+    "commissions": "Комисии",
     "delete": "Избриши",
     "details": "Детали",
     "detailedResults": "Резултати",
@@ -536,10 +536,10 @@
     "removeCommissionConfirm": "Отстрани",
     "removeCommissionCancel": "Откажи"
   },
-  "topicPresidentCommissions": {
-    "pageTitle": "Доделување на комисии",
-    "header": "Додади во комисија",
-    "noCommissions": "Нема достапни комисии за мандатот на оваа точка."
+  "topicCommissionsView": {
+    "pageTitle": "Комисии на точката",
+    "header": "Комисии",
+    "noCommissions": "Оваа точка не е доделена на ниту една комисија."
   },
   "restartTopicModal": {
     "title": "Потврда за повторно гласање",

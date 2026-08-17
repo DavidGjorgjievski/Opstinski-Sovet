@@ -154,7 +154,12 @@ function Commissions() {
         const users = termUsers[termId] || [];
         const commission = (commissionsByTerm[termId] || []).find(c => c.id === commissionId);
         const taken = new Set((commission?.members || []).map(m => m.username));
-        return users.filter(u => !taken.has(u.username));
+        return users.filter(u => !taken.has(u.username) && u.role !== 'ROLE_MAYOR');
+    };
+
+    const commissionHasPresident = (commissionId, termId) => {
+        const commission = (commissionsByTerm[termId] || []).find(c => c.id === commissionId);
+        return (commission?.members || []).some(m => m.role === 'PRESIDENT');
     };
 
     return (
@@ -336,7 +341,12 @@ function Commissions() {
                                     onChange={e => setAddMemberModal(prev => ({ ...prev, role: e.target.value }))}
                                 >
                                     <option value="MEMBER">{t('commissions.roleMember')}</option>
-                                    <option value="PRESIDENT">{t('commissions.rolePresident')}</option>
+                                    <option
+                                        value="PRESIDENT"
+                                        disabled={commissionHasPresident(addMemberModal.commissionId, addMemberModal.termId)}
+                                    >
+                                        {t('commissions.rolePresident')}
+                                    </option>
                                 </select>
                             </>
                         )}

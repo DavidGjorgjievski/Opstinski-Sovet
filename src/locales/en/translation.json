@@ -443,7 +443,7 @@
     "newTopicBefore": "New Topic",
     "newTopicAfter": "New Topic",
     "amendments": "Amendments",
-    "addToCommission": "Add to Commission",
+    "commissions": "Commissions",
     "delete": "Delete",
     "details": "Details",
     "detailedResults": "Results",
@@ -548,10 +548,10 @@
     "removeCommissionConfirm": "Remove",
     "removeCommissionCancel": "Cancel"
   },
-  "topicPresidentCommissions": {
-    "pageTitle": "Commission Assignment",
-    "header": "Add to Commission",
-    "noCommissions": "There are no commissions available for this topic's term."
+  "topicCommissionsView": {
+    "pageTitle": "Topic Commissions",
+    "header": "Commissions",
+    "noCommissions": "This topic is not assigned to any commission."
   },
   "topicsDetails": {
     "detailedResults": "Results",

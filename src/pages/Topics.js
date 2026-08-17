@@ -37,7 +37,6 @@ function Topics() {
     const { t } = useTranslation();
     const selectedLang = localStorage.getItem("selectedLanguage") || "mk";
     const [sessionMunicipalityTermId, setSessionMunicipalityTermId] = useState(null);
-    const [presidentCommissionsCount, setPresidentCommissionsCount] = useState(0);
     const [showFixDiv, setshowFixDiv] = useState(false);
     const userInfo = useMemo(() => JSON.parse(localStorage.getItem('userInfo')), []);
     const token = localStorage.getItem('jwtToken');
@@ -229,17 +228,6 @@ function Topics() {
             .then(res => storeTermImages(sessionMunicipalityTermId, res.data))
             .catch(() => {});
     }, [sessionMunicipalityTermId]);
-
-    // Check whether the current user presides over any commission in this term
-    // (admins always get the commission-assignment option, regardless of this)
-    useEffect(() => {
-        if (!sessionMunicipalityTermId) return;
-        if (userInfo.role !== 'ROLE_PRESIDENT') return;
-
-        api.get(`/api/municipality-terms/${sessionMunicipalityTermId}/commissions/my-president`)
-            .then(res => setPresidentCommissionsCount(res.data.length))
-            .catch(() => setPresidentCommissionsCount(0));
-    }, [sessionMunicipalityTermId, userInfo.role]);
 
     useEffect(() => {
         fetchTopics();
@@ -831,19 +819,6 @@ useEffect(() => {
                                                                 </span>
                                                             </li>
                                                         )}
-                                                    {(userInfo.role === 'ROLE_ADMIN' || (userInfo.role === 'ROLE_PRESIDENT' && presidentCommissionsCount > 0)) && (
-                                                            <li>
-                                                                <Link
-                                                                    to={`/municipalities/${municipalityId}/sessions/${id}/topics/commissions/${topic.id}`}
-                                                                    onClick={saveScrollPosition}
-                                                                >
-                                                                    <span>
-                                                                        {t("topicsPage.addToCommission")}{" "}
-                                                                        <FontAwesomeIcon icon={faLandmarkFlag} />
-                                                                    </span>
-                                                                </Link>
-                                                            </li>
-                                                        )}
                                                     {['ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_PRESIDENT'].includes(userInfo.role) && !isSessionLocked && (
                                                             <>
                                                                 <li>
@@ -900,8 +875,24 @@ useEffect(() => {
                                     </div>                    
                                 </div>
 
-                                {(topic.amount || topic.hasAmendments) && (
-                                    <div className="topic-pill-container">
+                                {(topic.amount || topic.hasAmendments || topic.hasCommissions) && (
+                                    <div className={`topic-pill-container ${
+                                        [topic.hasCommissions, !!topic.amount, topic.hasAmendments].filter(Boolean).length > 1
+                                            ? 'topic-pill-container--multi'
+                                            : ''
+                                    }`}>
+                                        {topic.hasCommissions && (
+                                            <Link
+                                                to={`/municipalities/${municipalityId}/sessions/${id}/topics/commissions/${topic.id}`}
+                                                onClick={saveScrollPosition}
+                                                className="topic-commissions-button-link"
+                                            >
+                                                <div className="topic-commissions-button">
+                                                    <FontAwesomeIcon icon={faLandmarkFlag} />
+                                                    {t("topicsPage.commissions")}
+                                                </div>
+                                            </Link>
+                                        )}
                                         {topic.amount && (
                                             <div className="topic-amount-container">
                                                 {topic.amount} {t("topicsPage.currency")}

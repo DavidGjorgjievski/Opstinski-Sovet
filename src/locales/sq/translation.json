@@ -443,7 +443,7 @@
     "newTopicBefore": "Pikë e re",
     "newTopicAfter": "Pikë e re",
     "amendments": "Amendamente",
-    "addToCommission": "Shto në komision",
+    "commissions": "Komisionet",
     "delete": "Fshij",
     "details": "Detajet",
     "detailedResults": "Rezultate",
@@ -536,10 +536,10 @@
     "removeCommissionConfirm": "Hiq",
     "removeCommissionCancel": "Anulo"
   },
-  "topicPresidentCommissions": {
-    "pageTitle": "Caktimi i komisioneve",
-    "header": "Shto në komision",
-    "noCommissions": "Nuk ka komisione të disponueshme për mandatin e kësaj teme."
+  "topicCommissionsView": {
+    "pageTitle": "Komisionet e temës",
+    "header": "Komisionet",
+    "noCommissions": "Kjo temë nuk i është caktuar asnjë komisioni."
   },
   "restartTopicModal": {
     "title": "Konfirmo Rivotimin",

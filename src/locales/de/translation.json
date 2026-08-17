@@ -443,7 +443,7 @@
     "newTopicBefore": "Neues Thema",
     "newTopicAfter": "Neues Thema",
     "amendments": "Änderungsanträge",
-    "addToCommission": "Zur Kommission hinzufügen",
+    "commissions": "Kommissionen",
     "delete": "Löschen",
     "details": "Details",
     "detailedResults": "Ergebnisse",
@@ -536,10 +536,10 @@
     "removeCommissionConfirm": "Entfernen",
     "removeCommissionCancel": "Abbrechen"
   },
-  "topicPresidentCommissions": {
-    "pageTitle": "Kommissionszuweisung",
-    "header": "Zur Kommission hinzufügen",
-    "noCommissions": "Für die Mandatsperiode dieses Themas sind keine Kommissionen verfügbar."
+  "topicCommissionsView": {
+    "pageTitle": "Kommissionen des Themas",
+    "header": "Kommissionen",
+    "noCommissions": "Dieses Thema ist keiner Kommission zugeordnet."
   },
   "restartTopicModal": {
     "title": "Bestätigung für erneute Abstimmung",
