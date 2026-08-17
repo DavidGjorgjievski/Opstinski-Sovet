@@ -82,7 +82,10 @@ const TopicCommissionsView = () => {
                                 </div>
 
                                 {commissions.map(commission => (
-                                    <div key={commission.commissionId} className="topic-commission-group">
+                                    <div
+                                        key={commission.commissionId}
+                                        className={`topic-commission-group ${commission.status === 'FINISHED' ? 'finished-topic' : ''}`}
+                                    >
                                         <h4 className="topic-commission-group-name">
                                             {commission.commissionName}
                                         </h4>

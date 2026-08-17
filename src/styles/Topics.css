@@ -1429,7 +1429,7 @@ html {
     justify-content: center;
     gap: 7px;
     min-width: 160px;
-    background: linear-gradient(135deg, #7dd3fc, #0ea5e9);
+    background: linear-gradient(135deg, #bae6fd, #38bdf8);
     color: #1a1a1a;
     font-weight: 600;
     font-size: 1rem;
@@ -1492,6 +1492,12 @@ html {
 .topic-commission-group:first-child {
     border-top: none;
     padding-top: 0;
+}
+
+.topic-commission-group.finished-topic {
+    border-top: none;
+    border-radius: 14px;
+    padding: 16px;
 }
 
 .topic-commission-group-name {
