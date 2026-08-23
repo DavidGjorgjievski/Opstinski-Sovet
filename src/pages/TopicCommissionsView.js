@@ -20,6 +20,19 @@ const TopicCommissionsView = () => {
     const [commissions, setCommissions] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const calculateProgress = () => {
+        if (!commissions || commissions.length === 0) return 0;
+        const finishedCount = commissions.filter(
+            (commission) => commission.status === 'FINISHED'
+        ).length;
+        return Math.min((finishedCount / commissions.length) * 100, 100);
+    };
+
+    useEffect(() => {
+        document.body.classList.add('commission-topics-bg');
+        return () => document.body.classList.remove('commission-topics-bg');
+    }, []);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -60,10 +73,26 @@ const TopicCommissionsView = () => {
                                 </span>
                                 <span className="back-text">{t('common.back')}</span>
                             </button>
-                            <h1 className="topic-header-title">{t('topicCommissionsView.header')}</h1>
+                            <h1 className="topic-header-title mb-2">{t('topicCommissionsView.header')}</h1>
+
+                            {commissions.length > 0 && (
+                                <div className="progress-bar-container">
+                                    <div
+                                        className="progress-bar-fill"
+                                        style={{ width: `${calculateProgress()}%` }}
+                                    ></div>
+                                    <span className="progress-text">{Math.round(calculateProgress())}%</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
+
+                {topicTitle && (
+                    <div className="commission-topic-subtitle-wrapper">
+                        <h5 className="commission-topic-subtitle">{topicTitle}</h5>
+                    </div>
+                )}
 
                 {loading ? (
                     <div className="loading-spinner">
@@ -75,12 +104,6 @@ const TopicCommissionsView = () => {
                     <div className="topic-body">
                         <div className="topic-div-rel">
                             <div className="topic-item topic-item-size">
-                                <div className="topic-header-div">
-                                    <h3 className="text-center">
-                                        <span className="topic-header-text ape-width">{topicTitle}</span>
-                                    </h3>
-                                </div>
-
                                 {commissions.map(commission => (
                                     <div
                                         key={commission.commissionId}

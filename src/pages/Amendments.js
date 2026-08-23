@@ -126,6 +126,11 @@ const handleDeleteAmendmentConfirm = async () => {
         sessionStorage.removeItem('scrollPosition');
     }, []);
 
+    useEffect(() => {
+        document.body.classList.add('amendments-bg');
+        return () => document.body.classList.remove('amendments-bg');
+    }, []);
+
     const saveScrollPosition = () => {
         sessionStorage.setItem('scrollPosition', window.scrollY);
     };

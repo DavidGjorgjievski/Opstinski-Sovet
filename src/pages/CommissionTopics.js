@@ -34,6 +34,11 @@ function CommissionTopics() {
 
     const { messages: voteMessages, sendCommissionVote } = useCommissionVoteWebSocket(sessionId, commissionId);
 
+    useEffect(() => {
+        document.body.classList.add('commission-topics-bg');
+        return () => document.body.classList.remove('commission-topics-bg');
+    }, []);
+
     const fetchAll = useCallback(async () => {
         try {
             const [commissionRes, listRes] = await Promise.all([

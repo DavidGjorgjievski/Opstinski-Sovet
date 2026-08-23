@@ -32,6 +32,11 @@ function Commissions() {
         .find(m => String(m.id) === String(municipalityId));
 
     useEffect(() => {
+        document.body.classList.add('commissions-bg');
+        return () => document.body.classList.remove('commissions-bg');
+    }, []);
+
+    useEffect(() => {
         const fetchAll = async () => {
             try {
                 const { data: termsData } = await api.get(

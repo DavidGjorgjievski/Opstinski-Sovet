@@ -6,6 +6,18 @@
         height: 100vh;
 }
 
+body.commissions-bg {
+    background: #fff;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body.commission-topics-bg {
+    background: linear-gradient(135deg, #dcf6f2, #9fe4da);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .commissions-body {
     margin-top: 80px;
     width: 90%;
@@ -391,6 +403,41 @@
 .commission-modal {
         padding: 22px 20px;
         max-width: 94vw;
+    }
+}
+
+.commission-topic-subtitle-wrapper {
+    max-width: 850px;
+    width: fit-content;
+    margin: 14px auto 26px;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 2px solid #38bdf8;
+    border-radius: 999px;
+    word-break: break-word;
+}
+
+.commission-topic-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+    color: #374151;
+    font-weight: 600;
+}
+
+@media (max-width: 870px) {
+    .commission-topic-subtitle-wrapper {
+        max-width: 95%;
+    }
+
+    .commission-topic-subtitle {
+        font-size: 1.05rem;
     }
 }
 
