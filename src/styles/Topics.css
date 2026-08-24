@@ -1485,18 +1485,22 @@ html {
 }
 
 .topic-commission-group {
-    padding: 16px 0;
-    border-top: 1px solid #ececec;
+    background-color: #fff;
+    padding: 16px;
+    margin: 14px 0;
+    border-radius: 14px;
 }
 
 .topic-commission-group:first-child {
-    border-top: none;
-    padding-top: 0;
+    margin-top: 0;
+}
+
+.topic-commission-group:last-child {
+    margin-bottom: 0;
 }
 
 .topic-commission-group.finished-topic {
-    border-top: none;
-    border-radius: 14px;
+    background: linear-gradient(145deg, #d8d5d5, #cac7c7);
     padding: 16px;
 }
 
