@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
+import '../styles/Commissions.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faFilter, faFilePdf, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -14,13 +15,18 @@ import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 
 function CommissionTopicDetails() {
     const navigate = useNavigate();
-    const { municipalityId, sessionId, commissionId, commissionTopicId } = useParams();
+    const { municipalityId, sessionId, commissionTopicId } = useParams();
     const [topicDetails, setTopicDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showVotes, setShowVotes] = useState(null);
     const [isPdfDownloading, setIsPdfDownloading] = useState(false);
     const [termId, setTermId] = useState(null);
     const { t } = useTranslation();
+
+    useEffect(() => {
+        document.body.classList.add('commission-topics-bg');
+        return () => document.body.classList.remove('commission-topics-bg');
+    }, []);
 
     // Resolve the session's municipality term so we can warm the user-image cache
     useEffect(() => {
@@ -120,7 +126,7 @@ function CommissionTopicDetails() {
     };
 
     const handleBackButtonClick = () => {
-        navigate(`/municipalities/${municipalityId}/sessions/${sessionId}/commissions/${commissionId}/topics`);
+        navigate(-1);
     };
 
     const getTitleFontSize = (title) => {

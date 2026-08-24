@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
+import '../styles/Amendments.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faFilter, faFilePdf, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
@@ -19,6 +20,11 @@ function AmendmentDetails() {
     const [showVotes, setShowVotes] = useState(false);
     const [isPdfDownloading, setIsPdfDownloading] = useState(false);
     const { t } = useTranslation();
+
+    useEffect(() => {
+        document.body.classList.add('amendments-bg');
+        return () => document.body.classList.remove('amendments-bg');
+    }, []);
 
     useEffect(() => {
         const fetchDetails = async () => {

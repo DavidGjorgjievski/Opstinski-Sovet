@@ -104,6 +104,7 @@
 }
 
 .table-wrapper {
+    background-color: #fff;
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid #ccc;
