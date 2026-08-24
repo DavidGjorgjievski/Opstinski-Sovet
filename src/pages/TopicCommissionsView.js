@@ -103,7 +103,7 @@ const TopicCommissionsView = () => {
                 ) : (
                     <div className="topic-body">
                         <div className="topic-div-rel">
-                            <div className="topic-item topic-item-size">
+                            <div className="topic-item topic-item-size commission-groups-wrapper">
                                 {commissions.map(commission => (
                                     <div
                                         key={commission.commissionId}
