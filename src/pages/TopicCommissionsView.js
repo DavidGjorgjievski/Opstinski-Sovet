@@ -37,7 +37,7 @@ const TopicCommissionsView = () => {
         const fetchData = async () => {
             try {
                 const [topicRes, commissionsRes] = await Promise.all([
-                    api.get(`/api/sessions/${id}/topics/${idt}`),
+                    api.get(`/api/topics/details/${idt}`),
                     api.get(`/api/topics/${idt}/commissions`),
                 ]);
                 setTopicTitle(topicRes.data.title);

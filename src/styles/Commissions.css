@@ -18,6 +18,10 @@ body.commission-topics-bg {
     background-attachment: fixed;
 }
 
+.commissions-container .topic-item {
+    background-color: #fff;
+}
+
 .commissions-body {
     margin-top: 80px;
     width: 90%;
