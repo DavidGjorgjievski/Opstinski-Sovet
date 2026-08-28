@@ -773,6 +773,13 @@
     "roleLabel": "Roli",
     "deleteCommission": "Fshi komisionin",
     "removeMember": "Hiq anëtarin",
-    "maxMembersReached": "Arritur maksimumi prej 5 anëtarëve"
+    "maxMembersReached": "Arritur maksimumi prej 5 anëtarëve",
+    "confirmDeleteCommissionTitle": "Fshi komisionin",
+    "confirmDeleteCommissionMessage": "A jeni i sigurt që doni ta fshini komisionin",
+    "confirmRemoveMemberTitle": "Hiq anëtarin",
+    "confirmRemoveMemberMessage": "A jeni i sigurt që doni ta hiqni",
+    "deleteCommissionWarning": "Kjo do të fshijë përgjithmonë edhe të gjithë anëtarët e tij, temat e caktuara dhe votat e tyre.",
+    "deleteCommissionError": "Fshirja e komisionit dështoi. Ju lutemi provoni përsëri.",
+    "removeMemberError": "Heqja e anëtarit dështoi. Ju lutemi provoni përsëri."
   }
 }

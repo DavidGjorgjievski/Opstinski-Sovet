@@ -776,6 +776,13 @@
     "roleLabel": "Role",
     "deleteCommission": "Delete commission",
     "removeMember": "Remove member",
-    "maxMembersReached": "Maximum of 5 members reached"
+    "maxMembersReached": "Maximum of 5 members reached",
+    "confirmDeleteCommissionTitle": "Delete Commission",
+    "confirmDeleteCommissionMessage": "Are you sure you want to delete the commission",
+    "confirmRemoveMemberTitle": "Remove Member",
+    "confirmRemoveMemberMessage": "Are you sure you want to remove",
+    "deleteCommissionWarning": "This will also permanently delete all its members, any topics assigned to it, and their votes.",
+    "deleteCommissionError": "Failed to delete the commission. Please try again.",
+    "removeMemberError": "Failed to remove the member. Please try again."
   }
 }

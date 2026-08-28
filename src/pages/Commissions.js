@@ -27,6 +27,12 @@ function Commissions() {
     const [addMemberModal, setAddMemberModal] = useState({
         open: false, commissionId: null, termId: null, username: '', role: 'MEMBER',
     });
+    const [deleteCommModal, setDeleteCommModal] = useState({
+        open: false, termId: null, commissionId: null, name: '', deleting: false, error: null,
+    });
+    const [removeMemberModal, setRemoveMemberModal] = useState({
+        open: false, termId: null, commissionId: null, username: '', memberName: '', removing: false, error: null,
+    });
     const [termUsers, setTermUsers] = useState({});
     const [termUsersLoading, setTermUsersLoading] = useState(false);
 
@@ -94,15 +100,21 @@ function Commissions() {
         }
     };
 
-    const handleDeleteCommission = async (termId, commissionId) => {
+    const handleDeleteCommission = async () => {
+        const { termId, commissionId } = deleteCommModal;
+        setDeleteCommModal(prev => ({ ...prev, deleting: true, error: null }));
         try {
             await api.delete(`/api/municipality-terms/${termId}/commissions/${commissionId}`);
             setCommissionsByTerm(prev => ({
                 ...prev,
                 [termId]: prev[termId].filter(c => c.id !== commissionId),
             }));
+            closeDeleteCommModal();
         } catch (err) {
             console.error('Error deleting commission:', err);
+            setDeleteCommModal(prev => ({
+                ...prev, deleting: false, error: t('commissions.deleteCommissionError'),
+            }));
         }
     };
 
@@ -126,7 +138,9 @@ function Commissions() {
         }
     };
 
-    const handleRemoveMember = async (termId, commissionId, username) => {
+    const handleRemoveMember = async () => {
+        const { termId, commissionId, username } = removeMemberModal;
+        setRemoveMemberModal(prev => ({ ...prev, removing: true, error: null }));
         try {
             await api.delete(
                 `/api/municipality-terms/${termId}/commissions/${commissionId}/members/${username}`
@@ -139,8 +153,12 @@ function Commissions() {
                         : c
                 ),
             }));
+            closeRemoveMemberModal();
         } catch (err) {
             console.error('Error removing member:', err);
+            setRemoveMemberModal(prev => ({
+                ...prev, removing: false, error: t('commissions.removeMemberError'),
+            }));
         }
     };
 
@@ -154,6 +172,20 @@ function Commissions() {
 
     const closeAddCommModal = () =>
         setAddCommModal({ open: false, termId: null, name: '' });
+
+    const openDeleteCommModal = (termId, commissionId, name) =>
+        setDeleteCommModal({ open: true, termId, commissionId, name, deleting: false, error: null });
+
+    const closeDeleteCommModal = () =>
+        setDeleteCommModal({ open: false, termId: null, commissionId: null, name: '', deleting: false, error: null });
+
+    const openRemoveMemberModal = (termId, commissionId, username, memberName) =>
+        setRemoveMemberModal({ open: true, termId, commissionId, username, memberName, removing: false, error: null });
+
+    const closeRemoveMemberModal = () =>
+        setRemoveMemberModal({
+            open: false, termId: null, commissionId: null, username: '', memberName: '', removing: false, error: null,
+        });
 
     const getTermYears = (termPeriod) => {
         const [start, end] = termPeriod.split(' - ');
@@ -236,7 +268,7 @@ function Commissions() {
                                                     {canManage && (
                                                         <button
                                                             className="commission-icon-btn commission-icon-btn--delete"
-                                                            onClick={() => handleDeleteCommission(term.id, commission.id)}
+                                                            onClick={() => openDeleteCommModal(term.id, commission.id, commission.name)}
                                                             title={t('commissions.deleteCommission')}
                                                         >
                                                             <FontAwesomeIcon icon={faTrash} />
@@ -262,7 +294,7 @@ function Commissions() {
                                                             {canManage && (
                                                                 <button
                                                                     className="commission-icon-btn commission-icon-btn--remove"
-                                                                    onClick={() => handleRemoveMember(term.id, commission.id, member.username)}
+                                                                    onClick={() => openRemoveMemberModal(term.id, commission.id, member.username, `${member.name} ${member.surname}`)}
                                                                     title={t('commissions.removeMember')}
                                                                 >
                                                                     <FontAwesomeIcon icon={faXmark} />
@@ -377,6 +409,49 @@ function Commissions() {
                                 disabled={!addMemberModal.username || termUsersLoading}
                             >
                                 {t('common.add')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Commission Confirm Modal */}
+            {deleteCommModal.open && (
+                <div className="commission-modal-overlay" onClick={closeDeleteCommModal}>
+                    <div className="commission-modal" onClick={e => e.stopPropagation()}>
+                        <h3 className="commission-modal-title">{t('commissions.confirmDeleteCommissionTitle')}</h3>
+                        <p>{t('commissions.confirmDeleteCommissionMessage')} <strong>{deleteCommModal.name}</strong>?</p>
+                        <p className="commission-modal-warning">{t('commissions.deleteCommissionWarning')}</p>
+                        {deleteCommModal.error && (
+                            <p className="commission-modal-error">{deleteCommModal.error}</p>
+                        )}
+                        <div className="commission-modal-actions">
+                            <button className="btn-cancel-modal" onClick={closeDeleteCommModal} disabled={deleteCommModal.deleting}>
+                                {t('commissions.cancel')}
+                            </button>
+                            <button className="btn-delete-modal" onClick={handleDeleteCommission} disabled={deleteCommModal.deleting}>
+                                {t('commissions.deleteCommission')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Remove Member Confirm Modal */}
+            {removeMemberModal.open && (
+                <div className="commission-modal-overlay" onClick={closeRemoveMemberModal}>
+                    <div className="commission-modal" onClick={e => e.stopPropagation()}>
+                        <h3 className="commission-modal-title">{t('commissions.confirmRemoveMemberTitle')}</h3>
+                        <p>{t('commissions.confirmRemoveMemberMessage')} <strong>{removeMemberModal.memberName}</strong>?</p>
+                        {removeMemberModal.error && (
+                            <p className="commission-modal-error">{removeMemberModal.error}</p>
+                        )}
+                        <div className="commission-modal-actions">
+                            <button className="btn-cancel-modal" onClick={closeRemoveMemberModal} disabled={removeMemberModal.removing}>
+                                {t('commissions.cancel')}
+                            </button>
+                            <button className="btn-delete-modal" onClick={handleRemoveMember} disabled={removeMemberModal.removing}>
+                                {t('commissions.removeMember')}
                             </button>
                         </div>
                     </div>

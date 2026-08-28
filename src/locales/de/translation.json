@@ -753,6 +753,13 @@
     "roleLabel": "Rolle",
     "deleteCommission": "Kommission löschen",
     "removeMember": "Mitglied entfernen",
-    "maxMembersReached": "Maximal 5 Mitglieder erreicht"
+    "maxMembersReached": "Maximal 5 Mitglieder erreicht",
+    "confirmDeleteCommissionTitle": "Kommission löschen",
+    "confirmDeleteCommissionMessage": "Sind Sie sicher, dass Sie die Kommission löschen möchten:",
+    "confirmRemoveMemberTitle": "Mitglied entfernen",
+    "confirmRemoveMemberMessage": "Sind Sie sicher, dass Sie entfernen möchten:",
+    "deleteCommissionWarning": "Dadurch werden auch alle Mitglieder, zugewiesenen Themen und deren Stimmen dauerhaft gelöscht.",
+    "deleteCommissionError": "Die Kommission konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+    "removeMemberError": "Das Mitglied konnte nicht entfernt werden. Bitte versuchen Sie es erneut."
   }
 }

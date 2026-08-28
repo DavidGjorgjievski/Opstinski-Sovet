@@ -776,6 +776,13 @@
     "roleLabel": "Улога",
     "deleteCommission": "Избриши комисија",
     "removeMember": "Отстрани член",
-    "maxMembersReached": "Достигнат е максимум од 5 членови"
+    "maxMembersReached": "Достигнат е максимум од 5 членови",
+    "confirmDeleteCommissionTitle": "Бришење на комисија",
+    "confirmDeleteCommissionMessage": "Дали сте сигурни дека сакате да ја избришете комисијата",
+    "confirmRemoveMemberTitle": "Отстранување на член",
+    "confirmRemoveMemberMessage": "Дали сте сигурни дека сакате да го/ја отстраните",
+    "deleteCommissionWarning": "Ова трајно ќе ги избрише и сите нејзини членови, доделените точки и нивните гласови.",
+    "deleteCommissionError": "Бришењето на комисијата не успеа. Обидете се повторно.",
+    "removeMemberError": "Отстранувањето на членот не успеа. Обидете се повторно."
   }
 }
