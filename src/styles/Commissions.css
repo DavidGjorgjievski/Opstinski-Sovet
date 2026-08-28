@@ -261,6 +261,13 @@ body.commission-topics-bg {
     text-overflow: ellipsis;
 }
 
+.commission-member-number {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #888;
+    flex-shrink: 0;
+}
+
 /* ── Role badges ── */
 .commission-role-badge {
     font-size: 0.7rem;
@@ -300,6 +307,15 @@ body.commission-topics-bg {
     border-color: #999;
     background: #f8f8f8;
     color: #333;
+}
+
+.commission-max-members {
+    width: 100%;
+    padding: 7px;
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
 }
 
 /* ── Modal ── */

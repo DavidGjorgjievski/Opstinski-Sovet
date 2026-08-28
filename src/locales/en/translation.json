@@ -775,6 +775,7 @@
     "selectUser": "-- Select user --",
     "roleLabel": "Role",
     "deleteCommission": "Delete commission",
-    "removeMember": "Remove member"
+    "removeMember": "Remove member",
+    "maxMembersReached": "Maximum of 5 members reached"
   }
 }

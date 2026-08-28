@@ -772,6 +772,7 @@
     "selectUser": "-- Zgjidh përdoruesin --",
     "roleLabel": "Roli",
     "deleteCommission": "Fshi komisionin",
-    "removeMember": "Hiq anëtarin"
+    "removeMember": "Hiq anëtarin",
+    "maxMembersReached": "Arritur maksimumi prej 5 anëtarëve"
   }
 }

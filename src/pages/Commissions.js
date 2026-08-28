@@ -9,6 +9,8 @@ import { faChevronLeft, faPlus, faTrash, faXmark } from '@fortawesome/free-solid
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
 
+const MAX_COMMISSION_MEMBERS = 5;
+
 function Commissions() {
     const { t } = useTranslation();
     const { municipalityId } = useParams();
@@ -106,6 +108,9 @@ function Commissions() {
 
     const handleAddMember = async () => {
         if (!addMemberModal.username) return;
+        const commission = (commissionsByTerm[addMemberModal.termId] || [])
+            .find(c => c.id === addMemberModal.commissionId);
+        if ((commission?.members || []).length >= MAX_COMMISSION_MEMBERS) return;
         try {
             await api.post(
                 `/api/municipality-terms/${addMemberModal.termId}/commissions/${addMemberModal.commissionId}/members`,
@@ -243,9 +248,10 @@ function Commissions() {
                                                     {commission.members.length === 0 && (
                                                         <li className="commission-no-members">{t('commissions.noMembers')}</li>
                                                     )}
-                                                    {commission.members.map(member => (
+                                                    {commission.members.map((member, index) => (
                                                         <li key={member.username} className={`commission-member-item${member.username === userInfo.username ? ' commission-member-item--mine' : ''}`}>
                                                             <div className="commission-member-info">
+                                                                <span className="commission-member-number">{index + 1}.</span>
                                                                 <span className="commission-member-name">
                                                                     {member.name} {member.surname}
                                                                 </span>
@@ -267,12 +273,18 @@ function Commissions() {
                                                 </ul>
 
                                                 {canManage && (
-                                                    <button
-                                                        className="commission-add-member-btn"
-                                                        onClick={() => openAddMemberModal(commission.id, term.id)}
-                                                    >
-                                                        <FontAwesomeIcon icon={faPlus} /> {t('commissions.addMember')}
-                                                    </button>
+                                                    commission.members.length >= MAX_COMMISSION_MEMBERS ? (
+                                                        <p className="commission-max-members">
+                                                            {t('commissions.maxMembersReached')}
+                                                        </p>
+                                                    ) : (
+                                                        <button
+                                                            className="commission-add-member-btn"
+                                                            onClick={() => openAddMemberModal(commission.id, term.id)}
+                                                        >
+                                                            <FontAwesomeIcon icon={faPlus} /> {t('commissions.addMember')}
+                                                        </button>
+                                                    )
                                                 )}
                                             </div>
                                         ))}

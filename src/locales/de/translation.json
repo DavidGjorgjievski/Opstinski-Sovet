@@ -752,6 +752,7 @@
     "selectUser": "-- Benutzer auswählen --",
     "roleLabel": "Rolle",
     "deleteCommission": "Kommission löschen",
-    "removeMember": "Mitglied entfernen"
+    "removeMember": "Mitglied entfernen",
+    "maxMembersReached": "Maximal 5 Mitglieder erreicht"
   }
 }

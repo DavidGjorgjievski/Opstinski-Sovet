@@ -775,6 +775,7 @@
     "selectUser": "-- Избери корисник --",
     "roleLabel": "Улога",
     "deleteCommission": "Избриши комисија",
-    "removeMember": "Отстрани член"
+    "removeMember": "Отстрани член",
+    "maxMembersReached": "Достигнат е максимум од 5 членови"
   }
 }
