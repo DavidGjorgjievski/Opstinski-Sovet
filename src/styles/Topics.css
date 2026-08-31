@@ -1526,6 +1526,28 @@ html {
     margin-top: 0;
 }
 
+/*
+ * TopicCommissionsView: the shared vote-block markup spaces its groups/chunks with
+ * a trailing margin-right, which makes `justify-content: center` sit the content
+ * left of true centre. Here the commission name above it is truly centred, so the
+ * offset is visible. Use gap instead of trailing margins so it centres at any width
+ * (row layout only — the mobile column layout already zeroes these margins).
+ */
+@media (min-width: 766px) {
+    .commission-groups-wrapper .topic-item-body-detail {
+        gap: 20px;
+    }
+
+    .commission-groups-wrapper .topic-item-body-detail-group {
+        margin-right: 0;
+        gap: 20px;
+    }
+
+    .commission-groups-wrapper .topic-item-body-detail-group-chunk {
+        margin-right: 0;
+    }
+}
+
 /* Optional: smaller on mobile */
 @media (max-width: 400px) {
     .topic-amount-container {
