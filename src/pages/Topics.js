@@ -52,6 +52,7 @@ function Topics() {
     const [pendingVotingTopicId, setPendingVotingTopicId] = useState(null);
     const [topicsLoaded, setTopicsLoaded] = useState(false);
     const [showNumber, setShowNumber] = useState(false);
+    const [showFloatingBack, setShowFloatingBack] = useState(false);
     const [isVoteAction, setIsVoteAction] = useState(false);
     const isVoteActionRef = useRef(isVoteAction);
     const votingInProgressRef = useRef(new Set());
@@ -446,6 +447,20 @@ function Topics() {
     };
 
     useEffect(() => {
+        // Reveal the floating back button once the in-header one has scrolled away
+        const handleScroll = () => {
+            setShowFloatingBack(window.scrollY > 200);
+        };
+
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useEffect(() => {
         // Save scroll position on refresh
         const handleBeforeUnload = () => {
             sessionStorage.setItem('scrollPosition', window.scrollY);
@@ -668,6 +683,19 @@ useEffect(() => {
                 </Helmet>
             </HelmetProvider>
             <Header />
+            <button
+                className={`back-button back-button--floating ${showFloatingBack ? 'is-visible' : ''}`}
+                onClick={() => navigate(`/municipalities/${municipalityId}/sessions#session-${id}`)}
+                aria-hidden={!showFloatingBack}
+                tabIndex={showFloatingBack ? 0 : -1}
+            >
+                <span className="back-icon">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </span>
+                <span className="back-text">
+                    {t("common.back")}
+                </span>
+            </button>
             <main className="topcis-container-body">
                 <div className='d-flex justify-content-center'>
                      <div className="topic-header">

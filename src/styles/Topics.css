@@ -247,6 +247,38 @@ html {
     margin-top: 60px;
 }
 
+/* Floating back button — fades in once the header scrolls away.
+   Only shown from 1160px up, where the centered content column leaves a wide
+   enough left gutter for the pill to sit clear of the topic cards. */
+.back-button.back-button--floating {
+    display: none;
+}
+
+@media (min-width: 1160px) {
+    .back-button.back-button--floating {
+        display: inline-flex;
+        position: fixed;
+        top: 96px;
+        left: 24px;
+        z-index: 840; /* sits under the speaking panel (.sp-wrapper z-index: 850) */
+
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+
+        opacity: 0;
+        transform: translateX(-12px);
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .back-button.back-button--floating.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+}
+
 .topic-body {
     display: flex;
     flex-direction: column;
