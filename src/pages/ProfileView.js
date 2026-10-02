@@ -244,11 +244,15 @@ function ProfileView() {
                             <div className="detail-row">
                                 <span className="label">{t("profileView.status")}:</span>
                                 <span className="value">
-                                    {userData.status === "ACTIVE"
-                                        ? t("profileView.statusActive")
-                                        : userData.status === "INACTIVE"
-                                            ? t("profileView.statusInactive")
-                                            : t("profileView.notAvailable")}
+                                    {userData.status === "ACTIVE" || userData.status === "INACTIVE" ? (
+                                        <span className={userData.status === "ACTIVE" ? "status-badge status-badge-active" : "status-badge status-badge-inactive"}>
+                                            {userData.status === "ACTIVE"
+                                                ? t("profileView.statusActive")
+                                                : t("profileView.statusInactive")}
+                                        </span>
+                                    ) : (
+                                        t("profileView.notAvailable")
+                                    )}
                                 </span>
                             </div>
                         </div>

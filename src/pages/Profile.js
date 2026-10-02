@@ -161,11 +161,15 @@ function Profile() {
                         <div className="detail-row">
                             <span className="label">{t("profile.status")}:</span>
                             <span className="value">
-                                {userData.status === "ACTIVE"
-                                    ? t("profile.statusActive")
-                                    : userData.status === "INACTIVE"
-                                        ? t("profile.statusInactive")
-                                        : <span className="value-empty">—</span>}
+                                {userData.status === "ACTIVE" || userData.status === "INACTIVE" ? (
+                                    <span className={userData.status === "ACTIVE" ? "status-badge status-badge-active" : "status-badge status-badge-inactive"}>
+                                        {userData.status === "ACTIVE"
+                                            ? t("profile.statusActive")
+                                            : t("profile.statusInactive")}
+                                    </span>
+                                ) : (
+                                    <span className="value-empty">—</span>
+                                )}
                             </span>
                         </div>
 

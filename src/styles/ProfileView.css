@@ -183,6 +183,20 @@
     color: #222;
 }
 
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.status-badge-active   { background: #dcfce7; color: #15803d; }
+.status-badge-inactive { background: #fee2e2; color: #b91c1c; }
+
 .profile-view-bio {
     font-size: 0.95rem;
     line-height: 1.5;
