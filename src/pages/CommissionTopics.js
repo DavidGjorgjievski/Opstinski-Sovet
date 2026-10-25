@@ -241,6 +241,14 @@ function CommissionTopics() {
         }
     };
 
+    const calculateProgress = () => {
+        if (commissionTopics.length === 0) return 0;
+        const finishedCount = commissionTopics.filter(
+            (ct) => ct.status === 'FINISHED'
+        ).length;
+        return Math.min((finishedCount / commissionTopics.length) * 100, 100);
+    };
+
     const getTitleFontSize = (title) => {
         const len = title?.length || 0;
         if (len > 90) return '1.3rem';
@@ -275,6 +283,17 @@ function CommissionTopics() {
                             >
                                 {commissionName}
                             </h1>
+
+                            {commissionTopics.length > 0 && (
+                                <div className="progress-bar-container">
+                                    <div
+                                        className="progress-bar-fill"
+                                        style={{ width: `${calculateProgress()}%` }}
+                                    ></div>
+                                    <span className="progress-text">{Math.round(calculateProgress())}%</span>
+                                </div>
+                            )}
+
                             {sessionName && <h6 className='session-title'>{sessionName}</h6>}
                         </div>
                     </div>
