@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarCheck, faCheckToSlot, faEye } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Login.css';
 
-// Shared two-panel layout for the public account pages (login, forgot and reset password)
+// Shared two-panel layout for the public account pages (login, logout, forgot and reset password)
 function AuthLayout({ children }) {
     const { t } = useTranslation();
 
