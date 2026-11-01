@@ -5,8 +5,18 @@ import '../styles/Login.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import i18n from '../i18n';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowRightToBracket,
+    faChevronDown,
+    faCircleExclamation,
+    faEye,
+    faEyeSlash,
+    faLock,
+    faUser,
+    faUserGroup
+} from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import AuthLayout from '../components/AuthLayout';
 
 
 // Import flag images from assets (cached by Webpack/Vite automatically)
@@ -53,17 +63,16 @@ function Login() {
         return 'Unknown';
     };
 
-    // Handle login
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const submitCredentials = async (user, pass) => {
         setLoading(true);
+        setErrorKey('');
 
         try {
             const browser = await detectBrowser();
             const response = await fetch(process.env.REACT_APP_API_URL + '/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-Browser-Name': browser },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username: user, password: pass }),
             });
 
             if (!response.ok) {
@@ -89,150 +98,173 @@ function Login() {
         }
     };
 
+    // Handle login
+    const handleLogin = (e) => {
+        e.preventDefault();
+        submitCredentials(username, password);
+    };
+
     // Handle language change
-   const changeLanguage = (lang) => {
+    const changeLanguage = (lang) => {
         setSelectedLang(lang);
         i18n.changeLanguage(lang);
         localStorage.setItem('selectedLanguage', lang);
     };
 
     useEffect(() => {
-    const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setOpen(false);
-        }
-    };
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpen(false);
+            }
+        };
 
-    document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
 
-    return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-    };
-}, []);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
+    return (
+        <AuthLayout>
+            <HelmetProvider>
+                <Helmet><title>{`${t('login.loginButton')} | ${t('login.councilName')}`}</title></Helmet>
+            </HelmetProvider>
 
-   return (
-        <div className="login-page-wrapper">
-            <div className="login-container">
-                <HelmetProvider>
-                    <Helmet><title>{t('login.title')}</title></Helmet>
-                </HelmetProvider>
-
-                {/* Logo */}
-                <div className="login-header">
-                    <img
-                        src={`${process.env.PUBLIC_URL}/images/grb.png`}
-                        alt="Grb Gold"
-                        className="login-logo"
-                    />
-                </div>
-
-                <h2>{t('login.title')}</h2>
-                {errorKey && <div className="error-message">{t(errorKey)}</div>}
-
-                <form onSubmit={handleLogin}>
-                     <input
-                        type="text"
-                        name="username"
-                        className="login-input-field"
-                        placeholder={t('login.username')}
-                        value={username}
-                          onChange={(e) => {
-                        setUsername(e.target.value.toLowerCase());
-                        setErrorKey('');
-                    }}
-                        required
-                    />
-                    <div className="password-input-wrapper">
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            className="login-input-field"
-                            placeholder={t('login.password')}
-                            value={password}
-                            onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
-                            required
-                        />
-                        <FontAwesomeIcon
-                            icon={showPassword ? faEyeSlash : faEye}
-                            className="login-eye-icon"
-                            onClick={() => setShowPassword(!showPassword)}
-                        />
-                    </div>
-                    <div className="forgot-password-container">
-                        <Link to="/forgot-password" className="forgot-password-link">
-                            {t("login.forgotPassword")}
-                        </Link>
-                    </div>
-                   <button
-                        type="submit"
-                        className="login-button"
-                        disabled={loading}
+            <div className="login-topbar">
+                <div className="language-dropdown" ref={dropdownRef}>
+                    <button
+                        type="button"
+                        className={`selected-language ${open ? 'open' : ''}`}
+                        onClick={() => setOpen(!open)}
+                        onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
+                        aria-label={t('login.selectLanguage')}
+                        aria-expanded={open}
                     >
-                        {loading ? t('login.pleaseWait') : t('login.loginButton')}
+                        <img src={languageData[selectedLang].flag} alt="" className="lang-flag" />
+                        <span>{languageData[selectedLang].name}</span>
+                        <FontAwesomeIcon className="arrow-lang" icon={faChevronDown} />
+                    </button>
+
+                    {open && (
+                        <div className="language-options">
+                            {Object.keys(languageData)
+                                .filter(lang => lang !== selectedLang)
+                                .map(lang => (
+                                    <button
+                                        type="button"
+                                        key={lang}
+                                        className="language-option"
+                                        lang={lang}
+                                        onClick={() => {
+                                            changeLanguage(lang);
+                                            setOpen(false);
+                                        }}
+                                        onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
+                                    >
+                                        <img src={languageData[lang].flag} alt="" className="lang-flag" />
+                                        <span>{languageData[lang].name}</span>
+                                    </button>
+                                ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <div className="login-container">
+                <h1 className="login-heading">{t('login.heading')}</h1>
+                <p className="login-subtitle">{t('login.subtitle')}</p>
+
+                {errorKey && (
+                    <div className="login-error" role="alert">
+                        <FontAwesomeIcon icon={faCircleExclamation} />
+                        <span>{t(errorKey)}</span>
+                    </div>
+                )}
+
+                <form onSubmit={handleLogin} className="login-form">
+                    <div className="login-field">
+                        <label htmlFor="login-username">{t('login.username')}</label>
+                        <div className="login-input-wrapper">
+                            <FontAwesomeIcon icon={faUser} className="login-input-icon" />
+                            <input
+                                id="login-username"
+                                type="text"
+                                name="username"
+                                className="login-input-field"
+                                autoComplete="username"
+                                autoCapitalize="none"
+                                spellCheck="false"
+                                value={username}
+                                onChange={(e) => {
+                                    setUsername(e.target.value.toLowerCase());
+                                    setErrorKey('');
+                                }}
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="login-field">
+                        <div className="login-label-row">
+                            <label htmlFor="login-password">{t('login.password')}</label>
+                            <Link to="/forgot-password" className="forgot-password-link">
+                                {t("login.forgotPassword")}
+                            </Link>
+                        </div>
+                        <div className="login-input-wrapper">
+                            <FontAwesomeIcon icon={faLock} className="login-input-icon" />
+                            <input
+                                id="login-password"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                className="login-input-field login-input-password"
+                                autoComplete="current-password"
+                                value={password}
+                                onChange={(e) => { setPassword(e.target.value); setErrorKey(''); }}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="login-eye-button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                aria-label={showPassword ? t('login.hidePassword') : t('login.showPassword')}
+                                aria-pressed={showPassword}
+                            >
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" className="login-submit" disabled={loading}>
+                        {loading ? (
+                            <>
+                                <span className="login-spinner" aria-hidden="true" />
+                                {t('login.pleaseWait')}
+                            </>
+                        ) : (
+                            <>
+                                {t('login.loginButton')}
+                                <FontAwesomeIcon icon={faArrowRightToBracket} />
+                            </>
+                        )}
                     </button>
                 </form>
 
+                <div className="login-divider"><span>{t('login.or')}</span></div>
+
                 {/* Guest button */}
-                <div>
-                    <button
-                        className='guest-button'
-                        onClick={() => {
-                            setUsername('gostin.gostin');
-                            setPassword('gostin');
-                            setTimeout(() => {
-                                document.querySelector('form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-                            }, 0);
-                        }}
-                    >
-                        {t('login.guestButton')}
-                    </button>
-                </div>
-
-                {/* Language Selector */}
-                <div className="language-dropdown-container">
-                    <label className="language-label">{t('login.selectLanguage')}</label>
-                    <div className="language-dropdown" ref={dropdownRef}>
-                        <button
-                            className={`selected-language ${open ? 'open' : ''}`}
-                            onClick={() => setOpen(!open)}
-                        >
-                            <img
-                                src={languageData[selectedLang].flag}
-                                alt={selectedLang}
-                                className="lang-flag"
-                            />
-                            <span>{languageData[selectedLang].name}</span>
-                            <FontAwesomeIcon className="arrow-lang" icon={open ? faChevronUp : faChevronDown} />
-                        </button>
-
-                        {open && (
-                            <div className="language-options">
-                                {Object.keys(languageData)
-                                    .filter(lang => lang !== selectedLang)
-                                    .map(lang => (
-                                        <div
-                                            key={lang}
-                                            className="language-option"
-                                            onClick={() => {
-                                                changeLanguage(lang);
-                                                setOpen(false);
-                                            }}
-                                        >
-                                            <img
-                                                src={languageData[lang].flag}
-                                                alt={lang}
-                                                className="lang-flag"
-                                            />
-                                            <span>{languageData[lang].name}</span>
-                                        </div>
-                                    ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
+                <button
+                    type="button"
+                    className="login-guest"
+                    disabled={loading}
+                    onClick={() => submitCredentials('gostin.gostin', 'gostin')}
+                >
+                    <FontAwesomeIcon icon={faUserGroup} />
+                    {t('login.guestButton')}
+                </button>
             </div>
-        </div>
+        </AuthLayout>
     );
 }
 

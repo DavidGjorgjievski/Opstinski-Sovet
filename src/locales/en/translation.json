@@ -2,6 +2,7 @@
   "common": {
     "back": "Back",
     "backToLogin": "Back to Login",
+    "tooManyRequests": "Too many attempts. Please wait a few minutes and try again.",
     "backToHomepage": "Go to homepage",
     "add": "Add",
     "edit": "Edit",
@@ -21,7 +22,19 @@
     "selectLanguage": "Select Language:",
     "pleaseWait": "Please wait...",
     "forgotPassword": "Forgot password?",
-    "invalidCredentials": "Invalid username or password."
+    "invalidCredentials": "Invalid username or password.",
+    "heading": "Sign in to your account",
+    "subtitle": "Enter your credentials to continue.",
+    "councilName": "Municipal Council",
+    "country": "Republic of North Macedonia",
+    "tagline": "A platform for following and managing council sessions and voting on agenda items.",
+    "featureSessions": "Council sessions",
+    "featureVoting": "Voting on agenda items",
+    "featureTransparency": "Transparency for citizens",
+    "or": "or",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "developedBy": "Developed by"
   },
   "logout": {
     "title": "Logout",
@@ -31,21 +44,24 @@
   },
   "forgot": {
     "title": "Forgot Password",
+    "subtitle": "Enter your email address and we will send you a link to reset your password.",
     "emailPlaceholder": "Email address",
     "sendButton": "Send Reset Link",
     "sending": "Sending...",
-    "success": "Reset link has been sent.",
+    "success": "If an account with this email exists, a reset link has been sent.",
     "error": "Failed to send the reset link. Try again."
   },
   "reset": {
     "title": "Reset Password",
+    "subtitle": "Choose a new password for your account.",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "submitButton": "Reset Password",
     "sending": "Processing...",
     "success": "Password has been reset successfully!",
     "error": "An error occurred. Please try again.",
-    "passwordsDoNotMatch": "Passwords do not match."
+    "passwordsDoNotMatch": "Passwords do not match.",
+    "invalidLink": "This reset link is invalid or has expired. Please request a new one."
   },
   "nav": {
     "home": "Home",

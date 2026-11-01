@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import "../styles/ResetPassword.css";
+import {
+    faArrowLeft,
+    faCircleCheck,
+    faCircleExclamation,
+    faEye,
+    faEyeSlash,
+    faKey,
+    faLock
+} from "@fortawesome/free-solid-svg-icons";
+import AuthLayout from "../components/AuthLayout";
 
 function ResetPasswordPage() {
     const { t } = useTranslation();
@@ -56,8 +65,14 @@ function ResetPasswordPage() {
                 body: JSON.stringify({ token, newPassword: password }),
             });
 
+            if (response.status === 429) {
+                setError(t("common.tooManyRequests"));
+                return;
+            }
+
             if (!response.ok) {
-                setError(t("reset.error"));
+                const data = await response.json().catch(() => ({}));
+                setError(data.code === "INVALID_TOKEN" ? t("reset.invalidLink") : t("reset.error"));
                 return;
             }
 
@@ -75,57 +90,105 @@ function ResetPasswordPage() {
         }
     };
 
+    const alerts = [error, passwordError].filter(Boolean);
+
     return (
-        <div className="rp-wrapper">
-            <div className="rp-box">
-                <h2 className="rp-title">{t("reset.title")}</h2>
+        <AuthLayout>
+            <HelmetProvider>
+                <Helmet><title>{`${t("reset.title")} | ${t("login.councilName")}`}</title></Helmet>
+            </HelmetProvider>
 
-                {message && <div className="rp-success">{message}</div>}
-                {error && <div className="rp-error">{error}</div>}
-                {passwordError && <div className="rp-error">{passwordError}</div>}
+            <div className="login-container">
+                <h1 className="login-heading">{t("reset.title")}</h1>
+                <p className="login-subtitle">{t("reset.subtitle")}</p>
 
-                <form onSubmit={handleSubmit} className="rp-form">
-                    <div className="rp-password-wrapper">
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            className="rp-input"
-                            placeholder={t("reset.newPassword")}
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                        />
-                        <FontAwesomeIcon
-                            icon={showPassword ? faEyeSlash : faEye}
-                            className="rp-eye-icon"
-                            onClick={() => setShowPassword(!showPassword)}
-                        />
+                {message && (
+                    <div className="login-success" role="status">
+                        <FontAwesomeIcon icon={faCircleCheck} />
+                        <span>{message}</span>
                     </div>
-                    <div className="rp-password-wrapper">
-                        <input
-                            type={showConfirmPassword ? "text" : "password"}
-                            className="rp-input"
-                            placeholder={t("reset.confirmPassword")}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                        <FontAwesomeIcon
-                            icon={showConfirmPassword ? faEyeSlash : faEye}
-                            className="rp-eye-icon"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        />
+                )}
+                {alerts.map((alert) => (
+                    <div className="login-error" role="alert" key={alert}>
+                        <FontAwesomeIcon icon={faCircleExclamation} />
+                        <span>{alert}</span>
+                    </div>
+                ))}
+
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="login-field">
+                        <label htmlFor="reset-password">{t("reset.newPassword")}</label>
+                        <div className="login-input-wrapper">
+                            <FontAwesomeIcon icon={faLock} className="login-input-icon" />
+                            <input
+                                id="reset-password"
+                                type={showPassword ? "text" : "password"}
+                                name="newPassword"
+                                className="login-input-field login-input-password"
+                                autoComplete="new-password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="login-eye-button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                aria-label={showPassword ? t("login.hidePassword") : t("login.showPassword")}
+                                aria-pressed={showPassword}
+                            >
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                            </button>
+                        </div>
                     </div>
 
-                    <button className="login-button" disabled={loading}>
-                        {loading ? t("reset.sending") : t("reset.submitButton")}
+                    <div className="login-field">
+                        <label htmlFor="reset-confirm-password">{t("reset.confirmPassword")}</label>
+                        <div className="login-input-wrapper">
+                            <FontAwesomeIcon icon={faLock} className="login-input-icon" />
+                            <input
+                                id="reset-confirm-password"
+                                type={showConfirmPassword ? "text" : "password"}
+                                name="confirmPassword"
+                                className="login-input-field login-input-password"
+                                autoComplete="new-password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                            <button
+                                type="button"
+                                className="login-eye-button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                aria-label={showConfirmPassword ? t("login.hidePassword") : t("login.showPassword")}
+                                aria-pressed={showConfirmPassword}
+                            >
+                                <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" className="login-submit" disabled={loading}>
+                        {loading ? (
+                            <>
+                                <span className="login-spinner" aria-hidden="true" />
+                                {t("reset.sending")}
+                            </>
+                        ) : (
+                            <>
+                                {t("reset.submitButton")}
+                                <FontAwesomeIcon icon={faKey} />
+                            </>
+                        )}
                     </button>
                 </form>
 
-                <button className="guest-button" onClick={() => navigate("/login")}>
+                <Link to="/login" className="login-guest login-back">
+                    <FontAwesomeIcon icon={faArrowLeft} />
                     {t("common.backToLogin")}
-                </button>
+                </Link>
             </div>
-        </div>
+        </AuthLayout>
     );
 }
 

@@ -2,6 +2,7 @@
   "common": {
     "back": "Kthehu",
     "backToLogin": "Kthehu tek hyrja",
+    "tooManyRequests": "Shumë përpjekje. Ju lutemi prisni disa minuta dhe provoni përsëri.",
     "backToHomepage": "Shko te faqja kryesore",
     "add": "Shto",
     "edit": "Ndrysho",
@@ -21,7 +22,19 @@
     "selectLanguage": "Zgjidh gjuhën:",
     "pleaseWait": "Ju lutemi prisni...",
     "forgotPassword": "E harruat fjalëkalimin?",
-    "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm."
+    "invalidCredentials": "Emri i përdoruesit ose fjalëkalimi është i pavlefshëm.",
+    "heading": "Hyni në llogarinë tuaj",
+    "subtitle": "Shkruani të dhënat tuaja për të vazhduar.",
+    "councilName": "Këshilli i Komunës",
+    "country": "Republika e Maqedonisë së Veriut",
+    "tagline": "Platformë për ndjekjen dhe menaxhimin e seancave të këshillit dhe votimin e pikave të rendit të ditës.",
+    "featureSessions": "Seancat e këshillit",
+    "featureVoting": "Votimi i pikave të rendit të ditës",
+    "featureTransparency": "Transparencë për qytetarët",
+    "or": "ose",
+    "showPassword": "Shfaq fjalëkalimin",
+    "hidePassword": "Fshih fjalëkalimin",
+    "developedBy": "Zhvilluar nga"
   },
   "logout": {
     "title": "Shkyçja",
@@ -31,21 +44,24 @@
   },
   "forgot": {
     "title": "Keni harruar fjalëkalimin",
+    "subtitle": "Shkruani adresën tuaj të email-it dhe do t'ju dërgojmë një lidhje për të rivendosur fjalëkalimin.",
     "emailPlaceholder": "Adresa e email-it",
     "sendButton": "Dërgo linkun për rivendosje",
     "sending": "Duke dërguar...",
-    "success": "Lidhja për rivendosje është dërguar.",
+    "success": "Nëse ekziston një llogari me këtë adresë email-i, është dërguar një lidhje për rivendosje.",
     "error": "Gabim gjatë dërgimit. Provo përsëri."
   },
   "reset": {
     "title": "Rivendosja e fjalëkalimit",
+    "subtitle": "Zgjidhni një fjalëkalim të ri për llogarinë tuaj.",
     "newPassword": "Fjalëkalim i ri",
     "confirmPassword": "Konfirmo fjalëkalimin",
     "submitButton": "Rivendos fjalëkalimin",
     "sending": "Duke përpunuar...",
     "success": "Fjalëkalimi u rivendos me sukses!",
     "error": "Ndodhi një gabim. Ju lutemi provoni përsëri.",
-    "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen."
+    "passwordsDoNotMatch": "Fjalëkalimet nuk përputhen.",
+    "invalidLink": "Kjo lidhje për rivendosje është e pavlefshme ose ka skaduar. Ju lutemi kërkoni një të re."
   },
   "nav": {
     "home": "Ballina",
