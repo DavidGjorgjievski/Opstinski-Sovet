@@ -578,11 +578,13 @@ input {
 /* Tablet and phone: the emblem becomes a compact banner */
 @media (max-width: 900px) {
     .login-page-wrapper {
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
 
     .login-brand {
         display: block;
+        flex: none;
         min-height: 0;
         padding: 22px 16px;
         border-right: none;
@@ -630,12 +632,15 @@ input {
         display: none;
     }
 
+    /* Fills the remaining height so the footer sits at the bottom of the screen */
     .login-panel {
+        flex: 1 0 auto;
         min-height: 0;
         padding: 16px;
     }
 
     .login-container {
+        align-self: start;
         max-width: 480px;
     }
 
