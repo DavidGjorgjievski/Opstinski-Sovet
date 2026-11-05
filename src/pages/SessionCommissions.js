@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import '../styles/Topics.css';
 import '../styles/Commissions.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -67,7 +68,7 @@ function SessionCommissions() {
                 ) : (
                     <div className="commissions-grid">
                         {commissions.map(commission => {
-                            const membership = (commission.members || []).find(m => m.username === userInfo.username);
+                            const membership = (userInfo.commissionRoles || []).find(cr => cr.commissionId === commission.id);
                             return (
                                 <Link
                                     key={commission.id}
@@ -75,6 +76,18 @@ function SessionCommissions() {
                                     className={`commission-card commission-card-name-only commission-card-clickable ${membership ? 'commission-card--mine' : ''}`}
                                 >
                                     <h3 className="commission-name">{commission.name}</h3>
+                                    {commission.presidentName && (
+                                        <p className="commission-president">
+                                            {t('commissions.rolePresident')}: {commission.presidentName}
+                                        </p>
+                                    )}
+                                    <div className="progress-bar-container">
+                                        <div
+                                            className="progress-bar-fill"
+                                            style={{ width: `${commission.progressPercent}%` }}
+                                        ></div>
+                                        <span className="progress-text">{commission.progressPercent}%</span>
+                                    </div>
                                     {membership && (
                                         <span className={`commission-role-badge ${membership.role === 'PRESIDENT' ? 'badge-president' : 'badge-member'}`}>
                                             {membership.role === 'PRESIDENT' ? t('commissions.rolePresident') : t('commissions.roleMember')}

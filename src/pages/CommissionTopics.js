@@ -6,6 +6,7 @@ import '../styles/Commissions.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal';
+import UserAvatar from '../components/UserAvatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
@@ -93,6 +94,7 @@ function CommissionTopics() {
     );
     const isMember = !!membership;
     const isCommissionPresident = membership?.role === 'PRESIDENT';
+    const president = commissionMembers.find(m => m.role === 'PRESIDENT');
 
     const canVote = isMember &&
         userInfo.status === 'ACTIVE' &&
@@ -283,6 +285,21 @@ function CommissionTopics() {
                             >
                                 {commissionName}
                             </h1>
+
+                            {president && (
+                                <div className="commission-president-chip">
+                                    <UserAvatar
+                                        username={president.username}
+                                        name={president.name || ''}
+                                        surname={president.surname || ''}
+                                        className="commission-president-avatar"
+                                    />
+                                    <div className="commission-president-text">
+                                        <span className="commission-president-label">{t('commissions.rolePresident')}</span>
+                                        <span className="commission-president-name">{president.name} {president.surname}</span>
+                                    </div>
+                                </div>
+                            )}
 
                             {commissionTopics.length > 0 && (
                                 <div className="progress-bar-container">

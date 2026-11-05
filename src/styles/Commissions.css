@@ -168,6 +168,18 @@ body.commission-topics-bg {
     align-self: flex-start;
 }
 
+.commission-card .progress-bar-container {
+    width: 100%;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.commission-president {
+    font-size: 0.85rem;
+    color: #4a5a7a;
+    margin: 0;
+}
+
 .commission-card-header {
     display: flex;
     align-items: flex-start;
@@ -487,6 +499,51 @@ body.commission-topics-bg {
     line-height: 1.3;
     font-weight: 700;
     max-width: 900px;
+}
+
+/* ── Commission topics page president ── */
+.commission-president-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    margin: 4px 0 14px;
+    padding: 6px 20px 6px 6px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(234, 179, 8, 0.45);
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.commission-president-avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 2px #f7db2c;
+}
+
+.commission-president-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.25;
+}
+
+.commission-president-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #92400e;
+}
+
+.commission-president-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a2a4a;
+    overflow-wrap: anywhere;
 }
 
 @media (max-width: 850px) {
