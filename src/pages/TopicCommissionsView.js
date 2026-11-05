@@ -4,6 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal';
+import UserAvatar from '../components/UserAvatar';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -336,6 +337,25 @@ const TopicCommissionsView = () => {
                                         <h4 className="topic-commission-group-name">
                                             {commission.commissionName}
                                         </h4>
+                                        {commission.presidentUsername && (
+                                            <div className="topic-commission-president">
+                                                <div className="commission-president-chip topic-commission-president-chip">
+                                                    <UserAvatar
+                                                        username={commission.presidentUsername}
+                                                        name={commission.presidentName || ''}
+                                                        surname={commission.presidentSurname || ''}
+                                                        termId={currentSession?.municipalityMandateId}
+                                                        className="commission-president-avatar"
+                                                    />
+                                                    <div className="commission-president-text">
+                                                        <span className="commission-president-label">{t('commissions.rolePresident')}</span>
+                                                        <span className="commission-president-name">
+                                                            {commission.presidentName} {commission.presidentSurname}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
 
                                         {(commission.status === 'ACTIVE' || commission.status === 'FINISHED') && (
                                             <div className={`topic-item-body-detail ${

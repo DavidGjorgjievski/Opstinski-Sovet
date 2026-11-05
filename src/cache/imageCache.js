@@ -7,6 +7,26 @@
 
 const KEY = (termId) => `user_images_${termId}`;
 
+// ─── Change notifications ───────────────────────────────────────────────────
+// UserAvatar is memoized, so it doesn't re-read the cache on every parent
+// render. Instead it subscribes here and re-reads only when the cache changes.
+let version = 0;
+const listeners = new Set();
+
+function notifyChange() {
+  version++;
+  listeners.forEach((listener) => listener());
+}
+
+export function subscribeImageCache(listener) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+export function getImageCacheVersion() {
+  return version;
+}
+
 // Internal: read the full map for a term (or empty object)
 function readMap(termId) {
   try {
@@ -24,6 +44,7 @@ export function storeTermImages(termId, imageMap) {
   } catch {
     // localStorage full — silently skip
   }
+  notifyChange();
 }
 
 // Get a single user's image from whichever term cache has it
@@ -73,4 +94,5 @@ export function invalidateImage(username, termId) {
       }
     }
   }
+  notifyChange();
 }

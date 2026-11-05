@@ -1550,6 +1550,39 @@ html {
     text-align: center;
 }
 
+/* President chip under each commission name — compact variant of the
+   .commission-president-chip used on CommissionTopics.js (Commissions.css) */
+.topic-commission-president {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.topic-commission-president .topic-commission-president-chip {
+    margin: 2px 0 0;
+    gap: 12px;
+    padding: 5px 20px 5px 5px;
+    background: linear-gradient(135deg, rgba(254, 249, 195, 0.55), rgba(255, 255, 255, 0.9));
+}
+
+.topic-commission-president .commission-president-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+}
+
+.topic-commission-president .commission-president-label {
+    font-size: 0.65rem;
+}
+
+.topic-commission-president .commission-president-name {
+    font-size: 0.98rem;
+}
+
+.topic-commission-group.finished-topic .topic-commission-president-chip {
+    background: rgba(255, 255, 255, 0.6);
+}
+
 .topic-item:has(.topic-pill-container) .topic-item-body {
     padding-top: 0;
 }

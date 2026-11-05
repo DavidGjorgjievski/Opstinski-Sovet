@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo, useMemo, useSyncExternalStore } from 'react';
 import '../styles/UserAvatar.css';
-import { getImage } from '../cache/imageCache';
+import { getImage, subscribeImageCache, getImageCacheVersion } from '../cache/imageCache';
 
 // termId is optional — speeds up lookup if you know which term to check
 
@@ -22,8 +22,14 @@ function colorForName(str = '') {
 // name      — first name (for initials + color)
 // surname   — last name  (for initials + color)
 // className — forwarded so parent CSS (.details-image, .liv-user-avatar, etc.) controls size
-export default function UserAvatar({ username, name = '', surname = '', className = '', termId }) {
-  const cached = getImage(username, termId);
+//
+// Memoized: getImage parses localStorage JSON (base64 photos), so it only runs
+// when this avatar's username/termId change or the image cache itself changes —
+// not on every parent re-render (e.g. live WebSocket vote updates).
+function UserAvatar({ username, name = '', surname = '', className = '', termId }) {
+  const cacheVersion = useSyncExternalStore(subscribeImageCache, getImageCacheVersion);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const cached = useMemo(() => getImage(username, termId), [username, termId, cacheVersion]);
 
   if (cached) {
     return (
@@ -49,3 +55,5 @@ export default function UserAvatar({ username, name = '', surname = '', classNam
     </div>
   );
 }
+
+export default memo(UserAvatar);

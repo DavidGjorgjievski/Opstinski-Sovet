@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
+import UserAvatar from '../components/UserAvatar';
+import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 
 function SessionCommissions() {
     const { t } = useTranslation();
@@ -18,6 +20,7 @@ function SessionCommissions() {
     const [sessionName, setSessionName] = useState('');
     const [commissions, setCommissions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [termId, setTermId] = useState(undefined);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
 
@@ -26,6 +29,15 @@ function SessionCommissions() {
             try {
                 const { data: session } = await api.get(`/api/sessions/${sessionId}`);
                 setSessionName(session.name);
+                setTermId(session.municipalityMandateId);
+
+                // Warm the user-image cache for this term so president photos show
+                // (avatars re-render on their own once the images are stored)
+                if (session.municipalityMandateId && !isTermPopulated(session.municipalityMandateId)) {
+                    api.get(`/api/municipality-terms/${session.municipalityMandateId}/user-images`)
+                        .then(res => storeTermImages(session.municipalityMandateId, res.data))
+                        .catch(() => {});
+                }
 
                 const { data: commissionsData } = await api.get(
                     `/api/sessions/${sessionId}/commissions-with-topics`
@@ -66,7 +78,7 @@ function SessionCommissions() {
                 ) : commissions.length === 0 ? (
                     <p className="commissions-empty-state">{t('commissions.noCommissionsWithTopics')}</p>
                 ) : (
-                    <div className="commissions-grid">
+                    <div className="commissions-grid session-commissions-grid">
                         {commissions.map(commission => {
                             const membership = (userInfo.commissionRoles || []).find(cr => cr.commissionId === commission.id);
                             return (
@@ -76,10 +88,22 @@ function SessionCommissions() {
                                     className={`commission-card commission-card-name-only commission-card-clickable ${membership ? 'commission-card--mine' : ''}`}
                                 >
                                     <h3 className="commission-name">{commission.name}</h3>
-                                    {commission.presidentName && (
-                                        <p className="commission-president">
-                                            {t('commissions.rolePresident')}: {commission.presidentName}
-                                        </p>
+                                    {commission.presidentUsername && (
+                                        <div className="commission-president-chip session-commission-president-chip">
+                                            <UserAvatar
+                                                username={commission.presidentUsername}
+                                                name={commission.presidentName || ''}
+                                                surname={commission.presidentSurname || ''}
+                                                termId={termId}
+                                                className="commission-president-avatar"
+                                            />
+                                            <div className="commission-president-text">
+                                                <span className="commission-president-label">{t('commissions.rolePresident')}</span>
+                                                <span className="commission-president-name">
+                                                    {commission.presidentName} {commission.presidentSurname}
+                                                </span>
+                                            </div>
+                                        </div>
                                     )}
                                     <div className="progress-bar-container">
                                         <div
