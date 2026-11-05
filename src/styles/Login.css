@@ -557,6 +557,14 @@ input {
     color: var(--login-muted);
 }
 
+/* Short message pages (logout): center the content vertically at every width
+   (the mobile layout pins .login-container to the top for the long login form)
+   and center the heading/text above the button. */
+.login-panel .login-container--centered {
+    align-self: center;
+    text-align: center;
+}
+
 @keyframes login-rise {
     from {
         opacity: 0;

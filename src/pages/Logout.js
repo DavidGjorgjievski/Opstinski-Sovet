@@ -23,7 +23,7 @@ const Logout = () => {
                 </Helmet>
             </HelmetProvider>
 
-            <div className="login-container">
+            <div className="login-container login-container--centered">
                 <h1 className="login-heading">{t('logout.message')}</h1>
                 <p className="login-subtitle">{t('logout.thanks')}</p>
                 <button
