@@ -521,6 +521,7 @@ body.commission-topics-bg {
     flex-shrink: 0;
     border-radius: 50%;
     object-fit: cover;
+    object-position: top;
     box-shadow: 0 0 0 2px #f7db2c;
 }
 
