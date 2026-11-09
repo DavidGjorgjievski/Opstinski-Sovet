@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/TopicDetails.css';
+import '../styles/TopicDetailsTable.css';
 import '../styles/Amendments.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faFilter, faFilePdf, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -165,7 +166,7 @@ function AmendmentDetails() {
 
                                 {showVotes && (
                                     <div className="vote-summary-container">
-                                        <div className="vote-summary-grid">
+                                        <div className="vote-summary-grid td-modern-summary">
                                             <span className="topic-detail-yes-sum">{t('topicsDetails.yes')}: {details.yesUsers.length}</span>
                                             <span className="topic-detail-no-sum">{t('topicsDetails.no')}: {details.noUsers.length}</span>
                                             <span className="topic-detail-abstained-sum">{t('topicsDetails.abstained')}: {details.abstainedUsers.length}</span>
@@ -177,7 +178,7 @@ function AmendmentDetails() {
                                 )}
 
                                 {showVotes && (
-                                    <div className="table-wrapper">
+                                    <div className="table-wrapper td-modern-table">
                                         <table className="details-table">
                                             <thead>
                                                 <tr>

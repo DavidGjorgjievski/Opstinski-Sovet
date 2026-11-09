@@ -1,7 +1,8 @@
 /* ──────────────────────────────────────────────────────────────────────────
-   Modern table skin for TopicDetails.js only.
-   Scoped to `.td-modern-table` (on the .table-wrapper div) so the rest of
-   the page and CommissionTopicDetails / AmendmentDetails stay unchanged.
+   Modern table skin for TopicDetails.js, AmendmentDetails.js and
+   CommissionTopicDetails.js.
+   Scoped to `.td-modern-table` (on the .table-wrapper div) and
+   `.td-modern-summary` (on the .vote-summary-grid div).
    Table width still comes from TopicDetails.css (600px / 70vw / 97vw).
    ────────────────────────────────────────────────────────────────────────── */
 
