@@ -1,0 +1,176 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Modern table skin for TopicDetails.js only.
+   Scoped to `.td-modern-table` (on the .table-wrapper div) so the rest of
+   the page and CommissionTopicDetails / AmendmentDetails stay unchanged.
+   Table width still comes from TopicDetails.css (600px / 70vw / 97vw).
+   ────────────────────────────────────────────────────────────────────────── */
+
+.td-modern-table {
+    --tt-surface: #ffffff;
+    --tt-border: #e7e8ee;
+    --tt-line: #f0f1f4;
+    --tt-text: #111827;
+    --tt-muted: #6b7280;
+    --tt-subtle: #9ca3af;
+
+    background: var(--tt-surface);
+    border: 1px solid var(--tt-border);
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -12px rgba(16, 24, 40, 0.16);
+    overflow: hidden;
+}
+
+.td-modern-table .details-table {
+    font-family: inherit;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 16.5px;
+}
+
+/* cells: no grid, just soft row separators */
+.td-modern-table .details-table th,
+.td-modern-table .details-table td {
+    border: none;
+    border-bottom: 1px solid var(--tt-line);
+    padding: 12px 16px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.td-modern-table .details-table tbody tr:last-child td { border-bottom: none; }
+
+/* header */
+.td-modern-table .details-table th {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    background: linear-gradient(180deg, #fafbfc, #f4f5f8);
+    border-bottom: 1px solid var(--tt-border);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tt-muted) !important;
+}
+
+.td-modern-table .details-table th svg {
+    margin-left: 5px;
+    font-size: 10px;
+    color: var(--tt-subtle);
+}
+
+/* rows */
+.td-modern-table .details-table tr:nth-child(even) { background: transparent; }
+
+.td-modern-table .details-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.td-modern-table .details-table tbody tr td:first-child {
+    box-shadow: inset 3px 0 0 transparent;
+    transition: box-shadow 0.15s ease;
+}
+
+.td-modern-table .details-table tbody tr:hover { background: #f8fafc; }
+.td-modern-table .details-table tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 #fbe64e; }
+
+/* name column */
+.td-modern-table .details-table td:nth-child(2) {
+    color: var(--tt-text);
+    font-weight: 600;
+}
+
+/* avatar column */
+.td-modern-table .details-image {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    vertical-align: middle;
+    font-size: 20px;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--tt-border);
+    transition: transform 0.2s ease;
+}
+
+.td-modern-table tbody tr:hover .details-image { transform: scale(1.06); }
+
+/* vote badges → pills, colours match Topics.js / Topics.css vote buttons */
+.td-modern-table .topic-detail-yes { --c: #206b52; --c-soft: rgba(104, 192, 162, 0.6); --c-border: #68c0a2; }
+.td-modern-table .topic-detail-no { --c: #a63b3e; --c-soft: rgba(242, 145, 149, 0.6); --c-border: #f29195; }
+.td-modern-table .topic-detail-abstained { --c: #6b6a3b; --c-soft: rgba(183, 180, 114, 0.6); --c-border: #b7b472; }
+.td-modern-table .topic-detail-cant-vote { --c: #6e6e6e; --c-soft: rgba(197, 197, 197, 0.6); --c-border: #c5c5c5; }
+.td-modern-table .topic-detail-havent-vote { --c: #4e6a8d; --c-soft: rgba(163, 182, 211, 0.6); --c-border: #a3b6d3; }
+.td-modern-table .topic-detail-absent { --c: #555555; --c-soft: #d6d6d6; --c-border: #e4e4e4; }
+
+.td-modern-table .topic-detail-yes,
+.td-modern-table .topic-detail-no,
+.td-modern-table .topic-detail-abstained,
+.td-modern-table .topic-detail-cant-vote,
+.td-modern-table .topic-detail-havent-vote,
+.td-modern-table .topic-detail-absent {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    width: auto;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--c-soft);
+    color: var(--c);
+    font-size: 14.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+/* Note: TopicDetails.css shrinks `.details-table tr td` font-size on phones
+   (13px / 12px / 11.5px), so td font-size is set explicitly here to win. */
+@media (max-width: 768px) {
+    .td-modern-table { border-radius: 14px; }
+    .td-modern-table .details-table th,
+    .td-modern-table .details-table td { padding: 10px 8px; }
+    .td-modern-table .details-table tr td { font-size: 17px; }
+    .td-modern-table .details-image { width: 72px; height: 72px; font-size: 21px; }
+    .td-modern-table .topic-detail-yes,
+    .td-modern-table .topic-detail-no,
+    .td-modern-table .topic-detail-abstained,
+    .td-modern-table .topic-detail-cant-vote,
+    .td-modern-table .topic-detail-havent-vote,
+    .td-modern-table .topic-detail-absent { padding: 6px 12px; font-size: 15px; }
+}
+
+@media (max-width: 415px) {
+    .td-modern-table .details-table th,
+    .td-modern-table .details-table td { padding: 10px 6px; }
+    .td-modern-table .details-table tr td { font-size: 16px; }
+    .td-modern-table .details-image { width: 66px; height: 66px; font-size: 19px; }
+    .td-modern-table .topic-detail-yes,
+    .td-modern-table .topic-detail-no,
+    .td-modern-table .topic-detail-abstained,
+    .td-modern-table .topic-detail-cant-vote,
+    .td-modern-table .topic-detail-havent-vote,
+    .td-modern-table .topic-detail-absent { padding: 6px 11px; font-size: 14.5px; }
+}
+
+@media (max-width: 345px) {
+    .td-modern-table .details-table th,
+    .td-modern-table .details-table td { padding: 8px 4px; }
+    .td-modern-table .details-table tr td { font-size: 15px; }
+    .td-modern-table .details-image { width: 58px; height: 58px; font-size: 17px; }
+    .td-modern-table .topic-detail-yes,
+    .td-modern-table .topic-detail-no,
+    .td-modern-table .topic-detail-abstained,
+    .td-modern-table .topic-detail-cant-vote,
+    .td-modern-table .topic-detail-havent-vote,
+    .td-modern-table .topic-detail-absent { padding: 5px 9px; font-size: 13.5px; }
+}
+
+/* Vote summary boxes — same colours as Topics.js / Topics.css vote buttons. */
+.td-modern-summary .topic-detail-yes-sum { color: #206b52; background-color: rgba(104, 192, 162, 0.6); border: none; }
+.td-modern-summary .topic-detail-no-sum { color: #a63b3e; background-color: rgba(242, 145, 149, 0.6); border: none; }
+.td-modern-summary .topic-detail-abstained-sum { color: #6b6a3b; background-color: rgba(183, 180, 114, 0.6); border: none; }
+.td-modern-summary .topic-detail-cant-vote-sum { color: #6e6e6e; background-color: rgba(197, 197, 197, 0.6); border: none; }
+.td-modern-summary .topic-detail-havent-vote-sum { color: #4e6a8d; background-color: rgba(163, 182, 211, 0.6); border: none; }
+.td-modern-summary .topic-detail-absent-sum { color: #555555; background-color: #d6d6d6; border: none; }
