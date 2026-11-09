@@ -971,7 +971,7 @@ const handleRestartAmendmentConfirm = () => {
 
                                         
                                         <div className="topic-item-body-detail-footer">
-                                            <div className="topic-item-body-detail-group-footer">
+                                            <div className="topic-item-body-detail-group-footer topics-footer-split">
 
                                                     <div className="command-buttons">
                                                         <Link

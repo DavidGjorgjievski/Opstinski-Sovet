@@ -1085,7 +1085,7 @@ useEffect(() => {
 
 
                                         <div className="topic-item-body-detail-footer">
-                                            <div className="topic-item-body-detail-group-footer">
+                                            <div className="topic-item-body-detail-group-footer topics-footer-split">
                                               {topic.topicStatus !== 'WITHDRAWN' && topic.topicStatus !== 'INFORMATION' && (
                                                     <div className="command-buttons">
                                                        <Link

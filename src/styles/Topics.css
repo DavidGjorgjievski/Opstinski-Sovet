@@ -1626,3 +1626,53 @@ html {
         height: 36px;
     }
 }
+/* ── Footer buttons: each takes half the row on mobile ─────────────────────
+   Scoped to `.topics-footer-split`, used in Topics.js, Amendments.js and
+   CommissionTopics.js (TopicCommissionsView keeps its fixed-width buttons).
+   Placed at the end of the file so it wins over the per-breakpoint widths
+   above (175px → 145px). Desktop (> 765px) is unchanged. */
+@media (max-width: 765px) {
+    .topics-footer-split {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .topics-footer-split > .command-buttons,
+    .topics-footer-split > .command-buttons-group {
+        flex: 0 1 calc(50% - 4px);
+        min-width: 0;
+        margin: 10px 0 !important; /* keep the existing 10px vertical spacing */
+    }
+
+    /* Only the results/details button is shown (no start / finish / restart
+       button: no permission, session locked, or a status without one)
+       → it grows bigger than half, capped at 260px so it doesn't get
+       oversized on wider phones; stays centred. */
+    .topics-footer-split > .command-buttons-group:empty {
+        display: none;
+    }
+
+    .topics-footer-split > .command-buttons:only-child,
+    .topics-footer-split:not(:has(.change-topic-status-button)) > .command-buttons {
+        flex-basis: 100%;
+        max-width: 260px;
+    }
+
+    .topics-footer-split .command-buttons-group .command-buttons {
+        width: 100%;
+        margin: 0;
+    }
+
+    .topics-footer-split .gold-button,
+    .topics-footer-split .change-topic-status-button {
+        width: 100%;
+        padding: 6px 6px;
+        gap: 4px;
+        white-space: nowrap;
+    }
+
+    .topics-footer-split .gold-button svg,
+    .topics-footer-split .change-topic-status-button svg {
+        flex-shrink: 0;
+    }
+}
