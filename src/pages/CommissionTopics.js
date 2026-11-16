@@ -8,12 +8,15 @@ import Footer from '../components/Footer';
 import RestartTopicStatusModal from '../components/RestartTopicStatusModal';
 import UserAvatar from '../components/UserAvatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faCirclePlay, faCircleStop, faRotateLeft, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faCirclePlay, faCircleStop, faEllipsisV, faPenToSquare, faRotateLeft, faSquarePollVertical } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import api from '../api/axios';
 import useCommissionVoteWebSocket from '../hooks/useCommissionVoteWebSocket';
 import { storeTermImages, isTermPopulated } from '../cache/imageCache';
 import { openPdfTab, sanitizeFilenameForUrl } from '../utils/pdfTab';
+
+// Statuses where every vote is reset to HAVE_NOT_VOTED on the backend
+const RESET_VOTE_STATUSES = ['CREATED', 'NO_REPRESENTATIVE', 'NO_PROPOSED_MEMBER', 'REVIEWED_AT_SESSION'];
 
 function CommissionTopics() {
     const { t } = useTranslation();
@@ -33,6 +36,24 @@ function CommissionTopics() {
     const [restartTargetId, setRestartTargetId] = useState(null);
     const [restartTargetTitle, setRestartTargetTitle] = useState('');
     const votingInProgressRef = useRef(new Set());
+    const [openMenus, setOpenMenus] = useState({});
+    const menuRefs = useRef({});
+
+    const toggleMenu = (id) => {
+        setOpenMenus((prev) => ({ ...prev, [id]: !prev[id] }));
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            Object.keys(menuRefs.current).forEach((id) => {
+                if (openMenus[id] && menuRefs.current[id] && !menuRefs.current[id].contains(event.target)) {
+                    setOpenMenus((prev) => ({ ...prev, [id]: false }));
+                }
+            });
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [openMenus]);
 
     const { messages: voteMessages, sendCommissionVote } = useCommissionVoteWebSocket(sessionId, commissionId);
 
@@ -166,7 +187,7 @@ function CommissionTopics() {
             setCurrentVotes((prev) => ({ ...prev, [updatedId]: lastResult.voteType }));
         }
 
-        if (canVote && lastResult.status === 'CREATED') {
+        if (canVote && RESET_VOTE_STATUSES.includes(lastResult.status)) {
             setCurrentVotes((prev) => ({ ...prev, [updatedId]: 'HAVE_NOT_VOTED' }));
         }
     }, [voteMessages, canVote, userInfo.username]);
@@ -263,7 +284,7 @@ function CommissionTopics() {
     const calculateProgress = () => {
         if (commissionTopics.length === 0) return 0;
         const finishedCount = commissionTopics.filter(
-            (ct) => ct.status === 'FINISHED'
+            (ct) => ['FINISHED', 'NO_REPRESENTATIVE', 'NO_PROPOSED_MEMBER', 'REVIEWED_AT_SESSION'].includes(ct.status)
         ).length;
         return Math.min((finishedCount / commissionTopics.length) * 100, 100);
     };
@@ -360,6 +381,28 @@ function CommissionTopics() {
                                                 <span className="topic-header-text ape-width">{ct.title}</span>
                                             )}
                                         </h3>
+                                        <div className='menu-wrapper'>
+                                            {canControl && !isSessionLocked && (
+                                                <div className="menu-container" ref={(el) => (menuRefs.current[ct.id] = el)}>
+                                                    <div
+                                                        className={`menu-dots ${openMenus[ct.id] ? 'open' : ''}`}
+                                                        onClick={() => toggleMenu(ct.id)}
+                                                    >
+                                                        <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
+                                                    </div>
+                                                    {openMenus[ct.id] && (
+                                                        <ul className="menu-list">
+                                                            <li>
+                                                                <Link to={`/municipalities/${municipalityId}/sessions/${sessionId}/commissions/${commissionId}/topics/edit-status/${ct.id}`}>
+                                                                    {t("common.edit")}{" "}
+                                                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                                                </Link>
+                                                            </li>
+                                                        </ul>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
 
                                     {ct.amount && (
@@ -467,6 +510,14 @@ function CommissionTopics() {
                                                         <div className="topic-button-vote vote-absent">{ct.absent}</div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        )}
+
+                                        {['NO_REPRESENTATIVE', 'NO_PROPOSED_MEMBER', 'REVIEWED_AT_SESSION'].includes(ct.status) && (
+                                            <div className="topic-status-badge-wrapper">
+                                                <span className={`topic-list-status-badge commission-status-badge--${ct.status.toLowerCase().replace(/_/g, '-')}`}>
+                                                    {t(`commissions.topicStatus.${ct.status}`)}
+                                                </span>
                                             </div>
                                         )}
 

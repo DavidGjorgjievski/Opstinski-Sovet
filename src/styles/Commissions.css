@@ -625,3 +625,35 @@ body.commission-topics-bg {
         font-size: 1.35rem;
     }
 }
+
+/* Non-voting commission topic statuses */
+.commission-status-badge--no-representative {
+    background: linear-gradient(135deg, #fcd34d, #fbbf24);
+    color: #000000;
+}
+
+.commission-status-badge--no-proposed-member {
+    background: linear-gradient(135deg, #fdba74, #fb923c);
+    color: #000000;
+}
+
+.commission-status-badge--reviewed-at-session {
+    background: linear-gradient(135deg, #fde68a, #f59e0b);
+    color: #000000;
+}
+
+.commission-status-badge--no-representative:hover,
+.commission-status-badge--no-proposed-member:hover,
+.commission-status-badge--reviewed-at-session:hover {
+    transform: scale(1.03);
+}
+
+/* Three-dots menu next to each commission name on TopicCommissionsView.js */
+.topic-commission-group-header h4 {
+    flex-grow: 1;
+    padding: 0 46px;
+}
+
+.topic-commission-group-header .menu-dots {
+    margin-top: 0;
+}

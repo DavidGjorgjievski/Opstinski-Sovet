@@ -17,6 +17,7 @@ import AddSessionForm from './pages/AddSessionForm';
 import Topics from './pages/Topics';
 import Municipalities from './pages/Municipalities'
 import AddTopicForm from './pages/AddTopicForm';
+import EditCommissionTopicStatus from './pages/EditCommissionTopicStatus';
 import TopicCommissionsView from './pages/TopicCommissionsView';
 import TopicDetails from './pages/TopicDetails';
 import AmendmentDetails from './pages/AmendmentDetails';
@@ -153,6 +154,7 @@ function App() {
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/statistics" element={<ProtectedRoute element={<SessionStatistics />} />} />
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/commissions" element={<ProtectedRoute element={<SessionCommissions />} />} />
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/commissions/:commissionId/topics" element={<ProtectedRoute element={<CommissionTopics />} />} />
+              <Route path="/municipalities/:municipalityId/sessions/:sessionId/commissions/:commissionId/topics/edit-status/:commissionTopicId" element={<ProtectedRoute element={<EditCommissionTopicStatus />} allowedRoles={['ROLE_PRESIDENT', 'ROLE_ADMIN', 'ROLE_USER']} />} />
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/commissions/:commissionId/topics/details/:commissionTopicId" element={<ProtectedRoute element={<CommissionTopicDetails />} />} />
               <Route path="/municipalities/:municipalityId/sessions/:sessionId/speaking-history" element={<ProtectedRoute element={<SpeakingTimeline />} />} />
               <Route path="/municipalities/:municipalityId/gogreen" element={<ProtectedRoute element={<GoGreen />} />} />

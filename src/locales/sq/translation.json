@@ -796,6 +796,18 @@
     "confirmRemoveMemberMessage": "A jeni i sigurt që doni ta hiqni",
     "deleteCommissionWarning": "Kjo do të fshijë përgjithmonë edhe të gjithë anëtarët e tij, temat e caktuara dhe votat e tyre.",
     "deleteCommissionError": "Fshirja e komisionit dështoi. Ju lutemi provoni përsëri.",
-    "removeMemberError": "Heqja e anëtarit dështoi. Ju lutemi provoni përsëri."
+    "removeMemberError": "Heqja e anëtarit dështoi. Ju lutemi provoni përsëri.",
+    "editStatusTitle": "Ndrysho statusin e temës",
+    "selectStatus": "Zgjidh statusin:",
+    "save": "Ruaj",
+    "saveStatusError": "Ndryshimi i statusit dështoi. Ju lutemi provoni përsëri.",
+    "topicStatus": {
+      "CREATED": "Krijuar",
+      "ACTIVE": "Aktive",
+      "FINISHED": "Përfunduar",
+      "NO_REPRESENTATIVE": "Nuk ka përfaqësues",
+      "NO_PROPOSED_MEMBER": "Nuk ka anëtar të propozuar",
+      "REVIEWED_AT_SESSION": "Shqyrtohet në seancë"
+    }
   }
 }

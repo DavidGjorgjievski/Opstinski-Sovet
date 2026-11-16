@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link, useLocation } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -13,6 +13,8 @@ import {
     faCirclePlay,
     faCircleStop,
     faRotateLeft,
+    faEllipsisV,
+    faPenToSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import api from '../api/axios';
 import useTopicCommissionVoteWebSocket from '../hooks/useTopicCommissionVoteWebSocket';
@@ -27,9 +29,13 @@ const VOTE_FIELD_MAP = {
     HAVE_NOT_VOTED: 'haveNotVoted',
 };
 
+// Statuses where every vote is reset to HAVE_NOT_VOTED on the backend
+const RESET_VOTE_STATUSES = ['CREATED', 'NO_REPRESENTATIVE', 'NO_PROPOSED_MEMBER', 'REVIEWED_AT_SESSION'];
+
 const TopicCommissionsView = () => {
     const { id, idt, municipalityId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const { t } = useTranslation();
     const selectedLang = localStorage.getItem('selectedLanguage') || 'mk';
 
@@ -53,6 +59,24 @@ const TopicCommissionsView = () => {
     const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
     const [restartTarget, setRestartTarget] = useState(null);
     const votingInProgressRef = useRef(new Set());
+    const [openMenus, setOpenMenus] = useState({});
+    const menuRefs = useRef({});
+
+    const toggleMenu = (key) => {
+        setOpenMenus((prev) => ({ ...prev, [key]: !prev[key] }));
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            Object.keys(menuRefs.current).forEach((key) => {
+                if (openMenus[key] && menuRefs.current[key] && !menuRefs.current[key].contains(event.target)) {
+                    setOpenMenus((prev) => ({ ...prev, [key]: false }));
+                }
+            });
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [openMenus]);
 
     const commissionIds = useMemo(
         () => [...new Set(commissions.map(c => c.commissionId))],
@@ -79,7 +103,7 @@ const TopicCommissionsView = () => {
     const calculateProgress = () => {
         if (!commissions || commissions.length === 0) return 0;
         const finishedCount = commissions.filter(
-            (commission) => commission.status === 'FINISHED'
+            (commission) => ['FINISHED', 'NO_REPRESENTATIVE', 'NO_PROPOSED_MEMBER', 'REVIEWED_AT_SESSION'].includes(commission.status)
         ).length;
         return Math.min((finishedCount / commissions.length) * 100, 100);
     };
@@ -164,7 +188,7 @@ const TopicCommissionsView = () => {
             setCurrentVotes((prev) => ({ ...prev, [updatedId]: last.voteType }));
         }
 
-        if (last.status === 'CREATED') {
+        if (RESET_VOTE_STATUSES.includes(last.status)) {
             setCurrentVotes((prev) => (
                 updatedId in prev ? { ...prev, [updatedId]: 'HAVE_NOT_VOTED' } : prev
             ));
@@ -334,9 +358,39 @@ const TopicCommissionsView = () => {
                                         key={commission.commissionId}
                                         className={`topic-commission-group ${commission.status === 'FINISHED' ? 'finished-topic' : ''}`}
                                     >
-                                        <h4 className="topic-commission-group-name">
-                                            {commission.commissionName}
-                                        </h4>
+                                        <div className="topic-header-div topic-commission-group-header">
+                                            <h4 className="topic-commission-group-name">
+                                                {commission.commissionName}
+                                            </h4>
+                                            <div className='menu-wrapper'>
+                                                {canControlCommission(commission) && !isSessionLocked && (
+                                                    <div
+                                                        className="menu-container"
+                                                        ref={(el) => (menuRefs.current[commission.commissionTopicId] = el)}
+                                                    >
+                                                        <div
+                                                            className={`menu-dots ${openMenus[commission.commissionTopicId] ? 'open' : ''}`}
+                                                            onClick={() => toggleMenu(commission.commissionTopicId)}
+                                                        >
+                                                            <FontAwesomeIcon className="menu-dots-icon" icon={faEllipsisV} />
+                                                        </div>
+                                                        {openMenus[commission.commissionTopicId] && (
+                                                            <ul className="menu-list">
+                                                                <li>
+                                                                    <Link
+                                                                        to={`/municipalities/${municipalityId}/sessions/${id}/commissions/${commission.commissionId}/topics/edit-status/${commission.commissionTopicId}`}
+                                                                        state={{ from: location.pathname }}
+                                                                    >
+                                                                        {t('common.edit')}{' '}
+                                                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                                                    </Link>
+                                                                </li>
+                                                            </ul>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
                                         {commission.presidentUsername && (
                                             <div className="topic-commission-president">
                                                 <div className="commission-president-chip topic-commission-president-chip">
@@ -382,6 +436,14 @@ const TopicCommissionsView = () => {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        )}
+
+                                        {['NO_REPRESENTATIVE', 'NO_PROPOSED_MEMBER', 'REVIEWED_AT_SESSION'].includes(commission.status) && (
+                                            <div className="topic-status-badge-wrapper">
+                                                <span className={`topic-list-status-badge commission-status-badge--${commission.status.toLowerCase().replace(/_/g, '-')}`}>
+                                                    {t(`commissions.topicStatus.${commission.status}`)}
+                                                </span>
                                             </div>
                                         )}
 

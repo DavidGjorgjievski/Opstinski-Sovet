@@ -799,6 +799,18 @@
     "confirmRemoveMemberMessage": "Are you sure you want to remove",
     "deleteCommissionWarning": "This will also permanently delete all its members, any topics assigned to it, and their votes.",
     "deleteCommissionError": "Failed to delete the commission. Please try again.",
-    "removeMemberError": "Failed to remove the member. Please try again."
+    "removeMemberError": "Failed to remove the member. Please try again.",
+    "editStatusTitle": "Edit topic status",
+    "selectStatus": "Select status:",
+    "save": "Save",
+    "saveStatusError": "Failed to change the status. Please try again.",
+    "topicStatus": {
+      "CREATED": "Created",
+      "ACTIVE": "Active",
+      "FINISHED": "Finished",
+      "NO_REPRESENTATIVE": "No representative",
+      "NO_PROPOSED_MEMBER": "No proposed member",
+      "REVIEWED_AT_SESSION": "Reviewed at session"
+    }
   }
 }
