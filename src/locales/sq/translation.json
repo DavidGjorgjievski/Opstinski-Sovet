@@ -95,9 +95,7 @@
     "time": {
       "justNow": "tani",
       "minutesAgo": "para {{count}} min",
-      "hoursAgo": "para {{count}} orë",
-      "yesterday": "dje",
-      "daysAgo": "para {{count}} ditësh"
+      "hoursAgo": "para {{count}} orë"
     },
     "duration": {
       "hm": "{{h}}o {{m}}min",

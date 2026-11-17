@@ -95,9 +95,7 @@
     "time": {
       "justNow": "сега",
       "minutesAgo": "пред {{count}} мин",
-      "hoursAgo": "пред {{count}} ч",
-      "yesterday": "вчера",
-      "daysAgo": "пред {{count}} дена"
+      "hoursAgo": "пред {{count}} ч"
     },
     "duration": {
       "hm": "{{h}}ч {{m}}мин",

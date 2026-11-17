@@ -180,17 +180,18 @@ function Monitoring() {
         return new Date(date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
     };
 
-    // Translated via i18n keys (Intl.RelativeTimeFormat lacks mk/sq data in most browsers)
+    // Today: relative ("5 min ago", "3 h ago"). Before today: date + time.
     const formatRelative = (date) => {
         if (!date) return t('monitoring.never');
-        const diffSec = Math.max(0, Math.floor((now - new Date(date).getTime()) / 1000));
+        const d = new Date(date);
+        const todayStart = new Date(now);
+        todayStart.setHours(0, 0, 0, 0);
+        if (d < todayStart) return formatDate(date);
+
+        const diffSec = Math.max(0, Math.floor((now - d.getTime()) / 1000));
         if (diffSec < 60) return t('monitoring.time.justNow');
         if (diffSec < 3600) return t('monitoring.time.minutesAgo', { count: Math.floor(diffSec / 60) });
-        if (diffSec < 86400) return t('monitoring.time.hoursAgo', { count: Math.floor(diffSec / 3600) });
-        const days = Math.floor(diffSec / 86400);
-        if (days === 1) return t('monitoring.time.yesterday');
-        if (days < 7) return t('monitoring.time.daysAgo', { count: days });
-        return formatDateOnly(date);
+        return t('monitoring.time.hoursAgo', { count: Math.floor(diffSec / 3600) });
     };
 
     const formatDurationSince = (from) => {
