@@ -85,13 +85,18 @@
 
 /* ===== Avatar ===== */
 .monitoring-user-image img,
-.monitoring-image-placeholder {
+.monitoring-image-placeholder,
+.monitoring-avatar {
     width: 70px;
     height: 70px;
     border-radius: 50%;
     object-fit: cover;
     object-position: top;
     background-color: #e0e0e0;
+}
+
+.monitoring-avatar.ua-initials {
+    font-size: 22px;
 }
 
 /* ===== User Info ===== */
@@ -506,4 +511,226 @@
     .monitoring-item {
         width: 90vw;
     }
+}
+/* ===== Toolbar ===== */
+.monitoring-toolbar {
+    width: 500px;
+    margin: 0 auto 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.monitoring-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 260px;
+    max-width: 340px;
+    height: 36px;
+    margin: 0;
+    padding: 0 6px 0 12px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.monitoring-search:hover {
+    border-color: #999;
+}
+
+.monitoring-search:focus-within {
+    border-color: #111;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* display:block removes the inline-svg baseline offset so the icon is truly centred */
+.monitoring-search-icon {
+    display: block;
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    color: #999;
+    transition: color 0.2s ease;
+}
+
+.monitoring-search:focus-within .monitoring-search-icon {
+    color: #111;
+}
+
+/* The global `input` rule sets margin-bottom: 15px !important, which pushed the text up — override it */
+.monitoring-search .monitoring-search-input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    line-height: 36px;
+    color: #222;
+}
+
+.monitoring-search-input::placeholder {
+    color: #9ca3af;
+}
+
+.monitoring-search-clear {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #999;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.monitoring-search-clear:hover {
+    background: #f0f0f0;
+    color: #111;
+}
+
+.monitoring-search-clear svg {
+    display: block;
+}
+
+.monitoring-toolbar .monitoring-toolbar-filter {
+    width: auto;
+    margin-bottom: 0;
+}
+
+/* Match the search box: same height, border and corners */
+.monitoring-toolbar-filter .monitoring-filter-selected {
+    height: 36px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 14px;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.monitoring-toolbar-filter .monitoring-filter-selected:hover,
+.monitoring-toolbar-filter .monitoring-filter-selected.active {
+    border-color: #999;
+    transform: none;
+}
+
+.monitoring-toolbar-filter .monitoring-filter-options {
+    left: 0;
+    transform: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ===== Badges ===== */
+.monitoring-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.monitoring-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 2px 7px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #475569;
+    max-width: 100%;
+}
+
+/* Admin panel role colours (AdminPanel.css .user-role-*), as a soft tint */
+.role-badge {
+    border: 1px solid transparent;
+}
+.role-badge.role-admin     { background: rgba(26, 107, 232, 0.12); border-color: rgba(26, 107, 232, 0.30); color: rgb(26, 107, 232); }
+.role-badge.role-president { background: rgba(183, 32, 32, 0.12); border-color: rgba(183, 32, 32, 0.30); color: rgb(183, 32, 32); }
+.role-badge.role-user      { background: rgba(212, 95, 0, 0.12); border-color: rgba(212, 95, 0, 0.30); color: rgb(212, 95, 0); }
+.role-badge.role-spectator { background: rgba(14, 156, 114, 0.12); border-color: rgba(14, 156, 114, 0.30); color: rgb(14, 156, 114); }
+.role-badge.role-presenter { background: rgba(5, 153, 184, 0.12); border-color: rgba(5, 153, 184, 0.30); color: rgb(5, 153, 184); }
+.role-badge.role-mayor     { background: rgba(14, 74, 70, 0.12); border-color: rgba(14, 74, 70, 0.30); color: rgb(14, 74, 70); }
+.role-badge.role-editor    { background: rgba(74, 31, 156, 0.12); border-color: rgba(74, 31, 156, 0.30); color: rgb(74, 31, 156); }
+.role-badge.role-guest     { background: rgba(73, 80, 87, 0.12); border-color: rgba(73, 80, 87, 0.30); color: rgb(73, 80, 87); }
+
+/* ===== Right-side status column ===== */
+.monitoring-user-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.monitoring-status-pill {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.monitoring-status-pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.monitoring-status-pill-sep {
+    opacity: 0.5;
+}
+
+.monitoring-status-pill-time {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.monitoring-status-pill.online {
+    color: #15803d;
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.monitoring-status-pill.idle {
+    color: #a16207;
+    background: #fefce8;
+    border-color: #fde68a;
+}
+
+@media (max-width: 510px) {
+    .monitoring-toolbar {
+        width: 80vw;
+    }
+
+    .monitoring-user-status {
+        align-items: center;
+    }
+
 }

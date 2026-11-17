@@ -89,7 +89,29 @@
       "all": "Të gjithë",
       "online": "Online",
       "offline": "Offline"
-    }
+    },
+    "searchPlaceholder": "Kërko emër, përdorues ose komunë",
+    "noResults": "Asnjë përdorues nuk përputhet me kërkimin",
+    "time": {
+      "justNow": "tani",
+      "minutesAgo": "para {{count}} min",
+      "hoursAgo": "para {{count}} orë",
+      "yesterday": "dje",
+      "daysAgo": "para {{count}} ditësh"
+    },
+    "duration": {
+      "hm": "{{h}}o {{m}}min",
+      "m": "{{m}}min"
+    },
+    "devices": {
+      "desktop": "Kompjuter",
+      "mobile": "Celular",
+      "tablet": "Tablet",
+      "unknown": "I panjohur"
+    },
+    "statusIdle": "Joaktiv",
+    "clearSearch": "Pastro kërkimin",
+    "loading": "Duke u ngarkuar..."
   },
   "home": {
     "title": "Ballina",

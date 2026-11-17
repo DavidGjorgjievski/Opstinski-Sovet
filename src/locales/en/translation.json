@@ -89,7 +89,29 @@
       "all": "All",
       "online": "Online",
       "offline": "Offline"
-    }
+    },
+    "searchPlaceholder": "Search name, username or municipality",
+    "noResults": "No users match your search",
+    "time": {
+      "justNow": "just now",
+      "minutesAgo": "{{count}} min ago",
+      "hoursAgo": "{{count}} h ago",
+      "yesterday": "yesterday",
+      "daysAgo": "{{count}} days ago"
+    },
+    "duration": {
+      "hm": "{{h}}h {{m}}m",
+      "m": "{{m}}m"
+    },
+    "devices": {
+      "desktop": "Desktop",
+      "mobile": "Mobile",
+      "tablet": "Tablet",
+      "unknown": "Unknown"
+    },
+    "statusIdle": "Idle",
+    "clearSearch": "Clear search",
+    "loading": "Loading..."
   },
   "home": {
     "title": "Home",

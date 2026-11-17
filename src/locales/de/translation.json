@@ -89,7 +89,29 @@
       "all": "Alle",
       "online": "Online",
       "offline": "Offline"
-    }
+    },
+    "searchPlaceholder": "Name, Benutzername oder Gemeinde suchen",
+    "noResults": "Keine Benutzer entsprechen der Suche",
+    "time": {
+      "justNow": "gerade eben",
+      "minutesAgo": "vor {{count}} Min.",
+      "hoursAgo": "vor {{count}} Std.",
+      "yesterday": "gestern",
+      "daysAgo": "vor {{count}} Tagen"
+    },
+    "duration": {
+      "hm": "{{h}} Std. {{m}} Min.",
+      "m": "{{m}} Min."
+    },
+    "devices": {
+      "desktop": "Desktop",
+      "mobile": "Mobil",
+      "tablet": "Tablet",
+      "unknown": "Unbekannt"
+    },
+    "statusIdle": "Inaktiv",
+    "clearSearch": "Suche löschen",
+    "loading": "Wird geladen..."
   },
   "home": {
     "title": "Startseite",

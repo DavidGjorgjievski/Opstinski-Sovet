@@ -89,7 +89,29 @@
       "all": "Сите",
       "online": "Онлајн",
       "offline": "Офлајн"
-    }
+    },
+    "searchPlaceholder": "Пребарај име, корисничко име или општина",
+    "noResults": "Нема корисници што одговараат на пребарувањето",
+    "time": {
+      "justNow": "сега",
+      "minutesAgo": "пред {{count}} мин",
+      "hoursAgo": "пред {{count}} ч",
+      "yesterday": "вчера",
+      "daysAgo": "пред {{count}} дена"
+    },
+    "duration": {
+      "hm": "{{h}}ч {{m}}мин",
+      "m": "{{m}}мин"
+    },
+    "devices": {
+      "desktop": "Компјутер",
+      "mobile": "Мобилен",
+      "tablet": "Таблет",
+      "unknown": "Непознато"
+    },
+    "statusIdle": "Неактивен",
+    "clearSearch": "Исчисти пребарување",
+    "loading": "Се вчитува..."
   },
   "home": {
     "title": "Почетна",
